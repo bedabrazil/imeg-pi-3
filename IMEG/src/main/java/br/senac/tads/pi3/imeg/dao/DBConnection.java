@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package br.senac.tads.pi3.imeg.dao;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
+ * PROJETO PI3 - CLASSE DE CONEXÃO AO BANCO DE DADOS
  * @author marcio.soares <marcio@mail.com>
  */
-public class Connection {
-    private java.sql.Connection obterConexao() throws SQLException, ClassNotFoundException {
+
+public class DBConnection {
+    private Connection obterConexao() throws SQLException, ClassNotFoundException {
         java.sql.Connection conn = null;
         // Passo 1: Registrar driver JDBC.
         Class.forName("org.apache.derby.jdbc.ClientDataSource");
