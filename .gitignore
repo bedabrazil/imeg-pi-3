@@ -7,3 +7,5 @@ nbdist/
 nbactions.xml
 .nb-gradle/.gitignore
 /IMEG/target/.gitignore
+IMEG/target
+.gitignore
