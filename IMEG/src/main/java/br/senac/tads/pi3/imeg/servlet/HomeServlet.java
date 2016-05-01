@@ -5,7 +5,6 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.entity.Pessoa;
 import java.io.IOException;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -30,11 +29,7 @@ public class HomeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Pessoa pessoa = new Pessoa("Marcio Soares", 29);
         Date d = new Date();
-        request.setAttribute("value", "ESSE JSP É MUITO ESTRANHO!!!");
-        request.setAttribute("pessoa", pessoa);
-        request.setAttribute("now", d);
 
         request.getRequestDispatcher("WEB-INF/views/home/index.jsp").forward(request, response);
     }
