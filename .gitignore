@@ -7,5 +7,6 @@ nbdist/
 nbactions.xml
 .nb-gradle/.gitignore
 IMEG/target/*
-./.gitignore
+.gitignore
 /WebApplication1/nbproject/private/
+nb-configuration.xml
