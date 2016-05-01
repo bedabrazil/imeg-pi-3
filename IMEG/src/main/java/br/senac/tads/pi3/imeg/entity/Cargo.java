@@ -16,11 +16,7 @@ public class Cargo {
     public int getIdcargo() {
         return idcargo;
     }
-
-    public void setIdcargo(int idcargo) {
-        this.idcargo = idcargo;
-    }
-
+    
     public String getNomecargo() {
         return nomecargo;
     }
