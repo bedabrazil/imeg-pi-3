@@ -8,6 +8,10 @@
         <servlet-name>ResultadoServlet</servlet-name>
         <servlet-class>br.senac.tads.pi3.imeg.servlet.ResultadoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FuncionariosServlet</servlet-name>
+        <servlet-class>br.senac.tads.pi3.imeg.servlet.FuncionariosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ResultadoServlet</servlet-name>
         <url-pattern>/sucesso</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FuncionariosServlet</servlet-name>
+        <url-pattern>/funcionarios</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
