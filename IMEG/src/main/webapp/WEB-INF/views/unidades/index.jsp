@@ -3,8 +3,8 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
-            <%-- CONTEÚDO DE FUNCIONARIOS/INDEX --%>
+            <%-- CONTEÚDO DE UNIDADES/INDEX --%>
 
-                    <h1>INDEX FUNCIONÁRIOS</h1>
+                    <h1>INDEX UNIDADES</h1>
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />
