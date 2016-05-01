@@ -36,10 +36,9 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("pessoa", pessoa);
         request.setAttribute("now", d);
 
-        request.getRequestDispatcher("WEB-INF/views/index.jspx").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/index.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -76,6 +75,6 @@ public class HomeServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
