@@ -1,0 +1,7 @@
+--********************************************************************--
+--%%%%%%%%%%%%%%%%%%%%      Comandos úteis      %%%%%%%%%%%%%%%%%%%%%%--
+--********************************************************************--
+
+--COMANDO PARA FAZER RESTART DO INDICE
+ALTER TABLE coloque_o_nome_da_tabela_aqui ALTER COLUMN ID RESTART WITH 1
+
