@@ -183,13 +183,13 @@ VALUES(4, 'IMEG_UAI-SÔ');
 
 --POPULA ESTADOS
 INSERT INTO  ESTADOS(NOME)
-VALUES('SÃO PAULO');
+VALUES('SP - São Paulo');
 INSERT INTO  ESTADOS(NOME)
-VALUES('RIO DE JANEIRO');
+VALUES('RJ - Rio de Janeiro');
 INSERT INTO  ESTADOS(NOME)
-VALUES('RIO GRANDE DO SUL');
+VALUES('RS - Porto Alegre');
 INSERT INTO  ESTADOS(NOME)
-VALUES('MINAS GERAIS');
+VALUES('MG - Belo Horizonte');
 
 
 --#####################################################################################
