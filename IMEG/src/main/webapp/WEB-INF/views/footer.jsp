@@ -5,6 +5,7 @@
 --%>
                 </div>
             </div>
+            <script src="resources/js/vendor/jquery-1.11.2.min.js" type="text/javascript" async></script>
             <script src="resources/js/vendor/bootstrap.min.js" type="text/javascript" async></script>
             <script src="resources/js/main.js" type="text/javascript" async></script>
         </body>

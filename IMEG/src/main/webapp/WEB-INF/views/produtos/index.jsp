@@ -5,6 +5,6 @@
 <jsp:include page="../header.jsp" />
             <%-- CONTEÚDO DE PRODUTOS/INDEX --%>
 
-                    <h1>INDEX PRODUTOS ${path}</h1>
+                    <h1>INDEX PRODUTOS </h1>
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />
