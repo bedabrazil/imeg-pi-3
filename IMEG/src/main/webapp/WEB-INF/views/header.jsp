@@ -1,3 +1,9 @@
+<%-- 
+    Document   : header
+    Created on : Apr 30, 2016, 9:42:57 PM
+    Author     : marcio.soares <marcio@mail.com>
+--%>
+
 <!DOCTYPE html>
     <html>
         <head>
@@ -11,5 +17,5 @@
             <script src="resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>           
         </head>
         <body>
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">     

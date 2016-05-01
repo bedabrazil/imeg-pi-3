@@ -8,3 +8,4 @@ nbactions.xml
 .nb-gradle/.gitignore
 IMEG/target/*
 ./.gitignore
+/WebApplication1/nbproject/private/

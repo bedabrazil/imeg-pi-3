@@ -36,7 +36,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("pessoa", pessoa);
         request.setAttribute("now", d);
 
-        request.getRequestDispatcher("WEB-INF/views/index.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/home/index.jsp").forward(request, response);
     }
 
     /**
