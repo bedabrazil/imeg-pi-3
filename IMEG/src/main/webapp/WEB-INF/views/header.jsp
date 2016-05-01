@@ -36,9 +36,9 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                           <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Relatórios <span class="sr-only">(current)</span></a></li>
+                            <li class=""><a href="#">Relatórios <span class="sr-only">(current)</span></a></li>
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
+                              <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
                               <ul class="dropdown-menu">
                                 <li><a href="categorias">Categorias</a></li>
                                 <li><a href="unidades">Unidades</a></li>
