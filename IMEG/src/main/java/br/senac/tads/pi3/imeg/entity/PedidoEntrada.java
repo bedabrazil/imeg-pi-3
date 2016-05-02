@@ -7,7 +7,7 @@ package br.senac.tads.pi3.imeg.entity;
 
 /**
  *
- * @author Amor
+ * @author Eilane
  */
 public class PedidoEntrada {
     private int identrada;
