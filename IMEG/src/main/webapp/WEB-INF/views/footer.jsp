@@ -5,9 +5,9 @@
 --%>
                 </div>
             </div>
-            <footer class="footer">
+            <footer id="footer">
               <div class="container">
-                <p class="text-muted">&reg;IMEG Cosm&eacute;ticos</p>
+                <p class="text-muted"><i class="glyphicon glyphicon-registration-mark"></i> IMEG Cosm&eacute;ticos</p>
               </div>
             </footer>
             <script src="resources/js/vendor/jquery-1.11.2.min.js" type="text/javascript" async></script>

@@ -3,8 +3,11 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
-
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
 
 
 .logo{
@@ -38,9 +41,17 @@
 .dropdown-menu>li>a:visited{color:#fff!important;}
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a:visited{color:#dd1355!important;background-color: #e2cc0c;}
 
+.carousel-inner{
+	margin-top:-20px;
+	margin-bottom: 10px;
+}
 
-.footer {
+
+footer.footer {
   position: absolute;
+  margin-top:20px;
+  left:0;
+  right:0;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
@@ -48,15 +59,11 @@
   background-color: #F5F5F5;
 }
 
-
 body > .container {
   padding: 2px 15px 0;
 }
-.container .text-muted {
-  margin: 20px 0;
-}
 
-.footer > .container {
+footer.footer > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -67,6 +74,32 @@ code {
   font-size: 80%;
 }
 
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+}
+#footer {
+  background-color: #eee;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+	#footer {
+	  margin-left: -20px;
+	  margin-right: -20px;
+	  padding-left: 20px;
+	  padding-right: 20px;
+	}
+}
 
 
 
