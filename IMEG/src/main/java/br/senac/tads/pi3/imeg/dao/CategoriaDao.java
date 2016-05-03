@@ -6,36 +6,37 @@
 package br.senac.tads.pi3.imeg.dao;
 
 import br.senac.tads.pi3.imeg.entity.Categoria;
-import com.sun.istack.internal.logging.Logger;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author diogo.lsousa
  */
 public class CategoriaDao {
-
+    private PreparedStatement pst;
     public void incluirCategoria(Categoria categoria) {
-        Conexao conexao = new Conexao();
-        PreparedStatement stmt = null;
-        Connection conn = null;
 
         String sql = "INSERT INTO CATEGORIA(NOME, STATUS) VALUES(?,?)";
 
         try {
-            conn = conexao.obterConexao();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, categoria.getNome());
-            stmt.setBoolean(2, categoria.isStatus());
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, categoria.getNome());
+            pst.setBoolean(2, categoria.isStatus());
 
             
-                stmt.execute();
+                pst.execute();
             } catch (SQLException ex) {
-                java.util.logging.Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ERROR SQL: " + ex.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
         }
     
     

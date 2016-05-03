@@ -6,7 +6,7 @@
 package br.senac.tads.pi3.imeg.dao;
 
 import br.senac.tads.pi3.imeg.entity.HistoricoSaida;
-import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -16,24 +16,21 @@ import java.util.logging.Level;
  * @author diogo.lsousa
  */
 public class HistoricoSaidaDao {
-
+    private PreparedStatement pst;
     public void incluirHistoricoSaida(HistoricoSaida historicoSaida) {
-        Conexao conexao = new Conexao();
-        PreparedStatement stmt = null;
-        Connection conn = null;
+
 
          String sql = "INSERT INTO HISTORICOENTRADA(PRODUTOS_ID, FUNCIONARIOS_ID, DATA_TRANSACAO, QTDE_PRODUTOS) VALUES(?,?,?,?)";
 
 
         try {
-            conn = conexao.obterConexao();
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, historicoSaida.getProdutos_id());
-            stmt.setInt(2, historicoSaida.getFuncionarios_id());
-            stmt.setDate(3, historicoSaida.getData_transacao().getTime());
-            stmt.setInt(4, historicoSaida.getQtde_produtos();
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, historicoSaida.getProdutos_id());
+            pst.setInt(2, historicoSaida.getFuncionarios_id());
+            pst.setDate(3, new Date(System.currentTimeMillis()));
+            pst.setInt(4, historicoSaida.getQtde_produtos());
             
-            stmt.execute();
+            pst.execute();
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(HistoricoSaidaDao.class.getName()).log(Level.SEVERE, null, ex);
         }

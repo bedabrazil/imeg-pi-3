@@ -7,23 +7,48 @@ package br.senac.tads.pi3.imeg.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
  * @author marcio.soares <marcio@mail.com>
  */
 public class Conexao {
-    private Connection obterConexao() throws SQLException, ClassNotFoundException {
-        Connection conn = null;
-        // Passo 1: Registrar driver JDBC.
-        Class.forName("org.apache.derby.jdbc.ClientDataSource");
+    
+    private Connection conexao = null;
+    
+//************************************************************************************************   
+//-- RETORNA UMA CONEXÃO COM O BANCO DE DADOS
+//************************************************************************************************
+    private Connection getConexao() {
+        if (conexao == null) {
+            try {
+                conexao = DriverManager.getConnection(
+                    "jdbc:derby://localhost:1527/imegdb;SecurityMechanism=3",
+                    "adm", // usuario
+                    "adm"); // senha
+            } catch (SQLException e) {
+                System.out.println("ERROR DE SQL: " + e.getMessage());
+            }
+        }
+        return conexao;
+    }
 
-        // Passo 2: Abrir a conexão
-        conn = DriverManager.getConnection(
-                "jdbc:derby://localhost:1527/imegdb;SecurityMechanism=3",
-                "adm", // usuario
-                "adm"); // senha
-        return conn;
+//************************************************************************************************   
+//-- PREPARA UM ESTADO PARA RECEBER UM COMANDO SQL
+//************************************************************************************************    
+    public PreparedStatement prepararStatement(String sql) {
+        if (conexao == null) {
+            conexao = getConexao();
+            try {
+                return conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            } catch (SQLException e) {
+                System.out.println("ERRO De SQL: " + e.getMessage() + "\nERROR CODE: " + e.getErrorCode());
+            }
+        }
+        return null;
     }    
+ 
 }
