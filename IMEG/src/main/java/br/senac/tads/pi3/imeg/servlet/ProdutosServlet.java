@@ -84,8 +84,7 @@ public class ProdutosServlet extends HttpServlet {
                 + "<br>Quantidade Máxima: " + qtdMaxProduto
                 + "<br>Saldo do Produto: " + saldoProduto
                 + "<br>Categoria do Produto:" + categoriaId);
-        out.println('success');
-
+        response.sendRedirect("sucesso");
     }
 
     /**
