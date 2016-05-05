@@ -50,8 +50,8 @@ public class ProdutoDAO {
         return false;
     }
 
-    public ArrayList<Produto> consultarProduto(String nome) {
-        String sql = "SELECT * FROM Produto WHERE Nome LIKE '" + nome + "%';";
+    public ArrayList<Produto> consultarProduto(String pesquisa, String categoria ) {
+        String sql = "SELECT  FROM Produto WHERE '"+categoria+"' LIKE '" + pesquisa + "%';";
         ArrayList<Produto> tempProduto = new ArrayList<>();
 
         try {
