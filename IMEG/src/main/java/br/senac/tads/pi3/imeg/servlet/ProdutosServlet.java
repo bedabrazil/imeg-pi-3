@@ -6,7 +6,10 @@
 package br.senac.tads.pi3.imeg.servlet;
 
 import java.io.IOException;
+import static java.lang.System.out;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author marcio.soares <marcio@mail.com>
  */
+
+@WebServlet
+@MultipartConfig
 public class ProdutosServlet extends HttpServlet {
 
     /**
@@ -59,15 +65,16 @@ public class ProdutosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String path = request.getPathInfo();
-//        processRequest(request, response, path);
-        String nomeProduto = request.getParameter("nome-produto");
-        String precoCustoProduto = request.getParameter("preco-custo-produto");
-        String precoVendaProduto = request.getParameter("preco-venda-produto");
-        String qtdMinProduto = request.getParameter("qtd-min-produto");
-        String qtdMaxProduto = request.getParameter("qtd-max-produto");
-        String saldoProduto = request.getParameter("saldo-produto");
-        String categoriaId = request.getParameter("categoria-id");
+
+        String nomeProduto = request.getParameter("nome_produto");
+        String precoCustoProduto = request.getParameter("preco_custo_produto");
+        String precoVendaProduto = request.getParameter("preco_venda_produto");
+        String qtdMinProduto = request.getParameter("qtd_min_produto");
+        String qtdMaxProduto = request.getParameter("qtd_max_produto");
+        String saldoProduto = request.getParameter("saldo_produto");
+        String categoriaId = request.getParameter("categoria_id");
 
         HttpSession session = request.getSession(true);
         session.setAttribute("msg", "Seu Produto:<br> Nome: " + nomeProduto
@@ -77,7 +84,7 @@ public class ProdutosServlet extends HttpServlet {
                 + "<br>Quantidade Máxima: " + qtdMaxProduto
                 + "<br>Saldo do Produto: " + saldoProduto
                 + "<br>Categoria do Produto:" + categoriaId);
-        response.sendRedirect("sucesso");
+        out.println('success');
 
     }
 
