@@ -98,6 +98,7 @@ public class ProdutoDAO {
             pst.setInt(5, produto.getQTDE_MIN());
             pst.setInt(6, produto.getQTDE_MAX());
             pst.setDouble(7, produto.getSALDO());
+            pst.setInt(8, codigo);
             if (pst.executeUpdate() > 0) {
                 return true;
             }

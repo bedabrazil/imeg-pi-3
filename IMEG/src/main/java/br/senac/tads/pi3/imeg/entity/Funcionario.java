@@ -10,11 +10,24 @@ package br.senac.tads.pi3.imeg.entity;
  * @author Eilane
  */
 public class Funcionario {
-    private int idfuncionario;
+    private int cargo_id;
+    private int unidades_id;
     private String nome;
 
-    public int getIdfuncionario() {
-        return idfuncionario;
+    public int getCargo_id() {
+        return cargo_id;
+    }
+
+    public void setCargo_id(int cargo_id) {
+        this.cargo_id = cargo_id;
+    }
+
+    public int getUnidades_id() {
+        return unidades_id;
+    }
+
+    public void setUnidades_id(int unidades_id) {
+        this.unidades_id = unidades_id;
     }
 
     public String getNome() {
@@ -24,6 +37,10 @@ public class Funcionario {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    
+
+    
     
     
 }
