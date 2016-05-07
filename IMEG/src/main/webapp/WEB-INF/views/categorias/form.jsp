@@ -11,10 +11,10 @@
         </div>
         <div class="col-lg-12 form-space">
             <label for="ativo_categoria">Ativo</label>
-            <input type="checkbox" id="ativo_categoria" class="" <c:if test="${categoria.isStatus()}">checked='checked'</c:if> name="ativo" value="1">
+            <input type="checkbox" id="ativo_categoria" class="" <c:if test="${categoria.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
         </div>
         <div class="col-lg-12 form-space">
-            <input class="btn btn-button" type="submit" id="commit-categoria"/>
+                        <button class="btn btn-button" type="submit" id="commit-categoria"><c:choose><c:when test="${categoria != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
         </div>
     </fieldset>
 </form>

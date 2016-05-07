@@ -85,6 +85,20 @@ public class CategoriasServlet extends HttpServlet {
         //instacio o DAO
         CategoriaDao cDao = new CategoriaDao();
         // pega o nome da categoria do formulário
+        if (request.getParameter("id_categoria") != null) {
+            Categoria c = new Categoria();
+            c.setId(Integer.parseInt(request.getParameter("id_categoria")));
+            c.setNome(request.getParameter("nome_categoria"));
+            String checkbox = request.getParameter("ativo");
+            boolean status = Boolean.parseBoolean(checkbox);
+            c.setStatus(status);
+            if (cDao.alterarCategoria(c)) {
+                session.setAttribute("msg", "Categoria " + c.getNome() + " alterada com sucesso.");
+                response.sendRedirect("categorias");
+                return;
+            }
+        }
+
         String nome = request.getParameter("nome_categoria");
         //seta uma  erro false
         session.setAttribute("error", false);
@@ -92,13 +106,15 @@ public class CategoriasServlet extends HttpServlet {
             session.setAttribute("msg", "Nome não pode ser vazio.");
             session.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/views/categorias/novo.jsp").forward(request, response);
-        } else if (cDao.incluirCategoria(new Categoria(nome, true))) {
+        }else{
+            if (cDao.incluirCategoria(new Categoria(nome, true))) {
             session.setAttribute("msg", "Categoria " + nome + " incluída com sucesso.");
             response.sendRedirect("sucesso");
-        } else {
-            session.setAttribute("msg", "Algo deu errado.\nTente novamente mais tarde.");
-            session.setAttribute("error", true);
-            request.getRequestDispatcher("/WEB-INF/views/categorias/novo.jsp").forward(request, response);
+            } else {
+                session.setAttribute("msg", "Algo deu errado.\nTente novamente mais tarde.");
+                session.setAttribute("error", true);
+                request.getRequestDispatcher("/WEB-INF/views/categorias/novo.jsp").forward(request, response);
+            }
         }
     }
 

@@ -100,15 +100,17 @@ public class CategoriaDao {
         return null;
     }
 
-    public void alterarCategoria(Categoria categoria) {
-        String sql = "SELECT * FROM CATEGORIAS WHERE ID ='" + categoria.getId() + "'";
+    public boolean alterarCategoria(Categoria categoria) {
+        String sql = "UPDAtE CATEGORIAS SET NOME=?, STATUS=? WHERE ID =?";
 
         try {
             pst = new Conexao().prepararStatement(sql);
-            ResultSet rs = pst.executeQuery(sql);
-
             pst.setString(1, categoria.getNome());
             pst.setBoolean(2, categoria.isStatus());
+            pst.setInt(3, categoria.getId());
+            if(pst.executeUpdate() > 0){
+                return true;
+            }
 
         } catch (SQLException ex) {
             System.out.println("ERRO DE SQL: " + ex.getMessage());
@@ -118,7 +120,7 @@ public class CategoriaDao {
             } catch (SQLException ex) {
             }
         }
-
+        return false;
     }
 
     public void removerCategoria(Categoria categoria) {
