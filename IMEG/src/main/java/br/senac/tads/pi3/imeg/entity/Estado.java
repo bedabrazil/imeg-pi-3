@@ -7,21 +7,21 @@ package br.senac.tads.pi3.imeg.entity;
 
 /**
  *
- * @author Amor
+ * @author Eilane
  */
 public class Estado {
-    private int idestado;
-    private String nomeestado;
+    private int id;
+    private String nome;
 
-    public int getIdestado() {
-        return idestado;
+    public int getId() {
+        return id;
     }
 
-    public String getNomeestado() {
-        return nomeestado;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeestado(String nomeestado) {
-        this.nomeestado = nomeestado;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
