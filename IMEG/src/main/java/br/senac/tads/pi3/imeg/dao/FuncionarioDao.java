@@ -72,18 +72,26 @@ public class FuncionarioDao {
         }
         return false;
     }
-    public ArrayList<Funcionario> consultarProduto(String pesquisa, String categoria ) {
-        String sql = "SELECT  FROM funcionarios WHERE '"+categoria+"' LIKE '" + pesquisa + "%';";
+    
+    //Método que lista funcionarios com um nome passado por parâmetro
+    public ArrayList<Funcionario> consultarFuncionarioPorNome(String nomeFuncionario) {
         ArrayList<Funcionario> tempFuncionarios = new ArrayList<>();
+        CargoDao cargoDao = new CargoDao();
+        UnidadeDAO unidadeDao = new UnidadeDAO();
+
+        String sql = "SELECT * FROM FUNCIONARIOS WHERE NOME LIKE '" + nomeFuncionario + "%';";
 
         try {
+            Funcionario funcionario = new Funcionario();
             pst = new Conexao().prepararStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
             while (rs.next()) {
-                Funcionario funcionario = new Funcionario();
-//                funcionario.setCargo_id(rs.getInt("CARGOS_ID"));
-//                funcionario.setUnidades_id(rs.getInt("UNIDADES_ID"));
-                funcionario.setNome(rs.getString("nome"));
+
+                funcionario.setId(rs.getInt("ID"));
+                funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGO_ID")));
+                funcionario.setUnidade(unidadeDao.pesquisaPorId(rs.getInt("UNIDADE_ID")));
+                funcionario.setNome(rs.getString("NOME"));
+
                 tempFuncionarios.add(funcionario);
 
             }
