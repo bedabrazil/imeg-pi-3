@@ -8,7 +8,7 @@ package br.senac.tads.pi3.imeg.servlet;
 import br.senac.tads.pi3.imeg.dao.CategoriaDao;
 import br.senac.tads.pi3.imeg.entity.Categoria;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +32,16 @@ public class CategoriasServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/views/categorias/novo.jsp").forward(request, response);
+        ArrayList<Categoria> categorias = new CategoriaDao().listar();
+        request.setAttribute("categorias", categorias);
+        if (request.getQueryString() != null) {
+            if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Categoria categoria = new CategoriaDao().editarCategoria(id);
+                request.setAttribute("categoria", categoria);
+            }
+        }
+        request.getRequestDispatcher("WEB-INF/views/categorias/index.jsp").forward(request, response);
     }
 
     /**
@@ -48,6 +57,7 @@ public class CategoriasServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
+        // .
         HttpSession session = request.getSession();
         String mensagem = (String) session.getAttribute("msg");
         boolean error = (boolean) session.getAttribute("error");
@@ -90,7 +100,6 @@ public class CategoriasServlet extends HttpServlet {
             session.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/views/categorias/novo.jsp").forward(request, response);
         }
-
     }
 
     /**

@@ -10,6 +10,7 @@ package br.senac.tads.pi3.imeg.entity;
  * @author diogo.lsousa
  */
 public class Categoria {
+
     private int id;
     private String nome;
     private boolean status;
@@ -19,11 +20,18 @@ public class Categoria {
         this.status = status;
     }
 
+    public Categoria() {
+    }
+
     /**
      * @return the id
      */
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -53,5 +61,5 @@ public class Categoria {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
 }

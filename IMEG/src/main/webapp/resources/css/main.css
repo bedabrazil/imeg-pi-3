@@ -113,3 +113,9 @@ code {
   text-align:center;
 }
 
+.active-elem-table{
+    font-size:22px!important;
+}
+.color-elem-table-deactive{
+    color: red;
+}

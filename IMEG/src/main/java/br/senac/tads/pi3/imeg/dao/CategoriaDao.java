@@ -45,13 +45,38 @@ public class CategoriaDao {
         return false;
     }
 
+    public Categoria editarCategoria(int id){
+        String sql = "SELECT CATEGORIAS.* FROM CATEGORIAS WHERE ID=?";
+        try{
+            Categoria categoria = null;
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, id);
+            ResultSet res = pst.executeQuery();
+            if(res.next()){
+                categoria = new Categoria();
+                categoria.setId(res.getInt("ID"));
+                categoria.setNome(res.getString("NOME"));
+                categoria.setStatus(res.getBoolean("STATUS"));
+            }
+            return categoria;
+        }catch(SQLException e){
+            System.out.println("ERRO DE SQL: " + e.getMessage());
+        }finally{
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+        }
+        return null;
+    }
     public ArrayList<Categoria> consultarCategoria(Categoria categoria) {
 
         String sql = "SELECT * FROM CATEGORIAS WHERE NOME LIKE '%" + categoria.getNome() + "%';";
         ArrayList<Categoria> listaCategoria = new ArrayList<>();
 
         try {
-            
+
             pst = new Conexao().prepararStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
 
@@ -67,8 +92,8 @@ public class CategoriaDao {
             System.out.println("ERRO DE SQL: " + ex.getMessage());
         } finally {
             try {
-               pst.close();
-                
+                pst.close();
+
             } catch (SQLException ex) {
             }
         }
@@ -76,18 +101,18 @@ public class CategoriaDao {
     }
 
     public void alterarCategoria(Categoria categoria) {
-        String sql = "SELECT * FROM CATEGORIAS WHERE ID ='"+ categoria.getId()+"'";
-        
-        try {       
-        pst= new Conexao().prepararStatement(sql);
-        ResultSet rs = pst.executeQuery(sql);
-        
-        pst.setString(1, categoria.getNome());
-        pst.setBoolean(2, categoria.isStatus());
-              
-         } catch (SQLException ex) {
-            System.out.println("ERRO DE SQL: "+ex.getMessage());
-         }finally{
+        String sql = "SELECT * FROM CATEGORIAS WHERE ID ='" + categoria.getId() + "'";
+
+        try {
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
+
+            pst.setString(1, categoria.getNome());
+            pst.setBoolean(2, categoria.isStatus());
+
+        } catch (SQLException ex) {
+            System.out.println("ERRO DE SQL: " + ex.getMessage());
+        } finally {
             try {
                 pst.close();
             } catch (SQLException ex) {
@@ -98,6 +123,32 @@ public class CategoriaDao {
 
     public void removerCategoria(Categoria categoria) {
 
+    }
+
+    public ArrayList<Categoria> listar() {
+        String sql = "SELECT CATEGORIAS.* FROM CATEGORIAS";
+        ArrayList<Categoria> categorias = new ArrayList<>();
+        try {
+
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet res = pst.executeQuery();
+            while (res.next()) {
+                Categoria c = new Categoria();
+                c.setId(res.getInt("ID"));
+                c.setNome(res.getString("NOME"));
+                c.setStatus(res.getBoolean("STATUS"));
+                categorias.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return categorias;
     }
 
 }

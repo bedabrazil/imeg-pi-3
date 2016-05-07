@@ -30,8 +30,8 @@ public class FuncionarioDao {
             pst = new Conexao().prepararStatement(sql);
 //            stmt.setInt(1, funcionario.getIdcargo());
 //            stmt.setInt(2, funcionario.getIdunidade());
-            pst.setInt(1, funcionario.getCargo_id());
-            pst.setInt(2, funcionario.getUnidades_id());
+//            pst.setInt(1, funcionario.getCargo_id());
+//            pst.setInt(2, funcionario.getUnidades_id());
             pst.setString(3, funcionario.getNome());
             pst.executeUpdate();
 
@@ -52,8 +52,8 @@ public class FuncionarioDao {
 
         try {
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, funcionario.getCargo_id());
-            pst.setInt(2, funcionario.getUnidades_id());
+//            pst.setInt(1, funcionario.getCargo_id());
+//            pst.setInt(2, funcionario.getUnidades_id());
             pst.setString(3, funcionario.getNome());
             pst.setInt(4, funcionario.getId());
             
@@ -81,8 +81,8 @@ public class FuncionarioDao {
             ResultSet rs = pst.executeQuery(sql);
             while (rs.next()) {
                 Funcionario funcionario = new Funcionario();
-                funcionario.setCargo_id(rs.getInt("CARGOS_ID"));
-                funcionario.setUnidades_id(rs.getInt("UNIDADES_ID"));
+//                funcionario.setCargo_id(rs.getInt("CARGOS_ID"));
+//                funcionario.setUnidades_id(rs.getInt("UNIDADES_ID"));
                 funcionario.setNome(rs.getString("nome"));
                 tempFuncionarios.add(funcionario);
 
