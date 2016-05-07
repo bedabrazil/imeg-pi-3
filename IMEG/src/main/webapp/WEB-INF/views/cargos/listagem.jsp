@@ -11,7 +11,14 @@
         <tbody>
         <c:forEach items="${cargos}" var="cargo">
             <tr>
-                <td><em class="active-elem-table glyphicon <c:choose><c:when test="${cargo.isStatus()}">glyphicon glyphicon-ok-circle </c:when><c:otherwise>glyphicon-remove-circle color-elem-table-deactive </c:otherwise></c:choose>"></em></td>
+                <td>
+                    <c:choose>
+                        <c:when test="${cargo.isStatus()}">
+                            <em data-toggle="tooltip" data-placement="top" title="Ativado" class="active-elem-table glyphicon glyphicon glyphicon-ok-circle"></em>
+                        </c:when>
+                        <c:otherwise>
+                            <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
+                        </c:otherwise></c:choose></td>
                 <td>${cargo.getNome()}</td>
                 <td><a href="<c:url value="?id=${cargo.getId()}"></c:url>">Editar</a></td>
             </tr>

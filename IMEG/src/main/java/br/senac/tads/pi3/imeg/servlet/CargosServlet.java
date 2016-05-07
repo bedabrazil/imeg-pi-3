@@ -37,9 +37,7 @@ public class CargosServlet extends HttpServlet {
             if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Cargo cargo = new CargoDao().pesquisarPorId(id);
-                if(new CargoDao().alterar(cargo)){
-                    request.setAttribute("cargor", cargo);
-                }
+                request.setAttribute("cargo", cargo);
             }
         }
         request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
