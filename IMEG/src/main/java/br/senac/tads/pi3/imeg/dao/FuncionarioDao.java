@@ -89,7 +89,7 @@ public class FuncionarioDao {
 
                 funcionario.setId(rs.getInt("ID"));
                 funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGO_ID")));
-                funcionario.setUnidade(unidadeDao.pesquisaPorId(rs.getInt("UNIDADE_ID")));
+//                funcionario.setUnidade(unidadeDao.pesquisaPorId(rs.getInt("UNIDADE_ID")));
                 funcionario.setNome(rs.getString("NOME"));
 
                 tempFuncionarios.add(funcionario);

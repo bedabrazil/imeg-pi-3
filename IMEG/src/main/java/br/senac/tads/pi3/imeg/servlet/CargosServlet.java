@@ -34,7 +34,7 @@ public class CargosServlet extends HttpServlet {
         ArrayList<Cargo> cargos = new CargoDao().listar();
         request.setAttribute("cargos", cargos);
         if (request.getQueryString() != null) {
-            if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
+            if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Cargo cargo = new CargoDao().pesquisarPorId(id);
                 request.setAttribute("cargo", cargo);

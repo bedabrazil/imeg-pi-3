@@ -35,7 +35,7 @@ public class CategoriasServlet extends HttpServlet {
         ArrayList<Categoria> categorias = new CategoriaDao().listar();
         request.setAttribute("categorias", categorias);
         if (request.getQueryString() != null) {
-            if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
+            if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Categoria categoria = new CategoriaDao().editarCategoria(id);
                 request.setAttribute("categoria", categoria);
