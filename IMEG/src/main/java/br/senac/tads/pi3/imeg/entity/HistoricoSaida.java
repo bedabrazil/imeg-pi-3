@@ -25,6 +25,7 @@ public class HistoricoSaida {
         return id;
     }
 
+
     /**
      * @return the produtos_id
      */

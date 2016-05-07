@@ -27,13 +27,13 @@ public class ProdutoDAO {
                 + "VALUES (?,?,?,?,?,?,?);";
         try {
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, produto.getCATEGORIAS_ID());
+            pst.setInt(1, produto.getCategoria().getId());
             pst.setString(2, produto.getNome());
-            pst.setDouble(3, produto.getPRECO_CUSTO());
-            pst.setDouble(4, produto.getPRECO_VENDA());
-            pst.setInt(5, produto.getQTDE_MIN());
-            pst.setInt(6, produto.getQTDE_MAX());
-            pst.setDouble(7, produto.getSALDO());
+            pst.setDouble(3, produto.getPrecoCusto());
+            pst.setDouble(4, produto.getPrecoVenda());
+            pst.setInt(5, produto.getQtdeMin());
+            pst.setInt(6, produto.getQtdeMax());
+            pst.setDouble(7, produto.getSaldo());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -59,14 +59,14 @@ public class ProdutoDAO {
             ResultSet rs = pst.executeQuery(sql);
             while (rs.next()) {
                 Produto produto = new Produto();
-                produto.setCATEGORIAS_ID(rs.getInt("CATEGORIAS_ID"));
+//                produto.getCategoria().getId(rs.getInt("CATEGORIAS_ID"));
                 produto.setNome(rs.getString("nome"));
-                produto.setPRECO_CUSTO(rs.getDouble("PRECO_CUSTO"));
-                produto.setPRECO_VENDA(rs.getDouble("PRECO_VENDA"));
-                produto.setQTDE_MIN(rs.getInt("QTDE_MIN"));
-                produto.setQTDE_MAX(rs.getInt("QTDE_MAX"));
-                produto.setSALDO(rs.getInt("SALDO"));
-                produto.setSTATUS(rs.getBoolean("STATUS"));
+                produto.setPrecoCusto(rs.getDouble("PRECO_CUSTO"));
+                produto.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
+                produto.setQtdeMin(rs.getInt("QTDE_MIN"));
+                produto.setQtdeMax(rs.getInt("QTDE_MAX"));
+                produto.setSaldo(rs.getInt("SALDO"));
+                produto.setStatus(rs.getBoolean("STATUS"));
                 tempProduto.add(produto);
 
             }
@@ -91,13 +91,13 @@ public class ProdutoDAO {
 
         try {
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, produto.getCATEGORIAS_ID());
+            pst.setInt(1, produto.getCategoria().getId());
             pst.setString(2, produto.getNome());
-            pst.setDouble(3, produto.getPRECO_CUSTO());
-            pst.setDouble(4, produto.getPRECO_VENDA());
-            pst.setInt(5, produto.getQTDE_MIN());
-            pst.setInt(6, produto.getQTDE_MAX());
-            pst.setDouble(7, produto.getSALDO());
+            pst.setDouble(3, produto.getPrecoCusto());
+            pst.setDouble(4, produto.getPrecoVenda());
+            pst.setInt(5, produto.getQtdeMin());
+            pst.setInt(6, produto.getQtdeMax());
+            pst.setDouble(7, produto.getSaldo());
             pst.setInt(8, codigo);
             if (pst.executeUpdate() > 0) {
                 return true;

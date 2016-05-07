@@ -1,20 +1,24 @@
 window.addEventListener('load', function(){
 //adicionar javascript a partir deste evento
 
-	document.querySelector("form button[type='button'].ajax").addEventListener('click', function(){
-		var form = document.querySelector('form.call');
-		var formData = new FormData();
-		var fields = document.querySelectorAll('form.call input, form.call textarea, form.call select');
-		var data = "";
-		var cont = -2;
-		Array.from(fields).forEach(function(e, i){
-			data += e.name + "=" + e.value+'&';
-			// formData.append(e.name, e.value);
-		});		
-		if(ajax(form, data)){
-			window.location = 'sucesso';
-		}
-	});
+	// document.querySelector("form button[type='button'].ajax").addEventListener('click', function(){
+	// 	var form = document.querySelector('form.call');
+	// 	var formData = new FormData();
+	// 	var fields = document.querySelectorAll('form.call input, form.call textarea, form.call select');
+	// 	var data = "";
+	// 	var cont = -2;
+	// 	// for(var i = 0;i < form.elements.length;i++){
+
+	// 	// 	data += form.elements[i].name + "=" + form.elements[i].value+'&';
+	// 	// }
+	// 	Array.from(fields).forEach(function(e, i){
+	// 		// data += e.name + "=" + e.value+'&';
+	// 		formData.append(e.name, e.value);
+	// 	});		
+	// 	if(ajax(form, formData)){
+	// 		// window.location = 'sucesso';
+	// 	}
+	// });
 });
 
 function ajax(form, formData){

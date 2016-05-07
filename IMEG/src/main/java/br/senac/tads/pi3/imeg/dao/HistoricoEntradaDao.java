@@ -24,8 +24,8 @@ public class HistoricoEntradaDao {
 
         try {
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, historicoEntrada.getProdutos_id());
-            pst.setInt(2, historicoEntrada.getFuncionarios_id());
+//            pst.setInt(1, historicoEntrada.getProdutos_id());
+//            pst.setInt(2, historicoEntrada.getFuncionarios_id());
             pst.setDate(3, new Date(System.currentTimeMillis()));
             pst.setInt(4, historicoEntrada.getQtde_produtos());
 

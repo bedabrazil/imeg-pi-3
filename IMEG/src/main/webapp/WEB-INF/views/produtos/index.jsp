@@ -3,8 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
-            <%-- CONTEÚDO DE PRODUTOS/INDEX --%>
-
-                    <h1>INDEX PRODUTOS </h1>
+    <%-- CONTEÚDO DE PRODUTOS/INDEX --%>
+    <jsp:include page="form.jsp" />
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />

@@ -1,4 +1,4 @@
-<form action="produtos" class="call" method="post">
+<form enctype="application/x-www-form-urlencoded" action="produtos" method="post">
     <fieldset class="well"> 
         <div class="col-lg-6 form-space">
             <label for="">Nome do Produto</label>
@@ -36,7 +36,7 @@
             </select>
         </div>
         <div class="col-lg-12 form-space">
-            <button class="btn btn-button ajax" type="button" id="commit_produto">Enviar</button>
+            <button class="btn btn-button ajax" type="submit" id="commit_produto">Enviar</button>
         </div>
     </fieldset>
     
