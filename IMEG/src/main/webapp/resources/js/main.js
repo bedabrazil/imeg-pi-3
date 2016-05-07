@@ -19,6 +19,9 @@ window.addEventListener('load', function(){
 	// 		// window.location = 'sucesso';
 	// 	}
 	// });
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
 });
 
 function ajax(form, formData){
@@ -35,3 +38,4 @@ function ajax(form, formData){
 	xhr.send(formData);
 	return true;
 }
+

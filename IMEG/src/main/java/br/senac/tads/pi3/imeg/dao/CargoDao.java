@@ -22,7 +22,7 @@ public class CargoDao {
     private PreparedStatement pst;
 
     public boolean adicionar(Cargo cargo) {
-        String sql = "INSERT INTO CARGOS(NOME, STATUS)VALUES(?,?);";
+        String sql = "INSERT INTO CARGOS(NOME, STATUS)VALUES(?,?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, cargo.getNome());
@@ -43,7 +43,7 @@ public class CargoDao {
     }
 
     public boolean alterar(Cargo cargo) {
-        String sql = "UPDATE CARGOS SET NOME=?, STATUS=? WHERE ID=?;";
+        String sql = "UPDATE CARGOS SET NOME=?, STATUS=? WHERE ID=?";
 
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -91,7 +91,7 @@ public class CargoDao {
         return null;
     }
     public Cargo pesquisarPorId(int id){
-        String sql = "SELECT CARGOS.* FROM CARGOS WHERE ID=?;";
+        String sql = "SELECT CARGOS.* FROM CARGOS WHERE ID=?";
         try{
             Cargo cargo = null;
             pst = new Conexao().prepararStatement(sql);
