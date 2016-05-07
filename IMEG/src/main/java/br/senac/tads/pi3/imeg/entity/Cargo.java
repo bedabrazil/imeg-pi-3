@@ -10,18 +10,18 @@ package br.senac.tads.pi3.imeg.entity;
  * @author Eilane
  */
 public class Cargo {
-    private int idcargo;
-    private String nomecargo;
+    private int id;
+    private String nome;
 
-    public int getIdcargo() {
-        return idcargo;
+    public int getId() {
+        return id;
     }
     
-    public String getNomecargo() {
-        return nomecargo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomecargo(String nomecargo) {
-        this.nomecargo = nomecargo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
