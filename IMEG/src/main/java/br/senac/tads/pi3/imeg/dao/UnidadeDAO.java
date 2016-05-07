@@ -5,7 +5,6 @@
  */
 package br.senac.tads.pi3.imeg.dao;
 
-import br.senac.tads.pi3.imeg.entity.Estado;
 import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
