@@ -13,8 +13,8 @@ import java.util.Date;
  */
 public class HistoricoSaida {
     private int id;
-    private int produtos_id;
-    private int funcionarios_id;
+    private Produto produto;
+    private Funcionario funcionario;
     private Date data_transacao;
     private int qtde_produtos;
 
@@ -26,39 +26,9 @@ public class HistoricoSaida {
     }
 
     /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
      * @return the produtos_id
      */
-    public int getProdutos_id() {
-        return produtos_id;
-    }
-
-    /**
-     * @param produtos_id the produtos_id to set
-     */
-    public void setProdutos_id(int produtos_id) {
-        this.produtos_id = produtos_id;
-    }
-
-    /**
-     * @return the funcionarios_id
-     */
-    public int getFuncionarios_id() {
-        return funcionarios_id;
-    }
-
-    /**
-     * @param funcionarios_id the funcionarios_id to set
-     */
-    public void setFuncionarios_id(int funcionarios_id) {
-        this.funcionarios_id = funcionarios_id;
-    }
+ 
 
     /**
      * @return the data_transacao
@@ -86,5 +56,33 @@ public class HistoricoSaida {
      */
     public void setQtde_produtos(int qtde_produtos) {
         this.qtde_produtos = qtde_produtos;
+    }
+
+    /**
+     * @return the produto
+     */
+    public Produto getProduto() {
+        return produto;
+    }
+
+    /**
+     * @param produto the produto to set
+     */
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    /**
+     * @return the funcionario
+     */
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    /**
+     * @param funcionario the funcionario to set
+     */
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 }
