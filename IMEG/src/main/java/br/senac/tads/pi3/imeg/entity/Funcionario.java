@@ -20,6 +20,10 @@ public class Funcionario {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Cargo getCargo() {
         return cargo;
     }
