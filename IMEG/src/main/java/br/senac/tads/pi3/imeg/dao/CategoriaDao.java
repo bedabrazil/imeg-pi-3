@@ -21,16 +21,18 @@ public class CategoriaDao {
 
     private PreparedStatement pst;
 
-    public void incluirCategoria(Categoria categoria) {
+    public boolean incluirCategoria(Categoria categoria) {
 
-        String sql = "INSERT INTO CATEGORIA(NOME, STATUS) VALUES(?,?)";
+        String sql = "INSERT INTO CATEGORIAS(NOME, STATUS) VALUES(?,?)";
 
         try {
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, categoria.getNome());
+            pst.setString(1, categoria.getNome());
             pst.setBoolean(2, categoria.isStatus());
 
-            pst.execute();
+            if (pst.executeUpdate() > 0) {
+                return true;
+            }
         } catch (SQLException ex) {
             System.out.println("ERROR SQL: " + ex.getMessage());
         } finally {
@@ -40,11 +42,12 @@ public class CategoriaDao {
                 Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return false;
     }
 
     public ArrayList<Categoria> consultarCategoria(Categoria categoria) {
 
-        String sql = "SELECT * FROM CATEGORIA WHERE NOME LIKE '%" + categoria.getNome() + "%';";
+        String sql = "SELECT * FROM CATEGORIAS WHERE NOME LIKE '%" + categoria.getNome() + "%';";
         ArrayList<Categoria> listaCategoria = new ArrayList<>();
 
         try {
@@ -53,7 +56,7 @@ public class CategoriaDao {
             ResultSet rs = pst.executeQuery(sql);
 
             while (rs.next()) {
-                categoria.setNome(rs.getInt("NOME"));
+                categoria.setNome(rs.getString("NOME"));
                 categoria.setStatus(rs.getBoolean("STATUS"));
 
                 listaCategoria.add(categoria);
@@ -73,13 +76,13 @@ public class CategoriaDao {
     }
 
     public void alterarCategoria(Categoria categoria) {
-        String sql = "SELECT * FROM CATEGORIA WHERE ID ='"+ categoria.getId()+"'";
+        String sql = "SELECT * FROM CATEGORIAS WHERE ID ='"+ categoria.getId()+"'";
         
         try {       
         pst= new Conexao().prepararStatement(sql);
         ResultSet rs = pst.executeQuery(sql);
         
-        pst.setInt(1, categoria.getNome());
+        pst.setString(1, categoria.getNome());
         pst.setBoolean(2, categoria.isStatus());
               
          } catch (SQLException ex) {

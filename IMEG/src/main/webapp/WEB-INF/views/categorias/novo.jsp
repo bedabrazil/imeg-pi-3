@@ -3,7 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
-            <%-- CONTEÚDO DE CATEGORIAS/NOVO --%>
-            <jsp:include page="form.jsp" />
+    <%-- CONTEÚDO DE CATEGORIAS/NOVO --%>
+	<jsp:include page="form.jsp" />
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />            

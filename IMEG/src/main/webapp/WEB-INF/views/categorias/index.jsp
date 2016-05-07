@@ -5,6 +5,5 @@
 <jsp:include page="../header.jsp" />
             <%-- CONTEÚDO DE CATEGORIAS/INDEX --%>
 
-                    <h1>INDEX CATEGORIAS</h1>
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />

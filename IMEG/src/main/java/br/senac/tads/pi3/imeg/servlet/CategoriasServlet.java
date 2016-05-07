@@ -5,11 +5,15 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.CategoriaDao;
+import br.senac.tads.pi3.imeg.entity.Categoria;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,6 +47,16 @@ public class CategoriasServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+        HttpSession session = request.getSession();
+        String mensagem = (String) session.getAttribute("msg");
+        boolean error = (boolean) session.getAttribute("error");
+        if (mensagem != null) {
+            session.removeAttribute("msg");
+            session.removeAttribute("error");
+        } else {
+            response.sendRedirect("home");
+        }
     }
 
     /**
@@ -56,7 +70,27 @@ public class CategoriasServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //inicia uma sessao
+        HttpSession session = request.getSession(true);
+        //instacio o DAO
+        CategoriaDao cDao = new CategoriaDao();
+        // pega o nome da categoria do formulário
+        String nome = request.getParameter("nome_categoria");
+        //seta uma  erro false
+        session.setAttribute("error", false);
+        if (nome.isEmpty()) {
+            session.setAttribute("msg", "Nome não pode ser vazio.");
+            session.setAttribute("error", true);
+            request.getRequestDispatcher("/WEB-INF/views/categorias/novo.jsp").forward(request, response);
+        } else if (cDao.incluirCategoria(new Categoria(nome, true))) {
+            session.setAttribute("msg", "Categoria " + nome + " incluída com sucesso.");
+            response.sendRedirect("sucesso");
+        } else {
+            session.setAttribute("msg", "Algo deu errado.\nTente novamente mais tarde.");
+            session.setAttribute("error", true);
+            request.getRequestDispatcher("/WEB-INF/views/categorias/novo.jsp").forward(request, response);
+        }
+
     }
 
     /**

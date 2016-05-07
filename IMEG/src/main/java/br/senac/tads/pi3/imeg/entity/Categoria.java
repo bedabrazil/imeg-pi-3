@@ -11,8 +11,13 @@ package br.senac.tads.pi3.imeg.entity;
  */
 public class Categoria {
     private int id;
-    private int nome;
+    private String nome;
     private boolean status;
+
+    public Categoria(String nome, boolean status) {
+        this.nome = nome;
+        this.status = status;
+    }
 
     /**
      * @return the id
@@ -24,14 +29,14 @@ public class Categoria {
     /**
      * @return the nome
      */
-    public int getNome() {
+    public String getNome() {
         return nome;
     }
 
     /**
      * @param nome the nome to set
      */
-    public void setNome(int nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
