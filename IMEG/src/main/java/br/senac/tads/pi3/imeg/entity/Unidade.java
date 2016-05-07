@@ -19,6 +19,10 @@ public class Unidade {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Estado getEstado() {
         return estado;
     }
