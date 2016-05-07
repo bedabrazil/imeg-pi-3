@@ -25,8 +25,8 @@ public class HistoricoSaidaDao {
 
         try {
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, historicoSaida.getProdutos_id());
-            pst.setInt(2, historicoSaida.getFuncionarios_id());
+//            pst.setInt(1, historicoSaida.getProduto());
+//            pst.setInt(2, historicoSaida.getFuncionarios_id());
             pst.setDate(3, new Date(System.currentTimeMillis()));
             pst.setInt(4, historicoSaida.getQtde_produtos());
             
