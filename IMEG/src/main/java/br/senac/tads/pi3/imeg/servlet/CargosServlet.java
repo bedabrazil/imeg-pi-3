@@ -5,8 +5,10 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.CargoDao;
+import br.senac.tads.pi3.imeg.entity.Cargo;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,19 +31,20 @@ public class CargosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Categoria> categorias = new CategoriaDao().listar();
-        request.setAttribute("categorias", categorias);
+        ArrayList<Cargo> cargos = new CargoDao().listar();
+        request.setAttribute("cargos", cargos);
         if (request.getQueryString() != null) {
             if (!request.getParameter("id").isEmpty() && request.getParameter("id") != null) {
                 int id = Integer.parseInt(request.getParameter("id"));
-                Categoria categoria = new CategoriaDao().editarCategoria(id);
-                request.setAttribute("categoria", categoria);
+                Cargo cargo = new CargoDao().pesquisarPorId(id);
+                if(new CargoDao().alterar(cargo)){
+                    request.setAttribute("cargor", cargo);
+                }
             }
         }
-        request.getRequestDispatcher("WEB-INF/views/categorias/index.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -78,6 +81,6 @@ public class CargosServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

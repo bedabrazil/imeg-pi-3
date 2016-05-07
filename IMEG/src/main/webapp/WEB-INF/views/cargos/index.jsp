@@ -5,10 +5,10 @@
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
 
-<%-- FORMULARIO DE CADASTRO --%>
+<%-- FORMULARIO DE CARGOS --%>
 <jsp:include page="form.jsp" />
 
-<%-- LISTAGEM DAS CATEGORIAS --%>
+<%-- LISTAGEM DAS CARGOS --%>
 <jsp:include page="listagem.jsp"/>
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />

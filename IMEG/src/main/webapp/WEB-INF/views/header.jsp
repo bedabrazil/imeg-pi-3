@@ -45,6 +45,7 @@
                                 <li><a href="produtos">Produtos</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="funcionarios">Funcionários</a></li>
+                                <li><a href="cargos">Cargos</a></li>
                                 <li role="separator" class="divider"></li>
                               </ul>
                             </li>

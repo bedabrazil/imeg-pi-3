@@ -37,10 +37,14 @@ body {
 .dropdown-menu>li>a{
 	font-weight: bold;
 	font-size: 13px;
+        color:#fff!important;
 }
 .dropdown-menu>li>a:visited{color:#fff!important;}
-.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a:visited{color:#dd1355!important;background-color: #e2cc0c;}
 
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover, .dropdown-menu>li>a:visited{color:#fff!important;background-color: #e2cc0c;}
+.dropdown-menu>li>a:hover{
+    color:#dd1355;
+}
 .carousel-inner{
 	margin-top:-20px;
 	margin-bottom: 10px;
