@@ -5,10 +5,13 @@
  */
 package br.senac.tads.pi3.imeg.dao;
 
+import br.senac.tads.pi3.imeg.entity.Estado;
+
 /**
  *
  * @author Mssouza
  */
 public class UnidadeDAO {
+
     
 }

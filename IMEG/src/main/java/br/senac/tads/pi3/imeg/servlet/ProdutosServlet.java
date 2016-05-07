@@ -6,7 +6,6 @@
 package br.senac.tads.pi3.imeg.servlet;
 
 import java.io.IOException;
-import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +35,7 @@ public class ProdutosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, String path)
             throws ServletException, IOException {
         request.setAttribute("path", path);
-        request.getRequestDispatcher("WEB-INF/views/produtos/novo.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/produtos/index.jsp").forward(request, response);
     }
 
     /**
@@ -65,7 +64,7 @@ public class ProdutosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String path = request.getPathInfo();
 
         String nomeProduto = request.getParameter("nome_produto");

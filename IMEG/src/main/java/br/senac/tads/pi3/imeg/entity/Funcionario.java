@@ -10,10 +10,14 @@ package br.senac.tads.pi3.imeg.entity;
  * @author Eilane
  */
 public class Funcionario {
+    private int id;
     private int cargo_id;
     private int unidades_id;
     private String nome;
 
+    public int getId(){
+        return id;
+    }
     public int getCargo_id() {
         return cargo_id;
     }

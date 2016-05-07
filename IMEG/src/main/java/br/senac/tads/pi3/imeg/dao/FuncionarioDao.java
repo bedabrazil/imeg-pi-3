@@ -45,9 +45,9 @@ public class FuncionarioDao {
             }
         }
     }
-    public boolean alterarFuncionario(String nome, Funcionario funcionario) {
+    public boolean alterarFuncionario(Funcionario funcionario) {
         String sql = "UPDATE Funcionarios SET CARGOS_ID=?,UNIDADES_ID=?, NOME=?"
-                + "WHERE NOME = ?";
+                + "WHERE ID = ?";
         // UPDATE
 
         try {
@@ -55,7 +55,7 @@ public class FuncionarioDao {
             pst.setInt(1, funcionario.getCargo_id());
             pst.setInt(2, funcionario.getUnidades_id());
             pst.setString(3, funcionario.getNome());
-            pst.setString(4, nome);
+            pst.setInt(4, funcionario.getId());
             
             if (pst.executeUpdate() > 0) {
                 return true;

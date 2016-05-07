@@ -11,23 +11,26 @@ package br.senac.tads.pi3.imeg.entity;
  */
 public class Unidades {
     private int id;
-    private String nomeUnidade;
+    private Estado estado;
+    private String nome;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public String getNomeUnidade() {
-        return nomeUnidade;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeUnidade(String nomeUnidade) {
-        this.nomeUnidade = nomeUnidade;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
-    
-    
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

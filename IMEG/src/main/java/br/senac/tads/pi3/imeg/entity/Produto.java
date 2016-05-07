@@ -13,20 +13,16 @@ public class Produto {
     
     private int id;
     private String nome;
-    private int CATEGORIAS_ID;
-    private double PRECO_CUSTO;
-    private double PRECO_VENDA;
-    private int QTDE_MIN;
-    private int QTDE_MAX;
-    private int SALDO;
-    private boolean STATUS;
+    private Categoria categoria;
+    private double precoCusto;
+    private double precoVenda;
+    private int qtdeMin;
+    private int qtdeMax;
+    private int saldo;
+    private boolean status;
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -37,60 +33,62 @@ public class Produto {
         this.nome = nome;
     }
 
-    public int getCATEGORIAS_ID() {
-        return CATEGORIAS_ID;
+
+
+    public double getPrecoCusto() {
+        return precoCusto;
     }
 
-    public void setCATEGORIAS_ID(int CATEGORIAS_ID) {
-        this.CATEGORIAS_ID = CATEGORIAS_ID;
+    public void setPrecoCusto(double precoCusto) {
+        this.precoCusto = precoCusto;
     }
 
-    public double getPRECO_CUSTO() {
-        return PRECO_CUSTO;
+    public double getPrecoVenda() {
+        return precoVenda;
     }
 
-    public void setPRECO_CUSTO(double PRECO_CUSTO) {
-        this.PRECO_CUSTO = PRECO_CUSTO;
+    public void setPrecoVenda(double precoVenda) {
+        this.precoVenda = precoVenda;
     }
 
-    public double getPRECO_VENDA() {
-        return PRECO_VENDA;
+    public int getQtdeMin() {
+        return qtdeMin;
     }
 
-    public void setPRECO_VENDA(double PRECO_VENDA) {
-        this.PRECO_VENDA = PRECO_VENDA;
+    public void setQtdeMin(int qtdeMin) {
+        this.qtdeMin = qtdeMin;
     }
 
-    public int getQTDE_MIN() {
-        return QTDE_MIN;
+    public int getQtdeMax() {
+        return qtdeMax;
     }
 
-    public void setQTDE_MIN(int QTDE_MIN) {
-        this.QTDE_MIN = QTDE_MIN;
+    public void setQtdeMax(int qtdeMax) {
+        this.qtdeMax = qtdeMax;
     }
 
-    public int getQTDE_MAX() {
-        return QTDE_MAX;
+    public int getSaldo() {
+        return saldo;
     }
 
-    public void setQTDE_MAX(int QTDE_MAX) {
-        this.QTDE_MAX = QTDE_MAX;
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
     }
 
-    public int getSALDO() {
-        return SALDO;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setSALDO(int SALDO) {
-        this.SALDO = SALDO;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
-    public boolean isSTATUS() {
-        return STATUS;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setSTATUS(boolean STATUS) {
-        this.STATUS = STATUS;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
     
       
