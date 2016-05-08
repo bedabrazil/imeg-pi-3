@@ -112,6 +112,7 @@ public class CategoriasServlet extends HttpServlet {
         }
 
         String nome = request.getParameter("nome_categoria");
+        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         //seta uma  erro false
         session.setAttribute("error", false);
         if (nome != null && nome.isEmpty()) {
@@ -119,7 +120,7 @@ public class CategoriasServlet extends HttpServlet {
             session.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/views/categorias/novo.jsp").forward(request, response);
         }else{
-            if (cDao.incluirCategoria(new Categoria(nome, true))) {
+            if (cDao.incluirCategoria(new Categoria(nome, status))) {
             session.setAttribute("msg_success", "Categoria " + nome + " incluída com sucesso.");
             session.setAttribute("success", true);            
             response.sendRedirect("categorias");
