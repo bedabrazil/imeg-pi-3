@@ -22,6 +22,15 @@ window.addEventListener('load', function(){
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
+    // if(document.querySelector('#warning').classList.contains('alert-danger')){
+    // 	fade(document.querySelector('#warning'));
+    // 	document.querySelector('#warning').classList.remove('alert-danger')    	
+    // }
+    if(document.querySelector('#warning').classList.contains('alert-success')){
+    	fade(document.querySelector('#warning'));
+    }
+
+
 });
 
 function ajax(form, formData){
@@ -39,3 +48,28 @@ function ajax(form, formData){
 	return true;
 }
 
+function fade(element) {
+    var opacity = 1;  // opacidade inicial
+    var timer = setInterval(function () {
+        if (opacity <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = opacity;
+        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+        opacity -= opacity * 0.1;
+    }, 120);
+}
+
+function unfade(element) {
+    var opacity = 0.1;  // opacidade inicial
+    element.style.display = 'block';
+    var timer = setInterval(function () {
+        if (opacity >= 1){
+            clearInterval(timer);
+        }
+        element.style.opacity = opacity;
+        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+        opacity += opacity * 0.1;
+    }, 10);
+}

@@ -6,7 +6,7 @@
         <thead>
             <th></th>
             <th>Nome</th>
-            <th>Editar</th>
+            <th>Ações</th>            
         </thead>
         <tbody>
         <c:forEach items="${cargos}" var="cargo">

@@ -66,7 +66,7 @@ public class CargoDao {
     }
 
     public ArrayList<Cargo> listar() {
-        String sql = "SELECT CARGOS.* FROM CARGOS";
+        String sql = "SELECT CARGOS.* FROM CARGOS ORDER BY ID DESC";
         try {
             ArrayList<Cargo> cargos = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);

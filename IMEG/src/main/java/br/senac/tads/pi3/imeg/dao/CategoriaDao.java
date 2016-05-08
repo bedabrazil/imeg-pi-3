@@ -128,7 +128,7 @@ public class CategoriaDao {
     }
 
     public ArrayList<Categoria> listar() {
-        String sql = "SELECT CATEGORIAS.* FROM CATEGORIAS";
+        String sql = "SELECT CATEGORIAS.* FROM CATEGORIAS ORDER BY ID DESC";
         ArrayList<Categoria> categorias = new ArrayList<>();
         try {
 

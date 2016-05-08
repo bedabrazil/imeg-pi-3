@@ -4,7 +4,7 @@
     <input type="hidden" name="id_categoria" value="${categoria.getId()}">
     </c:if>
     <fieldset class="well">
-        <div class="col-lg-12 <c:if test="${sessionScope.error}">errors</c:if>"><c:if test="${sessionScope.error}"> ${msg}</c:if></div>
+        <div id="warning" class="col-lg-12 <c:choose><c:when test="${sessionScope.error}">alert alert-danger</c:when><c:when test="${sessionScope.success}">alert alert-success</c:when></c:choose>"><c:choose><c:when test="${sessionScope.error}">${msg_error}</c:when><c:when test="${sessionScope.success}">${msg_success}</c:when></c:choose></div>
         <div class="col-lg-6 form-space">
             <label for="">Nome da Categoria</label>
             <input class="form-control" type="text" value="<c:if test="${categoria != null }">${categoria.getNome()}</c:if>" id="nome_categoria" name="nome_categoria"/>

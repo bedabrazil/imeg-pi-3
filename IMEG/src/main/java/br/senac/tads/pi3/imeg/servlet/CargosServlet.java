@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,6 +39,7 @@ public class CargosServlet extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Cargo cargo = new CargoDao().pesquisarPorId(id);
                 request.setAttribute("cargo", cargo);
+                
             }
         }
         request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
@@ -55,6 +57,21 @@ public class CargosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+        HttpSession session = request.getSession();
+        String msg_error = (String) session.getAttribute("msg_error");
+        String msg_success = (String) session.getAttribute("msg_success");
+        boolean error = (boolean) session.getAttribute("error");
+        boolean success = (boolean) session.getAttribute("success");
+        if (msg_error != null) {
+            session.removeAttribute("msg_error");
+            session.removeAttribute("error");
+        } else if (msg_success != null) {
+            session.removeAttribute("msg_success");
+            session.removeAttribute("success");
+        } else {
+            response.sendRedirect("home");
+        }
     }
 
     /**
@@ -68,7 +85,41 @@ public class CargosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //inicia uma sessao
+        HttpSession session = request.getSession(true);
+        session.setAttribute("error", false);
+        session.setAttribute("success", false);
+        
+        //instacio o DAO
+        CargoDao cDao = new CargoDao();
+        
+        // pega o nome do cargo do formulário
+        if (request.getParameter("id_cargo") != null) {
+            Cargo c = new Cargo();
+            c.setId(Integer.parseInt(request.getParameter("id_cargo")));
+            c.setNome(request.getParameter("nome_cargo"));
+            c.setStatus(Boolean.parseBoolean(request.getParameter("ativo")));
+            if (cDao.alterar(c)) {
+                session.setAttribute("msg_success", "Cargo <strong>" + c.getNome() + "</strong> alterado com sucesso.");
+                session.setAttribute("success", true);
+                response.sendRedirect("cargos");
+                return;
+            }
+        }
+        String nome = request.getParameter("nome_cargo");
+        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
+        //seta uma  erro false
+        if (nome.isEmpty()) {
+            session.setAttribute("msg_error", "Nome não pode ser vazio.");
+            session.setAttribute("error", true);
+            request.getRequestDispatcher("/WEB-INF/views/cargos/index.jsp").forward(request, response);
+        } else {
+            if (cDao.adicionar(new Cargo(nome, status))) {
+                session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
+                session.setAttribute("success", true);
+                response.sendRedirect("cargos");
+            }
+        }
     }
 
     /**
