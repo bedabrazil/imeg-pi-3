@@ -76,6 +76,7 @@ public class CargoDao {
                 cargo.setId(res.getInt("ID"));
                 cargo.setNome(res.getString("NOME"));
                 cargo.setStatus(res.getBoolean("STATUS"));
+                cargo.setAcesso(new AcessoDao().pesquisarPorId(res.getInt("ACESSOS_ID")));
                 cargos.add(cargo);
             }
             return cargos;

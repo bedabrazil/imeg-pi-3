@@ -6,6 +6,7 @@
         <thead>
             <th></th>
             <th>Nome</th>
+            <th>Permissão</th>
             <th>Ações</th>            
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
                             <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
                         </c:otherwise></c:choose></td>
                 <td>${cargo.getNome()}</td>
+                <td>${cargo.getAcesso().getNome()}</td>
                 <td><a href="<c:url value="?id=${cargo.getId()}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>

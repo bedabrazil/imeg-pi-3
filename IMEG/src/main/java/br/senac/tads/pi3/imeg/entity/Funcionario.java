@@ -15,7 +15,9 @@ public class Funcionario {
     private Cargo cargo;
     private Unidade unidade;
     private String nome;
-
+    private String email;
+    private char[] senhaHash;
+    
     public int getId() {
         return id;
     }
@@ -47,5 +49,22 @@ public class Funcionario {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public char[] getSenhaHash() {
+        return senhaHash;
+    }
+
+    public void setSenhaHash(char[] senhaHash) {
+        this.senhaHash = senhaHash;
+    }
+
 
 }

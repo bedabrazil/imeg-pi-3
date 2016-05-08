@@ -13,12 +13,12 @@ import java.sql.Timestamp;
  * @author Eilane
  */
 public class Cargo {
+
     private int id;
     private String nome;
     private boolean status;
-    private Time criado_em;
-    private Time atualizado_em;
-    
+    private Acesso acesso;
+
     public Cargo(String nome, boolean status) {
         this.nome = nome;
         this.status = status;
@@ -26,15 +26,15 @@ public class Cargo {
 
     public Cargo() {
     }
-    
-    
+
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getNome() {
         return nome;
     }
@@ -51,20 +51,13 @@ public class Cargo {
         this.status = status;
     }
 
-    public Time getAtualizado_em() {
-        return atualizado_em;
+    public Acesso getAcesso() {
+        return acesso;
     }
 
-    public void setAtualizado_em(Time atualizado_em) {
-        this.atualizado_em = atualizado_em;
+    public void setAcesso(Acesso acesso) {
+        this.acesso = acesso;
     }
 
-    public Time getCriado_em() {
-        return criado_em;
-    }
-
-    public void getCriado_em(Time time) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

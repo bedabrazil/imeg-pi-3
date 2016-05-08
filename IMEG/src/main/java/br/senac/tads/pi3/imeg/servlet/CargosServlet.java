@@ -5,7 +5,9 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.AcessoDao;
 import br.senac.tads.pi3.imeg.dao.CargoDao;
+import br.senac.tads.pi3.imeg.entity.Acesso;
 import br.senac.tads.pi3.imeg.entity.Cargo;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,6 +36,8 @@ public class CargosServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Cargo> cargos = new CargoDao().listar();
         request.setAttribute("cargos", cargos);
+        ArrayList<Acesso> acessos = new AcessoDao().listar();
+        request.setAttribute("acessos", acessos);
         if (request.getQueryString() != null) {
             if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(request.getParameter("id"));
