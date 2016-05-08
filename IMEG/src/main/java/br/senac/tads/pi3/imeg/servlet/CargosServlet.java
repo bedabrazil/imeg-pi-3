@@ -34,6 +34,8 @@ public class CargosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
         ArrayList<Cargo> cargos = new CargoDao().listar();
         request.setAttribute("cargos", cargos);
         ArrayList<Acesso> acessos = new AcessoDao().listar();
@@ -46,6 +48,7 @@ public class CargosServlet extends HttpServlet {
                 
             }
         }
+        
         request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
     }
 
@@ -65,8 +68,6 @@ public class CargosServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String msg_error = (String) session.getAttribute("msg_error");
         String msg_success = (String) session.getAttribute("msg_success");
-        boolean error = (boolean) session.getAttribute("error");
-        boolean success = (boolean) session.getAttribute("success");
         if (msg_error != null) {
             session.removeAttribute("msg_error");
             session.removeAttribute("error");
@@ -74,8 +75,9 @@ public class CargosServlet extends HttpServlet {
             session.removeAttribute("msg_success");
             session.removeAttribute("success");
         } else {
-            response.sendRedirect("home");
+            processRequest(request, response);
         }
+        
     }
 
     /**
@@ -116,7 +118,7 @@ public class CargosServlet extends HttpServlet {
         if (nome.isEmpty()) {
             session.setAttribute("msg_error", "Nome não pode ser vazio.");
             session.setAttribute("error", true);
-            request.getRequestDispatcher("/WEB-INF/views/cargos/index.jsp").forward(request, response);
+            processRequest(request, response);
         } else {
             if (cDao.adicionar(new Cargo(nome, status))) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");

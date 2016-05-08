@@ -1,16 +1,30 @@
 window.addEventListener('load', function(){
 //adicionar javascript a partir deste evento
 
-	// document.querySelector("form button[type='button'].ajax").addEventListener('click', function(){
-	// 	var form = document.querySelector('form.call');
+	document.querySelector("form.call button[type='button']").addEventListener('click', function(){
+		var form = document.querySelector("form.call");
 	// 	var formData = new FormData();
 	// 	var fields = document.querySelectorAll('form.call input, form.call textarea, form.call select');
 	// 	var data = "";
 	// 	var cont = -2;
-	// 	// for(var i = 0;i < form.elements.length;i++){
-
-	// 	// 	data += form.elements[i].name + "=" + form.elements[i].value+'&';
-	// 	// }
+    var warning = document.querySelector('#warning');
+    warning.style.display = 'block';
+    var content = document.createTextNode("");
+    
+	for(var i = 0;i < form.elements.length;i++){
+        content.nodeValue = '';
+        if(!form.elements[i].value && form.elements[i].type === 'text'){
+            form.elements[i].style.border = '1px solid red';
+            content.nodeValue = 'Campo obrigatório.';
+            warning.classList.add('alert', 'alert-danger');
+            warning.appendChild(content);
+            setInterval(fade(warning), 30);
+        }
+        if(form.elements[i].value){
+            form.elements[i].style.border = '1px solid #002';
+        }
+	}
+        // form.submit();
 	// 	Array.from(fields).forEach(function(e, i){
 	// 		// data += e.name + "=" + e.value+'&';
 	// 		formData.append(e.name, e.value);
@@ -18,7 +32,7 @@ window.addEventListener('load', function(){
 	// 	if(ajax(form, formData)){
 	// 		// window.location = 'sucesso';
 	// 	}
-	// });
+	});
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
@@ -26,12 +40,14 @@ window.addEventListener('load', function(){
     // 	fade(document.querySelector('#warning'));
     // 	document.querySelector('#warning').classList.remove('alert-danger')    	
     // }
-    if(document.querySelector('#warning') && document.querySelector('#warning').classList.contains('alert-success')){
+    if(document.querySelector('#warning') && (document.querySelector('#warning').classList.contains('alert-success') || document.querySelector('#warning').classList.contains('alert-danger'))){
     	fade(document.querySelector('#warning'));
+        document.querySelector('#warning')
     }
 
 
 });
+
 
 function ajax(form, formData){
    var xhr = (window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"));
