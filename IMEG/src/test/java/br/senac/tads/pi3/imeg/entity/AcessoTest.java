@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import br.senac.tads.pi3.imeg.dao.AcessoDao;
+import br.senac.tads.pi3.imeg.entity.Acesso;
+import org.junit.Assert;
 
 /**
  *
@@ -15,7 +16,11 @@ public class AcessoTest {
     
     public AcessoTest() {
     }
-    public void pesquisarPorIdTest(){
-        
+    public void adicionarTest(){
+        Acesso acesso = new Acesso("PRESIDENTE", true);
+        AcessoDao aDao = new AcessoDao();
+        aDao.adicionar(acesso);
+        Acesso acessoResult = aDao.pesquisarPorNome(acesso);
+        Assert.assertEquals(acessoResult, acesso);
     }
 }
