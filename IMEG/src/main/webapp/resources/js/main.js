@@ -26,7 +26,7 @@ window.addEventListener('load', function(){
     // 	fade(document.querySelector('#warning'));
     // 	document.querySelector('#warning').classList.remove('alert-danger')    	
     // }
-    if(document.querySelector('#warning').classList.contains('alert-success')){
+    if(document.querySelector('#warning') && document.querySelector('#warning').classList.contains('alert-success')){
     	fade(document.querySelector('#warning'));
     }
 
