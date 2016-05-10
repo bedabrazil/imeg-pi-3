@@ -21,6 +21,7 @@ public class FuncionarioDao {
 
     private PreparedStatement pst;
 
+    //Cadastra um novo funcionario
     public void incluirFuncionario(Funcionario funcionario) {
 
         String sql = "INSERT INTO FUNCIONARIOS "
@@ -28,10 +29,8 @@ public class FuncionarioDao {
                 + "VALUES (?, ?, ?)";
         try {
             pst = new Conexao().prepararStatement(sql);
-//            stmt.setInt(1, funcionario.getIdcargo());
-//            stmt.setInt(2, funcionario.getIdunidade());
-//            pst.setInt(1, funcionario.getCargo_id());
-//            pst.setInt(2, funcionario.getUnidades_id());
+            pst.setInt(1, funcionario.getCargo().getId());
+            pst.setInt(2, funcionario.getUnidade().getId());
             pst.setString(3, funcionario.getNome());
             pst.executeUpdate();
 
@@ -45,6 +44,8 @@ public class FuncionarioDao {
             }
         }
     }
+    
+    //Altera informações de um funcionário
     public boolean alterarFuncionario(Funcionario funcionario) {
         String sql = "UPDATE Funcionarios SET CARGOS_ID=?,UNIDADES_ID=?, NOME=?"
                 + "WHERE ID = ?";
@@ -52,8 +53,8 @@ public class FuncionarioDao {
 
         try {
             pst = new Conexao().prepararStatement(sql);
-//            pst.setInt(1, funcionario.getCargo_id());
-//            pst.setInt(2, funcionario.getUnidades_id());
+            pst.setInt(1, funcionario.getCargo().getId());
+            pst.setInt(2, funcionario.getUnidade().getId());
             pst.setString(3, funcionario.getNome());
             pst.setInt(4, funcionario.getId());
             
@@ -73,7 +74,7 @@ public class FuncionarioDao {
         return false;
     }
     
-    //Método que lista funcionarios com um nome passado por parâmetro
+    //Lista funcionarios com um nome passado por parâmetro
     public ArrayList<Funcionario> consultarFuncionarioPorNome(String nomeFuncionario) {
         ArrayList<Funcionario> tempFuncionarios = new ArrayList<>();
         CargoDao cargoDao = new CargoDao();
