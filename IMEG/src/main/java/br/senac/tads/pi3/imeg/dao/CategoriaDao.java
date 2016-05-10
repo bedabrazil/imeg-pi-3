@@ -39,7 +39,7 @@ public class CategoriaDao {
             try {
                 pst.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;

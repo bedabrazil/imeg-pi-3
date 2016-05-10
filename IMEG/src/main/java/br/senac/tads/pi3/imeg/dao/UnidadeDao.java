@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Mssouza
  */
-public class UnidadeDAO {
+public class UnidadeDao {
     
     private PreparedStatement pst;
 

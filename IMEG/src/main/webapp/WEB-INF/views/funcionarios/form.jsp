@@ -17,7 +17,7 @@
         </div>
         <div class="col-lg-3 form-space">
             <label for="">Unidades </label>
-            <select name="cargo-id" class="form-control" >
+            <select name="unidade-id" class="form-control" >
                 <option value="">Selecione um Unidade</option>
                 <option value="1">Unidade 1</option>
                 <option value="2">Unidade 2</option>

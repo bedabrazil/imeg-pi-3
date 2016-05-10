@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author matheus.ssouza1
  */
-public class ProdutoDAO {
+public class ProdutoDao {
 
     private PreparedStatement pst;
 
@@ -44,7 +44,7 @@ public class ProdutoDAO {
             try {
                 pst.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
@@ -78,7 +78,7 @@ public class ProdutoDAO {
             try {
                 pst.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
@@ -109,7 +109,7 @@ public class ProdutoDAO {
             try {
                 pst.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
