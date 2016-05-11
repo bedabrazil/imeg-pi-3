@@ -7,7 +7,7 @@
         <div id="warning" class="col-lg-12 <c:choose><c:when test="${sessionScope.error}">alert alert-danger</c:when><c:when test="${sessionScope.success}">alert alert-success</c:when></c:choose>"><c:choose><c:when test="${sessionScope.error}">${msg_error}</c:when><c:when test="${sessionScope.success}">${msg_success}</c:when></c:choose></div>
         <div class="col-lg-6 form-space">
             <label for="">Nome da Categoria</label>
-
+            
             <input class="form-control" type="text" value="<c:if test="${categoria != null }">${categoria.getNome()}</c:if>" id="nome_categoria" name="nome_categoria"/>
         </div>
         <div class="col-lg-12 form-space">
@@ -15,7 +15,7 @@
             <input type="checkbox" id="ativo_categoria" class="" <c:if test="${categoria.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
         </div>
         <div class="col-lg-12 form-space">
-                        <button class="btn btn-button" type="button" id="commit-categoria"><c:choose><c:when test="${categoria != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
+                        <button class="btn btn-button" type="submit" id="commit-categoria"><c:choose><c:when test="${categoria != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
         </div>
     </fieldset>
 </form>

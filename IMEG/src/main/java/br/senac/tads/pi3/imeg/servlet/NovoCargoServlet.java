@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author marcio.soares <marcio@mail.com>
  */
-public class CargosServlet extends HttpServlet {
+public class NovoCargoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +47,7 @@ public class CargosServlet extends HttpServlet {
             }
         }
 
-        request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/cargos/novo.jsp").forward(request, response);
     }
 
     /**

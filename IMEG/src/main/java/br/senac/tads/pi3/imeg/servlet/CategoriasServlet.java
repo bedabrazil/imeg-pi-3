@@ -32,7 +32,6 @@ public class CategoriasServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
         ArrayList<Categoria> categorias = new CategoriaDao().listar();
         request.setAttribute("categorias", categorias);
         if (request.getQueryString() != null) {
@@ -42,6 +41,7 @@ public class CategoriasServlet extends HttpServlet {
                 request.setAttribute("categoria", categoria);
             }
         }
+        
         request.getRequestDispatcher("WEB-INF/views/categorias/index.jsp").forward(request, response);
     }
 
@@ -58,19 +58,17 @@ public class CategoriasServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        // .
         HttpSession session = request.getSession();
         String msg_error = (String) session.getAttribute("msg_error");
         String msg_success = (String) session.getAttribute("msg_success");
-
         if (msg_error != null) {
             session.removeAttribute("msg_error");
             session.removeAttribute("error");
+            response.sendRedirect("categorias");
         } else if (msg_success != null) {
             session.removeAttribute("msg_success");
             session.removeAttribute("success");
-        } else {
-            processRequest(request, response);
+            response.sendRedirect("categorias");
         }
 
     }
@@ -109,8 +107,8 @@ public class CategoriasServlet extends HttpServlet {
         String nome = request.getParameter("nome_categoria");
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         if (nome != null && nome.isEmpty()) {
-//            session.setAttribute("msg_error", "Nome não pode ser vazio.");
-//            session.setAttribute("error", true);
+            session.setAttribute("msg_error", "Nome não pode ser vazio.");
+            session.setAttribute("error", true);
             processRequest(request, response);
         } else if (cDao.incluirCategoria(new Categoria(nome, status))) {
             session.setAttribute("msg_success", "Categoria " + nome + " incluída com sucesso.");

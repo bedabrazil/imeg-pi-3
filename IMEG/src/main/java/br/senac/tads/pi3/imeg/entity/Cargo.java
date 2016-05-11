@@ -5,9 +5,6 @@
  */
 package br.senac.tads.pi3.imeg.entity;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-
 /**
  *
  * @author Eilane
@@ -19,9 +16,10 @@ public class Cargo {
     private boolean status;
     private Acesso acesso;
 
-    public Cargo(String nome, boolean status) {
+    public Cargo(String nome, boolean status, Acesso acesso) {
         this.nome = nome;
         this.status = status;
+        this.acesso = acesso;
     }
 
     public Cargo() {

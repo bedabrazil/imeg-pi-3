@@ -19,9 +19,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author marcio.soares <marcio@mail.com>
+ * @author developer
  */
-public class CargosServlet extends HttpServlet {
+public class AlterarCargoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +47,8 @@ public class CargosServlet extends HttpServlet {
             }
         }
 
-        request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/cargos/editar.jsp").forward(request, response);
+
     }
 
     /**
@@ -75,7 +76,6 @@ public class CargosServlet extends HttpServlet {
             session.removeAttribute("success");
             response.sendRedirect("cargos");
         }
-
     }
 
     /**
@@ -103,6 +103,7 @@ public class CargosServlet extends HttpServlet {
             c.setId(Integer.parseInt(request.getParameter("id_cargo")));
             c.setNome(request.getParameter("nome_cargo"));
             c.setStatus(Boolean.parseBoolean(request.getParameter("ativo")));
+            c.setAcesso(new AcessoDao().pesquisarPorId(Integer.parseInt(request.getParameter("acesso_id"))));
             if (cDao.alterar(c)) {
                 session.setAttribute("msg_success", "Cargo <strong>" + c.getNome() + "</strong> alterado com sucesso.");
                 session.setAttribute("success", true);
@@ -133,8 +134,7 @@ public class CargosServlet extends HttpServlet {
                 session.setAttribute("success", true);
                 response.sendRedirect("cargos");
             }
-        }
-
+        }        
     }
 
     /**
