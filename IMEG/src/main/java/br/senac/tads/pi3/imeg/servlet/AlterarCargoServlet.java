@@ -103,7 +103,9 @@ public class AlterarCargoServlet extends HttpServlet {
             c.setId(Integer.parseInt(request.getParameter("id_cargo")));
             c.setNome(request.getParameter("nome_cargo"));
             c.setStatus(Boolean.parseBoolean(request.getParameter("ativo")));
-            c.setAcesso(new AcessoDao().pesquisarPorId(Integer.parseInt(request.getParameter("acesso_id"))));
+            int acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
+            c.setAcesso(new AcessoDao().pesquisarPorId(acesso_id));
+            
             if (cDao.alterar(c)) {
                 session.setAttribute("msg_success", "Cargo <strong>" + c.getNome() + "</strong> alterado com sucesso.");
                 session.setAttribute("success", true);
@@ -124,17 +126,6 @@ public class AlterarCargoServlet extends HttpServlet {
             session.setAttribute("error", true);
             processRequest(request, response);
         }
-        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-        int id_acesso = Integer.parseInt(acesso_id);
-        if (!nome.isEmpty() && id_acesso > 0) {
-            Acesso acesso = new AcessoDao().pesquisarPorId(id_acesso);
-
-            if (cDao.adicionar(new Cargo(nome, status, acesso))) {
-                session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
-                session.setAttribute("success", true);
-                response.sendRedirect("cargos");
-            }
-        }        
     }
 
     /**

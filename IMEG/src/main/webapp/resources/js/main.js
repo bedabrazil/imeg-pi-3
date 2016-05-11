@@ -60,7 +60,7 @@ function fade(element) {
         element.style.opacity = opacity;
         element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
         opacity -= opacity * 0.1;
-    }, 120);
+    }, 180);
 }
 
 function unfade(element) {

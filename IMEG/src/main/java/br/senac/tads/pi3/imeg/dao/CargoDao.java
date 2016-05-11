@@ -50,8 +50,8 @@ public class CargoDao {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, cargo.getNome());
             pst.setBoolean(2, cargo.isStatus());
-            pst.setInt(3, cargo.getId());
-            pst.setInt(4, cargo.getAcesso().getId());
+            pst.setInt(3, cargo.getAcesso().getId());
+            pst.setInt(4, cargo.getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -119,5 +119,24 @@ public class CargoDao {
         }
         return null;
     }    
-    
+    public boolean remover(Cargo cargo){
+        String sql = "DELETE FROM CARGOS WHERE ID=?";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, cargo.getId());
+            if(pst.executeUpdate() > 0){
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CargoDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        
+        return false;
+    }
 }
