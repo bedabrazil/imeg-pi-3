@@ -17,7 +17,19 @@ public class Funcionario {
     private String nome;
     private String email;
     private char[] senhaHash;
+
+    public Funcionario() {
+    }
+
+        
+    public Funcionario(String nome, Cargo cargo, Unidade unidade, String email) {
+        this.nome = nome;
+        this.cargo = cargo;
+        this.unidade = unidade;
+        this.email = email;
+    }
     
+        
     public int getId() {
         return id;
     }
