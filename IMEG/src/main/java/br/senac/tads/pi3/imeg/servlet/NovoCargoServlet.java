@@ -38,14 +38,6 @@ public class NovoCargoServlet extends HttpServlet {
         request.setAttribute("cargos", cargos);
         ArrayList<Acesso> acessos = new AcessoDao().listar();
         request.setAttribute("acessos", acessos);
-        if (request.getQueryString() != null) {
-            if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                Cargo cargo = new CargoDao().pesquisarPorId(id);
-                request.setAttribute("cargo", cargo);
-
-            }
-        }
 
         request.getRequestDispatcher("WEB-INF/views/cargos/novo.jsp").forward(request, response);
     }
@@ -61,20 +53,14 @@ public class NovoCargoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
 
         HttpSession session = request.getSession();
-        String msg_error = (String) session.getAttribute("msg_error");
         String msg_success = (String) session.getAttribute("msg_success");
-        if (msg_error != null) {
-            session.removeAttribute("msg_error");
-            session.removeAttribute("error");
-            response.sendRedirect("cargos");
-        } else if (msg_success != null) {
+        if (msg_success != null) {
             session.removeAttribute("msg_success");
             session.removeAttribute("success");
-            response.sendRedirect("cargos");
         }
+        processRequest(request, response);
 
     }
 
@@ -91,44 +77,31 @@ public class NovoCargoServlet extends HttpServlet {
             throws ServletException, IOException {
         //inicia uma sessao
         HttpSession session = request.getSession(true);
-        session.setAttribute("error", false);
-        session.setAttribute("success", false);
-
+        ArrayList<String> mensagens = new ArrayList<>();
+        
         //instacio o DAO
         CargoDao cDao = new CargoDao();
-
-        // pega o nome do cargo do formulário
-        if (request.getParameter("id_cargo") != null) {
-            Cargo c = new Cargo();
-            c.setId(Integer.parseInt(request.getParameter("id_cargo")));
-            c.setNome(request.getParameter("nome_cargo"));
-            c.setStatus(Boolean.parseBoolean(request.getParameter("ativo")));
-            if (cDao.alterar(c)) {
-                session.setAttribute("msg_success", "Cargo <strong>" + c.getNome() + "</strong> alterado com sucesso.");
-                session.setAttribute("success", true);
-                response.sendRedirect("cargos");
-                return;
-            }
-        }
 
         String nome = request.getParameter("nome_cargo");
         String acesso_id = request.getParameter("acesso_id");
         if (nome.isEmpty()) {
-            session.setAttribute("msg_error", "Nome não pode ser vazio.");
-            session.setAttribute("error", true);
-            processRequest(request, response);
+            request.setAttribute("error", true);
+            mensagens.add("Nome não pode ser vazio.");
         }
         if (acesso_id.equals("0")) {
-            session.setAttribute("msg_error", "Selecione um Tipo de Permissão.");
-            session.setAttribute("error", true);
+            mensagens.add("Selecione um Tipo de Permissão.");
+            request.setAttribute("error", true);
+        }
+        if(mensagens.size()> 0){
+            request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
         }
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         int id_acesso = Integer.parseInt(acesso_id);
         if (!nome.isEmpty() && id_acesso > 0) {
             Acesso acesso = new AcessoDao().pesquisarPorId(id_acesso);
-
-            if (cDao.adicionar(new Cargo(nome, status, acesso))) {
+            Cargo cargo = new Cargo(nome, status, acesso);
+            if (cDao.adicionar(cargo)) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect("cargos");

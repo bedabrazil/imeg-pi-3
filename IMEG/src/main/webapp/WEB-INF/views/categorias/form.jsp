@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form action="categorias" method="post" class="call">
     <c:if test="${categoria != null}">
-    <input type="hidden" name="id_categoria" value="${categoria.getId()}">
+    <input type="hidden" name="id_categoria" value="${categoria.id}">
     </c:if>
     <fieldset class="well">
         <div id="warning" class="col-lg-12 <c:choose><c:when test="${sessionScope.error}">alert alert-danger</c:when><c:when test="${sessionScope.success}">alert alert-success</c:when></c:choose>"><c:choose><c:when test="${sessionScope.error}">${msg_error}</c:when><c:when test="${sessionScope.success}">${msg_success}</c:when></c:choose></div>

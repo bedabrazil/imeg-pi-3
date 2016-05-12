@@ -29,7 +29,7 @@ window.addEventListener('load', function(){
     // 	    	
     // }
     if(document.querySelector('#warning') && (document.querySelector('#warning').classList.contains('alert-success') || document.querySelector('#warning').classList.contains('alert-danger'))){
-    	fade(document.querySelector('#warning'));
+    	// fade(document.querySelector('#warning'));
     }
 
 });
@@ -60,7 +60,7 @@ function fade(element) {
         element.style.opacity = opacity;
         element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
         opacity -= opacity * 0.1;
-    }, 180);
+    }, 1200);
 }
 
 function unfade(element) {
