@@ -24,7 +24,7 @@ public class ProdutoDao {
     public boolean cadastrarProduto(Produto produto) {
 
         String sql = "INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO)"
-                + "VALUES (?,?,?,?,?,?,?);";
+                + "VALUES (?,?,?,?,?,?,?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, produto.getCategoria().getId());

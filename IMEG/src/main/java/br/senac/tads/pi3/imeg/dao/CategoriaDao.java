@@ -45,31 +45,32 @@ public class CategoriaDao {
         return false;
     }
 
-    public Categoria editarCategoria(int id){
+    public Categoria editarCategoria(int id) {
         String sql = "SELECT CATEGORIAS.* FROM CATEGORIAS WHERE ID=?";
-        try{
+        try {
             Categoria categoria = null;
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, id);
             ResultSet res = pst.executeQuery();
-            if(res.next()){
+            if (res.next()) {
                 categoria = new Categoria();
                 categoria.setId(res.getInt("ID"));
                 categoria.setNome(res.getString("NOME"));
                 categoria.setStatus(res.getBoolean("STATUS"));
             }
             return categoria;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("ERRO DE SQL: " + e.getMessage());
-        }finally{
+        } finally {
             try {
                 pst.close();
             } catch (SQLException ex) {
                 Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            }
         }
         return null;
     }
+
     public ArrayList<Categoria> consultarCategoria(Categoria categoria) {
 
         String sql = "SELECT * FROM CATEGORIAS WHERE NOME LIKE '%" + categoria.getNome() + "%';";
@@ -108,7 +109,7 @@ public class CategoriaDao {
             pst.setString(1, categoria.getNome());
             pst.setBoolean(2, categoria.isStatus());
             pst.setInt(3, categoria.getId());
-            if(pst.executeUpdate() > 0){
+            if (pst.executeUpdate() > 0) {
                 return true;
             }
 
@@ -151,6 +152,33 @@ public class CategoriaDao {
             }
         }
         return categorias;
+    }
+
+    public Categoria pesquisarPorId(int id) {
+        String sql = "SELECT CATEGORIAS.* FROM CATEGORIAS where ID=?";
+        try {
+
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, id);
+            ResultSet res = pst.executeQuery();
+            Categoria categoria = new Categoria();
+            if (res.next()) {
+
+                categoria.setId(res.getInt("ID"));
+                categoria.setNome(res.getString("NOME"));
+                categoria.setStatus(res.getBoolean("STATUS"));
+            }
+            return categoria;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
     }
 
 }
