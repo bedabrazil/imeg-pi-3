@@ -5,6 +5,10 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.CategoriaDao;
+import br.senac.tads.pi3.imeg.dao.ProdutoDao;
+import br.senac.tads.pi3.imeg.entity.Categoria;
+import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,8 +23,9 @@ import javax.servlet.http.HttpSession;
  * @author marcio.soares <marcio@mail.com>
  */
 
-@WebServlet
+
 @MultipartConfig
+
 public class ProdutosServlet extends HttpServlet {
 
     /**
@@ -84,6 +89,24 @@ public class ProdutosServlet extends HttpServlet {
                 + "<br>Saldo do Produto: " + saldoProduto
                 + "<br>Categoria do Produto:" + categoriaId);
         response.sendRedirect("sucesso");
+        
+        Produto produto = new Produto();
+        
+        
+  
+        produto.setNome(nomeProduto);        
+        produto.setPrecoCusto(Integer.parseInt(precoCustoProduto));
+        produto.setPrecoVenda(Integer.parseInt(precoVendaProduto));
+        produto.setQtdeMin(Integer.parseInt(qtdMinProduto));
+        produto.setQtdeMax(Integer.parseInt(qtdMaxProduto));
+        produto.setSaldo(Integer.parseInt(saldoProduto));
+        produto.setCategoria(new CategoriaDao().pesquisarPorId(Integer.parseInt(categoriaId)));
+      //categoria.setId(Integer.parseInt(categoriaId));
+        
+      produto.setCategoria(produto.getCategoria());
+        ProdutoDao pDao = new ProdutoDao();
+        pDao.cadastrarProduto(produto);
+
     }
 
     /**
