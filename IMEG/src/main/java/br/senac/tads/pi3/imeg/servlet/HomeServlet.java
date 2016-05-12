@@ -29,8 +29,6 @@ public class HomeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Date d = new Date();
-
         request.getRequestDispatcher("WEB-INF/views/home/index.jsp").forward(request, response);
     }
 

@@ -96,7 +96,7 @@ public class AcessoDao {
     }
 
     public Acesso pesquisarPorNome(Acesso access) {
-        String sql = "SELECT  FROM ACESSOS WHERE NOME LIKE '%?%'";
+        String sql = "SELECT ACESSOS.* FROM ACESSOS WHERE NOME=?";
         try {
             Acesso acesso = null;
             pst = new Conexao().prepararStatement(sql);

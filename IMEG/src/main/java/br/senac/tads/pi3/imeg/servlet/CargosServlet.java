@@ -43,9 +43,10 @@ public class CargosServlet extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Cargo cargo = new CargoDao().pesquisarPorId(id);
                 request.setAttribute("cargo", cargo);
-                
+
             }
         }
+
         request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
     }
 
@@ -65,17 +66,16 @@ public class CargosServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String msg_error = (String) session.getAttribute("msg_error");
         String msg_success = (String) session.getAttribute("msg_success");
-        boolean error = (boolean) session.getAttribute("error");
-        boolean success = (boolean) session.getAttribute("success");
         if (msg_error != null) {
             session.removeAttribute("msg_error");
             session.removeAttribute("error");
+            response.sendRedirect("cargos");
         } else if (msg_success != null) {
             session.removeAttribute("msg_success");
             session.removeAttribute("success");
-        } else {
-            response.sendRedirect("home");
+            response.sendRedirect("cargos");
         }
+
     }
 
     /**
@@ -93,10 +93,10 @@ public class CargosServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.setAttribute("error", false);
         session.setAttribute("success", false);
-        
+
         //instacio o DAO
         CargoDao cDao = new CargoDao();
-        
+
         // pega o nome do cargo do formulário
         if (request.getParameter("id_cargo") != null) {
             Cargo c = new Cargo();
@@ -110,20 +110,31 @@ public class CargosServlet extends HttpServlet {
                 return;
             }
         }
+
         String nome = request.getParameter("nome_cargo");
-        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-        //seta uma  erro false
+        String acesso_id = request.getParameter("acesso_id");
         if (nome.isEmpty()) {
             session.setAttribute("msg_error", "Nome não pode ser vazio.");
             session.setAttribute("error", true);
-            request.getRequestDispatcher("/WEB-INF/views/cargos/index.jsp").forward(request, response);
-        } else {
-            if (cDao.adicionar(new Cargo(nome, status))) {
+            processRequest(request, response);
+        }
+        if (acesso_id.equals("0")) {
+            session.setAttribute("msg_error", "Selecione um Tipo de Permissão.");
+            session.setAttribute("error", true);
+            processRequest(request, response);
+        }
+        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
+        int id_acesso = Integer.parseInt(acesso_id);
+        if (!nome.isEmpty() && id_acesso > 0) {
+            Acesso acesso = new AcessoDao().pesquisarPorId(id_acesso);
+
+            if (cDao.adicionar(new Cargo(nome, status, acesso))) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect("cargos");
             }
         }
+
     }
 
     /**
