@@ -15,6 +15,16 @@ public class Unidade {
     private Estado estado;
     private String nome;
 
+    public Unidade(){
+    }
+    
+    public Unidade(String nome, Estado estado, int id) {
+        this.nome = nome;
+        this.estado = estado;
+        this.id = id;
+        
+    }
+
     public int getId() {
         return id;
     }
