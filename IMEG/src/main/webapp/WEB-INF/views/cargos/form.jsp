@@ -22,7 +22,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>            
                 
-                <p>Existem ${mensagens.size()} erro(s) a ser(em) corrigidos.</p>
+                <p>Existem <strong>${mensagens.size()}</strong> erro(s) a ser(em) corrigidos.</p>
             </c:if>
             <div class="col-lg-12">
                 <p></p>

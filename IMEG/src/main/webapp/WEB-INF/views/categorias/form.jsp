@@ -1,10 +1,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form action="categorias" method="post" class="call">
+<c:choose>
+    <c:when test="${categoria == null}"><c:set var="action" value="novacategoria"/></c:when>
+    <c:otherwise><c:set var="action" value="alterarcategoria?id=${categoria.id}"/></c:otherwise>
+</c:choose>    
+<c:choose>
+    <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
+</c:choose>    
+
+
+
+<form action="${action}" method="post" class="call">
     <c:if test="${categoria != null}">
     <input type="hidden" name="id_categoria" value="${categoria.id}">
     </c:if>
     <fieldset class="well">
-        <div id="warning" class="col-lg-12 <c:choose><c:when test="${sessionScope.error}">alert alert-danger</c:when><c:when test="${sessionScope.success}">alert alert-success</c:when></c:choose>"><c:choose><c:when test="${sessionScope.error}">${msg_error}</c:when><c:when test="${sessionScope.success}">${msg_success}</c:when></c:choose></div>
+        <div id="warning" class="col-lg-12 ${alert}">
+            <c:if test="${not empty mensagens}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>            
+                
+                <p>Existem <strong>${mensagens.size()}</strong> erro(s) a ser(em) corrigidos.</p>
+            </c:if>
+            <div class="col-lg-12">
+                <p></p>
+                <ul>
+                    <c:forEach items="${mensagens}" var="msg">
+                        <li>${msg}</li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>        
         <div class="col-lg-6 form-space">
             <label for="">Nome da Categoria</label>
             
@@ -15,7 +41,8 @@
             <input type="checkbox" id="ativo_categoria" class="" <c:if test="${categoria.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
         </div>
         <div class="col-lg-12 form-space">
-                        <button class="btn btn-button" type="submit" id="commit-categoria"><c:choose><c:when test="${categoria != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
-        </div>
+            <a href="<c:url value="categorias"></c:url>" class="btn btn-default">Voltar</a>            
+            <button class="btn btn-default" type="submit" id="commit-categoria"><c:choose><c:when test="${categoria != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
+        </div>        
     </fieldset>
 </form>
