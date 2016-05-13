@@ -1,8 +1,11 @@
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <form enctype="application/x-www-form-urlencoded" action="produtos" method="post">
     <fieldset class="well"> 
         <div class="col-lg-6 form-space">
             <label for="">Nome do Produto</label>
-            <input class="form-control" type="text" id="nome_produto" name="nome_produto"/>
+            <input class="form-control" type="text" id="nome_produto" name="nome_produto" />
         </div>
       
         <div class="col-lg-3 form-space">
@@ -26,8 +29,9 @@
             </select>
         </div>
         <div class="col-lg-12 form-space">
+            
             <button class="btn btn-button ajax" type="submit" id="commit_produto">Enviar</button>
         </div>
     </fieldset>
-    
+   
 </form>
