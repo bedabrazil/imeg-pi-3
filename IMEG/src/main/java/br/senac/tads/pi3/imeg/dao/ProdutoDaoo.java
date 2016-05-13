@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author matheus.ssouza1
  */
-public class ProdutoDao {
+public class ProdutoDaoo {
 
     private PreparedStatement pst;
 
@@ -112,3 +112,4 @@ public class ProdutoDao {
         return false;
     }
 }
+

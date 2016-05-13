@@ -4,14 +4,7 @@
             <label for="">Nome do Produto</label>
             <input class="form-control" type="text" id="nome_produto" name="nome_produto"/>
         </div>
-        <div class="col-lg-3 form-space">
-            <label for="">Preço de Custo</label>
-            <input class="form-control" type="text" id="preco_custo_produto" name="preco_custo_produto"/>
-        </div>
-        <div class="col-lg-3 form-space">
-            <label for="">Preço de Venda</label>
-            <input class="form-control" type="text" id="preco_venda_produto" name="preco_venda_produto"/>
-        </div>
+      
         <div class="col-lg-3 form-space">
             <label for="">Quantidade Mínima</label>
             <input class="form-control" type="text" id="qtd_min_produto" name="qtd_min_produto"/>
@@ -20,10 +13,7 @@
             <label for="">Quantidade Máxima</label>
             <input class="form-control" type="text" id="qtd_max_produto" name="qtd_max_produto"/>
         </div>
-        <div class="col-lg-3 form-space">
-            <label for="">Saldo </label>
-            <input class="form-control" type="text" id="saldo_produto" name="saldo_produto"/>
-        </div>
+       
         <div class="col-lg-3 form-space">
             <label for="">Categoria </label>
             <select name="categoria_id" class="form-control" >
