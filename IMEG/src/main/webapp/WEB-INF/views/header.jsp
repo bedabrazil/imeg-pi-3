@@ -12,7 +12,7 @@
             <meta charset="utf-8"/>
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
             <link rel='shortcut icon' type='image/x-icon' href="<c:url value='favicon.ico'></c:url>" />
-            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
             <link rel="apple-touch-icon" href="<c:url value='apple-touch-icon.png'></c:url>"/>
             <link rel="stylesheet" href="<c:url value='resources/css/bootstrap.min.css'></c:url>"/>
             <link rel="stylesheet" href="<c:url value='resources/css/main.css'></c:url>"/>
