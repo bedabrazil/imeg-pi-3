@@ -11,7 +11,7 @@
 
 <form action="${action}" method="post" class="call">
     <c:if test="${categoria != null}">
-    <input type="hidden" name="id_categoria" value="${categoria.id}">
+        <input type="hidden" name="id_categoria" value="${categoria.id}">
     </c:if>
     <fieldset class="well">
         <div id="warning" class="col-lg-12 ${alert}">
