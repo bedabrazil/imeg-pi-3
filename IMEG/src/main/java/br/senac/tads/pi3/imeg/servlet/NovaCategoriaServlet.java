@@ -5,10 +5,8 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.AcessoDao;
-import br.senac.tads.pi3.imeg.dao.CargoDao;
-import br.senac.tads.pi3.imeg.entity.Acesso;
-import br.senac.tads.pi3.imeg.entity.Cargo;
+import br.senac.tads.pi3.imeg.dao.CategoriaDao;
+import br.senac.tads.pi3.imeg.entity.Categoria;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -19,9 +17,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author marcio.soares <marcio@mail.com>
+ * @author Márcio Soares <marcio@mail.com>
  */
-public class NovoCargoServlet extends HttpServlet {
+public class NovaCategoriaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,10 +32,11 @@ public class NovoCargoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Acesso> acessos = new AcessoDao().listar();
-        request.setAttribute("acessos", acessos);
+        ArrayList<Categoria> categorias = new CategoriaDao().listar();
+        request.setAttribute("categorias", categorias);
 
-        request.getRequestDispatcher("WEB-INF/views/cargos/novo.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/views/categorias/novo.jsp").forward(request, response);
+
     }
 
     /**
@@ -52,7 +51,6 @@ public class NovoCargoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**
@@ -69,35 +67,26 @@ public class NovoCargoServlet extends HttpServlet {
         //inicia uma sessao
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-        
-        //instacio o DAO
-        CargoDao cDao = new CargoDao();
 
-        String nome = request.getParameter("nome_cargo");
-        String acesso_id = request.getParameter("acesso_id");
+        String nome = request.getParameter("nome_categoria");
         if (nome.isEmpty()) {
             request.setAttribute("error", true);
             mensagens.add("Nome não pode ser vazio.");
         }
-        if (acesso_id.equals("0")) {
-            mensagens.add("Selecione um Tipo de Permissão.");
-            request.setAttribute("error", true);
-        }
-        if(mensagens.size()> 0){
+        if (mensagens.size() > 0) {
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
+            return;
         }
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-        int id_acesso = Integer.parseInt(acesso_id);
-        if (!nome.isEmpty() && id_acesso > 0) {
-            Acesso acesso = new AcessoDao().pesquisarPorId(id_acesso);
-            Cargo cargo = new Cargo(nome, status, acesso);
-            if (cDao.adicionar(cargo)) {
-                session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
+        if (!nome.isEmpty()) {
+            Categoria categoria = new Categoria(nome, status);
+            if (new CategoriaDao().adicionar(categoria)) {
+                session.setAttribute("msg_success", "Categoria " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
-                response.sendRedirect("cargos");
+                response.sendRedirect("categorias");
             }
         }
-
     }
+
 }

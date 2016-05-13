@@ -21,7 +21,7 @@ public class CategoriaDao {
 
     private PreparedStatement pst;
 
-    public boolean incluirCategoria(Categoria categoria) {
+    public boolean adicionar(Categoria categoria) {
 
         String sql = "INSERT INTO CATEGORIAS(NOME, STATUS) VALUES(?,?)";
 
@@ -45,7 +45,7 @@ public class CategoriaDao {
         return false;
     }
 
-    public Categoria editarCategoria(int id) {
+    public Categoria alterar(int id) {
         String sql = "SELECT CATEGORIAS.* FROM CATEGORIAS WHERE ID=?";
         try {
             Categoria categoria = null;
@@ -71,7 +71,7 @@ public class CategoriaDao {
         return null;
     }
 
-    public ArrayList<Categoria> consultarCategoria(Categoria categoria) {
+    public ArrayList<Categoria> consultarPorNome(Categoria categoria) {
 
         String sql = "SELECT * FROM CATEGORIAS WHERE NOME LIKE '%" + categoria.getNome() + "%';";
         ArrayList<Categoria> listaCategoria = new ArrayList<>();
@@ -101,7 +101,7 @@ public class CategoriaDao {
         return null;
     }
 
-    public boolean alterarCategoria(Categoria categoria) {
+    public boolean alterar(Categoria categoria) {
         String sql = "UPDAtE CATEGORIAS SET NOME=?, STATUS=? WHERE ID =?";
 
         try {
@@ -124,7 +124,7 @@ public class CategoriaDao {
         return false;
     }
 
-    public void removerCategoria(Categoria categoria) {
+    public void remover(Categoria categoria) {
 
     }
 

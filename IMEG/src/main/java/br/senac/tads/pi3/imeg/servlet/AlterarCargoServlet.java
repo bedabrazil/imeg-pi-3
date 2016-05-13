@@ -34,8 +34,6 @@ public class AlterarCargoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Cargo> cargos = new CargoDao().listar();
-        request.setAttribute("cargos", cargos);
         ArrayList<Acesso> acessos = new AcessoDao().listar();
         request.setAttribute("acessos", acessos);
         if (request.getQueryString() != null) {
@@ -44,8 +42,10 @@ public class AlterarCargoServlet extends HttpServlet {
                 Cargo cargo = new CargoDao().pesquisarPorId(id);
                 request.setAttribute("cargo", cargo);
             }
+            request.getRequestDispatcher("WEB-INF/views/cargos/editar.jsp").forward(request, response);
+        }else{
+            response.sendRedirect("cargos");
         }
-        request.getRequestDispatcher("WEB-INF/views/cargos/editar.jsp").forward(request, response);
 
     }
 
@@ -61,15 +61,7 @@ public class AlterarCargoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        HttpSession session = request.getSession(true);
-        String msg_success = (String) session.getAttribute("msg_success");
-        if (msg_success != null) {
-            session.removeAttribute("success");
-            session.removeAttribute("msg_success");
-        }
 
-//        response.sendRedirect("cargos");
     }
 
     /**
@@ -88,7 +80,6 @@ public class AlterarCargoServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         session.setAttribute("success", false);
         //instacio o DAO
-        CargoDao cDao = new CargoDao();
         String nome = request.getParameter("nome_cargo");
         int acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
 
@@ -115,7 +106,7 @@ public class AlterarCargoServlet extends HttpServlet {
             acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
             cargo.setAcesso(new AcessoDao().pesquisarPorId(acesso_id));
 
-            if (cDao.alterar(cargo)) {
+            if (new CargoDao().alterar(cargo)) {
                 mensagens.clear();
                 session.setAttribute("success", true);
                 session.setAttribute("msg_success", "Cargo <strong>" + cargo.getNome() + "</strong> alterado com sucesso.");

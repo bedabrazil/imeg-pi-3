@@ -8,7 +8,14 @@
     <h3>Cargos</h3>
     <a href="<c:url value="novocargo"></c:url>">Novo Cargo</a>
     <br>
-    <div id="warning" class="col-lg-12 ${alert}">${mensagem}</div>
+    <div id="warning" class="col-lg-12 ${alert}">
+        <c:if test="${sessionScope.success}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </c:if>
+        ${mensagem}
+    </div>
 </div>
 <div class="col-lg-12 table-reposnsive">
     <table class="table table-hover">

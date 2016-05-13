@@ -39,7 +39,7 @@ public class CategoriasServlet extends HttpServlet {
         if (request.getQueryString() != null) {
             if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(request.getParameter("id"));
-                Categoria categoria = new CategoriaDao().editarCategoria(id);
+                Categoria categoria = new CategoriaDao().alterar(id);
                 request.setAttribute("categoria", categoria);
             }
         }
@@ -98,7 +98,7 @@ public class CategoriasServlet extends HttpServlet {
             c.setId(Integer.parseInt(request.getParameter("id_categoria")));
             c.setNome(request.getParameter("nome_categoria"));
             c.setStatus(Boolean.parseBoolean(request.getParameter("ativo")));
-            if (cDao.alterarCategoria(c)) {
+            if (cDao.alterar(c)) {
                 session.setAttribute("msg_success", "Categoria " + c.getNome() + " alterada com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect("categorias");
@@ -112,7 +112,7 @@ public class CategoriasServlet extends HttpServlet {
             session.setAttribute("msg_error", "Nome não pode ser vazio.");
             session.setAttribute("error", true);
             processRequest(request, response);
-        } else if (cDao.incluirCategoria(new Categoria(nome, status))) {
+        } else if (cDao.adicionar(new Categoria(nome, status))) {
             session.setAttribute("msg_success", "Categoria " + nome + " incluída com sucesso.");
             session.setAttribute("success", true);
             response.sendRedirect("categorias");

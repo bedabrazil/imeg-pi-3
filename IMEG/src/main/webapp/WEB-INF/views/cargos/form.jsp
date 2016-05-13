@@ -14,9 +14,14 @@
     <c:if test="${cargo != null}">
     <input type="hidden" name="id_cargo" value="${cargo.id}">
     </c:if>
+
     <fieldset class="well">
         <div id="warning" class="col-lg-12 ${alert}">
             <c:if test="${not empty mensagens}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>            
+                
                 <p>Existem ${mensagens.size()} erro(s) a ser(em) corrigidos.</p>
             </c:if>
             <div class="col-lg-12">

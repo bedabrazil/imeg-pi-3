@@ -22,31 +22,6 @@ import javax.servlet.http.HttpSession;
 public class CargosServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        ArrayList<Cargo> cargos = new CargoDao().listar();
-        request.setAttribute("cargos", cargos);
-        request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
-        HttpSession session = request.getSession();
-
-        String msg_success = (String) session.getAttribute("msg_success");
-
-        if (msg_success != null) {
-            session.removeAttribute("msg_success");
-            session.removeAttribute("success");
-        }
-
-    }
-
-    /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -57,22 +32,16 @@ public class CargosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ArrayList<Cargo> cargos = new CargoDao().listar();
+        request.setAttribute("cargos", cargos);
+        request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
 
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String msg_success = (String) session.getAttribute("msg_success");
 
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+        if (msg_success != null) {
+            session.removeAttribute("msg_success");
+            session.removeAttribute("success");
+        }
     }
 }

@@ -5,7 +5,8 @@
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
 
-<%-- LISTAGEM DAS CATEGORIAS --%>
-<jsp:include page="listagem.jsp"/>
+<%-- FORMULARIO DE CATEGORIAS --%>
+<jsp:include page="form.jsp" />
+
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />
