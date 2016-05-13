@@ -1,6 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:if test="${categorias.size() > 0}">
+<c:if test="${not empty categorias}">
+    <c:choose>
+        <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
+    </c:choose>
+<div class="col-lg-12">
+    <h3>Categorias</h3>
+    <a href="<c:url value="novacategoria"></c:url>">Nova Categoria</a>
+    <br>
+    <div id="warning" class="col-lg-12 ${alert}">
+        <c:if test="${sessionScope.success}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </c:if>
+        ${mensagem}
+    </div>
+</div>    
 <div class="col-lg-12 table-reposnsive">
     <table class="table table-hover">
         <thead>
@@ -21,7 +36,7 @@
                         </c:otherwise></c:choose>
                 </td>
                 <td>${categoria.getNome()}</td>
-                <td><a href="<c:url value="?id=${categoria.getId()}"></c:url>">Editar</a></td>
+                <td><a href="<c:url value="alterarcategoria?id=${categoria.getId()}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>
         </tbody>

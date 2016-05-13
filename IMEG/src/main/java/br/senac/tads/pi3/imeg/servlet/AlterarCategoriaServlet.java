@@ -87,10 +87,10 @@ public class AlterarCategoriaServlet extends HttpServlet {
             return;
         }
         // pega o nome do cargo do formulário
-        if (request.getParameter("id_cargo") != null) {
+        if (request.getParameter("id_categoria") != null) {
             Categoria categoria = new Categoria();
-            categoria.setId(Integer.parseInt(request.getParameter("id_cargo")));
-            categoria.setNome(request.getParameter("nome_cargo"));
+            categoria.setId(Integer.parseInt(request.getParameter("id_categoria")));
+            categoria.setNome(request.getParameter("nome_categoria"));
             categoria.setStatus(Boolean.parseBoolean(request.getParameter("ativo")));
 
             if (new CategoriaDao().alterar(categoria)) {
