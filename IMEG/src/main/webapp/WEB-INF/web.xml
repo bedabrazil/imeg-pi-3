@@ -44,6 +44,10 @@
         <servlet-name>AlterarCategoriaServlet</servlet-name>
         <servlet-class>br.senac.tads.pi3.imeg.servlet.AlterarCategoriaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AlterarProduto</servlet-name>
+        <servlet-class>br.senac.tads.pi3.imeg.servlet.AlterarProduto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>AlterarCategoriaServlet</servlet-name>
         <url-pattern>/alterarcategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarProduto</servlet-name>
+        <url-pattern>/AlterarProduto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

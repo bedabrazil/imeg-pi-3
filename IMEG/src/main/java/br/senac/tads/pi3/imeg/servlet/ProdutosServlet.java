@@ -6,7 +6,7 @@
 package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.CategoriaDao;
-import br.senac.tads.pi3.imeg.dao.ProdutoDaoo;
+import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
@@ -74,25 +74,22 @@ public class ProdutosServlet extends HttpServlet {
         String path = request.getPathInfo();
 
         String nomeProduto = request.getParameter("nome_produto");
-        String precoCustoProduto = request.getParameter("preco_custo_produto");
-        String precoVendaProduto = request.getParameter("preco_venda_produto");
         String qtdMinProduto = request.getParameter("qtd_min_produto");
         String qtdMaxProduto = request.getParameter("qtd_max_produto");
-        String saldoProduto = request.getParameter("saldo_produto");
         String categoriaId = request.getParameter("categoria_id");
 
         HttpSession session = request.getSession(true);
         session.setAttribute("msg", "Seu Produto:<br> Nome: " + nomeProduto
-                + "<br>Preço de Custo: " + precoCustoProduto
-                + "<br>Preço de Venda: " + precoVendaProduto
+                //+ "<br>Preço de Custo: " + precoCustoProduto
+                //+ "<br>Preço de Venda: " + precoVendaProduto
                 + "<br>Quantidade Mínima: " + qtdMinProduto
                 + "<br>Quantidade Máxima: " + qtdMaxProduto
-                + "<br>Saldo do Produto: " + saldoProduto
+                //+ "<br>Saldo do Produto: " + saldoProduto
                 + "<br>Categoria do Produto:" + categoriaId);
         response.sendRedirect("sucesso");
         
         Produto produto = new Produto();
-        ProdutoDaoo pDao = new ProdutoDaoo();
+        ProdutoDao pDao = new ProdutoDao();
         
         
   

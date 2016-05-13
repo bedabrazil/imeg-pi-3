@@ -80,6 +80,39 @@ public class ProdutoDao {
         }
         return null;
     }
+    public Produto consultarProdutoId(int id ) {
+        String sql = "SELECT  FROM Produto WHERE = LIKE '" + id + "%';";
+        
+
+        try {
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            Produto produto = new Produto();
+            if (rs.next()) {
+                
+//                produto.getCategoria().getId(rs.getInt("CATEGORIAS_ID"));
+                produto.setNome(rs.getString("nome"));
+                produto.setPrecoCusto(rs.getDouble("PRECO_CUSTO"));
+                produto.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
+                produto.setStatus(rs.getBoolean("STATUS"));
+                
+               
+
+            }
+            return produto;
+
+        } catch (SQLException ex) {
+            System.out.println("ERRO DE SQL: " + ex.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
 
     public boolean alterarProduto(int codigo, Produto produto) {
         String sql = "UPDATE Produto SET CATEGORIAS_ID=?, NOME=?, PRECO_CUSTO=?, PRECO_VENDA=?, QTDE_MIN=?, QTDE_MAX=?, SALDO=?"
@@ -112,3 +145,4 @@ public class ProdutoDao {
         return false;
     }
 }
+
