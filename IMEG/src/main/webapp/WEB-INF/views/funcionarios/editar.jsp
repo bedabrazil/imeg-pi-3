@@ -5,8 +5,8 @@
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
 
-<%-- FORMULARIO DE FUNCIONARIOS--%>
+<%-- FORMULARIO DE FUNCIONÁRIOS --%>
 <jsp:include page="form.jsp" />
 
 <%-- RODAPÉ DO HTML --%>
-<jsp:include page="../footer.jsp" />  
+<jsp:include page="../footer.jsp" />
