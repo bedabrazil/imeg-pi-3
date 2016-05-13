@@ -5,11 +5,17 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.EstadoDao;
+import br.senac.tads.pi3.imeg.dao.UnidadeDao;
+import br.senac.tads.pi3.imeg.entity.Estado;
+import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,6 +34,9 @@ public class UnidadesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ArrayList<Estado> estados = new EstadoDao().listar();
+        request.setAttribute("estados", estados);
+
         request.getRequestDispatcher("WEB-INF/views/unidades/novo.jsp").forward(request, response);
     }
 
@@ -57,6 +66,25 @@ public class UnidadesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+        String nomeUnidade = request.getParameter("nome-unidade");
+        String idCidade = request.getParameter("estado-id");
+
+        HttpSession session = request.getSession(true);
+
+        session.setAttribute("msg", "Unidade:<br> Nome:"
+                + nomeUnidade
+                + "<br>Cidade: " + idCidade);
+
+        response.sendRedirect("sucesso");
+
+        Unidade unidade = new Unidade();
+
+        unidade.setNome(idCidade);
+        unidade.setEstado(new EstadoDao().pesquisarPorId(Integer.parseInt(idCidade)));
+
+        UnidadeDao uDao = new UnidadeDao();
+        uDao.adicionar(unidade);
     }
 
     /**
