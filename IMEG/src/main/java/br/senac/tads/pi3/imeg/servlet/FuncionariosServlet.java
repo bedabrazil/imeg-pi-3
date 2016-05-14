@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
  * @author marcio.soares <marcio@mail.com>
  */
 public class FuncionariosServlet extends HttpServlet {
-<<<<<<< HEAD
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,9 +38,7 @@ public class FuncionariosServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
     }
 
-=======
-   
->>>>>>> f472fbc05fd1f7243d4a3491980fa7fc31808666
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -65,7 +62,6 @@ public class FuncionariosServlet extends HttpServlet {
             session.removeAttribute("success");
         }
     }
-<<<<<<< HEAD
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -135,6 +131,5 @@ public class FuncionariosServlet extends HttpServlet {
         return "Short description";
     }
 
-=======
->>>>>>> f472fbc05fd1f7243d4a3491980fa7fc31808666
+
 }

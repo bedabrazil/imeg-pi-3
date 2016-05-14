@@ -41,12 +41,12 @@
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
                               <ul class="dropdown-menu">
-                                <li><a href="categorias">Categorias</a></li>
-                                <li><a href="unidades">Unidades</a></li>
-                                <li><a href="produtos">Produtos</a></li>
+                                <li><a href="/categorias">Categorias</a></li>
+                                <li><a href="/unidades">Unidades</a></li>
+                                <li><a href="/produtos">Produtos</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="funcionarios">Funcionários</a></li>
-                                <li><a href="cargos">Cargos</a></li>
+                                <li><a href="<c:url value="/funcionarios"/>">Funcionários</a></li>
+                                <li><a href="<c:url value="/cargos"/>">Cargos</a></li>
                                 <li role="separator" class="divider"></li>
                               </ul>
                             </li>
