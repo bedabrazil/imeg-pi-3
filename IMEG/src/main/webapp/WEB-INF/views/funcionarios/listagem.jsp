@@ -19,8 +19,10 @@
 <div class="col-lg-12 table-reposnsive">
     <table class="table table-hover">
         <thead>
-            <th></th>
             <th>Nome</th>
+            <th>Cargo</th>
+            <th>Unidade</th>
+            <th>Email</th>
             <th>Ações</th>
         </thead>
         <tbody>
@@ -35,7 +37,11 @@
                             <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
                         </c:otherwise></c:choose>
                 </td>
+
                 <td>${funcionario.nome}</td>
+                <td>${funcionario.cargo.nome}</td>
+                <td>${funcionario.unidade.nome}</td>
+                <td>${funcionario.email}</td>
                 <td><a href="<c:url value="/funcionarios/editar?id=${funcionario.id}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>

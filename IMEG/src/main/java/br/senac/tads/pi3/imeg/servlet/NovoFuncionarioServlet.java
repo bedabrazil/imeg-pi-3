@@ -8,12 +8,19 @@ package br.senac.tads.pi3.imeg.servlet;
 import br.senac.tads.pi3.imeg.dao.AcessoDao;
 import br.senac.tads.pi3.imeg.entity.Acesso;
 import java.io.IOException;
+import br.senac.tads.pi3.imeg.dao.CargoDao;
+import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
+import br.senac.tads.pi3.imeg.dao.UnidadeDao;
+import br.senac.tads.pi3.imeg.entity.Funcionario;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +42,8 @@ public class NovoFuncionarioServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Acesso> acessos = new AcessoDao().listar();
         request.setAttribute("acessos", acessos);
+        ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
+        request.setAttribute("funcionarios", funcionarios);
         request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
     }
 
@@ -64,7 +73,47 @@ public class NovoFuncionarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+        processRequest(request, response);
+
+        //inicia uma sessao
+        HttpSession session = request.getSession(true);
+        session.setAttribute("error", false);
+        session.setAttribute("success", false);
+
+        //instacio o DAO
+        FuncionarioDao fDao = new FuncionarioDao();
+        CargoDao cDao = new CargoDao();
+        UnidadeDao uDao = new UnidadeDao();
+
+        if (request.getParameter("nome-funcionario") != null) {
+            Funcionario f = new Funcionario();
+            f.setNome(request.getParameter("nome-funcionario"));
+            if (fDao.alterar(f)) {
+                session.setAttribute("msg_success", "Funcionário " + f.getNome() + " alterado com sucesso.");
+                session.setAttribute("success", true);
+                response.sendRedirect("funcionarios");
+                return;
+            }
+        }
+
+        String nome = request.getParameter("nome-funcionario");
+        int cargo = Integer.parseInt(request.getParameter("cargo-id"));
+        int unidade = Integer.parseInt(request.getParameter("unidade-id"));
+        int acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
+        //seta uma  erro false
+        session.setAttribute("error", false);
+        if (nome != null && nome.isEmpty() && cargo <= 0 && unidade <= 0) {
+            session.setAttribute("msg_error", "Campos não prenchidos.");
+            session.setAttribute("error", true);
+            request.getRequestDispatcher("//WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
+        } else if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), new AcessoDao().pesquisarPorId(acesso_id), "TesteHardCode@imeg.com"))) {
+            session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
+            session.setAttribute("success", true);
+            response.sendRedirect("funcionarios");
+        } else {
+            session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
+            session.setAttribute("error", true);
+        }
     }
-
-
 }

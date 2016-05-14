@@ -48,7 +48,7 @@ public class ProdutoDao {
     }
 
     public ArrayList<Produto> consultarProduto(String pesquisa, String categoria ) {
-        String sql = "SELECT  FROM Produto WHERE '"+categoria+"' LIKE '" + pesquisa + "%';";
+        String sql = "SELECT  FROM Produto WHERE '"+categoria+"' LIKE '" + pesquisa + "%'";
         ArrayList<Produto> tempProduto = new ArrayList<>();
 
         try {
@@ -82,6 +82,7 @@ public class ProdutoDao {
     }
     public Produto pesquisarPorId(int id ) {
         String sql = "SELECT PRODUTOS.* FROM PRODUTOS WHERE ID=?";
+
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, id);
