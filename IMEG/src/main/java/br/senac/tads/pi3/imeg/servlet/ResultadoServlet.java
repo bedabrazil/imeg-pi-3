@@ -48,7 +48,7 @@ public class ResultadoServlet extends HttpServlet {
         if(mensagem != null){
             session.removeAttribute("msg");
             request.setAttribute("msg", mensagem);
-            request.getRequestDispatcher("/WEB-INF/views/resultado.jsp").forward(request, response);
+            request.getRequestDispatcher("//WEB-INF/views/resultado.jsp").forward(request, response);
         }else{
             response.sendRedirect("home");            
         }

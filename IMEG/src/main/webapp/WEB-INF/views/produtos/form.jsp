@@ -3,7 +3,7 @@
 
 <form enctype="application/x-www-form-urlencoded" action="produtos" method="post">
     <fieldset class="well"> 
-        <div class="col-lg-6 form-space">
+        <div class="col-lg-3 form-space">
             <label for="">Nome do Produto</label>
             <input class="form-control" type="text" id="nome_produto" name="nome_produto" />
         </div>
@@ -29,8 +29,8 @@
             </select>
         </div>
         <div class="col-lg-12 form-space">
-            
-            <button class="btn btn-button ajax" type="submit" id="commit_produto">Enviar</button>
+            <a href="<c:url value="/produtos"></c:url>" class="btn btn-default">Voltar</a>            
+            <button class="btn btn-default ajax" type="submit" id="commit_produto">Enviar</button>
         </div>
     </fieldset>
    

@@ -45,7 +45,7 @@ public class AlterarUnidadeServlet extends HttpServlet {
                 Unidade unidade = new UnidadeDao().pesquisarPorId(id);
                 request.setAttribute("unidade", unidade);
             }
-            request.getRequestDispatcher("WEB-INF/views/unidades/editar.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/unidades/editar.jsp").forward(request, response);
         } else {
             response.sendRedirect("unidade");
         }

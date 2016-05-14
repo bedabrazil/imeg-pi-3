@@ -35,7 +35,7 @@ public class FuncionariosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        request.getRequestDispatcher("WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
     }
 
     /**
@@ -112,7 +112,7 @@ public class FuncionariosServlet extends HttpServlet {
         if (nome != null && nome.isEmpty() && cargo<=0 && unidade<=0) {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
-            request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
+            request.getRequestDispatcher("//WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
         }else{
             if (fDao.incluirFuncionario(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), "TesteHardCode@imeg.com"))) {
             session.setAttribute("msg_success", "Funcionário incluído com sucesso.");

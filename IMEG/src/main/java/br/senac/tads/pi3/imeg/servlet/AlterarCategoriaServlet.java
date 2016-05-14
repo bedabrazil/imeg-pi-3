@@ -38,7 +38,7 @@ public class AlterarCategoriaServlet extends HttpServlet {
                 Categoria categoria = new CategoriaDao().pesquisarPorId(id);
                 request.setAttribute("categoria", categoria);
             }
-            request.getRequestDispatcher("WEB-INF/views/categorias/editar.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/categorias/editar.jsp").forward(request, response);
         }else{
             response.sendRedirect("categorias");
         }

@@ -37,7 +37,7 @@ public class NovoCargoServlet extends HttpServlet {
         ArrayList<Acesso> acessos = new AcessoDao().listar();
         request.setAttribute("acessos", acessos);
 
-        request.getRequestDispatcher("WEB-INF/views/cargos/novo.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/cargos/novo.jsp").forward(request, response);
     }
 
     /**
@@ -71,7 +71,6 @@ public class NovoCargoServlet extends HttpServlet {
         ArrayList<String> mensagens = new ArrayList<>();
         
         //instacio o DAO
-        CargoDao cDao = new CargoDao();
 
         String nome = request.getParameter("nome_cargo");
         String acesso_id = request.getParameter("acesso_id");
@@ -83,16 +82,17 @@ public class NovoCargoServlet extends HttpServlet {
             mensagens.add("Selecione um Tipo de Permissão.");
             request.setAttribute("error", true);
         }
-        if(mensagens.size()> 0){
+        if(mensagens.size() > 0){
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
+            return;
         }
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         int id_acesso = Integer.parseInt(acesso_id);
         if (!nome.isEmpty() && id_acesso > 0) {
             Acesso acesso = new AcessoDao().pesquisarPorId(id_acesso);
             Cargo cargo = new Cargo(nome, status, acesso);
-            if (cDao.adicionar(cargo)) {
+            if (new CargoDao().adicionar(cargo)) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect("cargos");

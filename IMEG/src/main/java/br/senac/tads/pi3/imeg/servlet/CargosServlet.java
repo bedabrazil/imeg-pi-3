@@ -34,7 +34,7 @@ public class CargosServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Cargo> cargos = new CargoDao().listar();
         request.setAttribute("cargos", cargos);
-        request.getRequestDispatcher("WEB-INF/views/cargos/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/cargos/index.jsp").forward(request, response);
 
         HttpSession session = request.getSession();
         String msg_success = (String) session.getAttribute("msg_success");

@@ -2,8 +2,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:choose>
-    <c:when test="${cargo == null}"><c:set var="action" value="novocargo"/></c:when>
-    <c:otherwise><c:set var="action" value="alterarcargo?id=${cargo.id}"/></c:otherwise>
+    <c:when test="${cargo == null}"><c:set var="action" value="novo"/></c:when>
+    <c:otherwise><c:set var="action" value="editar?id=${cargo.id}"/></c:otherwise>
 </c:choose>    
 <c:choose>
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
@@ -51,7 +51,7 @@
             <input type="checkbox" id="ativo_cargo" class="" <c:if test="${cargo.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
         </div>
         <div class="col-lg-12 form-space">
-            <a href="<c:url value="cargos"></c:url>" class="btn btn-default">Voltar</a>
+            <a href="<c:url value="/cargos"></c:url>" class="btn btn-default">Voltar</a>
             <button class="btn btn-default" type="submit" id="commit-cargo"><c:choose><c:when test="${cargo != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
         </div>
     </fieldset>

@@ -35,7 +35,7 @@ public class UnidadesServlet extends HttpServlet {
             throws ServletException, IOException {
      ArrayList<Unidade> unidades = new UnidadeDao().listar();
      request.setAttribute("unidades", unidades);
-     request.getRequestDispatcher("WEB-INF/views/unidades/index.jsp").forward(request, response);
+     request.getRequestDispatcher("/WEB-INF/views/unidades/index.jsp").forward(request, response);
     
      HttpSession session = request.getSession();
      String msg_success = (String) session.getAttribute("msg_success");

@@ -5,7 +5,7 @@
     </c:choose>
 <div class="col-lg-12">
     <h3>Categorias</h3>
-    <a href="<c:url value="novacategoria"></c:url>">Nova Categoria</a>
+    <a href="<c:url value="/categorias/novo"></c:url>">Nova Categoria</a>
     <br>
     <div id="warning" class="col-lg-12 ${alert}">
         <c:if test="${sessionScope.success}">
@@ -36,7 +36,7 @@
                         </c:otherwise></c:choose>
                 </td>
                 <td>${categoria.getNome()}</td>
-                <td><a href="<c:url value="alterarcategoria?id=${categoria.getId()}"></c:url>">Editar</a></td>
+                <td><a href="<c:url value="/categorias/editar?id=${categoria.getId()}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>
         </tbody>

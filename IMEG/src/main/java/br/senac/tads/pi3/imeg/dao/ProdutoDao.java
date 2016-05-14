@@ -21,7 +21,7 @@ public class ProdutoDao {
 
     private PreparedStatement pst;
 
-    public boolean cadastrarProduto(Produto produto) {
+    public boolean adicionar(Produto produto) {
 
         String sql = "INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX)"
                 + "VALUES (?,?,?,?)";
@@ -143,6 +143,32 @@ public class ProdutoDao {
             }
         }
         return false;
+    }
+    public ArrayList<Produto> listar(){
+        String sql = "SELECT PRODUTOS.* FROM PRODUTOS";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet res = pst.executeQuery();
+            ArrayList<Produto> produtos = new ArrayList<>();
+            while(res.next()){
+                Produto p = new Produto();
+                p.setId(res.getInt("ID"));
+                p.setNome(res.getString("NOME"));
+                p.setQtdeMax(res.getInt("QTDE_MIN"));
+                p.setQtdeMax(res.getInt("QTDE_MAX"));
+                produtos.add(p);
+            }
+            return produtos;
+        } catch (SQLException ex) {
+            System.out.println("ERROR SQL: " + ex.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 }
 
