@@ -37,7 +37,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
+        ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
         request.setAttribute("funcionarios", funcionarios);
         request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
     }
@@ -67,47 +67,55 @@ public class NovoFuncionarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-            processRequest(request, response);
 
         //inicia uma sessao
         HttpSession session = request.getSession(true);
-        session.setAttribute("error", false);
-        session.setAttribute("success", false);
+        ArrayList<String> mensagens = new ArrayList<>();
 
         //instacio o DAO
         FuncionarioDao fDao = new FuncionarioDao();
         CargoDao cDao = new CargoDao();
         UnidadeDao uDao = new UnidadeDao();
 
-        if (request.getParameter("nome-funcionario") != null) {
-            Funcionario f = new Funcionario();
-            f.setNome(request.getParameter("nome-funcionario"));
-            if (fDao.alterarFuncionario(f)) {
-                session.setAttribute("msg_success", "Funcionário " + f.getNome() + " alterado com sucesso.");
-                session.setAttribute("success", true);
-                response.sendRedirect("funcionarios");
-                return;
-            }
+        String nome = request.getParameter("nome_funcionario");
+        int cargo = Integer.parseInt(request.getParameter("cargo_id"));
+        int unidade = Integer.parseInt(request.getParameter("unidade_id"));
+        String email = request.getParameter("email_funcionario");
+
+        if (nome.isEmpty()) {
+            request.setAttribute("error", true);
+            mensagens.add("(Nome) não preenchido");
+        }
+        if (cargo == 0) {
+            mensagens.add("(Cargo) não selecionado");
+            request.setAttribute("error", true);
+        }
+        if (unidade == 0) {
+            mensagens.add("(Unidade) não selecionada");
+            request.setAttribute("error", true);
+        }
+        if (email.isEmpty()) {
+            mensagens.add("(Email) não preenchido");
+            request.setAttribute("error", true);
+        }
+        if (mensagens.size() > 0) {
+            request.setAttribute("mensagens", mensagens);
+            processRequest(request, response);
+            return;
         }
 
-        String nome = request.getParameter("nome-funcionario");
-        int cargo = Integer.parseInt(request.getParameter("cargo-id"));
-        int unidade = Integer.parseInt(request.getParameter("unidade-id"));
-        //seta uma  erro false
-        session.setAttribute("error", false);
-        if (nome != null && nome.isEmpty() && cargo <= 0 && unidade <= 0) {
+        if (!(nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty())) {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
             request.getRequestDispatcher("//WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
-        } else if (fDao.incluirFuncionario(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), "TesteHardCode@imeg.com"))) {
-            session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
-            session.setAttribute("success", true);
-            response.sendRedirect("funcionarios");
-        } else {
-            session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
-            session.setAttribute("error", true);
-        }    
+            if (fDao.incluirFuncionario(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), email))) {
+                session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
+                session.setAttribute("success", true);
+                response.sendRedirect("/funcionarios");
+            } else {
+                session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
+                session.setAttribute("error", true);
+            }
+        }
     }
 }

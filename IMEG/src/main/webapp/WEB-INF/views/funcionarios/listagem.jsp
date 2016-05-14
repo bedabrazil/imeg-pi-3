@@ -5,7 +5,7 @@
     </c:choose>
 <div class="col-lg-12">
     <h3>Funcionarios</h3>
-    <a href="<c:url value="novofuncionario"></c:url>">Novo Funcionário</a>
+    <a href="<c:url value="/funcionarios/novo"></c:url>">Novo Funcionário</a>
     <br>
     <div id="warning" class="col-lg-12 ${alert}">
         <c:if test="${sessionScope.success}">
