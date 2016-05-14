@@ -5,12 +5,13 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.AcessoDao;
+import br.senac.tads.pi3.imeg.entity.Acesso;
 import br.senac.tads.pi3.imeg.dao.CargoDao;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.dao.UnidadeDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,8 +38,13 @@ public class NovoFuncionarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
         request.setAttribute("funcionarios", funcionarios);
+
+        ArrayList<Acesso> acessos = new AcessoDao().listar();
+        request.setAttribute("acessos", acessos);
+
         request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
     }
 
@@ -76,39 +82,39 @@ public class NovoFuncionarioServlet extends HttpServlet {
         FuncionarioDao fDao = new FuncionarioDao();
         CargoDao cDao = new CargoDao();
         UnidadeDao uDao = new UnidadeDao();
+        AcessoDao aDao = new AcessoDao();
 
         String nome = request.getParameter("nome_funcionario");
         int cargo = Integer.parseInt(request.getParameter("cargo_id"));
         int unidade = Integer.parseInt(request.getParameter("unidade_id"));
         String email = request.getParameter("email_funcionario");
+        int acesso = Integer.parseInt(request.getParameter("acesso_id"));
 
-        if (nome.isEmpty()) {
-            request.setAttribute("error", true);
-            mensagens.add("(Nome) não preenchido");
+        if (!request.getParameter("cargo_id").matches("\\d+") || request.getParameter("cargo_id").equals("0")) {
+            mensagens.add("É preciso selecionar um Cargo.");
         }
-        if (cargo == 0) {
-            mensagens.add("(Cargo) não selecionado");
-            request.setAttribute("error", true);
+        if (request.getParameter("nome_funcionario").isEmpty()) {
+            mensagens.add("Nome não pode ser vazio.");
         }
-        if (unidade == 0) {
-            mensagens.add("(Unidade) não selecionada");
-            request.setAttribute("error", true);
+        if (!request.getParameter("unidade_id").matches("\\d+") || request.getParameter("unidade_id").equals("0")) {
+            mensagens.add("É preciso selecionar uma Unidade.");
         }
-        if (email.isEmpty()) {
-            mensagens.add("(Email) não preenchido");
-            request.setAttribute("error", true);
+        if (!request.getParameter("acesso_id").matches("\\d+") || request.getParameter("acesso_id").equals("0")) {
+            mensagens.add("É preciso selecionar um tipo de permissão.");
         }
         if (mensagens.size() > 0) {
+            request.setAttribute("error", true);
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
             return;
         }
 
-        if (!(nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty())) {
+        if (!(nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty() && acesso<=0)) {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
             request.getRequestDispatcher("//WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
-            if (fDao.incluirFuncionario(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), email))) {
+            
+            if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email))) {
                 session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect("/funcionarios");
@@ -116,6 +122,18 @@ public class NovoFuncionarioServlet extends HttpServlet {
                 session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
                 session.setAttribute("error", true);
             }
+
+            if (request.getParameter("nome-funcionario") != null) {
+                Funcionario f = new Funcionario();
+                f.setNome(request.getParameter("nome-funcionario"));
+                if (fDao.alterar(f)) {
+                    session.setAttribute("msg_success", "Funcionário " + f.getNome() + " alterado com sucesso.");
+                    session.setAttribute("success", true);
+                    response.sendRedirect("funcionarios");
+                    return;
+                }
+            }
+
         }
     }
 }

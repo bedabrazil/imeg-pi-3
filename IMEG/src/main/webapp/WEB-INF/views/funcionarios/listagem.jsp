@@ -28,11 +28,20 @@
         <tbody>
         <c:forEach items="${funcionarios}" var="funcionario">
             <tr>
+                <td>
+                    <c:choose>
+                        <c:when test="${funcionario.isStatus()}">
+                            <em data-toggle="tooltip" data-placement="top" title="Ativado" class="active-elem-table glyphicon glyphicon glyphicon-ok-circle"></em>
+                        </c:when>
+                        <c:otherwise>
+                            <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
+                        </c:otherwise></c:choose>
+                </td>
                 <td>${funcionario.nome}</td>
                 <td>${funcionario.cargo.nome}</td>
                 <td>${funcionario.unidade.nome}</td>
                 <td>${funcionario.email}</td>
-                <td><a href="<c:url value="alterarfuncionario?id=${funcionario.getId()}"></c:url>">Editar</a></td>
+                <td><a href="<c:url value="/funcionarios/editar?id=${funcionario.id}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>
         </tbody>

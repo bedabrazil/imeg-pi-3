@@ -22,12 +22,11 @@ public class CargoDao {
     private PreparedStatement pst;
 
     public boolean adicionar(Cargo cargo) {
-        String sql = "INSERT INTO CARGOS(NOME, STATUS, ACESSOS_ID)VALUES(?,?,?)";
+        String sql = "INSERT INTO CARGOS(NOME, STATUS)VALUES(?,?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, cargo.getNome());
             pst.setBoolean(2, cargo.isStatus());
-            pst.setInt(3, cargo.getAcesso().getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -44,13 +43,12 @@ public class CargoDao {
     }
 
     public boolean alterar(Cargo cargo) {
-        String sql = "UPDATE CARGOS SET NOME=?, STATUS=?, ACESSOS_ID=? WHERE ID=?";
+        String sql = "UPDATE CARGOS SET NOME=?, STATUS=? WHERE ID=?";
 
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, cargo.getNome());
             pst.setBoolean(2, cargo.isStatus());
-            pst.setInt(3, cargo.getAcesso().getId());
             pst.setInt(4, cargo.getId());
             if (pst.executeUpdate() > 0) {
                 return true;
@@ -78,7 +76,6 @@ public class CargoDao {
                 cargo.setId(res.getInt("ID"));
                 cargo.setNome(res.getString("NOME"));
                 cargo.setStatus(res.getBoolean("STATUS"));
-                cargo.setAcesso(new AcessoDao().pesquisarPorId(res.getInt("ACESSOS_ID")));
                 cargos.add(cargo);
             }
             return cargos;
@@ -105,7 +102,6 @@ public class CargoDao {
                 cargo.setId(res.getInt("ID"));
                 cargo.setNome(res.getString("NOME"));
                 cargo.setStatus(res.getBoolean("STATUS"));
-                cargo.setAcesso(new AcessoDao().pesquisarPorId(res.getInt("ACESSOS_ID")));
             }
             return cargo;
         } catch (SQLException e) {

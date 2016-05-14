@@ -14,12 +14,10 @@ public class Cargo {
     private int id;
     private String nome;
     private boolean status;
-    private Acesso acesso;
 
-    public Cargo(String nome, boolean status, Acesso acesso) {
+    public Cargo(String nome, boolean status) {
         this.nome = nome;
         this.status = status;
-        this.acesso = acesso;
     }
 
     public Cargo() {
@@ -49,13 +47,7 @@ public class Cargo {
         this.status = status;
     }
 
-    public Acesso getAcesso() {
-        return acesso;
-    }
 
-    public void setAcesso(Acesso acesso) {
-        this.acesso = acesso;
-    }
 
 
 }

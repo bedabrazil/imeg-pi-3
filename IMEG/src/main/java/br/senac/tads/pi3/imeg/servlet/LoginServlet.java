@@ -5,25 +5,20 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.AcessoDao;
-import br.senac.tads.pi3.imeg.dao.CargoDao;
-import br.senac.tads.pi3.imeg.entity.Acesso;
-import br.senac.tads.pi3.imeg.entity.Cargo;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author marcio.soares <marcio@mail.com>
+ * @author Márcio Soares <marcio@mail.com>
  */
-@WebServlet(name = "NovoCargoServlet", urlPatterns = "/cargos/novo")
-public class NovoCargoServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +31,7 @@ public class NovoCargoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Acesso> acessos = new AcessoDao().listar();
-        request.setAttribute("acessos", acessos);
 
-        request.getRequestDispatcher("/WEB-INF/views/cargos/novo.jsp").forward(request, response);
     }
 
     /**
@@ -54,7 +46,6 @@ public class NovoCargoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**
@@ -68,32 +59,7 @@ public class NovoCargoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //inicia uma sessao
-        HttpSession session = request.getSession(true);
-        ArrayList<String> mensagens = new ArrayList<>();
-        
-        //instacio o DAO
-
-        String nome = request.getParameter("nome_cargo");
-        if (nome.isEmpty()) {
-            mensagens.add("Nome não pode ser vazio.");
-        }
-        if(mensagens.size() > 0){
-            request.setAttribute("error", true);
-            request.setAttribute("mensagens", mensagens);
-            processRequest(request, response);
-            return;
-        }
-        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-        
-        if (!nome.isEmpty()) {
-            Cargo cargo = new Cargo(nome, status);
-            if (new CargoDao().adicionar(cargo)) {
-                session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
-                session.setAttribute("success", true);
-                response.sendRedirect(request.getContextPath() + "/cargos");
-            }
-        }
-
+        processRequest(request, response);
     }
+
 }

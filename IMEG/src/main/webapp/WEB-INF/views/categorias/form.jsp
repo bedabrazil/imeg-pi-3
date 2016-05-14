@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${categoria == null}"><c:set var="action" value="novo"/></c:when>
-    <c:otherwise><c:set var="action" value="editar?id=${categoria.id}"/></c:otherwise>
+    <c:when test="${categoria == null}"><c:set var="action" value="/categorias/novo"/></c:when>
+    <c:otherwise><c:set var="action" value="/categorias/editar?id=${categoria.id}"/></c:otherwise>
 </c:choose>    
 <c:choose>
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
@@ -9,7 +9,7 @@
 
 
 
-<form action="${action}" method="post" class="call">
+<form action="<c:url value="${action}"/>" method="post" class="call">
     <c:if test="${categoria != null}">
         <input type="hidden" name="id_categoria" value="${categoria.id}">
     </c:if>

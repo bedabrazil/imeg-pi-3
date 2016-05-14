@@ -36,8 +36,8 @@ public class AlterarCargoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Acesso> acessos = new AcessoDao().listar();
-        request.setAttribute("acessos", acessos);
+//        ArrayList<Acesso> acessos = new AcessoDao().listar();
+//        request.setAttribute("acessos", acessos);
         if (request.getQueryString() != null) {
             if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(request.getParameter("id"));
@@ -45,8 +45,8 @@ public class AlterarCargoServlet extends HttpServlet {
                 request.setAttribute("cargo", cargo);
             }
             request.getRequestDispatcher("/WEB-INF/views/cargos/editar.jsp").forward(request, response);
-        }else{
-            response.sendRedirect("cargos");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/cargos");
         }
 
     }
@@ -105,14 +105,12 @@ public class AlterarCargoServlet extends HttpServlet {
             cargo.setId(Integer.parseInt(request.getParameter("id_cargo")));
             cargo.setNome(request.getParameter("nome_cargo"));
             cargo.setStatus(Boolean.parseBoolean(request.getParameter("ativo")));
-            acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
-            cargo.setAcesso(new AcessoDao().pesquisarPorId(acesso_id));
 
             if (new CargoDao().alterar(cargo)) {
                 mensagens.clear();
                 session.setAttribute("success", true);
                 session.setAttribute("msg_success", "Cargo <strong>" + cargo.getNome() + "</strong> alterado com sucesso.");
-                response.sendRedirect("cargos");
+                response.sendRedirect(request.getContextPath() + "/cargos");
             }
         }
 

@@ -42,7 +42,7 @@ public class AlterarCategoriaServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/WEB-INF/views/categorias/editar.jsp").forward(request, response);
         }else{
-            response.sendRedirect("categorias");
+            response.sendRedirect(request.getContextPath() + "/categorias");
         }
         
     }
@@ -99,7 +99,7 @@ public class AlterarCategoriaServlet extends HttpServlet {
                 mensagens.clear();
                 session.setAttribute("success", true);
                 session.setAttribute("msg_success", "Categoria <strong>" + categoria.getNome() + "</strong> alterado com sucesso.");
-                response.sendRedirect("categorias");
+                response.sendRedirect(request.getContextPath() + "/categorias");
             }
         }
     }

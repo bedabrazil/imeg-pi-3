@@ -2,15 +2,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:choose>
-    <c:when test="${cargo == null}"><c:set var="action" value="novo"/></c:when>
-    <c:otherwise><c:set var="action" value="editar?id=${cargo.id}"/></c:otherwise>
+    <c:when test="${cargo == null}"><c:set var="action" value="/cargos/novo"/></c:when>
+    <c:otherwise><c:set var="action" value="/cargos/editar?id=${cargo.id}"/></c:otherwise>
 </c:choose>    
 <c:choose>
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
 </c:choose>    
 
 
-<form action="${action}" method="post">
+<form action="<c:url value="${action}"/>" method="post">
     <c:if test="${cargo != null}">
     <input type="hidden" name="id_cargo" value="${cargo.id}">
     </c:if>
@@ -37,15 +37,7 @@
             <label for="">Nome do Cargo</label>
             <input class="form-control" type="text" value="<c:if test="${cargo != null }">${cargo.nome}</c:if>" id="nome_cargo" name="nome_cargo"/>
         </div>
-        <div class="col-lg-4">
-            <label for="acesso_id">Permissão</label>
-            <select name="acesso_id" class="form-control">
-                <option value="0">Selecione um tipo de permissão</option>
-            <c:forEach items="${acessos}" var="acesso">
-                <option value="${acesso.id}" <c:if test="${acesso.id == cargo.acesso.id}">selected="selected"</c:if> >${acesso.nome}</option>
-            </c:forEach>
-            </select>
-        </div>
+
         <div class="col-lg-12 form-space">
             <label for="ativo_cargo">Ativo</label>
             <input type="checkbox" id="ativo_cargo" class="" <c:if test="${cargo.isStatus()}">checked='checked'</c:if> name="ativo" value="true">

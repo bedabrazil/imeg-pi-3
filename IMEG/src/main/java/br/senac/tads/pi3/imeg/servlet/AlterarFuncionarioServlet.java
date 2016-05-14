@@ -5,6 +5,7 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.AcessoDao;
 import br.senac.tads.pi3.imeg.dao.CargoDao;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.dao.UnidadeDao;
@@ -93,7 +94,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         if (request.getParameter("nome-funcionario") != null) {
             Funcionario f = new Funcionario();
             f.setNome(request.getParameter("nome-funcionario"));
-            if (fDao.alterarFuncionario(f)) {
+            if (fDao.alterar(f)) {
                 session.setAttribute("msg_success", "Funcionário " + f.getNome() + " alterado com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect("funcionarios");
@@ -104,13 +105,15 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         String nome = request.getParameter("nome-funcionario");
         int cargo = Integer.parseInt(request.getParameter("cargo-id"));
         int unidade = Integer.parseInt(request.getParameter("unidade-id"));
+        int acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
+        
         //seta uma  erro false
         session.setAttribute("error", false);
         if (nome != null && nome.isEmpty() && cargo <= 0 && unidade <= 0) {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
             request.getRequestDispatcher("//WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
-        } else if (fDao.incluirFuncionario(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), "TesteHardCode@imeg.com"))) {
+        } else if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), new AcessoDao().pesquisarPorId(acesso_id), "TesteHardCode@imeg.com"))) {
             session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
             session.setAttribute("success", true);
             response.sendRedirect("funcionarios");

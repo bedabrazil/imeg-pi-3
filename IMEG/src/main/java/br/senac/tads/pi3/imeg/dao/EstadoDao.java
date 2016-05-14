@@ -54,9 +54,8 @@ public class EstadoDao {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, id);
             ResultSet res = pst.executeQuery();
-            while(res.next()){
+            if(res.next()){
                 estado =  new Estado();
-                
                 estado.setId(res.getInt("ID"));
                 estado.setNome(res.getString("NOME"));
             }

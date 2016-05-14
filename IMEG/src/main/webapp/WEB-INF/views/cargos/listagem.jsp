@@ -22,7 +22,6 @@
         <thead>
             <th></th>
             <th>Nome</th>
-            <th>Permissão</th>
             <th>Ações</th>            
         </thead>
         <tbody>
@@ -37,7 +36,6 @@
                             <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
                         </c:otherwise></c:choose></td>
                 <td>${cargo.nome}</td>
-                <td>${cargo.acesso.nome}</td>
                 <td><a href="<c:url value="/cargos/editar?id=${cargo.id}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>

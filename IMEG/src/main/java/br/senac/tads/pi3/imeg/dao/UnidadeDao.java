@@ -92,18 +92,16 @@ public class UnidadeDao {
     }
     
     public Unidade pesquisarPorId(int id){
-        String sql = "SELECT * FROM UNIDADES WHERE ID=?";
+        String sql = "SELECT UNIDADES.* FROM UNIDADES WHERE ID=?";
         try{
             Unidade unidade = null;
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, id);
             ResultSet res = pst.executeQuery();
-            while(res.next()){
+            if(res.next()){
                 unidade =  new Unidade();
-                EstadoDao estadoDao = new EstadoDao();
-                
                 unidade.setId(res.getInt("ID"));
-                unidade.setEstado(estadoDao.pesquisarPorId(res.getInt("ESTADOS_ID")));
+                unidade.setEstado(new EstadoDao().pesquisarPorId(res.getInt("ESTADOS_ID")));
                 unidade.setNome(res.getString("NOME"));
             }
             return unidade;

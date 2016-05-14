@@ -5,6 +5,7 @@
  */
 package br.senac.tads.pi3.imeg.dao;
 
+import br.senac.tads.pi3.imeg.entity.Categoria;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import br.senac.tads.pi3.imeg.entity.Produto;
@@ -47,17 +48,22 @@ public class ProdutoDao {
         return false;
     }
 
-    public ArrayList<Produto> consultarProduto(String pesquisa, String categoria ) {
-        String sql = "SELECT  FROM Produto WHERE '"+categoria+"' LIKE '" + pesquisa + "%'";
+    public ArrayList<Produto> consultarProduto(String pesquisa, Categoria categoria ) {
+        String sql = "SELECT * FROM PRODUTOS WHERE CATEGORIAS_ID = ? AND NOME LIKE '% ? %'";
         ArrayList<Produto> tempProduto = new ArrayList<>();
 
         try {
             pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, categoria.getId());
+            pst.setString(2, pesquisa);
             ResultSet rs = pst.executeQuery(sql);
+            
             while (rs.next()) {
                 Produto produto = new Produto();
-//                produto.getCategoria().getId(rs.getInt("CATEGORIAS_ID"));
-                produto.setNome(rs.getString("nome"));
+                CategoriaDao cDao = new CategoriaDao();
+
+                produto.setNome(rs.getString("NOME"));
+                produto.setCategoria(cDao.pesquisarPorId(rs.getInt("CATEGORIAS_ID")));
                 produto.setPrecoCusto(rs.getDouble("PRECO_CUSTO"));
                 produto.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
                 produto.setQtdeMin(rs.getInt("QTDE_MIN"));
@@ -80,9 +86,8 @@ public class ProdutoDao {
         }
         return null;
     }
-    public Produto consultarProdutoId(int id ) {
-        String sql = "SELECT  FROM Produto WHERE = LIKE '" + id + "%'";
-        
+    public Produto pesquisarPorId(int id ) {
+        String sql = "SELECT PRODUTOS.* FROM PRODUTOS WHERE ID=?";
 
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -92,13 +97,10 @@ public class ProdutoDao {
             if (rs.next()) {
                 
 //                produto.getCategoria().getId(rs.getInt("CATEGORIAS_ID"));
-                produto.setNome(rs.getString("nome"));
-                produto.setPrecoCusto(rs.getDouble("PRECO_CUSTO"));
-                produto.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
+                produto.setNome(rs.getString("NOME"));
+                produto.setQtdeMin(rs.getInt("QTDE_MIN"));
+                produto.setQtdeMax(rs.getInt("QTDE_MAX"));
                 produto.setStatus(rs.getBoolean("STATUS"));
-                
-               
-
             }
             return produto;
 
@@ -114,21 +116,18 @@ public class ProdutoDao {
         return null;
     }
 
-    public boolean alterarProduto(int codigo, Produto produto) {
-        String sql = "UPDATE Produto SET CATEGORIAS_ID=?, NOME=?, PRECO_CUSTO=?, PRECO_VENDA=?, QTDE_MIN=?, QTDE_MAX=?, SALDO=?"
-                + "WHERE Id = ?";
+    public boolean alterar(Produto produto) {
+        String sql = "UPDATE PRODUTOS SET CATEGORIAS_ID=?, NOME=?, QTDE_MIN=?, QTDE_MAX=?"
+                + "WHERE ID=?";
         // UPDATE
 
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, produto.getCategoria().getId());
             pst.setString(2, produto.getNome());
-            pst.setDouble(3, produto.getPrecoCusto());
-            pst.setDouble(4, produto.getPrecoVenda());
-            pst.setInt(5, produto.getQtdeMin());
-            pst.setInt(6, produto.getQtdeMax());
-            pst.setDouble(7, produto.getSaldo());
-            pst.setInt(8, codigo);
+            pst.setInt(3, produto.getQtdeMin());
+            pst.setInt(4, produto.getQtdeMax());
+            pst.setInt(8, produto.getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
