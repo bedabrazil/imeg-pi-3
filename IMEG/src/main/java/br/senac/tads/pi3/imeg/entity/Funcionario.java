@@ -17,6 +17,7 @@ public class Funcionario {
     private Acesso acesso;    
     private String nome;
     private String email;
+    private String senha;
     private char[] senhaHash;
     private boolean status;
     
@@ -25,12 +26,13 @@ public class Funcionario {
     }
 
         
-    public Funcionario(String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email) {
+    public Funcionario(String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha) {
         this.nome = nome;
         this.cargo = cargo;
         this.unidade = unidade;
         this.email = email;
         this.acesso = acesso;
+        this.senha = senha;
     }
     
         
@@ -88,6 +90,14 @@ public class Funcionario {
 
     public void setAcesso(Acesso acesso) {
         this.acesso = acesso;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public boolean isStatus() {

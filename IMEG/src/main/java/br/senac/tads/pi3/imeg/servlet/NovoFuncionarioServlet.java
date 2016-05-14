@@ -54,6 +54,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
         request.setAttribute("acessos", acessos);
 
         request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
+
     }
 
     /**
@@ -93,12 +94,14 @@ public class NovoFuncionarioServlet extends HttpServlet {
         AcessoDao aDao = new AcessoDao();
 
         session.setAttribute("error", false);
-        
+
         String nome = request.getParameter("nome_funcionario");
         int cargo = Integer.parseInt(request.getParameter("cargo_id"));
         int unidade = Integer.parseInt(request.getParameter("unidade_id"));
         String email = request.getParameter("email_funcionario");
         int acesso = Integer.parseInt(request.getParameter("acesso_id"));
+        String senha = request.getParameter("senha_funcionario");
+        String confSenha = request.getParameter("confSenha_funcionario");
 
         if (!request.getParameter("cargo_id").matches("\\d+") || request.getParameter("cargo_id").equals("0")) {
             mensagens.add("É preciso selecionar um Cargo.");
@@ -112,6 +115,12 @@ public class NovoFuncionarioServlet extends HttpServlet {
         if (!request.getParameter("acesso_id").matches("\\d+") || request.getParameter("acesso_id").equals("0")) {
             mensagens.add("É preciso selecionar um tipo de permissão.");
         }
+        if (request.getParameter("email_funcionario").isEmpty()) {
+            mensagens.add("*Email* não pode ser vazio.");
+        }
+        if (!senha.equals(confSenha)) {
+            mensagens.add("*Senha* deve coincidir com *Confirmar Senha*.");
+        }
         if (mensagens.size() > 0) {
             request.setAttribute("error", true);
             request.setAttribute("mensagens", mensagens);
@@ -119,19 +128,17 @@ public class NovoFuncionarioServlet extends HttpServlet {
             return;
         }
 
-        if (!(nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty() && acesso <= 0)) {
+        if (nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty() && acesso <= 0 && !(senha.equals(confSenha))) {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
-
-            if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email))) {
-                session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
-                session.setAttribute("success", true);
-                response.sendRedirect(request.getContextPath() + "/funcionarios");
-            } else {
-                session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
-                session.setAttribute("error", true);
-            }
+        } else if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email, senha))) {
+            session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
+            session.setAttribute("success", true);
+            response.sendRedirect(request.getContextPath() + "/funcionarios");
+        } else {
+            session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
+            session.setAttribute("error", true);
         }
     }
 }
