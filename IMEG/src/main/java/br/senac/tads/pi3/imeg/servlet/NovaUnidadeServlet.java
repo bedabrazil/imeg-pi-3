@@ -7,7 +7,6 @@ package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.EstadoDao;
 import br.senac.tads.pi3.imeg.dao.UnidadeDao;
-import br.senac.tads.pi3.imeg.entity.Acesso;
 import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.io.IOException;
 import java.io.PrintWriter;

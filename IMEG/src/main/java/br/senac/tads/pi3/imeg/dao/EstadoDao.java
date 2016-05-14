@@ -48,15 +48,14 @@ public class EstadoDao {
     }
     
     public Estado pesquisarPorId(int id){
-        String sql = "SELECT * FROM ESTADOS WHERE ID=?;";
+        String sql = "SELECT * FROM ESTADOS WHERE ID=?";
         try{
             Estado estado = null;
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, id);
             ResultSet res = pst.executeQuery();
-            while(res.next()){
+            if(res.next()){
                 estado =  new Estado();
-                
                 estado.setId(res.getInt("ID"));
                 estado.setNome(res.getString("NOME"));
             }

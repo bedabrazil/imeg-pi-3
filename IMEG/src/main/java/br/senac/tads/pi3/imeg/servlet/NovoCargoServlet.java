@@ -75,14 +75,9 @@ public class NovoCargoServlet extends HttpServlet {
         //instacio o DAO
 
         String nome = request.getParameter("nome_cargo");
-        String acesso_id = request.getParameter("acesso_id");
         if (nome.isEmpty()) {
             request.setAttribute("error", true);
             mensagens.add("Nome não pode ser vazio.");
-        }
-        if (acesso_id.equals("0")) {
-            mensagens.add("Selecione um Tipo de Permissão.");
-            request.setAttribute("error", true);
         }
         if(mensagens.size() > 0){
             request.setAttribute("mensagens", mensagens);
@@ -90,14 +85,13 @@ public class NovoCargoServlet extends HttpServlet {
             return;
         }
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-        int id_acesso = Integer.parseInt(acesso_id);
-        if (!nome.isEmpty() && id_acesso > 0) {
-            Acesso acesso = new AcessoDao().pesquisarPorId(id_acesso);
-            Cargo cargo = new Cargo(nome, status, acesso);
+        
+        if (!nome.isEmpty()) {
+            Cargo cargo = new Cargo(nome, status);
             if (new CargoDao().adicionar(cargo)) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
-                response.sendRedirect("cargos");
+                response.sendRedirect(request.getContextPath() + "/cargos");
             }
         }
 

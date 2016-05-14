@@ -5,7 +5,7 @@
     </c:choose>
 <div class="col-lg-12">
     <h3>Funcionarios</h3>
-    <a href="<c:url value="novacategoria"></c:url>">Novo Funcionário</a>
+    <a href="<c:url value="/funcionarios/novo"></c:url>">Novo Funcionário</a>
     <br>
     <div id="warning" class="col-lg-12 ${alert}">
         <c:if test="${sessionScope.success}">
@@ -35,8 +35,8 @@
                             <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
                         </c:otherwise></c:choose>
                 </td>
-                <td>${funcionario.getNome()}</td>
-                <td><a href="<c:url value="alterarfuncionario?id=${funcionario.getId()}"></c:url>">Editar</a></td>
+                <td>${funcionario.nome}</td>
+                <td><a href="<c:url value="/funcionarios/editar?id=${funcionario.id}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>
         </tbody>

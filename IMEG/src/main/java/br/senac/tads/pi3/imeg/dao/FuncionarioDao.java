@@ -22,16 +22,17 @@ public class FuncionarioDao {
     private PreparedStatement pst;
 
     //Cadastra um novo funcionario
-    public boolean incluirFuncionario(Funcionario funcionario) {
+    public boolean adicionar(Funcionario funcionario) {
 
         String sql = "INSERT INTO FUNCIONARIOS "
-                + "(CARGOS_ID, UNIDADES_ID, NOME)"
-                + "VALUES (?, ?, ?)";
+                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME)"
+                + "VALUES (?, ?, ?, ?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, funcionario.getCargo().getId());
             pst.setInt(2, funcionario.getUnidade().getId());
-            pst.setString(3, funcionario.getNome());
+            pst.setInt(3, funcionario.getAcesso().getId());
+            pst.setString(4, funcionario.getNome());
             pst.executeUpdate();
             
 
@@ -48,7 +49,7 @@ public class FuncionarioDao {
     }
     
     //Altera informações de um funcionário
-    public boolean alterarFuncionario(Funcionario funcionario) {
+    public boolean alterar(Funcionario funcionario) {
         String sql = "UPDATE Funcionarios SET CARGOS_ID=?,UNIDADES_ID=?, NOME=?"
                 + "WHERE ID = ?";
         // UPDATE
@@ -77,12 +78,12 @@ public class FuncionarioDao {
     }
     
     //Lista funcionarios com um nome passado por parâmetro
-    public ArrayList<Funcionario> consultarFuncionarioPorNome(String nomeFuncionario) {
+    public ArrayList<Funcionario> pesquisarPorNome(String nome) {
         ArrayList<Funcionario> tempFuncionarios = new ArrayList<>();
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
 
-        String sql = "SELECT * FROM FUNCIONARIOS WHERE NOME LIKE '" + nomeFuncionario + "%';";
+        String sql = "SELECT * FROM FUNCIONARIOS WHERE NOME LIKE '" + nome + "%';";
 
         try {
             Funcionario funcionario = new Funcionario();
@@ -94,7 +95,7 @@ public class FuncionarioDao {
                 funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGO_ID")));
                 funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADE_ID")));
                 funcionario.setNome(rs.getString("NOME"));
-
+                funcionario.setStatus(rs.getBoolean("STATUS"));
                 tempFuncionarios.add(funcionario);
 
             }
@@ -113,7 +114,7 @@ public class FuncionarioDao {
     }
     
     //Consulta funcionario por id
-    public Funcionario consultarFuncionarioPorId(int id) {
+    public Funcionario pesquisarPorId(int id) {
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
 
@@ -129,6 +130,7 @@ public class FuncionarioDao {
                 funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGO_ID")));
                 funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADE_ID")));
                 funcionario.setNome(rs.getString("NOME"));
+                funcionario.setStatus(rs.getBoolean("STATUS"));
 
             }
             return funcionario;
@@ -161,6 +163,7 @@ public class FuncionarioDao {
                 f.setCargo(cargoDao.pesquisarPorId(res.getInt("CARGOS_ID")));
                 f.setUnidade(unidadeDao.pesquisarPorId(res.getInt("UNIDADES_ID")));
                 f.setNome(res.getString("NOME"));
+                f.setStatus(res.getBoolean("STATUS"));
                 funcionario.add(f);
             }
         } catch (SQLException e) {

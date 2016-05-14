@@ -86,7 +86,7 @@ public class NovaCategoriaServlet extends HttpServlet {
             if (new CategoriaDao().adicionar(categoria)) {
                 session.setAttribute("msg_success", "Categoria " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
-                response.sendRedirect("categorias");
+                response.sendRedirect(request.getContextPath() + "/categorias");
             }
         }
     }
