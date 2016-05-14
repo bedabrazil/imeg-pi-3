@@ -48,7 +48,7 @@ public class EstadoDao {
     }
     
     public Estado pesquisarPorId(int id){
-        String sql = "SELECT * FROM ESTADOS WHERE ID=?;";
+        String sql = "SELECT * FROM ESTADOS WHERE ID=?";
         try{
             Estado estado = null;
             pst = new Conexao().prepararStatement(sql);

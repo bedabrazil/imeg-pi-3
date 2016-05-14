@@ -22,7 +22,7 @@ public class UnidadeDao {
     private PreparedStatement pst;
 
     public boolean adicionar(Unidade unidade) {
-        String sql = "INSERT INTO UNIDADES(NOME)VALUES(?);";
+        String sql = "INSERT INTO UNIDADES(NOME)VALUES(?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, unidade.getNome());
@@ -42,7 +42,7 @@ public class UnidadeDao {
     }
 
     public boolean alterar(Unidade unidade) {
-        String sql = "UPDATE UNIDADES SET NOME=? WHERE ID=?;";
+        String sql = "UPDATE UNIDADES SET NOME=? WHERE ID=?";
 
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -92,7 +92,7 @@ public class UnidadeDao {
     }
     
     public Unidade pesquisarPorId(int id){
-        String sql = "SELECT * FROM UNIDADES WHERE ID=?;";
+        String sql = "SELECT * FROM UNIDADES WHERE ID=?";
         try{
             Unidade unidade = null;
             pst = new Conexao().prepararStatement(sql);

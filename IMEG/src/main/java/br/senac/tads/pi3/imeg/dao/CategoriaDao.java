@@ -73,7 +73,7 @@ public class CategoriaDao {
 
     public ArrayList<Categoria> consultarPorNome(Categoria categoria) {
 
-        String sql = "SELECT * FROM CATEGORIAS WHERE NOME LIKE '%" + categoria.getNome() + "%';";
+        String sql = "SELECT * FROM CATEGORIAS WHERE NOME LIKE '%" + categoria.getNome() + "%'";
         ArrayList<Categoria> listaCategoria = new ArrayList<>();
 
         try {

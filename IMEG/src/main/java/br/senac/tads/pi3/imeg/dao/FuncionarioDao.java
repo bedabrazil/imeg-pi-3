@@ -82,7 +82,7 @@ public class FuncionarioDao {
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
 
-        String sql = "SELECT * FROM FUNCIONARIOS WHERE NOME LIKE '" + nomeFuncionario + "%';";
+        String sql = "SELECT * FROM FUNCIONARIOS WHERE NOME LIKE '" + nomeFuncionario + "%'";
 
         try {
             Funcionario funcionario = new Funcionario();
@@ -117,7 +117,7 @@ public class FuncionarioDao {
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
 
-        String sql = "SELECT * FROM FUNCIONARIOS WHERE ID = '" + id + "%';";
+        String sql = "SELECT ID, CARGO_ID, UNIDADE_ID, NOME FROM FUNCIONARIOS WHERE ID = '" + id + "%'";
 
         try {
             Funcionario funcionario = new Funcionario();
@@ -147,7 +147,7 @@ public class FuncionarioDao {
     
     //Lista Funcionarios
     public ArrayList<Funcionario> listar() {
-        String sql = "SELECT FUNCIONARIOS.* FROM FUNCIONARIOS ORDER BY ID DESC";
+        String sql = "SELECT ID, CARGOS_ID, UNIDADES_ID, NOME, EMAIL FROM FUNCIONARIOS ORDER BY ID DESC";
         ArrayList<Funcionario> funcionario = new ArrayList<>();
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
@@ -161,8 +161,10 @@ public class FuncionarioDao {
                 f.setCargo(cargoDao.pesquisarPorId(res.getInt("CARGOS_ID")));
                 f.setUnidade(unidadeDao.pesquisarPorId(res.getInt("UNIDADES_ID")));
                 f.setNome(res.getString("NOME"));
+                f.setNome(res.getString("EMAIL"));
                 funcionario.add(f);
             }
+            return funcionario;
         } catch (SQLException e) {
             System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
         } finally {
@@ -172,7 +174,7 @@ public class FuncionarioDao {
                 Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-        return funcionario;
+        return null;
     }
 
 }
