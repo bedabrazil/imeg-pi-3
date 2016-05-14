@@ -25,24 +25,12 @@
         <servlet-class>br.senac.tads.pi3.imeg.servlet.CategoriasServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>NovoCargoServlet</servlet-name>
-        <servlet-class>br.senac.tads.pi3.imeg.servlet.NovoCargoServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CargosServlet</servlet-name>
         <servlet-class>br.senac.tads.pi3.imeg.servlet.CargosServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AlterarCargoServlet</servlet-name>
-        <servlet-class>br.senac.tads.pi3.imeg.servlet.AlterarCargoServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>NovaCategoriaServlet</servlet-name>
-        <servlet-class>br.senac.tads.pi3.imeg.servlet.NovaCategoriaServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AlterarCategoriaServlet</servlet-name>
-        <servlet-class>br.senac.tads.pi3.imeg.servlet.AlterarCategoriaServlet</servlet-class>
+        <servlet-name>NovoFuncionarioServlet</servlet-name>
+        <servlet-class>br.senac.tads.pi3.imeg.servlet.NovoFuncionarioServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NovaUnidadeServlet</servlet-name>
@@ -55,6 +43,10 @@
     <servlet>
         <servlet-name>AlterarProdutoServlet</servlet-name>
         <servlet-class>br.senac.tads.pi3.imeg.servlet.AlterarProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlterarFuncionarioServlet</servlet-name>
+        <servlet-class>br.senac.tads.pi3.imeg.servlet.AlterarFuncionarioServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
@@ -111,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>AlterarProdutoServlet</servlet-name>
         <url-pattern>/produtos/editar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NovoFuncionarioServlet</servlet-name>
+        <url-pattern>/funcionarios/novo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarFuncionarioServlet</servlet-name>
+        <url-pattern>/funcionarios/editar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

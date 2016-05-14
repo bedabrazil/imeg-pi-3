@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
  * @author marcio.soares <marcio@mail.com>
  */
 public class FuncionariosServlet extends HttpServlet {
+<<<<<<< HEAD
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,6 +39,9 @@ public class FuncionariosServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
     }
 
+=======
+   
+>>>>>>> f472fbc05fd1f7243d4a3491980fa7fc31808666
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -49,24 +53,19 @@ public class FuncionariosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
+        ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
+        request.setAttribute("funcionarios", funcionarios);
+        request.getRequestDispatcher("WEB-INF/views/funcionarios/index.jsp").forward(request, response);
+
         HttpSession session = request.getSession();
-        String msg_error = (String) session.getAttribute("msg_error");
         String msg_success = (String) session.getAttribute("msg_success");
-        boolean error = (boolean) session.getAttribute("error");
-        boolean success = (boolean) session.getAttribute("success");
-        
-        if (msg_error != null) {
-            session.removeAttribute("msg_error");
-            session.removeAttribute("error");
-        } else if (msg_success != null) {
+
+        if (msg_success != null) {
             session.removeAttribute("msg_success");
             session.removeAttribute("success");
-        } else {
-            response.sendRedirect("home");
         }
     }
+<<<<<<< HEAD
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -136,4 +135,6 @@ public class FuncionariosServlet extends HttpServlet {
         return "Short description";
     }
 
+=======
+>>>>>>> f472fbc05fd1f7243d4a3491980fa7fc31808666
 }
