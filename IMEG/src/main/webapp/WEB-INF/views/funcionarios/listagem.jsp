@@ -19,14 +19,19 @@
 <div class="col-lg-12 table-reposnsive">
     <table class="table table-hover">
         <thead>
-            <th></th>
             <th>Nome</th>
+            <th>Cargo</th>
+            <th>Unidade</th>
+            <th>Email</th>
             <th>Ações</th>
         </thead>
         <tbody>
         <c:forEach items="${funcionarios}" var="funcionario">
             <tr>
-                <td>${funcionario.getNome()}</td>
+                <td>${funcionario.nome}</td>
+                <td>${funcionario.cargo.nome}</td>
+                <td>${funcionario.unidade.nome}</td>
+                <td>${funcionario.email}</td>
                 <td><a href="<c:url value="alterarfuncionario?id=${funcionario.getId()}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>
