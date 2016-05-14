@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:choose>
-    <c:when test="${funcionario == null}"><c:set var="action" value="novo"/></c:when>
-    <c:otherwise><c:set var="action" value="editar?id=${funcionario.id}"/></c:otherwise>
+    <c:when test="${funcionario == null}"><c:set var="action" value="/funcionarios/novo"/></c:when>
+    <c:otherwise><c:set var="action" value="/funcionarios/editar?id=${funcionario.id}"/></c:otherwise>
 </c:choose>    
 <c:choose>
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
@@ -67,11 +67,6 @@
                 </c:forEach>
             </select>
         </div>    
-        <div class="col-lg-6 form-space">
-            <label for="">Email </label>
-            <input class="form-control" type="text" id="email_funcionario" name="email_funcionario"/>
-            </select>
-        </div>
         <div class="col-lg-4">
             <label for="acesso_id">Permissão</label>
             <select name="acesso_id" class="form-control">
@@ -83,7 +78,7 @@
         </div>        
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/funcionarios"></c:url>" class="btn btn-default">Voltar</a>
-                <button class="btn btn-default" type="submit" id="commit-cargo">
+                <button class="btn btn-default" type="submit" id="commit-funcionario">
                 <c:choose>
                     <c:when test="${funcionario != null}">Alterar</c:when>
                     <c:otherwise>Salvar</c:otherwise>

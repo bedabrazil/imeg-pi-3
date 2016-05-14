@@ -72,8 +72,8 @@ public class NovoCargoServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
         
-        //instacio o DAO
-
+        session.setAttribute("error", false);
+      
         String nome = request.getParameter("nome_cargo");
         if (nome.isEmpty()) {
             mensagens.add("Nome não pode ser vazio.");

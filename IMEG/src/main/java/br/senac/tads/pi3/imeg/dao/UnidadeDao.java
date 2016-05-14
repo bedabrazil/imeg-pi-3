@@ -64,7 +64,7 @@ public class UnidadeDao {
     }
 
     public ArrayList<Unidade> listar() {
-        String sql = "SELECT * FROM UNIDADES";
+        String sql = "SELECT UNIDADES.* FROM UNIDADES";
         try {
             ArrayList<Unidade> unidades = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);

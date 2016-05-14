@@ -10,7 +10,9 @@ import br.senac.tads.pi3.imeg.entity.Acesso;
 import br.senac.tads.pi3.imeg.dao.CargoDao;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.dao.UnidadeDao;
+import br.senac.tads.pi3.imeg.entity.Cargo;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
+import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -41,6 +43,12 @@ public class NovoFuncionarioServlet extends HttpServlet {
 
         ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
         request.setAttribute("funcionarios", funcionarios);
+
+        ArrayList<Cargo> cargo = new CargoDao().listar();
+        request.setAttribute("cargos", cargo);
+
+        ArrayList<Unidade> unidade = new UnidadeDao().listar();
+        request.setAttribute("unidades", unidade);
 
         ArrayList<Acesso> acessos = new AcessoDao().listar();
         request.setAttribute("acessos", acessos);
@@ -84,7 +92,8 @@ public class NovoFuncionarioServlet extends HttpServlet {
         UnidadeDao uDao = new UnidadeDao();
         AcessoDao aDao = new AcessoDao();
 
-
+        session.setAttribute("error", false);
+        
         String nome = request.getParameter("nome_funcionario");
         int cargo = Integer.parseInt(request.getParameter("cargo_id"));
         int unidade = Integer.parseInt(request.getParameter("unidade_id"));
@@ -110,29 +119,18 @@ public class NovoFuncionarioServlet extends HttpServlet {
             return;
         }
 
-        if (!(nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty() && acesso<=0)) {
+        if (!(nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty() && acesso <= 0)) {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
-            request.getRequestDispatcher("//WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
-            
+            request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
+
             if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email))) {
                 session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
                 session.setAttribute("success", true);
-                response.sendRedirect("/funcionarios");
+                response.sendRedirect(request.getContextPath() + "/funcionarios");
             } else {
                 session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
                 session.setAttribute("error", true);
-            }
-
-            if (request.getParameter("nome_funcionario") != null) {
-                Funcionario f = new Funcionario();
-                f.setNome(request.getParameter("nome_funcionario"));
-                if (fDao.alterar(f)) {
-                    session.setAttribute("msg_success", "Funcionário " + f.getNome() + " alterado com sucesso.");
-                    session.setAttribute("success", true);
-                    response.sendRedirect("funcionarios");
-                    return;
-                }
             }
         }
     }
