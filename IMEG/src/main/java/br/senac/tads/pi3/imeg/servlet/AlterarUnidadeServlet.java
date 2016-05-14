@@ -10,7 +10,6 @@ import br.senac.tads.pi3.imeg.dao.UnidadeDao;
 import br.senac.tads.pi3.imeg.entity.Acesso;
 import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author pc
  */
-@WebServlet(name = "AlterarUnidadeServlet", urlPatterns = {"/AlterarUnidadeServlet"})
+@WebServlet(name = "AlterarUnidadeServlet", urlPatterns = {"/unidades/editar"})
 public class AlterarUnidadeServlet extends HttpServlet {
 
     /**

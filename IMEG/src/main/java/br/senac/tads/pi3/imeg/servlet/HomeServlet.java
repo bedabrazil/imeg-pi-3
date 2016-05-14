@@ -6,8 +6,8 @@
 package br.senac.tads.pi3.imeg.servlet;
 
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author marcio.soares
  */
+@WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
 
     /**

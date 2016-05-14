@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author pc
  */
+@WebServlet(name = "NovaUnidadeServlet", urlPatterns = "/unidades/novo")
 public class NovaUnidadeServlet extends HttpServlet {
 
     /**

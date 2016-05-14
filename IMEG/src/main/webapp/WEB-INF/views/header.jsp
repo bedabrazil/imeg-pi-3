@@ -39,11 +39,11 @@
                           <ul class="nav navbar-nav">
                             <li class=""><a href="javascript:void(0)">Relatórios <span class="sr-only">(current)</span></a></li>
                             <li class="dropdown">
-                              <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
+                              <a href="javascript:void(0)" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
                               <ul class="dropdown-menu">
-                                <li><a href="/categorias">Categorias</a></li>
-                                <li><a href="/unidades">Unidades</a></li>
-                                <li><a href="/produtos">Produtos</a></li>
+                                  <li><a href="<c:url value="/categorias"/>">Categorias</a></li>
+                                <li><a href="<c:url value="/unidades"/>">Unidades</a></li>
+                                <li><a href="<c:url value="/produtos"/>">Produtos</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="<c:url value="/funcionarios"/>">Funcionários</a></li>
                                 <li><a href="<c:url value="/cargos"/>">Cargos</a></li>
@@ -51,7 +51,7 @@
                               </ul>
                             </li>
                           </ul>
-                          <form class="navbar-form navbar-right" action="login" method="post" role="form" enctype="application/x-www-form-urlencoded">
+                                <form class="navbar-form navbar-right" action="<c:url value="login"/>" method="post" role="form" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
                               <input type="text" class="form-control" placeholder="Email">
                               <input type="password" class="form-control" placeholder="Senha">
