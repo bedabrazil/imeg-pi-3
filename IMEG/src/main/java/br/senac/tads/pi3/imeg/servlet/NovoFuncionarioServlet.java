@@ -84,6 +84,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
         UnidadeDao uDao = new UnidadeDao();
         AcessoDao aDao = new AcessoDao();
 
+
         String nome = request.getParameter("nome_funcionario");
         int cargo = Integer.parseInt(request.getParameter("cargo_id"));
         int unidade = Integer.parseInt(request.getParameter("unidade_id"));
@@ -123,9 +124,9 @@ public class NovoFuncionarioServlet extends HttpServlet {
                 session.setAttribute("error", true);
             }
 
-            if (request.getParameter("nome-funcionario") != null) {
+            if (request.getParameter("nome_funcionario") != null) {
                 Funcionario f = new Funcionario();
-                f.setNome(request.getParameter("nome-funcionario"));
+                f.setNome(request.getParameter("nome_funcionario"));
                 if (fDao.alterar(f)) {
                     session.setAttribute("msg_success", "Funcionário " + f.getNome() + " alterado com sucesso.");
                     session.setAttribute("success", true);
@@ -133,7 +134,6 @@ public class NovoFuncionarioServlet extends HttpServlet {
                     return;
                 }
             }
-
         }
     }
 }

@@ -27,6 +27,7 @@ public class FuncionarioDao {
         String sql = "INSERT INTO FUNCIONARIOS "
                 + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME, EMAIL)"
                 + "VALUES (?, ?, ?, ?, ?)";
+
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, funcionario.getCargo().getId());
@@ -84,7 +85,9 @@ public class FuncionarioDao {
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
 
+
         String sql = "SELECT * FROM FUNCIONARIOS WHERE NOME LIKE '%?%';";
+
 
         try {
             Funcionario funcionario = new Funcionario();
