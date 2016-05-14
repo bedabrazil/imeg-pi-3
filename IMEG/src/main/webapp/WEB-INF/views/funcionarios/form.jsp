@@ -1,30 +1,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${funcionario == null}"><c:set var="action" value="novofuncionario"/></c:when>
-    <c:otherwise><c:set var="action" value="alterarfuncionario?id=${funcionario.id}"/></c:otherwise>
+    <c:when test="${funcionario == null}"><c:set var="action" value="/funcionarios/novo"/></c:when>
+    <c:otherwise><c:set var="action" value="/funcionarios/editar?id=${funcionario.id}"/></c:otherwise>
 </c:choose>    
 <c:choose>
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
 </c:choose>   
 
-<form action="${action}" method="post">
+<form action="<c:url value="${action}"/>" method="post">
     <fieldset class="well">
-        <div class="col-lg-12">
+        <div id="warning" class="col-lg-12 ${alert}">
+            <c:if test="${not empty mensagens}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>            
+                
+                <p>Existem <strong>${mensagens.size()}</strong> erro(s) a ser(em) corrigidos.</p>
+            </c:if>
+            <div class="col-lg-12">
                 <p></p>
                 <ul>
                     <c:forEach items="${mensagens}" var="msg">
                         <li>${msg}</li>
-                        </c:forEach>
+                    </c:forEach>
                 </ul>
-            </div>        
+            </div>
+        </div>        
         <div class="col-lg-6 form-space">
-            <label for="">Nome do Funcionário</label>
-            <input class="form-control" type="text" id="nome-funcionario" name="nome_funcionario"/>
+            <label for="">Nome</label>
+            <input class="form-control" type="text" id="nome_funcionario" name="nome_funcionario"/>
         </div>
+        <div class="col-lg-6 form-space">
+            <label for="">Email</label>
+            <input class="form-control" type="text" id="nome_funcionario" name="nome_funcionario"/>
+        </div>
+        <div class="col-lg-6 form-space">
+            <label for="">Senha</label>
+            <input class="form-control" type="password" id="senha_funcionario" name="nome_funcionario"/>
+        </div>
+        <div class="col-lg-6 form-space">
+            <label for="">confirmar Senha</label>
+            <input class="form-control" type="password" id="confirmar_senha_funcionario" name="nome_funcionario"/>
+        </div>
+            
         <div class="col-lg-3 form-space">
             <label for="">Cargos </label>
             <select name="cargo_id" class="form-control" >
-                <option value="">Selecione um Cargo</option>
+                <option value="0">Selecione um Cargo</option>
                 <c:forEach items="${cargos}">
                     <option value="${cargo.id}">${cargo.nome}</option>
                 </c:forEach>
@@ -42,14 +64,13 @@
         <div class="col-lg-4">
             <label for="acesso_id">Permissão</label>
             <select name="acesso_id" class="form-control">
-                <option value="0">Selecione um tipo de permissão</option>
+                <option value="">Selecione um tipo de permissão</option>
             <c:forEach items="${acessos}" var="acesso">
                 <option value="${acesso.id}" <c:if test="${acesso.id == cargo.acesso.id}">selected="selected"</c:if> >${acesso.nome}</option>
             </c:forEach>
             </select>
         </div>        
         <div class="col-lg-12 form-space">
-            <input class="btn btn-button" type="submit" id="commit-funcionario"/>
             <a href="<c:url value="funcionarios"></c:url>" class="btn btn-default">Voltar</a>
             <button class="btn btn-default" type="submit" id="commit-cargo">
                 <c:choose>
