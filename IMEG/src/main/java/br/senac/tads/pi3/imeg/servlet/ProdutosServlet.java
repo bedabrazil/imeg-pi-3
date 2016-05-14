@@ -7,12 +7,11 @@ package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.CategoriaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
-import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,10 +37,11 @@ public class ProdutosServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response, String path)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("path", path);
-        request.getRequestDispatcher("WEB-INF/views/produtos/index.jsp").forward(request, response);
+        ArrayList<Produto> produtos = new ProdutoDao().listar();
+        request.setAttribute("produtos", produtos);
+        request.getRequestDispatcher("/WEB-INF/views/produtos/index.jsp").forward(request, response);
     }
 
     /**
@@ -55,8 +55,7 @@ public class ProdutosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String path = request.getPathInfo();
-        processRequest(request, response, path);
+        processRequest(request, response);
     }
 
     /**
@@ -71,7 +70,6 @@ public class ProdutosServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String path = request.getPathInfo();
 
         String nomeProduto = request.getParameter("nome_produto");
         String qtdMinProduto = request.getParameter("qtd_min_produto");
@@ -79,6 +77,7 @@ public class ProdutosServlet extends HttpServlet {
         String categoriaId = request.getParameter("categoria_id");
 
         HttpSession session = request.getSession(true);
+
         session.setAttribute("msg", "Seu Produto:<br> Nome: " + nomeProduto
                 //+ "<br>Preço de Custo: " + precoCustoProduto
                 //+ "<br>Preço de Venda: " + precoVendaProduto
@@ -86,7 +85,7 @@ public class ProdutosServlet extends HttpServlet {
                 + "<br>Quantidade Máxima: " + qtdMaxProduto
                 //+ "<br>Saldo do Produto: " + saldoProduto
                 + "<br>Categoria do Produto:" + categoriaId);
-        response.sendRedirect("sucesso");
+//        response.sendRedirect("sucesso");
         
         Produto produto = new Produto();
         ProdutoDao pDao = new ProdutoDao();
@@ -104,7 +103,7 @@ public class ProdutosServlet extends HttpServlet {
         
       produto.setCategoria(produto.getCategoria());
        
-        pDao.cadastrarProduto(produto);
+        pDao.adicionar(produto);
 
     }
 

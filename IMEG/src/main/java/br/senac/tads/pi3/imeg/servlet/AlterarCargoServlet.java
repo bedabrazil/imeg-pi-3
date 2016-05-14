@@ -42,7 +42,7 @@ public class AlterarCargoServlet extends HttpServlet {
                 Cargo cargo = new CargoDao().pesquisarPorId(id);
                 request.setAttribute("cargo", cargo);
             }
-            request.getRequestDispatcher("WEB-INF/views/cargos/editar.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/cargos/editar.jsp").forward(request, response);
         }else{
             response.sendRedirect("cargos");
         }

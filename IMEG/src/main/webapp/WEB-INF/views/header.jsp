@@ -11,12 +11,12 @@
             <title>Distribuidora IMEG Cosméticos</title>
             <meta charset="utf-8"/>
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-            <link rel='shortcut icon' type='image/x-icon' href="<c:url value='favicon.ico'></c:url>" />
+            <link rel='shortcut icon' type='image/x-icon' href="<c:url value='/favicon.ico'/>" />
             <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-            <link rel="apple-touch-icon" href="<c:url value='apple-touch-icon.png'></c:url>"/>
-            <link rel="stylesheet" href="<c:url value='resources/css/bootstrap.min.css'></c:url>"/>
-            <link rel="stylesheet" href="<c:url value='resources/css/main.css'></c:url>"/>
-            <script src="<c:url value='resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'></c:url>"></script>           
+            <link rel="apple-touch-icon" href="<c:url value='/apple-touch-icon.png'/>"/>
+            <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css'/>"/>
+            <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>"/>
+            <script src="<c:url value='/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'/>"></script>           
         </head>
         <body>
             <div class="container">
@@ -31,7 +31,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                           </button>
-                            <a class="navbar-brand logo" href="home"><img src="<c:url value='resources/img/logo.png'></c:url>" alt=""/></a>
+                            <a class="navbar-brand logo" href="home"><img src="<c:url value='/resources/img/logo.png'></c:url>" alt=""/></a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -41,17 +41,17 @@
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
                               <ul class="dropdown-menu">
-                                <li><a href="categorias">Categorias</a></li>
-                                <li><a href="unidades">Unidades</a></li>
-                                <li><a href="produtos">Produtos</a></li>
+                                <li><a href="/categorias">Categorias</a></li>
+                                <li><a href="/unidades">Unidades</a></li>
+                                <li><a href="/produtos">Produtos</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="funcionarios">Funcionários</a></li>
-                                <li><a href="cargos">Cargos</a></li>
+                                <li><a href="<c:url value="/funcionarios"/>">Funcionários</a></li>
+                                <li><a href="<c:url value="/cargos"/>">Cargos</a></li>
                                 <li role="separator" class="divider"></li>
                               </ul>
                             </li>
                           </ul>
-                          <form class="navbar-form navbar-right" action="login" method="post" role="form">
+                          <form class="navbar-form navbar-right" action="login" method="post" role="form" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
                               <input type="text" class="form-control" placeholder="Email">
                               <input type="password" class="form-control" placeholder="Senha">

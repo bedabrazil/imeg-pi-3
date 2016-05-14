@@ -38,7 +38,7 @@ public class CategoriasServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Categoria> categorias = new CategoriaDao().listar();
         request.setAttribute("categorias", categorias);
-        request.getRequestDispatcher("WEB-INF/views/categorias/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/categorias/index.jsp").forward(request, response);
 
         HttpSession session = request.getSession();
         String msg_success = (String) session.getAttribute("msg_success");

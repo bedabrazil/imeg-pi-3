@@ -6,7 +6,7 @@
     </c:choose>
 <div class="col-lg-12">
     <h3>Cargos</h3>
-    <a href="<c:url value="novocargo"></c:url>">Novo Cargo</a>
+    <a href="<c:url value="/cargos/novo"></c:url>">Novo Cargo</a>
     <br>
     <div id="warning" class="col-lg-12 ${alert}">
         <c:if test="${sessionScope.success}">
@@ -38,7 +38,7 @@
                         </c:otherwise></c:choose></td>
                 <td>${cargo.nome}</td>
                 <td>${cargo.acesso.nome}</td>
-                <td><a href="<c:url value="alterarcargo?id=${cargo.id}"></c:url>">Editar</a></td>
+                <td><a href="<c:url value="/cargos/editar?id=${cargo.id}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>
         </tbody>

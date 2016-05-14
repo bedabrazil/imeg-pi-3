@@ -4,6 +4,6 @@
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
     <%-- CONTEÚDO DE PRODUTOS/INDEX --%>
-    <jsp:include page="form.jsp" />
+    <jsp:include page="listagem.jsp" />
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />

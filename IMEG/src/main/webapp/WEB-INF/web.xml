@@ -33,6 +33,18 @@
         <servlet-class>br.senac.tads.pi3.imeg.servlet.NovoFuncionarioServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>NovaUnidadeServlet</servlet-name>
+        <servlet-class>br.senac.tads.pi3.imeg.servlet.NovaUnidadeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NovoProdutoServlet</servlet-name>
+        <servlet-class>br.senac.tads.pi3.imeg.servlet.NovoProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlterarProdutoServlet</servlet-name>
+        <servlet-class>br.senac.tads.pi3.imeg.servlet.AlterarProdutoServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AlterarFuncionarioServlet</servlet-name>
         <servlet-class>br.senac.tads.pi3.imeg.servlet.AlterarFuncionarioServlet</servlet-class>
     </servlet>
@@ -57,20 +69,48 @@
         <url-pattern>/unidades</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>NovaUnidadeServlet</servlet-name>
+        <url-pattern>/unidades/novo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CategoriasServlet</servlet-name>
         <url-pattern>/categorias</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NovoCargoServlet</servlet-name>
+        <url-pattern>/cargos/novo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CargosServlet</servlet-name>
         <url-pattern>/cargos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AlterarCargoServlet</servlet-name>
+        <url-pattern>/cargos/editar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NovaCategoriaServlet</servlet-name>
+        <url-pattern>/categorias/novo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarCategoriaServlet</servlet-name>
+        <url-pattern>/categorias/editar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NovoProdutoServlet</servlet-name>
+        <url-pattern>/produtos/novo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarProdutoServlet</servlet-name>
+        <url-pattern>/produtos/editar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>NovoFuncionarioServlet</servlet-name>
-        <url-pattern>/NovoFuncionarioServlet</url-pattern>
+        <url-pattern>/funcionarios/novo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AlterarFuncionarioServlet</servlet-name>
-        <url-pattern>/AlterarFuncionarioServlet</url-pattern>
+        <url-pattern>/funcionarios/editar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
