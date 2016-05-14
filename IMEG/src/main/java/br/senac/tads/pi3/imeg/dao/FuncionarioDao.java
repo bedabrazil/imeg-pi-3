@@ -25,8 +25,8 @@ public class FuncionarioDao {
     public boolean adicionar(Funcionario funcionario) {
 
         String sql = "INSERT INTO FUNCIONARIOS "
-                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME, EMAIL)"
-                + "VALUES (?, ?, ?, ?, ?)";
+                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME, EMAIL, SENHA, SENHA_HASH)"
+                + "VALUES (?, ?, ?, ?, ?, ?, 'AGUARDANDO IMPLEMENTAÇÃO MARCIO')";
 
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -35,6 +35,7 @@ public class FuncionarioDao {
             pst.setInt(3, funcionario.getAcesso().getId());
             pst.setString(4, funcionario.getNome());
             pst.setString(5, funcionario.getEmail());
+            pst.setString(6, funcionario.getSenha());
             pst.executeUpdate();
             
 

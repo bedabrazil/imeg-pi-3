@@ -73,6 +73,7 @@ public class NovaCategoriaServlet extends HttpServlet {
         session.setAttribute("error", false);
 
         String nome = request.getParameter("nome_categoria");
+        
         if (nome.isEmpty()) {
             request.setAttribute("error", true);
             mensagens.add("Nome não pode ser vazio.");

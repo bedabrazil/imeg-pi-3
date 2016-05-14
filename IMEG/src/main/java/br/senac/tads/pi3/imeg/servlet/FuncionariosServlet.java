@@ -5,10 +5,7 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.AcessoDao;
-import br.senac.tads.pi3.imeg.dao.CargoDao;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
-import br.senac.tads.pi3.imeg.dao.UnidadeDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ public class FuncionariosServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
         request.setAttribute("funcionarios", funcionarios);
-        request.getRequestDispatcher("WEB-INF/views/funcionarios/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/funcionarios/index.jsp").forward(request, response);
 
         HttpSession session = request.getSession();
         String msg_success = (String) session.getAttribute("msg_success");

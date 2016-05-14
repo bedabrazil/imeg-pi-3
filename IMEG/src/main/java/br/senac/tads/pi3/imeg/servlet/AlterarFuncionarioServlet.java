@@ -113,7 +113,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
             request.getRequestDispatcher("//WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
-        } else if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), new AcessoDao().pesquisarPorId(acesso_id), "TesteHardCode@imeg.com"))) {
+        } else if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), new AcessoDao().pesquisarPorId(acesso_id), "TesteHardCode@imeg.com", "Implementar igual Novo"))) {
             session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
             session.setAttribute("success", true);
             response.sendRedirect("funcionarios");
