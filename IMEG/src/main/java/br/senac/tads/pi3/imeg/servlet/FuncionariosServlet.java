@@ -5,7 +5,9 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.CargoDao;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
+import br.senac.tads.pi3.imeg.dao.UnidadeDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.io.IOException;
 import java.util.ArrayList;
