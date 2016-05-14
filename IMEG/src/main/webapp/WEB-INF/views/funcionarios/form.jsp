@@ -19,11 +19,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>            
 
-                <<<<<<< HEAD
                 <p>Existem <strong>${mensagens.size()}</strong> erro(s) a ser(em) corrigidos.</p>
-                =======
-                <p>Existem <strong>${mensagens.size()}</strong> erro(s) a ser(em) corrigidos.</p>
-                >>>>>>> cdade191ba3d09cba07c46c5857aa17e877cbe31
+
             </c:if>
             <div class="col-lg-12">
                 <p></p>
@@ -56,7 +53,7 @@
             <label for="">Cargos </label>
             <select name="cargo_id" class="form-control" >
                 <option value="0">Selecione um Cargo</option>
-                <c:forEach items="${cargos}">
+                <c:forEach items="${cargos}" var="cargo">
                     <option value="${cargo.id}">${cargo.nome}</option>
                 </c:forEach>
             </select>
@@ -65,7 +62,7 @@
             <label for="">Unidades </label>
             <select name="unidade_id" class="form-control" >
                 <option value="0">Selecione um Unidade</option>
-                <c:forEach items="${unidades}" var="unidades">
+                <c:forEach items="${unidades}" var="unidade">
                     <option value="${unidade.id}">${unidade.nome}</option>
                 </c:forEach>
             </select>
