@@ -7,9 +7,7 @@ package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.HistoricoEntradaDao;
 import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
-import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,11 +63,11 @@ public class InserirProdutoServlet extends HttpServlet {
 
         HistoricoEntrada histEntrada = new HistoricoEntrada();
 
-        histEntrada.setPreco_custo(Double.parseDouble(preco_custo_produto));
+//        histEntrada.setPreco_custo(Double.parseDouble(preco_custo_produto));
         histEntrada.setQtde_produtos(Integer.parseInt(quantidade));
 
       //produto.setCategoria(produto.getCategoria());
-        new HistoricoEntradaDao().adicionar(histEntrada);
+//        new HistoricoEntradaDao().adicionar(histEntrada);
 
         session.setAttribute("success", true);
         response.sendRedirect(request.getContextPath() + "/produtos/inserir");
