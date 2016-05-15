@@ -24,9 +24,18 @@ public class Funcionario {
 
     public Funcionario() {
     }
-
-        
+  
     public Funcionario(String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha) {
+        this.nome = nome;
+        this.cargo = cargo;
+        this.unidade = unidade;
+        this.email = email;
+        this.acesso = acesso;
+        this.senha = senha;
+    }
+    
+    public Funcionario(int id, String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha) {
+        this.id = id;
         this.nome = nome;
         this.cargo = cargo;
         this.unidade = unidade;

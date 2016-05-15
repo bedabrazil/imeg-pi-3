@@ -106,6 +106,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
 
         session.setAttribute("error", false);
 
+        int id = Integer.parseInt(request.getParameter("id_funcionario"));
         String nome = request.getParameter("nome_funcionario");
         int cargo = Integer.parseInt(request.getParameter("cargo_id"));
         int unidade = Integer.parseInt(request.getParameter("unidade_id"));
@@ -143,8 +144,8 @@ public class AlterarFuncionarioServlet extends HttpServlet {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/views/funcionarios/editar.jsp").forward(request, response);
-        } else if (fDao.alterar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email, senha))) {
-            session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
+        } else if (fDao.alterar(new Funcionario(id, nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email, senha))) {
+            session.setAttribute("msg_success", "Funcionário alterado com sucesso.");
             session.setAttribute("success", true);
             response.sendRedirect(request.getContextPath() + "/funcionarios");
         } else {

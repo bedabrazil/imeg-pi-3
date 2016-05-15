@@ -54,7 +54,7 @@ public class FuncionarioDao {
     //Altera informações de um funcionário
     public boolean alterar(Funcionario funcionario) {
         String sql = "UPDATE FUNCIONARIOS SET CARGOS_ID = ?, UNIDADES_ID = ?, "
-                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SENHA = ?"
+                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SENHA = ? "
                 + "WHERE ID = ?";
         try {
             pst = new Conexao().prepararStatement(sql);
