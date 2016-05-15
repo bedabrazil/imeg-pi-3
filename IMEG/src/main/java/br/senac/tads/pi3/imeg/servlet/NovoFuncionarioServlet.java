@@ -77,7 +77,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
         session.setAttribute("error", false);
         session.setAttribute("success", false);
 
-        //instacio o DAO
+        //instancio o DAO
         FuncionarioDao fDao = new FuncionarioDao();
         CargoDao cDao = new CargoDao();
         UnidadeDao uDao = new UnidadeDao();

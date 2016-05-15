@@ -55,7 +55,7 @@
         <div class="col-lg-3 form-space">
             <label for="">Unidades </label>
             <select name="unidade_id" class="form-control" >
-                <option value="">Selecione um Unidade</option>
+                <option value="0">Selecione um Unidade</option>
                 <c:forEach items="${unidades}">
                 <option value="${unidade.id}">${unidade.nome}</option>
                 </c:forEach>
@@ -64,14 +64,14 @@
         <div class="col-lg-4">
             <label for="acesso_id">Permissão</label>
             <select name="acesso_id" class="form-control">
-                <option value="">Selecione um tipo de permissão</option>
+                <option value="0">Selecione um tipo de permissão</option>
             <c:forEach items="${acessos}" var="acesso">
                 <option value="${acesso.id}" <c:if test="${acesso.id == cargo.acesso.id}">selected="selected"</c:if> >${acesso.nome}</option>
             </c:forEach>
             </select>
         </div>        
         <div class="col-lg-12 form-space">
-            <a href="<c:url value="funcionarios"></c:url>" class="btn btn-default">Voltar</a>
+            <a href="<c:url value="/funcionarios"></c:url>" class="btn btn-default">Voltar</a>
             <button class="btn btn-default" type="submit" id="commit-cargo">
                 <c:choose>
                     <c:when test="${funcionario != null}">Alterar</c:when>

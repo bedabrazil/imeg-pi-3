@@ -23,7 +23,7 @@ public class ProdutoDao {
 
     public boolean adicionar(Produto produto) {
 
-        String sql = "INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX)"
+        String sql = "INSERT INTO PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX)"
                 + "VALUES (?,?,?,?)";
         try {
             pst = new Conexao().prepararStatement(sql);
