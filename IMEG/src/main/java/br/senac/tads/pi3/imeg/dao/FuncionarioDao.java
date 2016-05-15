@@ -128,6 +128,7 @@ public class FuncionarioDao {
     public Funcionario pesquisarPorId(int id) {
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
+        AcessoDao acessoDao = new AcessoDao();
 
         String sql = "SELECT * FROM FUNCIONARIOS WHERE ID = ?";
 
@@ -141,6 +142,7 @@ public class FuncionarioDao {
 
                 funcionario.setId(rs.getInt("ID"));
                 funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGOS_ID")));
+                funcionario.setAcesso(acessoDao.pesquisarPorId(rs.getInt("ACESSOS_ID")));
                 funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADES_ID")));
                 funcionario.setNome(rs.getString("NOME"));
                 funcionario.setEmail(rs.getString("EMAIL"));

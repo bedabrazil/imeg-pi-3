@@ -30,7 +30,6 @@
                         </c:forEach>
                 </ul>
             </div>
-
         </div>        
         <div class="col-lg-6 form-space">
             <label for="">Nome</label>
@@ -52,33 +51,54 @@
             <div class="col-lg-3 form-space">
                 <label for="">Cargos </label>
                 <select name="cargo_id" class="form-control" >
-                    <option value="0">Selecione um Cargo</option>
-                    <c:forEach items="${cargos}" var="cargo">
-                        <option value="${cargo.id}">${cargo.nome}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="col-lg-3 form-space">
-                <label for="">Unidades </label>
-                <select name="unidade_id" class="form-control" >
-                    <option value="0">Selecione um Unidade</option>
-                    <c:forEach items="${unidades}" var="unidade">
-                        <option value="${unidade.id}">${unidade.nome}</option>
-                    </c:forEach>
-                </select>
-            </div>    
-            <div class="col-lg-4">
-                <label for="acesso_id">Permissão</label>
-                <select name="acesso_id" class="form-control">
-                    <option value="0">Selecione um tipo de permissão</option>
-                    <c:forEach items="${acessos}" var="acesso">
-                        <option value="${acesso.id}" <c:if test="${acesso.id == cargo.acesso.id}">selected="selected"</c:if> >${acesso.nome}</option>
-                    </c:forEach>
-                </select>
-            </div>        
-            <div class="col-lg-12 form-space">
-                <a href="<c:url value="/funcionarios"></c:url>" class="btn btn-default">Voltar</a>
-                <button class="btn btn-default" type="submit" id="commit-funcionario"><c:choose><c:when test="${funcionario != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
-            </div>
+                <c:choose>
+                    <c:when test="${funcionario == null}">
+                        <option value="0">Selecione um Cargo</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="<c:out value="${funcionario.cargo.id}"/>" <c:if test="${funcionario != null}">${cargo.nome}</c:if>><c:out value="${funcionario.cargo.nome}"/></option>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach items="${cargos}" var="cargo">
+                    <option value="${cargo.id}">${cargo.nome}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="col-lg-3 form-space">
+            <label for="">Unidades </label>
+            <select name="unidade_id" class="form-control" >
+                <c:choose>
+                    <c:when test="${funcionario == null}">
+                        <option value="0">Selecione uma Unidade</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="<c:out value="${funcionario.unidade.id}"/>" <c:if test="${funcionario != null}">${funcionario.unidade.nome}</c:if>><c:out value="${funcionario.unidade.nome}"/></option>
+                    </c:otherwise>
+                </c:choose>
+                <c:forEach items="${unidades}" var="unidade">
+                    <option value="${unidade.id}">${unidade.nome}</option>
+                </c:forEach>
+            </select>
+        </div>    
+        <div class="col-lg-4">
+            <label for="acesso_id">Permissão</label>
+            <select name="acesso_id" class="form-control">
+                <c:choose>
+                    <c:when test="${funcionario == null}">
+                        <option value="0">Selecione um tipo de permissão</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="<c:out value="${funcionario.acesso.id}"/>" <c:if test="${funcionario != null}">${funcionario.acesso.nome}</c:if>><c:out value="${funcionario.acesso.nome}"/></option>
+                    </c:otherwise>
+                </c:choose>                
+                <c:forEach items="${acessos}" var="acesso">
+                    <option value="${acesso.id}" <c:if test="${acesso.id == cargo.acesso.id}">selected="selected"</c:if> >${acesso.nome}</option>
+                </c:forEach>
+            </select>
+        </div>        
+        <div class="col-lg-12 form-space">
+            <a href="<c:url value="/funcionarios"></c:url>" class="btn btn-default">Voltar</a>
+            <button class="btn btn-default" type="submit" id="commit-funcionario"><c:choose><c:when test="${funcionario != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
+        </div>
     </fieldset>
 </form>

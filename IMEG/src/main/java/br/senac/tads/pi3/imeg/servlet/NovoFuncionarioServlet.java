@@ -103,21 +103,27 @@ public class NovoFuncionarioServlet extends HttpServlet {
         String senha = request.getParameter("senha_funcionario");
         String confSenha = request.getParameter("confSenha_funcionario");
 
+         if (request.getParameter("nome_funcionario").isEmpty()) {
+            mensagens.add("Nome não pode ser vazio.");
+        }  
+        if (request.getParameter("email_funcionario").isEmpty()) {
+            mensagens.add("*Email* não pode ser vazio.");
+        }
+        if (request.getParameter("senha_funcionario").isEmpty()) {
+            mensagens.add("*Senha* não pode ser vazio.");
+        }
+        if (request.getParameter("confSenha_funcionario").isEmpty()) {
+            mensagens.add("*Confirmar Senha* não pode ser vazio.");
+        }
         if (!request.getParameter("cargo_id").matches("\\d+") || request.getParameter("cargo_id").equals("0")) {
             mensagens.add("É preciso selecionar um Cargo.");
-        }
-        if (request.getParameter("nome_funcionario").isEmpty()) {
-            mensagens.add("Nome não pode ser vazio.");
         }
         if (!request.getParameter("unidade_id").matches("\\d+") || request.getParameter("unidade_id").equals("0")) {
             mensagens.add("É preciso selecionar uma Unidade.");
         }
         if (!request.getParameter("acesso_id").matches("\\d+") || request.getParameter("acesso_id").equals("0")) {
             mensagens.add("É preciso selecionar um tipo de permissão.");
-        }
-        if (request.getParameter("email_funcionario").isEmpty()) {
-            mensagens.add("*Email* não pode ser vazio.");
-        }
+        }        
         if (!senha.equals(confSenha)) {
             mensagens.add("*Senha* deve coincidir com *Confirmar Senha*.");
         }
