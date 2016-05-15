@@ -113,7 +113,7 @@ public class NovoProdutoServlet extends HttpServlet {
             if (new ProdutoDao().adicionar(produto)) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
-                response.sendRedirect("cargos");
+                response.sendRedirect(request.getContextPath() + "/produtos");
             }
         }        
     }
