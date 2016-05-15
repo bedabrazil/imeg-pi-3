@@ -21,11 +21,10 @@
             <label for="">Categoria </label>
             <select name="categoria_id" class="form-control" >
                 <option value="">Selecione uma Categoria</option>
-                <option value="1">Categoria 1</option>
-                <option value="2">Categoria 2</option>
-                <option value="3">Categoria 3</option>
-                <option value="4">Categoria 4</option>
-                <option value="5">Categoria 5</option>
+                
+                <c:forEach items="${Listacategorias}" var="Listacategoria">
+                        <option value="${Listacategoria.id}" <c:if test="${Listacategoria.id == cargo.Listacategoria.id}">selected="selected"</c:if> >${Listacategoria.nome}</option>
+                </c:forEach>
             </select>
         </div>
         <div class="col-lg-12 form-space">

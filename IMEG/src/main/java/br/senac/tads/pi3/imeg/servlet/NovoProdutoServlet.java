@@ -38,6 +38,10 @@ public class NovoProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Categoria> categorias = new CategoriaDao().listar();
         request.setAttribute("categorias", categorias);
+        // cria um array para apresentar na lista de categorias 
+        ArrayList<Categoria> Listacategoria = new CategoriaDao().listar();
+        request.setAttribute("Listacategorias", Listacategoria);
+
         request.getRequestDispatcher("/WEB-INF/views/produtos/novo.jsp").forward(request, response);
 
     }
