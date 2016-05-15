@@ -87,7 +87,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
 
-        //instacio o DAO
+        //instancio o DAO
         FuncionarioDao fDao = new FuncionarioDao();
         CargoDao cDao = new CargoDao();
         UnidadeDao uDao = new UnidadeDao();
