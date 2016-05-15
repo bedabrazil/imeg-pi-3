@@ -108,8 +108,21 @@ public class NovoProdutoServlet extends HttpServlet {
         
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         if (!nome.isEmpty() && categoria_id > 0) {
-            Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id);
+           
+             Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id);
             Produto produto = new Produto();//FALTA PARÂMETROS. *******
+            try {
+                produto.setNome(nome);        
+                produto.setQtdeMin(qtd_min_produto);
+                produto.setQtdeMax(qtd_max_produto);
+                produto.setCategoria(new CategoriaDao().pesquisarPorId(categoria_id));
+        
+            } catch (Exception e) {
+                
+            }
+            
+        produto.setCategoria(produto.getCategoria());
+        
             if (new ProdutoDao().adicionar(produto)) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
