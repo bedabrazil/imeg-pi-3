@@ -1,7 +1,16 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form enctype="application/x-www-form-urlencoded" action="produtos" method="post">
+<c:choose>
+    <c:when test="${produto == null}"><c:set var="action" value="/produtos/novo"/></c:when>
+    <c:otherwise><c:set var="action" value="/funcionarios/editar?id=${produto.id}"/></c:otherwise>
+</c:choose>
+
+<c:choose>
+    <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
+</c:choose>  
+
+<form enctype="application/x-www-form-urlencoded" action="<c:url value="${action}"/>" method="post">
     <fieldset class="well"> 
         <div class="col-lg-3 form-space">
             <label for="">Nome do Produto</label>
