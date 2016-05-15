@@ -5,6 +5,7 @@
  */
 package br.senac.tads.pi3.imeg.dao;
 
+import br.senac.tads.pi3.imeg.entity.Categoria;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import br.senac.tads.pi3.imeg.entity.Produto;
@@ -47,17 +48,22 @@ public class ProdutoDao {
         return false;
     }
 
-    public ArrayList<Produto> consultarProduto(String pesquisa, String categoria ) {
-        String sql = "SELECT  FROM Produto WHERE '"+categoria+"' LIKE '" + pesquisa + "%'";
+    public ArrayList<Produto> consultarProduto(String pesquisa, Categoria categoria ) {
+        String sql = "SELECT * FROM PRODUTOS WHERE CATEGORIAS_ID = ? AND NOME LIKE '% ? %'";
         ArrayList<Produto> tempProduto = new ArrayList<>();
 
         try {
             pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, categoria.getId());
+            pst.setString(2, pesquisa);
             ResultSet rs = pst.executeQuery(sql);
+            
             while (rs.next()) {
                 Produto produto = new Produto();
-//                produto.getCategoria().getId(rs.getInt("CATEGORIAS_ID"));
-                produto.setNome(rs.getString("nome"));
+                CategoriaDao cDao = new CategoriaDao();
+
+                produto.setNome(rs.getString("NOME"));
+                produto.setCategoria(cDao.pesquisarPorId(rs.getInt("CATEGORIAS_ID")));
                 produto.setPrecoCusto(rs.getDouble("PRECO_CUSTO"));
                 produto.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
                 produto.setQtdeMin(rs.getInt("QTDE_MIN"));

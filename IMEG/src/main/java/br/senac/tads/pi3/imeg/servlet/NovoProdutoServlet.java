@@ -38,6 +38,10 @@ public class NovoProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Categoria> categorias = new CategoriaDao().listar();
         request.setAttribute("categorias", categorias);
+        // cria um array para apresentar na lista de categorias 
+        ArrayList<Categoria> Listacategoria = new CategoriaDao().listar();
+        request.setAttribute("Listacategorias", Listacategoria);
+
         request.getRequestDispatcher("/WEB-INF/views/produtos/novo.jsp").forward(request, response);
 
     }
@@ -104,12 +108,25 @@ public class NovoProdutoServlet extends HttpServlet {
         
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         if (!nome.isEmpty() && categoria_id > 0) {
-            Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id);
-            Produto produto = new Produto();
+           
+             Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id);
+            Produto produto = new Produto();//FALTA PARÂMETROS. *******
+            try {
+                produto.setNome(nome);        
+                produto.setQtdeMin(qtd_min_produto);
+                produto.setQtdeMax(qtd_max_produto);
+                produto.setCategoria(new CategoriaDao().pesquisarPorId(categoria_id));
+        
+            } catch (Exception e) {
+                
+            }
+            
+        produto.setCategoria(produto.getCategoria());
+        
             if (new ProdutoDao().adicionar(produto)) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
-                response.sendRedirect("cargos");
+                response.sendRedirect(request.getContextPath() + "/produtos");
             }
         }        
     }

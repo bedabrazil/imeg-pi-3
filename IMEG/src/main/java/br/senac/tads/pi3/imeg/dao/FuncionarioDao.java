@@ -25,14 +25,17 @@ public class FuncionarioDao {
     public boolean adicionar(Funcionario funcionario) {
 
         String sql = "INSERT INTO FUNCIONARIOS "
-                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME)"
-                + "VALUES (?, ?, ?, ?)";
+                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME, EMAIL, SENHA, SENHA_HASH)"
+                + "VALUES (?, ?, ?, ?, ?, ?, 'AGUARDANDO IMPLEMENTAÇÃO MARCIO')";
+
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, funcionario.getCargo().getId());
             pst.setInt(2, funcionario.getUnidade().getId());
             pst.setInt(3, funcionario.getAcesso().getId());
             pst.setString(4, funcionario.getNome());
+            pst.setString(5, funcionario.getEmail());
+            pst.setString(6, funcionario.getSenha());
             pst.executeUpdate();
             
 
@@ -50,16 +53,18 @@ public class FuncionarioDao {
     
     //Altera informações de um funcionário
     public boolean alterar(Funcionario funcionario) {
-        String sql = "UPDATE Funcionarios SET CARGOS_ID=?,UNIDADES_ID=?, NOME=?"
+        String sql = "UPDATE FUNCIONARIOS SET CARGOS_ID = ?, UNIDADES_ID = ?, "
+                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SENHA = ? "
                 + "WHERE ID = ?";
-        // UPDATE
-
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, funcionario.getCargo().getId());
             pst.setInt(2, funcionario.getUnidade().getId());
-            pst.setString(3, funcionario.getNome());
-            pst.setInt(4, funcionario.getId());
+            pst.setInt(3, funcionario.getAcesso().getId());
+            pst.setString(4, funcionario.getNome());
+            pst.setString(5, funcionario.getEmail());
+            pst.setString(6, funcionario.getSenha());
+            pst.setInt(7, funcionario.getId());
             
             if (pst.executeUpdate() > 0) {
                 return true;
@@ -83,18 +88,24 @@ public class FuncionarioDao {
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
 
-        String sql = "SELECT * FROM FUNCIONARIOS WHERE NOME LIKE '" + nome + "%';";
+
+        String sql = "SELECT FUNCIONARIOS.* FROM FUNCIONARIOS WHERE NOME LIKE '%?%';";
+
 
         try {
             Funcionario funcionario = new Funcionario();
             pst = new Conexao().prepararStatement(sql);
+            pst.setString(1, nome);
             ResultSet rs = pst.executeQuery(sql);
             while (rs.next()) {
 
                 funcionario.setId(rs.getInt("ID"));
-                funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGO_ID")));
-                funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADE_ID")));
+                funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGOS_ID")));
+                funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADES_ID")));
                 funcionario.setNome(rs.getString("NOME"));
+                funcionario.setEmail(rs.getString("EMAIL"));
+                funcionario.setSenha(rs.getString("SENHA"));
+                //funcionario.setSenhaHash(rs.getString("SENHA_HASH"));
                 funcionario.setStatus(rs.getBoolean("STATUS"));
                 tempFuncionarios.add(funcionario);
 
@@ -118,18 +129,23 @@ public class FuncionarioDao {
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
 
-        String sql = "SELECT ID, CARGO_ID, UNIDADE_ID, NOME FROM FUNCIONARIOS WHERE ID = '" + id + "%'";
+        String sql = "SELECT * FROM FUNCIONARIOS WHERE ID = ?";
 
         try {
             Funcionario funcionario = new Funcionario();
             pst = new Conexao().prepararStatement(sql);
-            ResultSet rs = pst.executeQuery(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+
             while (rs.next()) {
 
                 funcionario.setId(rs.getInt("ID"));
-                funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGO_ID")));
-                funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADE_ID")));
+                funcionario.setCargo(cargoDao.pesquisarPorId(rs.getInt("CARGOS_ID")));
+                funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADES_ID")));
                 funcionario.setNome(rs.getString("NOME"));
+                funcionario.setEmail(rs.getString("EMAIL"));
+                funcionario.setSenha(rs.getString("SENHA"));
+                //funcionario.setSenhaHash(rs.getString("SENHA_HASH"));
                 funcionario.setStatus(rs.getBoolean("STATUS"));
 
             }
@@ -149,7 +165,7 @@ public class FuncionarioDao {
     
     //Lista Funcionarios
     public ArrayList<Funcionario> listar() {
-        String sql = "SELECT ID, CARGOS_ID, UNIDADES_ID, NOME, EMAIL FROM FUNCIONARIOS ORDER BY NOME ASC";
+        String sql = "SELECT ID, CARGOS_ID, UNIDADES_ID, NOME, EMAIL, STATUS FROM FUNCIONARIOS ORDER BY NOME ASC";
         ArrayList<Funcionario> funcionario = new ArrayList<>();
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
@@ -163,8 +179,9 @@ public class FuncionarioDao {
                 f.setCargo(cargoDao.pesquisarPorId(res.getInt("CARGOS_ID")));
                 f.setUnidade(unidadeDao.pesquisarPorId(res.getInt("UNIDADES_ID")));
                 f.setNome(res.getString("NOME"));
-                f.setStatus(res.getBoolean("STATUS"));
                 f.setEmail(res.getString("EMAIL"));
+                f.setStatus(res.getBoolean("STATUS"));
+                
                 funcionario.add(f);
             }
             return funcionario;

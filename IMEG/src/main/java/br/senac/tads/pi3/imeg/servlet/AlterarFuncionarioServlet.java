@@ -9,9 +9,13 @@ import br.senac.tads.pi3.imeg.dao.AcessoDao;
 import br.senac.tads.pi3.imeg.dao.CargoDao;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.dao.UnidadeDao;
+import br.senac.tads.pi3.imeg.entity.Acesso;
+import br.senac.tads.pi3.imeg.entity.Cargo;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
+import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,22 +41,33 @@ public class AlterarFuncionarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AlterarFuncionarioServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AlterarFuncionarioServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        if (request.getQueryString() != null) {
+            if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Funcionario funcionario = new FuncionarioDao().pesquisarPorId(id);
+                request.setAttribute("funcionario", funcionario);
+            }
+
+            ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
+            request.setAttribute("funcionarios", funcionarios);
+
+            ArrayList<Cargo> cargo = new CargoDao().listar();
+            request.setAttribute("cargos", cargo);
+
+            ArrayList<Unidade> unidade = new UnidadeDao().listar();
+            request.setAttribute("unidades", unidade);
+
+            ArrayList<Acesso> acessos = new AcessoDao().listar();
+            request.setAttribute("acessos", acessos);
+
+            request.getRequestDispatcher("/WEB-INF/views/funcionarios/editar.jsp").forward(request, response);
+
+        } else {
+            response.sendRedirect(request.getContextPath() + "/funcionarios");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -79,44 +94,60 @@ public class AlterarFuncionarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        processRequest(request, response);
-
         //inicia uma sessao
         HttpSession session = request.getSession(true);
-        session.setAttribute("error", false);
-        session.setAttribute("success", false);
+        ArrayList<String> mensagens = new ArrayList<>();
 
         //instacio o DAO
         FuncionarioDao fDao = new FuncionarioDao();
         CargoDao cDao = new CargoDao();
         UnidadeDao uDao = new UnidadeDao();
+        AcessoDao aDao = new AcessoDao();
 
-        if (request.getParameter("nome-funcionario") != null) {
-            Funcionario f = new Funcionario();
-            f.setNome(request.getParameter("nome-funcionario"));
-            if (fDao.alterar(f)) {
-                session.setAttribute("msg_success", "Funcionário " + f.getNome() + " alterado com sucesso.");
-                session.setAttribute("success", true);
-                response.sendRedirect("funcionarios");
-                return;
-            }
+        session.setAttribute("error", false);
+
+        int id = Integer.parseInt(request.getParameter("id_funcionario"));
+        String nome = request.getParameter("nome_funcionario");
+        int cargo = Integer.parseInt(request.getParameter("cargo_id"));
+        int unidade = Integer.parseInt(request.getParameter("unidade_id"));
+        String email = request.getParameter("email_funcionario");
+        int acesso = Integer.parseInt(request.getParameter("acesso_id"));
+        String senha = request.getParameter("senha_funcionario");
+        String confSenha = request.getParameter("confSenha_funcionario");
+
+        if (!request.getParameter("cargo_id").matches("\\d+") || request.getParameter("cargo_id").equals("0")) {
+            mensagens.add("É preciso selecionar um Cargo.");
+        }
+        if (request.getParameter("nome_funcionario").isEmpty()) {
+            mensagens.add("Nome não pode ser vazio.");
+        }
+        if (!request.getParameter("unidade_id").matches("\\d+") || request.getParameter("unidade_id").equals("0")) {
+            mensagens.add("É preciso selecionar uma Unidade.");
+        }
+        if (!request.getParameter("acesso_id").matches("\\d+") || request.getParameter("acesso_id").equals("0")) {
+            mensagens.add("É preciso selecionar um tipo de permissão.");
+        }
+        if (request.getParameter("email_funcionario").isEmpty()) {
+            mensagens.add("*Email* não pode ser vazio.");
+        }
+        if (!senha.equals(confSenha)) {
+            mensagens.add("*Senha* deve coincidir com *Confirmar Senha*.");
+        }
+        if (mensagens.size() > 0) {
+            request.setAttribute("error", true);
+            request.setAttribute("mensagens", mensagens);
+            processRequest(request, response);
+            return;
         }
 
-        String nome = request.getParameter("nome-funcionario");
-        int cargo = Integer.parseInt(request.getParameter("cargo-id"));
-        int unidade = Integer.parseInt(request.getParameter("unidade-id"));
-        int acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
-        
-        //seta uma  erro false
-        session.setAttribute("error", false);
-        if (nome != null && nome.isEmpty() && cargo <= 0 && unidade <= 0) {
+        if (nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty() && acesso <= 0 && !(senha.equals(confSenha))) {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
-            request.getRequestDispatcher("//WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
-        } else if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), new AcessoDao().pesquisarPorId(acesso_id), "TesteHardCode@imeg.com"))) {
-            session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
+            request.getRequestDispatcher("/WEB-INF/views/funcionarios/editar.jsp").forward(request, response);
+        } else if (fDao.alterar(new Funcionario(id, nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email, senha))) {
+            session.setAttribute("msg_success", "Funcionário alterado com sucesso.");
             session.setAttribute("success", true);
-            response.sendRedirect("funcionarios");
+            response.sendRedirect(request.getContextPath() + "/funcionarios");
         } else {
             session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
             session.setAttribute("error", true);

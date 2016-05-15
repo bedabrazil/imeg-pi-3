@@ -7,6 +7,7 @@ package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.CategoriaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
+import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +43,10 @@ public class AlterarProdutoServlet extends HttpServlet {
                 Produto produto = new ProdutoDao().pesquisarPorId(id);
                 request.setAttribute("produto", produto);
             }
+            // cria um array para apresentar na lista de categorias 
+            ArrayList<Categoria> Listacategoria = new CategoriaDao().listar();
+        request.setAttribute("Listacategorias", Listacategoria);
+
             request.getRequestDispatcher("/WEB-INF/views/produtos/editar.jsp").forward(request, response);
         } else {
             response.sendRedirect("/produtos");

@@ -1,7 +1,16 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form enctype="application/x-www-form-urlencoded" action="produtos" method="post">
+<c:choose>
+    <c:when test="${produto == null}"><c:set var="action" value="/produtos/novo"/></c:when>
+    <c:otherwise><c:set var="action" value="/funcionarios/editar?id=${produto.id}"/></c:otherwise>
+</c:choose>
+
+<c:choose>
+    <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
+</c:choose>  
+
+<form enctype="application/x-www-form-urlencoded" action="<c:url value="${action}"/>" method="post">
     <fieldset class="well"> 
         <div class="col-lg-3 form-space">
             <label for="">Nome do Produto</label>
@@ -21,11 +30,10 @@
             <label for="">Categoria </label>
             <select name="categoria_id" class="form-control" >
                 <option value="">Selecione uma Categoria</option>
-                <option value="1">Categoria 1</option>
-                <option value="2">Categoria 2</option>
-                <option value="3">Categoria 3</option>
-                <option value="4">Categoria 4</option>
-                <option value="5">Categoria 5</option>
+                
+                <c:forEach items="${Listacategorias}" var="Listacategoria">
+                        <option value="${Listacategoria.id}" <c:if test="${Listacategoria.id == cargo.Listacategoria.id}">selected="selected"</c:if> >${Listacategoria.nome}</option>
+                </c:forEach>
             </select>
         </div>
         <div class="col-lg-12 form-space">
