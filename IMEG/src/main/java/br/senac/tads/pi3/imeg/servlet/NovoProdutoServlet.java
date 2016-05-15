@@ -109,7 +109,7 @@ public class NovoProdutoServlet extends HttpServlet {
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         if (!nome.isEmpty() && categoria_id > 0) {
             Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id);
-            Produto produto = new Produto();
+            Produto produto = new Produto();//FALTA PARÂMETROS. *******
             if (new ProdutoDao().adicionar(produto)) {
                 session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
