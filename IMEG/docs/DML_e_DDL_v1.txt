@@ -7,8 +7,8 @@
 --#####################################################################################
 --APAGA AS TABELAS
 --#####################################################################################
-DROP TABLE PEDIDOS_ENTRADA;
-DROP TABLE PEDIDOS_SAIDA;
+--# DROP TABLE PEDIDOS_ENTRADA;
+--# DROP TABLE PEDIDOS_SAIDA;
 DROP TABLE ITENS_ENTRADA;
 DROP TABLE ITENS_SAIDA;
 DROP TABLE PRODUTOS;
@@ -65,6 +65,7 @@ CREATE TABLE FUNCIONARIOS(
     ACESSOS_ID INT NOT NULL, 
     UNIDADES_ID INT NOT NULL,    
     NOME VARCHAR (50) NOT NULL,
+    STATUS BOOLEAN NOT NULL DEFAULT FALSE, 
     EMAIL VARCHAR(255) NOT NULL,
     SENHA VARCHAR(255) NOT NULL,
     SENHA_HASH VARCHAR(255),

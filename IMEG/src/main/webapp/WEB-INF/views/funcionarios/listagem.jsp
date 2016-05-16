@@ -23,6 +23,7 @@
             <th>Nome</th>
             <th>Cargo</th>
             <th>Unidade</th>
+            <th>Permissão</th>
             <th>Email</th>
             <th>Ações</th>
             </thead>
@@ -42,6 +43,7 @@
                         <td>${funcionario.nome}</td>
                         <td>${funcionario.cargo.nome}</td>
                         <td>${funcionario.unidade.nome}</td>
+                        <td>${funcionario.acesso.nome}</td>
                         <td>${funcionario.email}</td>
                         <td>
                             <a href="<c:url value="/funcionarios/editar?id=${funcionario.id}"></c:url>">Editar</a>
