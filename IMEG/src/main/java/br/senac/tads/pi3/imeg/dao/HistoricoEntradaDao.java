@@ -19,20 +19,23 @@ public class HistoricoEntradaDao {
 
     private PreparedStatement pst;
 
-    public void incluirHistoricoEntrada(HistoricoEntrada historicoEntrada) {
-        String sql = "INSERT INTO HISTORICOENTRADA(PRODUTOS_ID, FUNCIONARIOS_ID, DATA_TRANSACAO, QTDE_PRODUTOS) VALUES(?,?,?,?)";
+    public boolean adicionar(HistoricoEntrada historicoEntrada) {
+        String sql = "INSERT INTO ITENS_ENTRADA(DATA_TRANSACAO, QTDE_PRODUTOS, PRECO_CUSTO) VALUES(?,?,?)";
 
         try {
             pst = new Conexao().prepararStatement(sql);
-//            pst.setInt(1, historicoEntrada.getProdutos_id());
-//            pst.setInt(2, historicoEntrada.getFuncionarios_id());
-            pst.setDate(3, new Date(System.currentTimeMillis()));
-            pst.setInt(4, historicoEntrada.getQtde_produtos());
+            pst.setDate(1, new Date(System.currentTimeMillis()));
+            pst.setInt(2, historicoEntrada.getQtde_produtos());
+            pst.setDouble(3, historicoEntrada.getPreco_custo());
 
             pst.execute();
+            
+            return true;
+            
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(HistoricoEntradaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+         return false;
     }
 
     public void consultarHistoricoEntrada(HistoricoEntrada historicoEntrada) {

@@ -12,65 +12,52 @@ import java.util.Date;
  * @author diogo.lsousa
  */
 public class HistoricoEntrada {
+    
     private int id;
     private Produto produto;
     private Funcionario funcionario;
     private Date data_transacao;
     private int qtde_produtos;
+    private double preco_custo;
+    
+    
+    public double getPreco_custo() {
+        return preco_custo;
+    }
 
-    /**
-     * @return the id
-     */
+    public void setPreco_custo(double preco_custo) {
+        this.preco_custo = preco_custo;
+    }
+  
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    /**
-     * @return the produtos_id
-     */
-
-    /**
-     * @return the data_transacao
-     */
     public Date getData_transacao() {
         return data_transacao;
     }
 
-    /**
-     * @param data_transacao the data_transacao to set
-     */
     public void setData_transacao(Date data_transacao) {
         this.data_transacao = data_transacao;
     }
 
-    /**
-     * @return the qtde_produtos
-     */
     public int getQtde_produtos() {
         return qtde_produtos;
     }
 
-    /**
-     * @param qtde_produtos the qtde_produtos to set
-     */
     public void setQtde_produtos(int qtde_produtos) {
         this.qtde_produtos = qtde_produtos;
     }
 
-    /**
-     * @return the produto
-     */
     public Produto getProduto() {
         return produto;
     }
 
-    /**
-     * @return the funcionario
-     */
     public Funcionario getFuncionario() {
         return funcionario;
     }
+    
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    } 
 }
