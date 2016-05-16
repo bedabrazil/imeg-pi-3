@@ -46,10 +46,9 @@ body {
     color:#dd1355;
 }
 .carousel-inner{
-	margin-top:-20px;
+	margin-top: 0px;
 	margin-bottom: 10px;
 }
-
 
 footer.footer {
   position: absolute;

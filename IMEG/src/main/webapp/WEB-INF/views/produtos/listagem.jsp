@@ -6,7 +6,7 @@
     </c:choose>
 <div class="col-lg-12">
     <h3>Produtos</h3>
-    <a href="<c:url value="/produtos/novo"></c:url>">Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a href="<c:url value="/produtos/inserir"></c:url>">Inserir Produto no Estoque</a>
+    <a href="<c:url value="/produtos/novo"></c:url>">Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a href="<c:url value="/produtos/venda"></c:url>">Registrar venda de Produtos</a>
     <br>
     <div id="warning" class="col-lg-12 ${alert}">
         <c:if test="${sessionScope.success}">
@@ -24,7 +24,9 @@
             <th>Nome</th>
             <th>Quantidade Mínima</th>
             <th>Quantidade Máxima</th>
+            <th></th>
             <th>Ações</th>
+            <th></th>
         </thead>
         <tbody>
         <c:forEach items="${produtos}" var="produto">
@@ -41,6 +43,7 @@
                 <td>${produto.qtdeMin}</td>
                 <td>${produto.qtdeMax}</td>
                 <td><a href="<c:url value="/produtos/editar?id=${produto.id}"></c:url>">Editar</a></td>
+                <td><a href="<c:url value="/produtos/inserir?id=${produto.id}"></c:url>">Inserir Produto</a></td>
             </tr>
         </c:forEach>
         </tbody>

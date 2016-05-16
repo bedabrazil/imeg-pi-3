@@ -49,7 +49,7 @@ public class CargoDao {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, cargo.getNome());
             pst.setBoolean(2, cargo.isStatus());
-            pst.setInt(4, cargo.getId());
+            pst.setInt(3, cargo.getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -66,7 +66,7 @@ public class CargoDao {
     }
 
     public ArrayList<Cargo> listar() {
-        String sql = "SELECT CARGOS.* FROM CARGOS ORDER BY ID DESC";
+        String sql = "SELECT CARGOS.* FROM CARGOS ORDER BY NOME ASC";
         try {
             ArrayList<Cargo> cargos = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);

@@ -5,7 +5,9 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
+import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,9 +34,16 @@ public class InserirProdutoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       //  ArrayList<Categoria> categorias = new CategoriaDao().listar();
-        // request.setAttribute("categorias", categorias);
-        request.getRequestDispatcher("/WEB-INF/views/produtos/inserir.jsp").forward(request, response);
+        if (request.getQueryString() != null) {
+            if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Produto produto = new ProdutoDao().pesquisarPorId(id);
+                request.setAttribute("produto", produto);
+            }
+            request.getRequestDispatcher("/WEB-INF/views/produtos/inserir.jsp").forward(request, response);
+        }else{
+            response.sendRedirect(request.getContextPath() + "/produtos");
+        }
     }
 
     @Override
@@ -43,19 +52,16 @@ public class InserirProdutoServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(true);
+        
+        
+   
+        
         String nomeProduto = request.getParameter("nm_produto");
         String preco_custo_produto = request.getParameter("preco_custo_produto");
         String quantidade = request.getParameter("quantidade");

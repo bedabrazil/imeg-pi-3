@@ -83,17 +83,12 @@ public class AlterarCargoServlet extends HttpServlet {
         session.setAttribute("success", false);
         //instacio o DAO
         String nome = request.getParameter("nome_cargo");
-        int acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
 
         if (nome.isEmpty()) {
             request.setAttribute("error", true);
             mensagens.add("Nome não pode ser vazio.");
         }
-        if (acesso_id == 0) {
-            request.setAttribute("error", true);
-            mensagens.add("Selecione um Tipo de Permissão.");
-
-        }
+        
         if (mensagens.size() > 0) {
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);

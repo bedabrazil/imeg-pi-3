@@ -106,11 +106,11 @@ public class NovoProdutoServlet extends HttpServlet {
             return;
         }
         
-        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
+        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));// Não está sendo usado
         if (!nome.isEmpty() && categoria_id > 0) {
            
-             Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id);
-            Produto produto = new Produto();//FALTA PARÂMETROS. *******
+             Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id); // Não está sendo usado
+            Produto produto = new Produto();            
             try {
                 produto.setNome(nome);        
                 produto.setQtdeMin(qtd_min_produto);
@@ -124,7 +124,7 @@ public class NovoProdutoServlet extends HttpServlet {
         produto.setCategoria(produto.getCategoria());
         
             if (new ProdutoDao().adicionar(produto)) {
-                session.setAttribute("msg_success", "Cargo " + nome + " incluído com sucesso.");
+                session.setAttribute("msg_success", "Produto " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect(request.getContextPath() + "/produtos");
             }
