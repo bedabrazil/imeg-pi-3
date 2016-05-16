@@ -144,7 +144,7 @@ public class ProdutoDao {
         return false;
     }
     public ArrayList<Produto> listar(){
-        String sql = "SELECT PRODUTOS.* FROM PRODUTOS";
+        String sql = "SELECT PRODUTOS.* FROM PRODUTOS ORDER BY NOME ASC";
         try{
             pst = new Conexao().prepararStatement(sql);
             ResultSet res = pst.executeQuery();
