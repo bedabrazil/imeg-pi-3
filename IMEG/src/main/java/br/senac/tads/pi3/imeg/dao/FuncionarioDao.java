@@ -167,7 +167,7 @@ public class FuncionarioDao {
     
     //Lista Funcionarios
     public ArrayList<Funcionario> listar() {
-        String sql = "SELECT ID, CARGOS_ID, UNIDADES_ID, NOME, EMAIL, STATUS FROM FUNCIONARIOS ORDER BY NOME ASC";
+        String sql = "SELECT ID, CARGOS_ID, ACESSOS_ID, UNIDADES_ID, NOME, EMAIL, STATUS FROM FUNCIONARIOS ORDER BY NOME ASC";
         ArrayList<Funcionario> funcionario = new ArrayList<>();
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
@@ -180,6 +180,7 @@ public class FuncionarioDao {
                 f.setId(res.getInt("ID"));
                 f.setCargo(cargoDao.pesquisarPorId(res.getInt("CARGOS_ID")));
                 f.setUnidade(unidadeDao.pesquisarPorId(res.getInt("UNIDADES_ID")));
+                f.setAcesso(new AcessoDao().pesquisarPorId(res.getInt("ACESSOS_ID")));
                 f.setNome(res.getString("NOME"));
                 f.setEmail(res.getString("EMAIL"));
                 f.setStatus(res.getBoolean("STATUS"));
