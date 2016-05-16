@@ -117,5 +117,4 @@ public class Funcionario {
         this.status = status;
     }
 
-
 }
