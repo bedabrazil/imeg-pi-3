@@ -53,7 +53,7 @@
                 <select name="categoria_id" class="form-control" >
                 <c:choose>
                     <c:when test="${Listacategorias == null}">
-                        <option value="0">Selecione um Categoria</option>
+                        <option value="0">Selecione uma Categoria</option>
                         
                     </c:when>
                     <c:otherwise>

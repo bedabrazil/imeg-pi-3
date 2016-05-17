@@ -2,13 +2,13 @@
 
 
 <c:choose>
-    <c:when test="${unidade == null}"><c:set var="action" value="novaunidade"/></c:when>
-    <c:otherwise><c:set var="action" value="alterarunidade?id=${unidade.id}"/></c:otherwise>
-</c:choose>    
+    <c:when test="${unidade == null}"><c:set var="action" value="/unidades/novo"/></c:when>
+    <c:otherwise><c:set var="action" value="unidades/editar?id=${unidade.id}"/></c:otherwise>
+</c:choose> 
+
 <c:choose>
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
 </c:choose>  
-
 
 <form action="${action}" method="post">
     <c:if test="${unidade != null}">
@@ -25,7 +25,6 @@
                 <p>Existem <strong>${mensagens.size()}</strong> erro(s) a ser(em) corrigidos.</p>
 
             </c:if>
-
             <div class="col-lg-12">
                 <p></p>
                 <ul>
@@ -35,25 +34,36 @@
                 </ul>
             </div>
         </div>
-        <label for="">Nome da Unidade</label>
-        <input class="form-control" type="text" id="nome-unidade" name="nome-unidade"/>
         </div>
-        <div class="col-lg-3 form-space">
-            <label for="">Cidades </label>
-            <select name="estado-id" class="form-control" >
-                <option value="">Selecione uma Cidade</option>
-                <c:forEach items="${estados}" var="estado">
-                    <option value="${estado.id}">${estado.nome}</option>
+        <div class="col-lg-6 form-space">
+            <label for="">Nome da Unidade</label>
+            <input class="form-control" type="text" value="<c:if test="${unidade != null }">${unidade.nome}</c:if>" id="nome-unidade" name="nome-unidade"/>
+
+            </div>
+            <div class="col-lg-4 form-space">
+                <label for="">Cidades </label>
+                <select name="estado-id" class="form-control" >  
+                    <option value="<c:if test="${unidade != null }">${unidade.estado.nome}</c:if>">Selecione uma Cidade</option>
+                    
+                <c:forEach items="${estados}" var="estado">                    
+                    <option value="${unidade.estado.id}">${estado.nome}</option>
                 </c:forEach>
             </select>
         </div>
+        <%--
         <div class="col-lg-12 form-space">
             <label for="ativo_unidades">Ativo</label>
-            <input class="btn btn-button" type="submit" id="commit-unidade"/>
+            <input class="btn btn-button" type="checkbox" id="commit-unidade"/>
         </div>
+        --%>
+        </br>
         <div class="col-lg-12 form-space">
-            <a href="<c:url value="unidades"></c:url>" class="btn btn-default">Voltar</a>
-            <button class="btn btn-default" type="submit" id="commit-cargo"><c:choose><c:when test="${unidade != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
+            <a href="<c:url value="/unidades"></c:url>" class="btn btn-default">Voltar</a>
+                <button class="btn btn-default ajax" type="submit" id="commit-unidade">
+                <c:choose><c:when test="${unidade != null}">Alterar</c:when>
+                    <c:otherwise>Salvar</c:otherwise>
+                </c:choose>
+            </button>
         </div>
     </fieldset>
 </form>

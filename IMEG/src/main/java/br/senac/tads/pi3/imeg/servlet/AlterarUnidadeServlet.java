@@ -6,8 +6,10 @@
 package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.AcessoDao;
+import br.senac.tads.pi3.imeg.dao.EstadoDao;
 import br.senac.tads.pi3.imeg.dao.UnidadeDao;
 import br.senac.tads.pi3.imeg.entity.Acesso;
+import br.senac.tads.pi3.imeg.entity.Estado;
 import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,8 +38,11 @@ public class AlterarUnidadeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Acesso> acessos = new AcessoDao().listar();
-        request.setAttribute("acessos", acessos);
+//        ArrayList<Acesso> acessos = new AcessoDao().listar();
+//        request.setAttribute("acessos", acessos
+        ArrayList<Estado> estados = new EstadoDao().listar();
+        request.setAttribute("estados", estados);
+
         if (request.getQueryString() != null) {
             if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(request.getParameter("id"));
@@ -46,7 +51,8 @@ public class AlterarUnidadeServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/WEB-INF/views/unidades/editar.jsp").forward(request, response);
         } else {
-            response.sendRedirect("unidade");
+            response.sendRedirect(request.getContextPath() + "/unidades");
+
         }
 
     }
