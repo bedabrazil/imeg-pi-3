@@ -83,23 +83,23 @@ public class AutenticacaoFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        HttpSession sessao = httpRequest.getSession();
-        Funcionario funcionario = (Funcionario) sessao.getAttribute("funcionario");
-        if (funcionario == null) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
-            return;
-        }
-        try {
-            if (verificarAcesso(funcionario, httpRequest, httpResponse)) {
-                chain.doFilter(request, response);
-            } else {
-                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");
-            }
-        } catch (IOException | ServletException t) {
-            t.printStackTrace();
-        }
+//        HttpServletRequest httpRequest = (HttpServletRequest) request;
+//        HttpServletResponse httpResponse = (HttpServletResponse) response;
+//        HttpSession sessao = httpRequest.getSession();
+//        Funcionario funcionario = (Funcionario) sessao.getAttribute("funcionario");
+//        if (funcionario == null) {
+//            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+//            return;
+//        }
+//        try {
+//            if (verificarAcesso(funcionario, httpRequest, httpResponse)) {
+//                chain.doFilter(request, response);
+//            } else {
+//                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");
+//            }
+//        } catch (IOException | ServletException t) {
+//            t.printStackTrace();
+//        }
     }
 
     /**
