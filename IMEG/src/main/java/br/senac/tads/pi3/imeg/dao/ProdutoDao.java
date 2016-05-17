@@ -97,6 +97,7 @@ public class ProdutoDao {
             if (rs.next()) {
                 
 //                produto.getCategoria().getId(rs.getInt("CATEGORIAS_ID"));
+                produto.setId(rs.getInt("ID"));
                 produto.setNome(rs.getString("NOME"));
                 produto.setQtdeMin(rs.getInt("QTDE_MIN"));
                 produto.setQtdeMax(rs.getInt("QTDE_MAX"));
@@ -169,5 +170,6 @@ public class ProdutoDao {
         }
         return null;
     }
+    
 }
 

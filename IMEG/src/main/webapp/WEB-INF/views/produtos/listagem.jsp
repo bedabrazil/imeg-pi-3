@@ -43,7 +43,7 @@
                 <td>${produto.qtdeMin}</td>
                 <td>${produto.qtdeMax}</td>
                 <td><a href="<c:url value="/produtos/editar?id=${produto.id}"></c:url>">Editar</a></td>
-                <td><a href="<c:url value="/produtos/inserir?id=${produto.id}"></c:url>">Inserir Produto</a></td>
+                <td><a href="<c:url value="/produtos/inserir?id=${produto.id}"></c:url>">Inserir</a></td>
             </tr>
         </c:forEach>
         </tbody>

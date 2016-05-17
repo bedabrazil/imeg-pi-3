@@ -5,10 +5,15 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.CategoriaDao;
+import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
+import br.senac.tads.pi3.imeg.dao.HistoricoEntradaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
+import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +47,7 @@ public class InserirProdutoServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/WEB-INF/views/produtos/inserir.jsp").forward(request, response);
         }else{
-            response.sendRedirect(request.getContextPath() + "/produtos");
+            response.sendRedirect(request.getContextPath() + "/produtos/inserir");
         }
     }
 
@@ -58,24 +63,38 @@ public class InserirProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(true);
-        
-        
-   
-        
-        String nomeProduto = request.getParameter("nm_produto");
-        String preco_custo_produto = request.getParameter("preco_custo_produto");
-        String quantidade = request.getParameter("quantidade");
+        ArrayList<String> mensagens = new ArrayList<>();
 
+ 
+    
+    
+      
+        if(mensagens.size() > 0){
+            request.setAttribute("mensagens", mensagens);                        
+            request.setAttribute("error", true);
+            processRequest(request, response);
+            return;
+        }
+        
+      
+        int id = Integer.parseInt(request.getParameter("id_produto")); 
+        int id_funcionario = 1; // ajustar
+        String nome = request.getParameter("nm_produto");
+        double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
+        int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+        
         HistoricoEntrada histEntrada = new HistoricoEntrada();
 
-//        histEntrada.setPreco_custo(Double.parseDouble(preco_custo_produto));
-        histEntrada.setQtde_produtos(Integer.parseInt(quantidade));
+        histEntrada.setPreco_custo(preco_custo_produto);
+        histEntrada.setQtde_produtos(quantidade);
+        histEntrada.setProduto(new ProdutoDao().pesquisarPorId(id));
+        histEntrada.setFuncionario(new FuncionarioDao().pesquisarPorId(id_funcionario));
 
-      //produto.setCategoria(produto.getCategoria());
-//        new HistoricoEntradaDao().adicionar(histEntrada);
-
-        session.setAttribute("success", true);
-        response.sendRedirect(request.getContextPath() + "/produtos/inserir");
+         if (new HistoricoEntradaDao().adicionar(histEntrada)) {
+                session.setAttribute("msg_success", " Entrada realizada com sucesso.");
+                session.setAttribute("success", true);
+                response.sendRedirect(request.getContextPath() + "/produtos");
+       }
 
     }
 
