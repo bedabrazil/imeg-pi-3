@@ -35,21 +35,21 @@
             <label for="">Nome</label>
 
             <input class="form-control" type="text" value="<c:if test="${funcionario != null }">${funcionario.nome}</c:if>" id="nome_funcionario" name="nome_funcionario"/>
-            </div>
-            <div class="col-lg-6 form-space">
+        </div>
+        <div class="col-lg-6 form-space">
                 <label for="">Email</label>
                 <input class="form-control" type="text" value="<c:if test="${funcionario != null }">${funcionario.email}</c:if>" id="nome_funcionario" name="email_funcionario"/>
-            </div>
-            <div class="col-lg-6 form-space">
+        </div>
+        <div class="col-lg-6 form-space">
                 <label for="">Senha</label>
                 <input class="form-control" type="password" value="<c:if test="${funcionario != null }">${funcionario.senha}</c:if>" id="senha_funcionario" name="senha_funcionario"/>
-            </div>
+        </div>
             <div class="col-lg-6 form-space">
                 <label for="">Confirmar Senha</label>
                 <input class="form-control" type="password" value="<c:if test="${funcionario != null }">${funcionario.senha}</c:if>" id="confirmar_senha_funcionario" name="confSenha_funcionario"/>
-            </div>
+        </div>
 
-            <div class="col-lg-3 form-space">
+        <div class="col-lg-3 form-space">
                 <label for="">Cargos </label>
                 <select name="cargo_id" class="form-control" >
                 <c:choose>
@@ -96,7 +96,11 @@
                     <option value="${acesso.id}" <c:if test="${acesso.id == cargo.acesso.id}">selected="selected"</c:if> >${acesso.nome}</option>
                 </c:forEach>
             </select>
-        </div>        
+        </div>  
+        <div class="col-lg-12 form-space">
+            <label for="ativo_funcionario">Ativo</label>
+            <input type="checkbox" id="ativo_categoria" class="" <c:if test="${funcionario.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
+        </div>
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/funcionarios"></c:url>" class="btn btn-default">Voltar</a>
             <button class="btn btn-default" type="submit" id="commit-funcionario"><c:choose><c:when test="${funcionario != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>

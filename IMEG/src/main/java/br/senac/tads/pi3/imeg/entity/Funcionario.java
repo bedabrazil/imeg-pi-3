@@ -25,16 +25,17 @@ public class Funcionario {
     public Funcionario() {
     }
   
-    public Funcionario(String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha) {
+    public Funcionario(String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha, boolean status) {
         this.nome = nome;
         this.cargo = cargo;
         this.unidade = unidade;
         this.email = email;
         this.acesso = acesso;
         this.senha = senha;
+        this.status = status;
     }
     
-    public Funcionario(int id, String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha) {
+    public Funcionario(int id, String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha, boolean status) {
         this.id = id;
         this.nome = nome;
         this.cargo = cargo;
@@ -42,6 +43,7 @@ public class Funcionario {
         this.email = email;
         this.acesso = acesso;
         this.senha = senha;
+        this.status = status;
     }
     
         

@@ -17,11 +17,11 @@
     <fieldset class="well"> 
        <div class="col-lg-3 form-space">
             <label for="">Nome do Produto</label>
-            <input class="form-control" type="text"  value="<c:if test="${produto!= null }">${produto.nome}</c:if>" id="nm_produto" name="nm_produto"/>
+            <input class="form-control" type="text" disabled="disabled" value="<c:if test="${produto!= null }">${produto.nome}</c:if>" id="nm_produto" name="nm_produto"/>
         </div>
         <div class="col-lg-3 form-space">
             <label for="">Preço de Custo</label>
-            <input class="form-control" type="number" id="preco_custo_produto" name="preco_custo_produto" min="1.0" />
+            <input class="form-control" type="text" id="preco_custo_produto" name="preco_custo_produto" required="false" />
         </div>
         <div class="col-lg-3 form-space">
             <label for="">Quantidade</label>

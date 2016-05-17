@@ -25,8 +25,8 @@ public class FuncionarioDao {
     public boolean adicionar(Funcionario funcionario) {
 
         String sql = "INSERT INTO FUNCIONARIOS "
-                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME, EMAIL, SENHA, SENHA_HASH)"
-                + "VALUES (?, ?, ?, ?, ?, ?, 'AGUARDANDO IMPLEMENTAÇÃO MARCIO')";
+                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME, EMAIL, SENHA, SENHA_HASH, STATUS)"
+                + "VALUES (?, ?, ?, ?, ?, ?, 'AGUARDANDO IMPLEMENTAÇÃO MARCIO', ?)";
 
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -36,6 +36,7 @@ public class FuncionarioDao {
             pst.setString(4, funcionario.getNome());
             pst.setString(5, funcionario.getEmail());
             pst.setString(6, funcionario.getSenha());
+            pst.setBoolean(7, funcionario.isStatus());
             pst.executeUpdate();
             
 
@@ -54,7 +55,7 @@ public class FuncionarioDao {
     //Altera informações de um funcionário
     public boolean alterar(Funcionario funcionario) {
         String sql = "UPDATE FUNCIONARIOS SET CARGOS_ID = ?, UNIDADES_ID = ?, "
-                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SENHA = ? "
+                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SENHA = ?, STATUS = ? "
                 + "WHERE ID = ?";
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -64,7 +65,8 @@ public class FuncionarioDao {
             pst.setString(4, funcionario.getNome());
             pst.setString(5, funcionario.getEmail());
             pst.setString(6, funcionario.getSenha());
-            pst.setInt(7, funcionario.getId());
+            pst.setBoolean(7, funcionario.isStatus());
+            pst.setInt(8, funcionario.getId());
             
             if (pst.executeUpdate() > 0) {
                 return true;
