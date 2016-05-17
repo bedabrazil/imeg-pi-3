@@ -5,14 +5,8 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.AcessoDao;
-import br.senac.tads.pi3.imeg.dao.CargoDao;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
-import br.senac.tads.pi3.imeg.dao.UnidadeDao;
-import br.senac.tads.pi3.imeg.entity.Acesso;
-import br.senac.tads.pi3.imeg.entity.Cargo;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
-import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -86,9 +80,9 @@ public class LoginServlet extends HttpServlet {
     }
     private Funcionario validar(String email, String senha) {
       Funcionario funcionario = new FuncionarioDao().pesquisarPorEmail(email);
-      if (funcionario != null && funcionario.autenticar(email, senha)) {
-        return funcionario;
-      }
+//      if (funcionario != null && funcionario.autenticar(email, senha)) {
+//        return funcionario;
+//      }
       return null;
     }
 
