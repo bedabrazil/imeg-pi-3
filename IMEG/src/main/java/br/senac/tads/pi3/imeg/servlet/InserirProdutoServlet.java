@@ -5,7 +5,6 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.HistoricoEntradaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
 import br.senac.tads.pi3.imeg.entity.Produto;

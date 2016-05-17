@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -109,6 +110,27 @@ public class AcessoDao {
                 acesso.setStatus(res.getBoolean("STATUS"));
             }
             return acesso;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CargoDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
+    public List<String> listarPorNome(){
+        String sql = "SELECT ACESSOS.NOME FROM ACESSOS";
+        try{
+            ArrayList nomes = new ArrayList();
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet res = pst.executeQuery();
+            while(res.next()){
+                nomes.add(res.getString("NOME"));
+            }
+            return nomes;
         } catch (SQLException e) {
             System.out.println("ERROR SQL: " + e.getMessage());
         } finally {

@@ -50,6 +50,7 @@
                                 <li role="separator" class="divider"></li>
                               </ul>
                             </li>
+                            <li><a href="<c:url value="/produtos/venda"/>">Registrar venda de Produtos </a></li>
                           </ul>
                                 <form class="navbar-form navbar-right" action="<c:url value="login"/>" method="post" role="form" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
