@@ -72,7 +72,8 @@ public class AlterarCategoriaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//inicia uma sessao
+        
+        //inicia uma sessao
         ArrayList<String> mensagens = new ArrayList<>();
         HttpSession session = request.getSession(true);
         session.setAttribute("success", false);

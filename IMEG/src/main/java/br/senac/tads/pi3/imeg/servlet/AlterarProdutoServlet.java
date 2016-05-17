@@ -45,7 +45,9 @@ public class AlterarProdutoServlet extends HttpServlet {
             }
             // cria um array para apresentar na lista de categorias 
             ArrayList<Categoria> Listacategoria = new CategoriaDao().listar();
-        request.setAttribute("Listacategorias", Listacategoria);
+            request.setAttribute("Listacategorias", Listacategoria);
+            
+            
 
             request.getRequestDispatcher("/WEB-INF/views/produtos/editar.jsp").forward(request, response);
         } else {
@@ -65,19 +67,32 @@ public class AlterarProdutoServlet extends HttpServlet {
         ArrayList<String> mensagens = new ArrayList<>();
         HttpSession session = request.getSession(true);
         session.setAttribute("success", false);
-
-        String nome = request.getParameter("nome_produto");
-        if (nome.isEmpty()) {
+        if (request.getParameter("nome_produto").isEmpty()) {
             request.setAttribute("error", true);
             mensagens.add("Nome não pode ser vazio.");
-
         }
-        if (mensagens.size() > 0) {
+        if (request.getParameter("categoria_id").equals("0")) {
+            mensagens.add("Selecione uma Categoria.");
+            request.setAttribute("error", true);
+        }
+        if(!request.getParameter("qtd_max_produto").matches("\\d+")){
+            mensagens.add("Valor deve ser maior que 0");
+            request.setAttribute("error", true);            
+        }
+        if(!request.getParameter("qtd_min_produto").matches("\\d+")){
+            mensagens.add("Valor deve ser maior ou igual a 0");
+            request.setAttribute("error", true);            
+        }
+        
+        
+        if(mensagens.size() > 0){
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
             return;
         }
-        if (request.getParameter("nome") != null) {
+        
+        
+        
             Produto produto = new Produto();
             produto.setId(Integer.parseInt(request.getParameter("id")));
             produto.setNome(request.getParameter("nome_produto"));
@@ -85,13 +100,18 @@ public class AlterarProdutoServlet extends HttpServlet {
             produto.setQtdeMax(Integer.parseInt(request.getParameter("qtd_max_produto")));
             produto.setCategoria(new CategoriaDao().pesquisarPorId(Integer.parseInt(request.getParameter("categoria_id"))));
             // alterar produto 
+
             if (new ProdutoDao().alterar(produto)) {
                 mensagens.clear();
                 session.setAttribute("success", true);
                 session.setAttribute("msg_success", "Produto <strong>" + produto.getNome() + "</strong> alterado com sucesso.");
                 response.sendRedirect("/produtos");
             }
-        }
+            else {
+                 mensagens.add("houve alguma falha ao cadastrar o produto ");
+                request.setAttribute("error", true); 
+            }
+        
 
     }
 

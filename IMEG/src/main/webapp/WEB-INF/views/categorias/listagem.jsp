@@ -19,7 +19,7 @@
 <div class="col-lg-12 table-reposnsive">
     <table class="table table-hover">
         <thead>
-            <th></th>
+            <th>Status</th>
             <th>Nome</th>
             <th>Ações</th>
         </thead>
