@@ -38,13 +38,13 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        Cargo cargo = new CargoDao().pesquisarPorId(1);
-//        Unidade unidade = new UnidadeDao().pesquisarPorId(1);
-//        Acesso acesso = new AcessoDao().pesquisarPorId(2);
-//        Funcionario funcionario =  new Funcionario("MARCIO", cargo, unidade, acesso, "marcio@mail.com", "12345");
-//        HttpSession session = request.getSession(true);
-//        session.setAttribute("funcionario", funcionario);
-        request.getRequestDispatcher("/WEB-INF/views/login/index.jsp").forward(request, response);
+        Cargo cargo = new CargoDao().pesquisarPorId(1);
+        Unidade unidade = new UnidadeDao().pesquisarPorId(1);
+        Acesso acesso = new AcessoDao().pesquisarPorId(1);
+        Funcionario funcionario =  new Funcionario("MARCIO", cargo, unidade, acesso, "marcio@mail.com", "12345");
+        HttpSession session = request.getSession(true);
+        session.setAttribute("funcionario", funcionario);
+        request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);
     }
 
     /**
