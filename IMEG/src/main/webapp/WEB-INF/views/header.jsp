@@ -52,10 +52,10 @@
                             </li>
                             <li><a href="<c:url value="/produtos/venda"/>">Registrar venda de Produtos </a></li>
                           </ul>
-                                <form class="navbar-form navbar-right" action="<c:url value="login"/>" method="post" role="form" enctype="application/x-www-form-urlencoded">
+                                <form class="navbar-form navbar-right" action="<c:url value="/login"/>" method="post" role="form" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
-                              <input type="text" class="form-control" placeholder="Email">
-                              <input type="password" class="form-control" placeholder="Senha">
+                                <input type="text" class="form-control" placeholder="Email" name="email_funcionario">
+                                <input type="password" class="form-control" placeholder="Senha" name="senha_funcionario">
                             </div>
 
                             <button type="submit" class="btn btn-default">Entrar</button>

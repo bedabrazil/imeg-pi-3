@@ -7,6 +7,7 @@ package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.AcessoDao;
 import br.senac.tads.pi3.imeg.dao.CargoDao;
+import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.dao.UnidadeDao;
 import br.senac.tads.pi3.imeg.entity.Acesso;
 import br.senac.tads.pi3.imeg.entity.Cargo;
@@ -38,12 +39,6 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        Cargo cargo = new CargoDao().pesquisarPorId(1);
-//        Unidade unidade = new UnidadeDao().pesquisarPorId(1);
-//        Acesso acesso = new AcessoDao().pesquisarPorId(2);
-//        Funcionario funcionario =  new Funcionario("MARCIO", cargo, unidade, acesso, "marcio@mail.com", "12345");
-//        HttpSession session = request.getSession(true);
-//        session.setAttribute("funcionario", funcionario);
         request.getRequestDispatcher("/WEB-INF/views/login/index.jsp").forward(request, response);
     }
 
@@ -58,7 +53,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("funcionario") == null) {
+            processRequest(request, response);
+            return;
+        }
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     /**
@@ -72,8 +72,26 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
+//        Cargo cargo = new CargoDao().pesquisarPorId(1);
+//        Unidade unidade = new UnidadeDao().pesquisarPorId(1);
+//        Acesso acesso = new AcessoDao().pesquisarPorId(2);
+//        Funcionario funcionario = new Funcionario("MARCIO", cargo, unidade, acesso, "marcio@mail.com", "12345");
+//        HttpSession session = request.getSession(true);
+//        session.setAttribute("funcionario", funcionario);
+
+        String email = request.getParameter("email_funcionario");
+        String senha = request.getParameter("senha_funcionario");
+        // Implementar aqui a validação do usuário com os dados
+        // armazenados no banco de dados.
     }
+    private Funcionario validar(String email, String senha) {
+      Funcionario funcionario = new FuncionarioDao().pesquisarPorEmail(email);
+      if (funcionario != null && funcionario.autenticar(email, senha)) {
+        return funcionario;
+      }
+      return null;
+    }
+
+    
 
 }

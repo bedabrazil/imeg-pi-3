@@ -199,5 +199,34 @@ public class FuncionarioDao {
         }
         return null;
     }
-
+    public Funcionario pesquisarPorEmail(String email){
+        String sql = "SELECT FUNCIONARIOS.* FROM FUNCIONARIOS WHERE EMAIL=? AND STATUS=true";
+        try{
+            Funcionario funcionario = null;
+            pst = new Conexao().prepararStatement(sql);
+            pst.setString(1, email);
+            ResultSet res = pst.executeQuery();
+            if(res.next()){
+                funcionario = new Funcionario();
+                funcionario.setId(res.getInt("ID"));
+                funcionario.setNome(res.getString("NOME"));
+                funcionario.setEmail(res.getString("EMAIL"));
+                funcionario.setStatus(res.getBoolean("STATUS"));
+                funcionario.setAcesso(new AcessoDao().pesquisarPorId(res.getInt("ACESSOS_ID")));
+                funcionario.setCargo(new CargoDao().pesquisarPorId(res.getInt("CARGOS_ID")));
+                funcionario.setUnidade(new UnidadeDao().pesquisarPorId(res.getInt("UNIDADES_ID")));
+//                funcionario.setSenhaHash(res.get);
+            }
+            return funcionario;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
 }
