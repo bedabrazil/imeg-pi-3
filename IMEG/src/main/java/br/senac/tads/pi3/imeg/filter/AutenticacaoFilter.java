@@ -40,7 +40,8 @@ import javax.servlet.http.HttpSession;
     "NovoFuncionarioServlet",
     "NovoProdutoServlet",
     "ProdutosServlet",
-    "UnidadesServlet"
+    "UnidadesServlet",
+    "RelatorioServlet"
 })
 public class AutenticacaoFilter implements Filter {
 
@@ -63,7 +64,7 @@ public class AutenticacaoFilter implements Filter {
                 "NovoCargoServlet",
                 "NovoFuncionarioServlet",
                 "NovoProdutoServlet",
-                "ProdutosServlet",
+                "/produtos",
                 "UnidadesServlet");
         AutenticacaoFilter.permissao = Arrays.asList(new AcessoDao().listarPorNome());
     }
@@ -82,23 +83,23 @@ public class AutenticacaoFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
 
-//        HttpServletRequest httpRequest = (HttpServletRequest) request;
-//        HttpServletResponse httpResponse = (HttpServletResponse) response;
-//        HttpSession sessao = httpRequest.getSession();
-//        Funcionario funcionario = (Funcionario) sessao.getAttribute("funcionario");
-//        if (funcionario == null) {
-//            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
-//            return;
-//        }
-//        try {
-//            if (verificarAcesso(funcionario, httpRequest, httpResponse)) {
-//                chain.doFilter(request, response);
-//            } else {
-//                httpResponse.sendRedirect("erroNaoAutorizado.jsp");
-//            }
-//        } catch (IOException | ServletException t) {
-//            t.printStackTrace();
-//        }
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        HttpSession sessao = httpRequest.getSession();
+        Funcionario funcionario = (Funcionario) sessao.getAttribute("funcionario");
+        if (funcionario == null) {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+            return;
+        }
+        try {
+            if (verificarAcesso(funcionario, httpRequest, httpResponse)) {
+                chain.doFilter(request, response);
+            } else {
+                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");
+            }
+        } catch (IOException | ServletException t) {
+            t.printStackTrace();
+        }
     }
 
     /**
@@ -111,7 +112,15 @@ public class AutenticacaoFilter implements Filter {
      * @return
      */
     private static boolean verificarAcesso(Funcionario funcionario, HttpServletRequest req, HttpServletResponse resp) {
-        return paginas.contains(req.getRequestURI()) && permissao.contains(funcionario.getAcesso().getNome());
+        String pagina = req.getRequestURI();
+        if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (funcionario.getAcesso().getNome().equals("GERENTE") || funcionario.getAcesso().getNome().equals("ANALISTA"))){
+            return true;
+        }else if (pagina.endsWith("/relatorio") && funcionario.getAcesso().getNome().equals("GERENTE")){
+            return true;
+        }else if(funcionario.getAcesso().getNome().equals("ADMIN")){
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -128,7 +128,7 @@ public class AcessoDao {
             pst = new Conexao().prepararStatement(sql);
             ResultSet res = pst.executeQuery();
             while(res.next()){
-                nomes.add(res.getString("NOMES"));
+                nomes.add(res.getString("NOME"));
             }
             return nomes;
         } catch (SQLException e) {

@@ -5,12 +5,20 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.AcessoDao;
+import br.senac.tads.pi3.imeg.dao.CargoDao;
+import br.senac.tads.pi3.imeg.dao.UnidadeDao;
+import br.senac.tads.pi3.imeg.entity.Acesso;
+import br.senac.tads.pi3.imeg.entity.Cargo;
+import br.senac.tads.pi3.imeg.entity.Funcionario;
+import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,6 +38,12 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cargo cargo = new CargoDao().pesquisarPorId(1);
+        Unidade unidade = new UnidadeDao().pesquisarPorId(1);
+        Acesso acesso = new AcessoDao().pesquisarPorId(2);
+        Funcionario funcionario =  new Funcionario("MARCIO", cargo, unidade, acesso, "marcio@mail.com", "12345");
+        HttpSession session = request.getSession(true);
+        session.setAttribute("funcionario", funcionario);
         request.getRequestDispatcher("/WEB-INF/views/login/index.jsp").forward(request, response);
     }
 
