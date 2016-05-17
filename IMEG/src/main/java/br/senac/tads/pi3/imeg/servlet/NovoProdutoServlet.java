@@ -77,49 +77,45 @@ public class NovoProdutoServlet extends HttpServlet {
         
         //instacio o DAO
 
-        String nome = request.getParameter("nome_produto");
-        int qtd_min_produto = Integer.parseInt(request.getParameter("qtd_min_produto"));
-        int qtd_max_produto = Integer.parseInt(request.getParameter("qtd_max_produto"));
-        int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
         
-        if (nome.isEmpty()) {
-            request.setAttribute("error", true);
+        if (request.getParameter("nome_produto").isEmpty()) {
             mensagens.add("Nome não pode ser vazio.");
         }
-        if (categoria_id == 0) {
+        if (request.getParameter("categoria_id").equals("0")) {
             mensagens.add("Selecione uma Categoria.");
-            request.setAttribute("error", true);
         }
-        if(qtd_max_produto < 1){
+        if(!request.getParameter("qtd_max_produto").matches("\\d+")){
             mensagens.add("Valor tem que ser maior que zero.");
-            request.setAttribute("error", true);            
+                        
         }
-        if(qtd_min_produto < 0){
+        if(!request.getParameter("qtd_min_produto").matches("\\d+")){
             mensagens.add("Valor tem que ser maior ou igual a zero.");
-            request.setAttribute("error", true);            
         }
         
         
         if(mensagens.size() > 0){
-            request.setAttribute("mensagens", mensagens);
+            request.setAttribute("mensagens", mensagens);                        
+            request.setAttribute("error", true);
             processRequest(request, response);
             return;
         }
+        String nome = request.getParameter("nome_produto");
+        int qtd_min_produto = Integer.parseInt(request.getParameter("qtd_min_produto"));
+        int qtd_max_produto = Integer.parseInt(request.getParameter("qtd_max_produto"));
+        int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
         
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));// Não está sendo usado
         if (!nome.isEmpty() && categoria_id > 0) {
            
              Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id); // Não está sendo usado
             Produto produto = new Produto();            
-            try {
+            
                 produto.setNome(nome);        
                 produto.setQtdeMin(qtd_min_produto);
                 produto.setQtdeMax(qtd_max_produto);
                 produto.setCategoria(new CategoriaDao().pesquisarPorId(categoria_id));
         
-            } catch (Exception e) {
-                
-            }
+          
             
         produto.setCategoria(produto.getCategoria());
         
