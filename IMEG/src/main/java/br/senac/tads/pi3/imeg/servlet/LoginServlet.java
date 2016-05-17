@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
         Cargo cargo = new CargoDao().pesquisarPorId(1);
         Unidade unidade = new UnidadeDao().pesquisarPorId(1);
         Acesso acesso = new AcessoDao().pesquisarPorId(1);
-        Funcionario funcionario =  new Funcionario("MARCIO", cargo, unidade, acesso, "marcio@mail.com", "12345");
+        Funcionario funcionario =  new Funcionario("MARCIO", cargo, unidade, acesso, "marcio@mail.com", "12345", true);
         HttpSession session = request.getSession(true);
         session.setAttribute("funcionario", funcionario);
         request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);
