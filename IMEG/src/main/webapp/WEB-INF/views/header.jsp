@@ -52,7 +52,7 @@
                                 <li role="separator" class="divider"></li>
                               </ul>
                             </li>
-                            <li><a href="<c:url value="/produtos/venda"/>">Vendas </a></li>
+                            <li><a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><span>Vendas</span> </a></li>
                           </ul>
                                 <form class="navbar-form navbar-right" action="<c:url value="login"/>" method="post" role="form" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">

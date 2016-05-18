@@ -3,14 +3,14 @@
 
 <c:choose>
     <c:when test="${unidade == null}"><c:set var="action" value="/unidades/novo"/></c:when>
-    <c:otherwise><c:set var="action" value="unidades/editar?id=${unidade.id}"/></c:otherwise>
+    <c:otherwise><c:set var="action" value="/unidades/editar?id=${unidade.id}"/></c:otherwise>
 </c:choose> 
 
 <c:choose>
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
 </c:choose>  
 
-<form action="${action}" method="post">
+<form action="<c:url value="${action}"/>" method="post">
     <c:if test="${unidade != null}">
         <input type="hidden" name="id_estado" value="${unidade.id}">
     </c:if>

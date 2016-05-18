@@ -86,19 +86,18 @@ public class AutenticacaoFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession sessao = httpRequest.getSession();
-        Funcionario funcionario = (Funcionario) sessao.getAttribute("funcionario");
-        if (funcionario == null) {
+        Funcionario func = (Funcionario) sessao.getAttribute("func");
+        if (func == null) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
         try {
-            if (verificarAcesso(funcionario, httpRequest, httpResponse)) {
+            if (verificarAcesso(func, httpRequest, httpResponse)) {
                 chain.doFilter(request, response);
             } else {
                 httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");
             }
         } catch (IOException | ServletException t) {
-            t.printStackTrace();
         }
     }
 
@@ -111,13 +110,13 @@ public class AutenticacaoFilter implements Filter {
      * @param resp
      * @return
      */
-    private static boolean verificarAcesso(Funcionario funcionario, HttpServletRequest req, HttpServletResponse resp) {
+    private static boolean verificarAcesso(Funcionario func, HttpServletRequest req, HttpServletResponse resp) {
         String pagina = req.getRequestURI();
-        if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (funcionario.getAcesso().getNome().equals("GERENTE") || funcionario.getAcesso().getNome().equals("ANALISTA"))){
+        if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("ANALISTA"))){
             return true;
-        }else if (pagina.endsWith("/relatorio") && funcionario.getAcesso().getNome().equals("GERENTE")){
+        }else if (pagina.endsWith("/relatorio") && func.getAcesso().getNome().equals("GERENTE")){
             return true;
-        }else if(funcionario.getAcesso().getNome().equals("ADMIN")){
+        }else if(func.getAcesso().getNome().equals("ADMIN")){
             return true;
         }
         return false;
