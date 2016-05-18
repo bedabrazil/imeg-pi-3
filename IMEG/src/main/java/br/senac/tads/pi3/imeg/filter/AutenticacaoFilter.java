@@ -96,12 +96,8 @@ public class AutenticacaoFilter implements Filter {
                 chain.doFilter(request, response);
                 
             } else {
-<<<<<<< HEAD
-//                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");
-=======
                 httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");
                 
->>>>>>> 906bd7284465949fe8176812ef029b18e10136aa
             }
         } catch (IOException | ServletException t) {
         }
