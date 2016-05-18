@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             processRequest(request, response);
             return;
         }
-        response.sendRedirect(request.getContextPath() + "/login");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     /**
