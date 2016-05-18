@@ -41,11 +41,11 @@
 
             <div class="col-lg-3 form-space">
                 <label for="">Quantidade Mínima</label>
-                <input class="form-control" value="<c:if test="${produto != null }">${produto.QtdeMin}</c:if>" type="text" id="qtd_min_produto" name="qtd_min_produto"/>
+                <input class="form-control" value="<c:if test="${produto != null }">${produto.qtdeMin}</c:if>" type="text" id="qtd_min_produto" name="qtd_min_produto"/>
             </div>
             <div class="col-lg-3 form-space">
                 <label for="">Quantidade Máxima</label>
-                <input class="form-control" value="<c:if test="${produto != null }">${produto.QtdeMax}</c:if>" type="text" id="qtd_max_produto" name="qtd_max_produto"/>
+                <input class="form-control" value="<c:if test="${produto != null }">${produto.qtdeMax}</c:if>" type="text" id="qtd_max_produto" name="qtd_max_produto"/>
             </div>
 
             <div class="col-lg-3 form-space">
@@ -53,16 +53,16 @@
                 <select name="categoria_id" class="form-control" >
                 <c:choose>
                     <c:when test="${Listacategorias == null}">
-                        <option value="0">Selecione uma Categoria</option>
+                        <option value="0">Selecione um Categoria</option>
                         
                     </c:when>
                     <c:otherwise>
                          <option value="<c:out value="${produto.categoria.id}"/>" <c:if test="${produto != null}">${produto.categoria.nome}</c:if>><c:out value="${produto.categoria.nome}"/></option>
                     </c:otherwise>
                 </c:choose>
-
+                         
                 <c:forEach items="${Listacategorias}" var="Listacategoria">
-                    <option value="${Listacategoria.id}" <c:if test="${Listacategoria.id == produto.Listacategoria.id}">selected="selected"</c:if> >${Listacategoria.nome}</option>
+                    <%-- erro na hora de listar as categorias <option value="${Listacategoria.id}" <c:if test="${Listacategoria.id == produto.Listacategoria.id}">selected="selected"</c:if> >${Listacategoria.nome}</option>--%>
                 </c:forEach>
             </select>
         </div>
