@@ -63,18 +63,12 @@ public class InserirProdutoServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
         
-       int id = Integer.parseInt(request.getParameter("id_produto")); 
-       int id_funcionario = 1; // ajustar
-       double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
-       int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-      
-    
-         if (request.getParameter("preco_custo_produto").isEmpty()) {
+          
+        if (request.getParameter("preco_custo_produto").isEmpty()) {
             mensagens.add("Informe o Preço.");
-        }
-        
-        if (preco_custo_produto<=0){        
-            mensagens.add("Preço deve ser Maior que 0");
+        }else {        
+            double preco = Double.parseDouble(request.getParameter("preco_custo_produto"));
+            if (preco<=0) mensagens.add("Preço deve ser Maior que 0");
         } 
          
         if (request.getParameter("quantidade").isEmpty()) {
@@ -88,7 +82,11 @@ public class InserirProdutoServlet extends HttpServlet {
             return;
         }
         
- 
+       int id_funcionario = 1; // ajustar
+       double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
+       int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+       int id = Integer.parseInt(request.getParameter("id_produto")); 
+
                 
         HistoricoEntrada histEntrada = new HistoricoEntrada();
 
