@@ -79,7 +79,6 @@ public class InserirProdutoServlet extends HttpServlet {
       
         int id = Integer.parseInt(request.getParameter("id_produto")); 
         int id_funcionario = 1; // ajustar
-        String nome = request.getParameter("nm_produto");
         double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
         
@@ -91,6 +90,8 @@ public class InserirProdutoServlet extends HttpServlet {
         histEntrada.setFuncionario(new FuncionarioDao().pesquisarPorId(id_funcionario));
 
          if (new HistoricoEntradaDao().adicionar(histEntrada)) {
+                new HistoricoEntradaDao().atualizaSaldo(histEntrada);
+                
                 session.setAttribute("msg_success", " Entrada realizada com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect(request.getContextPath() + "/produtos");
