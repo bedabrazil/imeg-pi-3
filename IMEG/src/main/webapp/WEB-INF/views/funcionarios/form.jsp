@@ -33,7 +33,6 @@
         </div>        
         <div class="col-lg-6 form-space">
             <label for="">Nome</label>
-
             <input class="form-control" type="text" value="<c:if test="${funcionario != null }">${funcionario.nome}</c:if>" id="nome_funcionario" name="nome_funcionario"/>
         </div>
         <div class="col-lg-6 form-space">
