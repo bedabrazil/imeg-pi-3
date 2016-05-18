@@ -20,12 +20,13 @@ import java.util.logging.Logger;
 public class UnidadeDao {
     
     private PreparedStatement pst;
-
+        EstadoDao estDao = new EstadoDao ();
     public boolean adicionar(Unidade unidade) {
-        String sql = "INSERT INTO UNIDADES(NOME)VALUES(?)";
+        String sql = "INSERT INTO UNIDADES(NOME, ESTADOS_ID)VALUES(?, ?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, unidade.getNome());
+            pst.setInt(2, unidade.getEstado().getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
