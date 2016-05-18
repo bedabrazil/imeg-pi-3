@@ -103,7 +103,12 @@
         </div>
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/funcionarios"></c:url>" class="btn btn-default">Voltar</a>
-            <button class="btn btn-default" type="submit" id="commit-funcionario"><c:choose><c:when test="${funcionario != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
+            <button class="btn btn-default" type="submit" id="commit-funcionario">
+            <c:choose>
+                <c:when test="${funcionario != null}">Alterar</c:when>
+                <c:otherwise>Salvar</c:otherwise>
+            </c:choose>
+            </button>
         </div>
     </fieldset>
 </form>
