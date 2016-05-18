@@ -1,27 +1,48 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- CABEÃ‡ALHO DO HTML --%>
+<%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
-            <%-- CONTEÃšDO DE PRODUTOS/Inserir--%>
+            <%-- CONTEÚDO DE PRODUTOS/Inserir--%>
 <c:choose>
     <c:when test="${produto == null}"><c:set var="action" value="/produtos/inserir"/></c:when>
-    <c:otherwise><c:set var="action" value="/produtos/inserir"/></c:otherwise>
+    <c:otherwise><c:set var="action" value="/produtos/inserir?id=${produto.id}"/></c:otherwise>    
 </c:choose>
-<form enctype="application/x-www-form-urlencoded" action="inserir" method="post">
-    <fieldset class="well">    
+<c:choose>
+    <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
+</c:choose>  
+<form enctype="application/x-www-form-urlencoded" action="<c:url value="${action}"/>" method="post">
+    <fieldset class="well">
+        <div id="warning" class="col-lg-12 ${alert}">
+            
+            <c:if test="${not empty mensagens}">
+                
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>        
+
+                <p>Existem <strong>${mensagens.size()}</strong> erro(s) a ser(em) corrigidos.</p>
+
+            </c:if>
+            <div class="col-lg-12">
+                <p></p>
+                <ul>
+                    <c:forEach items="${mensagens}" var="msg">
+                        <li>${msg}</li>
+                        </c:forEach>
+                </ul>
+            </div>
+        </div>
         <div class="col-lg-3 form-space">
             <label for="">Nome do Produto</label>
             <input type="hidden" name="id_produto" value="<c:if test="${produto!= null }">${produto.id}</c:if>"> 
             <input class="form-control" type="text" value="<c:if test="${produto!= null }">${produto.nome}</c:if>" id="nm_produto" name="nm_produto" readonly="readonly" />
         </div>
         <div class="col-lg-3 form-space">
-            <label for="">PreÃ§o de Custo</label>
-            <input class="form-control" type="text" id="preco_custo_produto" name="preco_custo_produto"required="false" />
+            <label for="">Preço de Custo</label>
+            <input class="form-control" type="number" id="preco_custo_produto" name="preco_custo_produto" step="any"/>
         </div>
         <div class="col-lg-3 form-space">
             <label for="">Quantidade</label>
-            <input class="form-control" type="text" id="quantidade" name="quantidade" required="false"  />
+            <input class="form-control" type="number" id="quantidade" name="quantidade" min="1" />
         </div>   
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/produtos"></c:url>" class="btn btn-default">Voltar</a>   
@@ -29,5 +50,5 @@
         </div>             
     </fieldset>    
 </form>
-<%-- RODAPÃ‰ DO HTML --%>
+<%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />     

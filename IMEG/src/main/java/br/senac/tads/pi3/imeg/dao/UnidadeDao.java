@@ -22,11 +22,35 @@ public class UnidadeDao {
     private PreparedStatement pst;
         EstadoDao estDao = new EstadoDao ();
     public boolean adicionar(Unidade unidade) {
-        String sql = "INSERT INTO UNIDADES(NOME, ESTADOS_ID)VALUES(?, ?)";
+        String sql = "INSERT INTO UNIDADES(NOME, ESTADOS_ID, STATUS)VALUES(?, ?, ?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, unidade.getNome());
             pst.setInt(2, unidade.getEstado().getId());
+            pst.setBoolean(3, unidade.isStatus());
+            if (pst.executeUpdate() > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CargoDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return false;
+    }
+    
+     public boolean alterar(Unidade unidade) {
+        String sql = "UPDATE UNIDADES SET NOME = ?, ESTADOS_ID = ?, STATUS = ? WHERE ID = ? ";
+        try {
+            pst = new Conexao().prepararStatement(sql);
+            pst.setString(1, unidade.getNome());
+            pst.setInt(2, unidade.getEstado().getId());
+            pst.setBoolean(3, unidade.isStatus());
+            pst.setInt(4, unidade.getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -42,13 +66,15 @@ public class UnidadeDao {
         return false;
     }
 
-    public boolean alterar(Unidade unidade) {
-        String sql = "UPDATE UNIDADES SET NOME=? WHERE ID=?";
+    public boolean listar(Unidade unidade) {
+        String sql = "UPDATE UNIDADES SET NOME = ?, ESTADOS_ID = ?, STATUS = ? WHERE ID = ? ";
 
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, unidade.getNome());
-            pst.setInt(3, unidade.getId());
+            pst.setInt(2, unidade.getEstado().getId());
+            pst.setBoolean(3, unidade.isStatus());
+            pst.setInt(4, unidade.getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -65,7 +91,7 @@ public class UnidadeDao {
     }
 
     public ArrayList<Unidade> listar() {
-        String sql = "SELECT UNIDADES.* FROM UNIDADES";
+        String sql = "SELECT UNIDADES.* FROM UNIDADES ORDER BY NOME ";
         try {
             ArrayList<Unidade> unidades = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
@@ -77,6 +103,7 @@ public class UnidadeDao {
                 unidade.setId(res.getInt("ID"));
                 unidade.setEstado(estadoDao.pesquisarPorId(res.getInt("ESTADOS_ID")));
                 unidade.setNome(res.getString("NOME"));
+                unidade.setStatus(res.getBoolean("STATUS"));
                 unidades.add(unidade);
             }
             return unidades;
@@ -93,7 +120,7 @@ public class UnidadeDao {
     }
     
     public Unidade pesquisarPorId(int id){
-        String sql = "SELECT UNIDADES.* FROM UNIDADES WHERE ID=?";
+        String sql = "SELECT UNIDADES.* FROM UNIDADES WHERE ID = ? ";
         try{
             Unidade unidade = null;
             pst = new Conexao().prepararStatement(sql);
@@ -104,6 +131,7 @@ public class UnidadeDao {
                 unidade.setId(res.getInt("ID"));
                 unidade.setEstado(new EstadoDao().pesquisarPorId(res.getInt("ESTADOS_ID")));
                 unidade.setNome(res.getString("NOME"));
+                unidade.setStatus(res.getBoolean("STATUS"));
             }
             return unidade;
         } catch (SQLException e) {

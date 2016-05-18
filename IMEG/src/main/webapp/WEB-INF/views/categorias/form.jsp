@@ -6,9 +6,6 @@
 <c:choose>
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
 </c:choose>    
-
-
-
 <form action="<c:url value="${action}"/>" method="post" class="call">
     <c:if test="${categoria != null}">
         <input type="hidden" name="id_categoria" value="${categoria.id}">

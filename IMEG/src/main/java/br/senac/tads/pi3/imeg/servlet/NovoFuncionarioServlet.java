@@ -87,7 +87,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
 
-        //instancio o DAO
+        //Instancia o DAO
         FuncionarioDao fDao = new FuncionarioDao();
         CargoDao cDao = new CargoDao();
         UnidadeDao uDao = new UnidadeDao();
@@ -140,6 +140,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
             session.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/views/funcionarios/novo.jsp").forward(request, response);
         } else if (fDao.adicionar(new Funcionario(nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email, senha, status))) {
+            mensagens.clear();
             session.setAttribute("msg_success", "Funcionário incluído com sucesso.");
             session.setAttribute("success", true);
             response.sendRedirect(request.getContextPath() + "/funcionarios");

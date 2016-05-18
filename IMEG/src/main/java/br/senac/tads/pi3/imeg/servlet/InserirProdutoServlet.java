@@ -5,11 +5,9 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.CategoriaDao;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.dao.HistoricoEntradaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
-import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
@@ -39,15 +37,15 @@ public class InserirProdutoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         if (request.getQueryString() != null) {
-            if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
+
+          if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Produto produto = new ProdutoDao().pesquisarPorId(id);
                 request.setAttribute("produto", produto);
             }
             request.getRequestDispatcher("/WEB-INF/views/produtos/inserir.jsp").forward(request, response);
-        }else{
-            response.sendRedirect(request.getContextPath() + "/produtos/inserir");
         }
     }
 
@@ -64,10 +62,18 @@ public class InserirProdutoServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-
- 
-    
-    
+        
+          
+        if (request.getParameter("preco_custo_produto").isEmpty()) {
+            mensagens.add("Informe o Preço.");
+        }else {        
+            double preco = Double.parseDouble(request.getParameter("preco_custo_produto"));
+            if (preco<=0) mensagens.add("Preço deve ser Maior que 0");
+        } 
+         
+        if (request.getParameter("quantidade").isEmpty()) {
+            mensagens.add("Informe a Qtde.");
+        }
       
         if(mensagens.size() > 0){
             request.setAttribute("mensagens", mensagens);                        
@@ -76,12 +82,12 @@ public class InserirProdutoServlet extends HttpServlet {
             return;
         }
         
-      
-        int id = Integer.parseInt(request.getParameter("id_produto")); 
-        int id_funcionario = 1; // ajustar
-        double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
-        int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-        
+       int id_funcionario = 1; // ajustar
+       double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
+       int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+       int id = Integer.parseInt(request.getParameter("id_produto")); 
+
+                
         HistoricoEntrada histEntrada = new HistoricoEntrada();
 
         histEntrada.setPreco_custo(preco_custo_produto);
