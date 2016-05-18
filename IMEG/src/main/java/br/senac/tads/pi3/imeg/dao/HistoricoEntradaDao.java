@@ -39,6 +39,28 @@ public class HistoricoEntradaDao {
         }
          return false;
     }
+    
+    
+       
+   public void  atualizaSaldo(HistoricoEntrada historicoEntrada) {
+
+
+        String sql = "Update PRODUTOS\n" +
+                     "SET  SALDO = ? \n" +
+                     "where ID = ?";
+
+
+        try {
+            
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, historicoEntrada.getProduto().getSaldo()+historicoEntrada.getQtde_produtos());
+            pst.setInt(2, historicoEntrada.getProduto().getId());    
+            
+            pst.execute();
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(HistoricoSaidaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
 
     public void consultarHistoricoEntrada(HistoricoEntrada historicoEntrada) {
 

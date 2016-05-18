@@ -43,8 +43,15 @@
             <div class="col-lg-4 form-space">
                 <label for="">Cidades </label>
                 <select name="estado-id" class="form-control" >  
-                    <option value="<c:if test="${unidade != null }">${unidade.estado.nome}</c:if>">Selecione uma Cidade</option>
                     
+                <c:choose>
+                    <c:when test="${unidade == null}">
+                        <option value="0">Selecione uma Cidade</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="<c:out value="${unidade.estado.id}"/>" <c:if test="${unidade != null}">${estado.nome}</c:if>><c:out value="${unidade.estado.nome}"/></option>
+                    </c:otherwise>
+                    </c:choose>
                 <c:forEach items="${estados}" var="estado">                    
                     <option value="${unidade.estado.id}">${estado.nome}</option>
                 </c:forEach>
@@ -59,11 +66,7 @@
         </br>
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/unidades"></c:url>" class="btn btn-default">Voltar</a>
-                <button class="btn btn-default ajax" type="submit" id="commit-unidade">
-                <c:choose><c:when test="${unidade != null}">Alterar</c:when>
-                    <c:otherwise>Salvar</c:otherwise>
-                </c:choose>
-            </button>
+                <button class="btn btn-default ajax" type="submit" id="commit-unidade"><c:choose><c:when test="${unidade != null}">Alterar</c:when><c:otherwise>Salvar</c:otherwise></c:choose></button>
         </div>
     </fieldset>
 </form>

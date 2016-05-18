@@ -37,9 +37,9 @@ public class NovaUnidadeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         ArrayList<Estado> estados = new EstadoDao().listar();
-     request.setAttribute("estados", estados);
-        
+        ArrayList<Estado> estados = new EstadoDao().listar();
+        request.setAttribute("estados", estados);
+
         request.getRequestDispatcher("/WEB-INF/views/unidades/novo.jsp").forward(request, response);
     }
 
@@ -69,33 +69,35 @@ public class NovaUnidadeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       super.doPost(request, response); 
+        //super.doPost(request, response); 
+
         //inicia uma sessao
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
 
         UnidadeDao uDao = new UnidadeDao();
 
-        String nome = request.getParameter("nome-unidade");
-        String idCidade = request.getParameter("estado-id");
-        if (nome.isEmpty()) {
-            request.setAttribute("error", true);
-            mensagens.add("Nome não pode ser vazio.");
+        session.setAttribute("error", false);
+
+        if (request.getParameter("nome-unidade").isEmpty()) {
+            mensagens.add("*Nome* não pode ser vazio.");
         }
-        if (idCidade.equals("0")) {
-            mensagens.add("Selecione um Tipo de Permissão.");
-            request.setAttribute("error", true);
+        if (!request.getParameter("estado-id").matches("\\d+") || request.getParameter("estado-id").equals("0")) {
+            mensagens.add("É preciso selecionar um estado.");
         }
+
         if (mensagens.size() > 0) {
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
         }
 
+        String nome = request.getParameter("nome-unidade");
+        int idCidade = Integer.parseInt(request.getParameter("estado-id"));
         // boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-        int id_acesso = Integer.parseInt(idCidade);
-        if (!nome.isEmpty() && id_acesso > 0) {
+        
+        if (!nome.isEmpty() && idCidade > 0) {
             EstadoDao eDao = new EstadoDao();
-            Unidade unidade = new Unidade(nome, eDao.pesquisarPorId(id_acesso), id_acesso);
+            Unidade unidade = new Unidade(nome, eDao.pesquisarPorId(idCidade));
             if (uDao.adicionar(unidade)) {
                 session.setAttribute("msg_success", "Unidade " + nome + " incluída com sucesso.");
                 session.setAttribute("success", true);
