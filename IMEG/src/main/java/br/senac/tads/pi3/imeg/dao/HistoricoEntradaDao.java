@@ -54,9 +54,7 @@ public class HistoricoEntradaDao {
             
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, historicoEntrada.getProduto().getSaldo()+historicoEntrada.getQtde_produtos());
-            pst.setInt(2, historicoEntrada.getProduto().getId());
-//            pst.setInt(1, historicoSaida.getProduto());
-//       
+            pst.setInt(2, historicoEntrada.getProduto().getId());    
             
             pst.execute();
         } catch (SQLException ex) {
