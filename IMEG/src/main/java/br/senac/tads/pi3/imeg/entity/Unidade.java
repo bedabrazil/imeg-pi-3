@@ -18,11 +18,9 @@ public class Unidade {
     public Unidade(){
     }
     
-    public Unidade(String nome, Estado estado, int id) {
+    public Unidade(String nome, Estado estado) {
         this.nome = nome;
-        this.estado = estado;
-        this.id = id;
-        
+        this.estado = estado;       
     }
 
     public int getId() {

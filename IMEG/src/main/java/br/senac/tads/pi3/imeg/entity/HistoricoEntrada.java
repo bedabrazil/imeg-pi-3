@@ -59,5 +59,9 @@ public class HistoricoEntrada {
     
     public void setProduto(Produto produto) {
         this.produto = produto;
-    } 
+    }
+    
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
 }

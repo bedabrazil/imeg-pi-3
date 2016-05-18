@@ -5,6 +5,13 @@
  */
 package br.senac.tads.pi3.imeg.entity;
 
+import br.senac.tads.pi3.imeg.util.Validate;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Eilane
@@ -14,27 +21,30 @@ public class Funcionario {
     private int id;
     private Cargo cargo;
     private Unidade unidade;
-    private Acesso acesso;    
+    private Acesso acesso;
     private String nome;
     private String email;
     private String senha;
     private char[] senhaHash;
     private boolean status;
-    
+    private String salt;
 
     public Funcionario() {
     }
-  
-    public Funcionario(String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha) {
+
+    public Funcionario(String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha, boolean status) {
         this.nome = nome;
         this.cargo = cargo;
         this.unidade = unidade;
         this.email = email;
         this.acesso = acesso;
         this.senha = senha;
+        this.status = status;
+        this.salt = Validate.nextSalt();
+        this.senhaHash = gerarHash(senha, salt);
     }
-    
-    public Funcionario(int id, String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha) {
+
+    public Funcionario(int id, String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, String senha, boolean status) {
         this.id = id;
         this.nome = nome;
         this.cargo = cargo;
@@ -42,9 +52,9 @@ public class Funcionario {
         this.email = email;
         this.acesso = acesso;
         this.senha = senha;
+        this.status = status;
     }
-    
-        
+
     public int getId() {
         return id;
     }
@@ -117,4 +127,31 @@ public class Funcionario {
         this.status = status;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public boolean autenticar(String email, String senha) {
+        if (this.email != null) {
+            try {
+                return this.getEmail().equals(email) && Arrays.equals(this.senhaHash, Validate.gerarHashSenhaPBKDF2(senha, this.salt));
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+                Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
+    }
+
+    public char[] gerarHash(String senha, String salt) {
+        try {
+            this.senhaHash = Validate.gerarHashSenhaPBKDF2(senha, this.getSalt());
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
+            Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return this.senhaHash;
+    }
 }

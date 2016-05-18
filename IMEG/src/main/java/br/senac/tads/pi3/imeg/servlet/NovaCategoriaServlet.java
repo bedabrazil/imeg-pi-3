@@ -69,11 +69,11 @@ public class NovaCategoriaServlet extends HttpServlet {
         //inicia uma sessao
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-        
+
         session.setAttribute("error", false);
 
         String nome = request.getParameter("nome_categoria");
-        
+
         if (nome.isEmpty()) {
             request.setAttribute("error", true);
             mensagens.add("Nome não pode ser vazio.");
@@ -86,10 +86,19 @@ public class NovaCategoriaServlet extends HttpServlet {
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         if (!nome.isEmpty()) {
             Categoria categoria = new Categoria(nome, status);
-            if (new CategoriaDao().adicionar(categoria)) {
-                session.setAttribute("msg_success", "Categoria " + nome + " incluído com sucesso.");
-                session.setAttribute("success", true);
-                response.sendRedirect(request.getContextPath() + "/categorias");
+            if (!new CategoriaDao().pesquisarPorNome(categoria)) {
+                if (new CategoriaDao().adicionar(categoria)) {
+                    mensagens.clear();
+                    session.setAttribute("msg_success", "Categoria " + nome + " incluído com sucesso.");
+                    session.setAttribute("success", true);
+                    response.sendRedirect(request.getContextPath() + "/categorias");
+                }
+            } else {
+                request.setAttribute("error", true);
+                mensagens.add("Nome já existe.");
+                request.setAttribute("mensagens", mensagens);
+                processRequest(request, response);
+                return;
             }
         }
     }

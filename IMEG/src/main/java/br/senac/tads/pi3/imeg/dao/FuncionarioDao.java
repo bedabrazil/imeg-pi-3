@@ -25,8 +25,8 @@ public class FuncionarioDao {
     public boolean adicionar(Funcionario funcionario) {
 
         String sql = "INSERT INTO FUNCIONARIOS "
-                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME, EMAIL, SENHA, SENHA_HASH)"
-                + "VALUES (?, ?, ?, ?, ?, ?, 'AGUARDANDO IMPLEMENTAÇÃO MARCIO')";
+                + "(CARGOS_ID, UNIDADES_ID, ACESSOS_ID, NOME, EMAIL, SALT, SENHA_HASH, STATUS)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -35,7 +35,8 @@ public class FuncionarioDao {
             pst.setInt(3, funcionario.getAcesso().getId());
             pst.setString(4, funcionario.getNome());
             pst.setString(5, funcionario.getEmail());
-            pst.setString(6, funcionario.getSenha());
+            pst.setString(6, String.valueOf(funcionario.getSenhaHash()));
+            pst.setBoolean(7, funcionario.isStatus());
             pst.executeUpdate();
             
 
@@ -54,7 +55,7 @@ public class FuncionarioDao {
     //Altera informações de um funcionário
     public boolean alterar(Funcionario funcionario) {
         String sql = "UPDATE FUNCIONARIOS SET CARGOS_ID = ?, UNIDADES_ID = ?, "
-                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SENHA = ? "
+                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SENHA = ?, STATUS = ? "
                 + "WHERE ID = ?";
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -64,7 +65,8 @@ public class FuncionarioDao {
             pst.setString(4, funcionario.getNome());
             pst.setString(5, funcionario.getEmail());
             pst.setString(6, funcionario.getSenha());
-            pst.setInt(7, funcionario.getId());
+            pst.setBoolean(7, funcionario.isStatus());
+            pst.setInt(8, funcionario.getId());
             
             if (pst.executeUpdate() > 0) {
                 return true;
@@ -215,7 +217,8 @@ public class FuncionarioDao {
                 funcionario.setAcesso(new AcessoDao().pesquisarPorId(res.getInt("ACESSOS_ID")));
                 funcionario.setCargo(new CargoDao().pesquisarPorId(res.getInt("CARGOS_ID")));
                 funcionario.setUnidade(new UnidadeDao().pesquisarPorId(res.getInt("UNIDADES_ID")));
-//                funcionario.setSenhaHash(res.get);
+                funcionario.setSenhaHash(res.getString("SENHA_HASH").toCharArray());
+                funcionario.setSalt(res.getString("SALT"));
             }
             return funcionario;
         } catch (SQLException e) {
@@ -228,5 +231,10 @@ public class FuncionarioDao {
             }
         }
         return null;
+    }
+    
+    public boolean autenticar(String nome){
+        String sql = "SELECT FUNCIONARIOS.* FROM FUNCIONARIOS WHERE NOME=?";
+        return false;
     }
 }

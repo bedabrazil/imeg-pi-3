@@ -122,3 +122,12 @@ code {
 .color-elem-table-deactive{
     color: red;
 }
+.sale span{
+    padding: 10px;
+    font-size: 16px;
+    min-height: 20px;
+    line-height: 20px;
+}
+.sale:hover{
+    background-color: #E2CC0C!important;
+}

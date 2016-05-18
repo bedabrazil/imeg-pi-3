@@ -8,6 +8,7 @@ package br.senac.tads.pi3.imeg.servlet;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -77,15 +78,28 @@ public class LoginServlet extends HttpServlet {
         String senha = request.getParameter("senha_funcionario");
         // Implementar aqui a validação do usuário com os dados
         // armazenados no banco de dados.
-    }
-    private Funcionario validar(String email, String senha) {
-      Funcionario funcionario = new FuncionarioDao().pesquisarPorEmail(email);
-//      if (funcionario != null && funcionario.autenticar(email, senha)) {
-//        return funcionario;
-//      }
-      return null;
+        Funcionario usuario = validar(email, senha);
+        if (usuario != null) {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+            session = request.getSession(true);
+            session.setAttribute("usuario", usuario);
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
+        }
+        HttpSession session = request.getSession(true);
+        session.setAttribute("mensagens", "Email e/ou senha incorreta");
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 
-    
+    private Funcionario validar(String email, String senha) {
+        Funcionario funcionario = new FuncionarioDao().pesquisarPorEmail(email);
+        if (funcionario != null && funcionario.autenticar(email, senha)) {
+            return funcionario;
+        }
+        return null;
+    }
 
 }

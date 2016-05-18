@@ -20,14 +20,16 @@ public class HistoricoEntradaDao {
     private PreparedStatement pst;
 
     public boolean adicionar(HistoricoEntrada historicoEntrada) {
-        String sql = "INSERT INTO ITENS_ENTRADA(DATA_TRANSACAO, QTDE_PRODUTOS, PRECO_CUSTO) VALUES(?,?,?)";
+        String sql = "INSERT INTO ITENS_ENTRADA(PRODUTOS_ID, FUNCIONARIOS_ID, DATA_TRANSACAO, QTDE_PRODUTOS,PRECO_CUSTO) VALUES(?,?,?,?,?)";
 
         try {
             pst = new Conexao().prepararStatement(sql);
-            pst.setDate(1, new Date(System.currentTimeMillis()));
-            pst.setInt(2, historicoEntrada.getQtde_produtos());
-            pst.setDouble(3, historicoEntrada.getPreco_custo());
-
+            pst.setInt(1, historicoEntrada.getProduto().getId());
+            pst.setInt(2, historicoEntrada.getFuncionario().getId());
+            pst.setDate(3, new Date(System.currentTimeMillis()));
+            pst.setInt(4, historicoEntrada.getQtde_produtos());
+            pst.setDouble(5, historicoEntrada.getPreco_custo());
+            
             pst.execute();
             
             return true;
@@ -37,6 +39,28 @@ public class HistoricoEntradaDao {
         }
          return false;
     }
+    
+    
+       
+   public void  atualizaSaldo(HistoricoEntrada historicoEntrada) {
+
+
+        String sql = "Update PRODUTOS\n" +
+                     "SET  SALDO = ? \n" +
+                     "where ID = ?";
+
+
+        try {
+            
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, historicoEntrada.getProduto().getSaldo()+historicoEntrada.getQtde_produtos());
+            pst.setInt(2, historicoEntrada.getProduto().getId());    
+            
+            pst.execute();
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(HistoricoSaidaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
 
     public void consultarHistoricoEntrada(HistoricoEntrada historicoEntrada) {
 

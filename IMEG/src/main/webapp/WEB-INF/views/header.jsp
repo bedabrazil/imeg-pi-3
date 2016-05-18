@@ -37,20 +37,22 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                           <ul class="nav navbar-nav">
-                            <li class=""><a href="javascript:void(0)">Relatórios <span class="sr-only">(current)</span></a></li>
+                            <li class="">
+                                <a href="javascript:void(0)">Relatórios <span class="sr-only">(current)</span></a>
+                            </li>
                             <li class="dropdown">
-                              <a href="javascript:void(0)" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
+                              <a href="javascript:void(0)" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manutenção <span class="caret"></span></a>
                               <ul class="dropdown-menu">
-                                  <li><a href="<c:url value="/categorias"/>">Categorias</a></li>
-                                <li><a href="<c:url value="/unidades"/>">Unidades</a></li>
                                 <li><a href="<c:url value="/produtos"/>">Produtos</a></li>
+                                <li><a href="<c:url value="/categorias"/>">Categorias</a></li>
+                                <li><a href="<c:url value="/unidades"/>">Unidades</a></li>                                
                                 <li role="separator" class="divider"></li>
                                 <li><a href="<c:url value="/funcionarios"/>">Funcionários</a></li>
                                 <li><a href="<c:url value="/cargos"/>">Cargos</a></li>
                                 <li role="separator" class="divider"></li>
                               </ul>
                             </li>
-                            <li><a href="<c:url value="/produtos/venda"/>">Registrar venda de Produtos </a></li>
+                            <li><a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><span>Vendas</span> </a></li>
                           </ul>
                                 <form class="navbar-form navbar-right" action="<c:url value="/login"/>" method="post" role="form" enctype="application/x-www-form-urlencoded">
                             <div class="form-group">

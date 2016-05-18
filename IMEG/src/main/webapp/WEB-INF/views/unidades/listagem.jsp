@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:if test="${not empty produtos}">
+<c:if test="${not empty unidades}">
     <c:choose>
         <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
     </c:choose>
 <div class="col-lg-12">
-    <h3>Produtos</h3>
-    <a href="<c:url value="/produtos/novo"></c:url>">Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
+    <h3>Unidades</h3>
+    <a href="<c:url value="/unidades/novo"></c:url>">Nova Unidade</a>
     <br>
     <div id="warning" class="col-lg-12 ${alert}">
         <c:if test="${sessionScope.success}">
@@ -22,28 +22,25 @@
         <thead>
             <th></th>
             <th>Nome</th>
-            <th>Quantidade Mínima</th>
-            <th>Quantidade Máxima</th>
-            <th></th>
-            <th>Ações</th>
-            <th></th>
+            <th>Cidade</th>
+            <th>Ações</th>            
         </thead>
         <tbody>
-        <c:forEach items="${produtos}" var="produto">
+        <c:forEach items="${unidades}" var="unidade">
             <tr>
                 <td>
+                    <%--
                     <c:choose>
-                        <c:when test="${produto.isStatus()}">
+                        <c:when test="${unidade.isStatus()}">
                             <em data-toggle="tooltip" data-placement="top" title="Ativado" class="active-elem-table glyphicon glyphicon glyphicon-ok-circle"></em>
                         </c:when>
                         <c:otherwise>
                             <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
                         </c:otherwise></c:choose></td>
-                <td>${produto.nome}</td>
-                <td>${produto.qtdeMin}</td>
-                <td>${produto.qtdeMax}</td>
-                <td><a href="<c:url value="/produtos/editar?id=${produto.id}"></c:url>">Editar</a></td>
-                <td><a href="<c:url value="/produtos/inserir?id=${produto.id}"></c:url>">Inserir</a></td>
+                    --%>
+                <td>${unidade.nome}</td>
+                <td>${unidade.estado.nome}</td>
+                <td><a href="<c:url value="/unidades/editar?id=${unidade.id}"></c:url>">Editar</a></td>
             </tr>
         </c:forEach>
         </tbody>
