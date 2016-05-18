@@ -20,7 +20,7 @@
 <div class="col-lg-12 table-reposnsive">
     <table class="table table-hover">
         <thead>
-            <th></th>
+            <th>Status</th>
             <th>Nome</th>
             <th>Cidade</th>
             <th>Ações</th>            
@@ -29,7 +29,7 @@
         <c:forEach items="${unidades}" var="unidade">
             <tr>
                 <td>
-                    <%--
+                    
                     <c:choose>
                         <c:when test="${unidade.isStatus()}">
                             <em data-toggle="tooltip" data-placement="top" title="Ativado" class="active-elem-table glyphicon glyphicon glyphicon-ok-circle"></em>
@@ -37,7 +37,7 @@
                         <c:otherwise>
                             <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
                         </c:otherwise></c:choose></td>
-                    --%>
+                    
                 <td>${unidade.nome}</td>
                 <td>${unidade.estado.nome}</td>
                 <td><a href="<c:url value="/unidades/editar?id=${unidade.id}"></c:url>">Editar</a></td>

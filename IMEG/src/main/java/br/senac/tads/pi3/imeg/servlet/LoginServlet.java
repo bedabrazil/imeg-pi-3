@@ -34,7 +34,17 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         request.getRequestDispatcher("/WEB-INF/views/login/index.jsp").forward(request, response);
+=======
+        Cargo cargo = new CargoDao().pesquisarPorId(1);
+        Unidade unidade = new UnidadeDao().pesquisarPorId(1);
+        Acesso acesso = new AcessoDao().pesquisarPorId(1);
+        Funcionario usuario =  new Funcionario("MARCIO", cargo, unidade, acesso, "marcio@mail.com", "12345", true);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("usuario", usuario);
+        request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);
+>>>>>>> 906bd7284465949fe8176812ef029b18e10136aa
     }
 
     /**

@@ -24,6 +24,7 @@
             <th>Nome</th>
             <th>Quantidade Mínima</th>
             <th>Quantidade Máxima</th>
+            <th>Saldo</th>
             <th></th>
             <th>Ações</th>
             <th></th>
@@ -42,6 +43,7 @@
                 <td>${produto.nome}</td>
                 <td>${produto.qtdeMin}</td>
                 <td>${produto.qtdeMax}</td>
+                <td>${produto.saldo}</td>
                 <td><a href="<c:url value="/produtos/editar?id=${produto.id}"></c:url>">Editar</a></td>
                 <td><a href="<c:url value="/produtos/inserir?id=${produto.id}"></c:url>">Inserir</a></td>
             </tr>

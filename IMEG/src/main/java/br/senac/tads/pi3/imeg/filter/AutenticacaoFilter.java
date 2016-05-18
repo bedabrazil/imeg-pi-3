@@ -86,16 +86,22 @@ public class AutenticacaoFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession sessao = httpRequest.getSession();
-        Funcionario funcionario = (Funcionario) sessao.getAttribute("funcionario");
-        if (funcionario == null) {
+        Funcionario usuario = (Funcionario) sessao.getAttribute("usuario");
+        if (usuario == null) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
         try {
-            if (verificarAcesso(funcionario, httpRequest, httpResponse)) {
+            if (verificarAcesso(usuario, httpRequest, httpResponse)) {
                 chain.doFilter(request, response);
+                
             } else {
+<<<<<<< HEAD
 //                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");
+=======
+                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");
+                
+>>>>>>> 906bd7284465949fe8176812ef029b18e10136aa
             }
         } catch (IOException | ServletException t) {
         }
