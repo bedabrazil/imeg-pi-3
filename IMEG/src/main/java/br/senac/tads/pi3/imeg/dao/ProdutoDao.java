@@ -154,8 +154,9 @@ public class ProdutoDao {
                 Produto p = new Produto();
                 p.setId(res.getInt("ID"));
                 p.setNome(res.getString("NOME"));
-                p.setQtdeMax(res.getInt("QTDE_MIN"));
+                p.setQtdeMin(res.getInt("QTDE_MIN"));
                 p.setQtdeMax(res.getInt("QTDE_MAX"));
+                p.setSaldo(res.getInt("SALDO"));
                 produtos.add(p);
             }
             return produtos;
