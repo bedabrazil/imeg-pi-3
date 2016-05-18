@@ -14,13 +14,21 @@ public class Unidade {
     private int id;
     private Estado estado;
     private String nome;
+    private boolean status;
 
     public Unidade(){
     }
     
-    public Unidade(String nome, Estado estado) {
+    public Unidade(String nome, Estado estado, boolean status) {
         this.nome = nome;
         this.estado = estado;       
+        this.status = status;
+    }
+    public Unidade(int id, String nome, Estado estado, boolean status) {
+        this.nome = nome;
+        this.estado = estado;       
+        this.status = status;
+        this.id = id;
     }
 
     public int getId() {
@@ -46,4 +54,13 @@ public class Unidade {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
 }

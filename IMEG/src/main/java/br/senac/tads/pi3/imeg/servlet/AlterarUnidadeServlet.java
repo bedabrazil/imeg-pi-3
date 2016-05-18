@@ -38,8 +38,7 @@ public class AlterarUnidadeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        ArrayList<Acesso> acessos = new AcessoDao().listar();
-//        request.setAttribute("acessos", acessos
+
         ArrayList<Estado> estados = new EstadoDao().listar();
         request.setAttribute("estados", estados);
 
@@ -84,38 +83,39 @@ public class AlterarUnidadeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ArrayList<String> mensagens = new ArrayList<>();
         HttpSession session = request.getSession(true);
-        session.setAttribute("success", false);
+        ArrayList<String> mensagens = new ArrayList<>();
 
-        String nome = request.getParameter("nome_cargo");
-        int acesso_id = Integer.parseInt(request.getParameter("acesso_id"));
+        session.setAttribute("error", false);
 
-        if (nome.isEmpty()) {
-            request.setAttribute("error", true);
-            mensagens.add("Nome não pode ser vazio.");
+        if (request.getParameter("nome-unidade").isEmpty()) {
+            mensagens.add("*Nome* não pode ser vazio.");
         }
-        if (acesso_id == 0) {
-            request.setAttribute("error", true);
-            mensagens.add("Selecione um Tipo de Permissão.");
-
+        if (!request.getParameter("estado-id").matches("\\d+") || request.getParameter("estado-id").equals("0")) {
+            mensagens.add("É preciso selecionar uma cidade.");
         }
+
         if (mensagens.size() > 0) {
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
-            return;
         }
 
-        if (request.getParameter("estado-id") != null) {
-            Unidade unidade = new Unidade();
-            unidade.setId(Integer.parseInt(request.getParameter("estado-id")));
-            unidade.setNome(request.getParameter("nome-unidade"));
+        if (request.getParameter("unidade_id") != null) {
+            EstadoDao eDao = new EstadoDao();
 
-            if (new UnidadeDao().alterar(unidade)) {
+            int id = Integer.parseInt(request.getParameter("unidade_id"));
+            String nome = request.getParameter("nome-unidade");
+            int estado = Integer.parseInt(request.getParameter("estado-id"));
+            boolean status = Boolean.parseBoolean(request.getParameter("ativo_unidades"));
+
+            if (new UnidadeDao().alterar(new Unidade(id, nome, eDao.pesquisarPorId(estado), status))) {
                 mensagens.clear();
+                session.setAttribute("msg_success", "Unidade alterada com sucesso.");
                 session.setAttribute("success", true);
-                session.setAttribute("msg_success", "Unidade <strong>" + unidade.getNome() + "</strong> alterado com sucesso.");
-                response.sendRedirect("unidade");
+                response.sendRedirect(request.getContextPath() + "/unidades");
+            } else {
+                session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
+                session.setAttribute("error", true);
             }
         }
 

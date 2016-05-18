@@ -152,6 +152,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
             session.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/views/funcionarios/editar.jsp").forward(request, response);
         } else if (fDao.alterar(new Funcionario(id, nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email, senha, status))) {
+            mensagens.clear();
             session.setAttribute("msg_success", "Funcionário alterado com sucesso.");
             session.setAttribute("success", true);
             response.sendRedirect(request.getContextPath() + "/funcionarios");

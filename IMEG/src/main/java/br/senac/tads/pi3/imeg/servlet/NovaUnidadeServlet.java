@@ -69,12 +69,12 @@ public class NovaUnidadeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //super.doPost(request, response); 
 
         //inicia uma sessao
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
 
+        //Instancia o DAO
         UnidadeDao uDao = new UnidadeDao();
 
         session.setAttribute("error", false);
@@ -83,7 +83,7 @@ public class NovaUnidadeServlet extends HttpServlet {
             mensagens.add("*Nome* não pode ser vazio.");
         }
         if (!request.getParameter("estado-id").matches("\\d+") || request.getParameter("estado-id").equals("0")) {
-            mensagens.add("É preciso selecionar um estado.");
+            mensagens.add("É preciso selecionar uma cidade.");
         }
 
         if (mensagens.size() > 0) {
@@ -93,27 +93,17 @@ public class NovaUnidadeServlet extends HttpServlet {
 
         String nome = request.getParameter("nome-unidade");
         int idCidade = Integer.parseInt(request.getParameter("estado-id"));
-        // boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
+        boolean status = Boolean.parseBoolean(request.getParameter("ativo_unidades"));
         
         if (!nome.isEmpty() && idCidade > 0) {
             EstadoDao eDao = new EstadoDao();
-            Unidade unidade = new Unidade(nome, eDao.pesquisarPorId(idCidade));
+            Unidade unidade = new Unidade(nome, eDao.pesquisarPorId(idCidade), status);
             if (uDao.adicionar(unidade)) {
+                mensagens.clear();
                 session.setAttribute("msg_success", "Unidade " + nome + " incluída com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect(request.getContextPath() + "/unidades");
             }
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
