@@ -101,6 +101,7 @@ public class ProdutoDao {
                 produto.setNome(rs.getString("NOME"));
                 produto.setQtdeMin(rs.getInt("QTDE_MIN"));
                 produto.setQtdeMax(rs.getInt("QTDE_MAX"));
+                produto.setSaldo(rs.getInt("SALDO"));
                 produto.setStatus(rs.getBoolean("STATUS"));
             }
             return produto;
