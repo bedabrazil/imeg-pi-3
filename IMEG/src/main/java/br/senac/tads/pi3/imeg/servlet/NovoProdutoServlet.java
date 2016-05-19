@@ -87,11 +87,11 @@ public class NovoProdutoServlet extends HttpServlet {
             mensagens.add("Selecione uma Categoria.");
         }
         if(!request.getParameter("qtd_max_produto").matches("\\d+")){
-            mensagens.add("Valor tem que ser maior que zero.");
+            mensagens.add("Adicionar um numero valido.");
                         
         }
         if(!request.getParameter("qtd_min_produto").matches("\\d+")){
-            mensagens.add("Valor tem que ser maior ou igual a zero.");
+            mensagens.add("Adicionar um numero valido.");
         }
         
         
@@ -105,6 +105,7 @@ public class NovoProdutoServlet extends HttpServlet {
         int qtd_min_produto = Integer.parseInt(request.getParameter("qtd_min_produto"));
         int qtd_max_produto = Integer.parseInt(request.getParameter("qtd_max_produto"));
         int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
+       
         
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));// Não está sendo usado
         if (!nome.isEmpty() && categoria_id > 0) {
@@ -115,6 +116,7 @@ public class NovoProdutoServlet extends HttpServlet {
                 produto.setNome(nome);        
                 produto.setQtdeMin(qtd_min_produto);
                 produto.setQtdeMax(qtd_max_produto);
+                produto.setStatus(status);
                 produto.setCategoria(new CategoriaDao().pesquisarPorId(categoria_id));
         
           
