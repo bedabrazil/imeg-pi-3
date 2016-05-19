@@ -24,14 +24,15 @@ public class ProdutoDao {
 
     public boolean adicionar(Produto produto) {
 
-        String sql = "INSERT INTO PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX)"
-                + "VALUES (?,?,?,?)";
+        String sql = "INSERT INTO PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX, STATUS)"
+                + "VALUES (?,?,?,?,?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, produto.getCategoria().getId());
             pst.setString(2, produto.getNome());
             pst.setInt(3, produto.getQtdeMin());
             pst.setInt(4, produto.getQtdeMax());
+            pst.setBoolean(5, produto.isStatus());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -120,7 +121,7 @@ public class ProdutoDao {
     }
 
     public boolean alterar(Produto produto) {
-        String sql = "UPDATE PRODUTOS SET CATEGORIAS_ID=?, NOME=?, QTDE_MIN=?, QTDE_MAX=?"
+        String sql = "UPDATE PRODUTOS SET CATEGORIAS_ID=?, NOME=?, QTDE_MIN=?, QTDE_MAX=?, STATUS=?"
                 + "WHERE ID=?";
         // UPDATE
 
@@ -130,7 +131,8 @@ public class ProdutoDao {
             pst.setString(2, produto.getNome());
             pst.setInt(3, produto.getQtdeMin());
             pst.setInt(4, produto.getQtdeMax());
-            pst.setInt(5, produto.getId());
+            pst.setBoolean(5, produto.isStatus());
+            pst.setInt(6, produto.getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
