@@ -8,7 +8,6 @@ package br.senac.tads.pi3.imeg.servlet;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -90,6 +89,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         HttpSession session = request.getSession(true);
+        session.setAttribute("error", true);
         session.setAttribute("mensagens", "Email e/ou senha incorreta");
         response.sendRedirect(request.getContextPath() + "/login");
     }

@@ -9,23 +9,26 @@
 </c:choose>     
     <form action="<c:url value="/login"/>" method="post">
         <fieldset>
-            <div id="warning" class="col-lg-12 ${alert}">
-                <c:if test="${not empty mensagens}">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>            
-
-                    <p>${mensagens}</p>
-                </c:if>
-            </div>              
         <div class="col-lg-12 pager">
             <h1>Seja Bem Vindo(a)</h1>
         </div>
+                          
         <div class="col-lg-12 pager">
             <h4>Faça seu login para acessar as funcionalidades</h4>
         </div>
+            <div class="col-lg-4 col-lg-offset-4">
+                <div id="warning" class="pager col-lg-12 ${alert}">
+                    <c:if test="${not empty mensagens}">           
+                        <ul><li>${mensagens}</li></ul>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>                     
+                    </c:if>
+                </div>                
+            </div>
         <div class="col-lg-12 form-space">
-            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+            </div>
             <div class="col-lg-4 form-space">
                 <label for="email_funcionario">Email</label>
                 <input name="email_funcionario" id="email_funcionario" type="text" class="form-control">

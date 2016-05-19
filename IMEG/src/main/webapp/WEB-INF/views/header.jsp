@@ -54,14 +54,26 @@
                             </li>
                             <li><a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><span>Vendas</span> </a></li>
                           </ul>
+                            <c:choose>
+                                <c:when test="${sessionScope.usuario == null}">
                                 <form class="navbar-form navbar-right" action="<c:url value="/login"/>" method="post" role="form" enctype="application/x-www-form-urlencoded">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email" name="email_funcionario">
-                                <input type="password" class="form-control" placeholder="Senha" name="senha_funcionario">
-                            </div>
-
-                            <button type="submit" class="btn btn-default">Entrar</button>
-                          </form>                              
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Email" name="email_funcionario">
+                                        <input type="password" class="form-control" placeholder="Senha" name="senha_funcionario">
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Entrar</button>
+                                </form>
+                            </c:when>
+                                <c:otherwise>
+                                    <div id="login" class="navbar-form navbar-right">
+                                        <div class="form-group">
+                                            <ul class="user-logged">
+                                                <li>${sessionScope.usuario.email}</li>
+                                                <li><a href="<c:url value="/logout"/>">Sair</a></li>
+                                            </ul>
+                                        </div>
+                                </c:otherwise>
+                            </c:choose>
                           </ul>
                         </div><!-- /.navbar-collapse -->
                       </div><!-- /.container-fluid -->

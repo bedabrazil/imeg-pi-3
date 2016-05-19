@@ -131,3 +131,19 @@ code {
 .sale:hover{
     background-color: #E2CC0C!important;
 }
+ul{
+    list-style-type: square;
+}
+#login ul{
+    list-style: none;
+}
+#login ul li{
+    display: inline;    
+    padding: 10px;
+}
+
+.user-logged{
+    font-size: 12px;
+    color: white;
+    font-family: helvetica;
+}
