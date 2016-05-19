@@ -8,6 +8,7 @@ package br.senac.tads.pi3.imeg.servlet;
 import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.dao.HistoricoEntradaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
+import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class InserirProdutoServlet extends HttpServlet {
 
         if (request.getQueryString() != null) {
 
-          if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
+            if (request.getParameter("id") != null && !request.getParameter("id").isEmpty()) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Produto produto = new ProdutoDao().pesquisarPorId(id);
                 request.setAttribute("produto", produto);
@@ -55,53 +56,58 @@ public class InserirProdutoServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-        
-          
-        if (request.getParameter("preco_custo_produto").isEmpty()) {
+
+        if (request.getParameter("preco_custo_produto").isEmpty() && !request.getParameter("preco_custo_produto").matches("\\d+")) {
             mensagens.add("Informe o Preço.");
-        }else {        
+        } else {
             double preco = Double.parseDouble(request.getParameter("preco_custo_produto"));
-            if (preco<=0) mensagens.add("Preço deve ser Maior que 0");
-        } 
-         
-        if (request.getParameter("quantidade").isEmpty()) {
-            mensagens.add("Informe a Qtde.");
+            if (preco <= 0) {
+                mensagens.add("Preço deve ser Maior que 0");
+            }
         }
-      
-        if(mensagens.size() > 0){
-            request.setAttribute("mensagens", mensagens);                        
+
+        if (request.getParameter("quantidade").isEmpty() && !request.getParameter("quantidade").matches("\\d+")) {
+            mensagens.add("Informe a Quantidade.");
+        } else {
+            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            if (quantidade <= 0) {
+                mensagens.add("Quantidade tem que ser maior que 0.");
+            }
+        }
+
+        if (mensagens.size() > 0) {
+            request.setAttribute("mensagens", mensagens);
             request.setAttribute("error", true);
             processRequest(request, response);
             return;
         }
-        
-       int id_funcionario = 1; // ajustar
-       double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
-       int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-       int id = Integer.parseInt(request.getParameter("id_produto")); 
+        Funcionario usuario = (Funcionario) session.getAttribute("usuario");
+        if (usuario != null) {
+            double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
+            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            int id = Integer.parseInt(request.getParameter("id_produto"));
 
-                
-        HistoricoEntrada histEntrada = new HistoricoEntrada();
+            HistoricoEntrada histEntrada = new HistoricoEntrada();
 
-        histEntrada.setPreco_custo(preco_custo_produto);
-        histEntrada.setQtde_produtos(quantidade);
-        histEntrada.setProduto(new ProdutoDao().pesquisarPorId(id));
-        histEntrada.setFuncionario(new FuncionarioDao().pesquisarPorId(id_funcionario));
+            histEntrada.setPreco_custo(preco_custo_produto);
+            histEntrada.setQtde_produtos(quantidade);
+            histEntrada.setProduto(new ProdutoDao().pesquisarPorId(id));
+            histEntrada.setFuncionario(usuario);
 
-         if (new HistoricoEntradaDao().adicionar(histEntrada)) {
+            if (new HistoricoEntradaDao().adicionar(histEntrada)) {
                 new HistoricoEntradaDao().atualizaSaldo(histEntrada);
-                
+
                 session.setAttribute("msg_success", " Entrada realizada com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect(request.getContextPath() + "/produtos");
-       }
+            }
+        }
 
     }
 

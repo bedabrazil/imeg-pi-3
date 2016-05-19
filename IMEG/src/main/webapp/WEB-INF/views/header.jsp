@@ -36,6 +36,7 @@
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+                        <c:if test="${sessionScope.usuario != null}">
                           <ul class="nav navbar-nav">
                             <li class="">
                                 <a href="javascript:void(0)">Relatórios <span class="sr-only">(current)</span></a>
@@ -54,6 +55,7 @@
                             </li>
                             <li><a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><span>Vendas</span> </a></li>
                           </ul>
+                        </c:if>
                             <c:choose>
                                 <c:when test="${sessionScope.usuario == null}">
                                 <form class="navbar-form navbar-right" action="<c:url value="/login"/>" method="post" role="form" enctype="application/x-www-form-urlencoded">
