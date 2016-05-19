@@ -101,8 +101,28 @@ public class CategoriaDao {
         return null;
     }
 
+    public boolean pesquisarPorNome(Categoria categoria) {
+        String sql = "SELECT CATEGORIAS.* FROM CATEGORIAS WHERE NOME = ?";
+        try {
+            pst = new Conexao().prepararStatement(sql);
+            pst.setString(1, categoria.getNome());
+            ResultSet res = pst.executeQuery();
+            if (res.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERRO DE SQL: " + ex.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+            }
+        }
+        return false;
+    }
+
     public boolean alterar(Categoria categoria) {
-        String sql = "UPDAtE CATEGORIAS SET NOME=?, STATUS=? WHERE ID =?";
+        String sql = "UPDATE CATEGORIAS SET NOME=?, STATUS=? WHERE ID =?";
 
         try {
             pst = new Conexao().prepararStatement(sql);

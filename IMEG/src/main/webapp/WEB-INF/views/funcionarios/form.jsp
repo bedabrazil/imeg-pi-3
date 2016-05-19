@@ -45,7 +45,7 @@
         </div>
             <div class="col-lg-6 form-space">
                 <label for="">Confirmar Senha</label>
-                <input class="form-control" type="password" value="<c:if test="${funcionario != null }">${funcionario.senha}</c:if>" id="confirmar_senha_funcionario" name="confSenha_funcionario"/>
+                <input class="form-control" type="password" value="<c:if test="${funcionario != null }">${funcionario.senha}</c:if>" id="confirmar_senha_funcionario" name="confirmar_senha_funcionario"/>
         </div>
 
         <div class="col-lg-3 form-space">
