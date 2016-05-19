@@ -20,12 +20,11 @@
 <div class="col-lg-12 table-reposnsive">
     <table class="table table-hover">
         <thead>
-            <th></th>
+            <th>Status</th>
             <th>Nome</th>
             <th>Quantidade Mínima</th>
             <th>Quantidade Máxima</th>
             <th>Saldo</th>
-            <th></th>
             <th>Ações</th>
             <th></th>
         </thead>

@@ -51,7 +51,7 @@ public class AlterarProdutoServlet extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/views/produtos/editar.jsp").forward(request, response);
         } else {
-            response.sendRedirect("/produtos");
+            response.sendRedirect(request.getContextPath() + "/produtos");
         }
     }
 
@@ -62,11 +62,13 @@ public class AlterarProdutoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response); //To change body of generated methods, choose Tools | Templates.
+//        super.doPost(request, response); //To change body of generated methods, choose Tools | Templates.
         // talvez inicie a sessao
-        ArrayList<String> mensagens = new ArrayList<>();
         HttpSession session = request.getSession(true);
+        ArrayList<String> mensagens = new ArrayList<>();
+                
         session.setAttribute("success", false);
+        
         if (request.getParameter("nome_produto").isEmpty()) {
             request.setAttribute("error", true);
             mensagens.add("Nome não pode ser vazio.");
@@ -82,15 +84,14 @@ public class AlterarProdutoServlet extends HttpServlet {
         if(!request.getParameter("qtd_min_produto").matches("\\d+")){
             mensagens.add("Valor deve ser maior ou igual a 0");
             request.setAttribute("error", true);            
-        }
-        
+        }        
         
         if(mensagens.size() > 0){
+            request.setAttribute("error", true);
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
             return;
         }
-        
         
         
             Produto produto = new Produto();
@@ -105,7 +106,7 @@ public class AlterarProdutoServlet extends HttpServlet {
                 mensagens.clear();
                 session.setAttribute("success", true);
                 session.setAttribute("msg_success", "Produto <strong>" + produto.getNome() + "</strong> alterado com sucesso.");
-                response.sendRedirect("/produtos");
+                response.sendRedirect(request.getContextPath() + "/produtos");
             }
             else {
                  mensagens.add("houve alguma falha ao cadastrar o produto ");
