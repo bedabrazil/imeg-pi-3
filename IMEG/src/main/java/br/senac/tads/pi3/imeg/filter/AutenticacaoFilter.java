@@ -95,7 +95,7 @@ public class AutenticacaoFilter implements Filter {
             if (verificarAcesso(usuario, httpRequest, httpResponse)) {
                 chain.doFilter(request, response);
             } else {
-                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/home");   
+                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/");   
             }
         } catch (IOException | ServletException t) {
         }

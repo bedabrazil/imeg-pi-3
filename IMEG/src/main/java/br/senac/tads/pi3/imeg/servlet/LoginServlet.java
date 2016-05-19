@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             processRequest(request, response);
             return;
         }
-        response.sendRedirect(request.getContextPath() + "/home");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 
     /**
@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
             }
             session = request.getSession(true);
             session.setAttribute("usuario", usuario);
-            response.sendRedirect(request.getContextPath() + "/home");
+            response.sendRedirect(request.getContextPath() + "/");
             return;
         }
         HttpSession session = request.getSession(true);
