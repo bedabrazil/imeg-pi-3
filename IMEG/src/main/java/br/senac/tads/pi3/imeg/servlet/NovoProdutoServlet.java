@@ -75,6 +75,8 @@ public class NovoProdutoServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
         
+        
+        
         //instacio o DAO
 
         

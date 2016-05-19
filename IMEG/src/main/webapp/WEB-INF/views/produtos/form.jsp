@@ -52,23 +52,26 @@
                 <label for="">Categoria </label>
                 <select name="categoria_id" class="form-control" >
                 <c:choose>
-                    <c:when test="${Listacategorias == null}">
-                        <option value="0">Selecione um Categoria</option>
-                        
+                    <c:when test="${produto == null}">                        
+                        <option value="0">Selecione uma Categoria</option>                        
                     </c:when>
                     <c:otherwise>
                          <option value="<c:out value="${produto.categoria.id}"/>" <c:if test="${produto != null}">${produto.categoria.nome}</c:if>><c:out value="${produto.categoria.nome}"/></option>
                     </c:otherwise>
-                </c:choose>
-                         
+                </c:choose>                         
                 <c:forEach items="${Listacategorias}" var="Listacategoria">
-                    <%-- erro na hora de listar as categorias <option value="${Listacategoria.id}" <c:if test="${Listacategoria.id == produto.Listacategoria.id}">selected="selected"</c:if> >${Listacategoria.nome}</option>--%>
+                    <option value="${Listacategoria.id}" <c:if test="${Listacategoria.id == produto.categoria.id}">selected="selected"</c:if> >${Listacategoria.nome}</option>
                 </c:forEach>
             </select>
         </div>
         <div class="col-lg-12 form-space">
-            <a href="<c:url value="/produtos"></c:url>" class="btn btn-default">Voltar</a>            
-            <button class="btn btn-default ajax" type="submit" id="commit_produto">Enviar</button>
+            <a href="<c:url value="/produtos"></c:url>" class="btn btn-default">Voltar</a>       
+            <button class="btn btn-default" type="submit" id="commit-produto">
+            <c:choose>
+                <c:when test="${produto != null}">Alterar</c:when>
+                <c:otherwise>Salvar</c:otherwise>
+            </c:choose>
+            </button>
         </div>
     </fieldset>
 

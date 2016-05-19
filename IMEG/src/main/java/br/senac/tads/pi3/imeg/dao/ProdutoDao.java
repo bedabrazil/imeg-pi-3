@@ -94,9 +94,10 @@ public class ProdutoDao {
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
             Produto produto = new Produto();
+            CategoriaDao cDao = new CategoriaDao();
             if (rs.next()) {
                 
-//                produto.getCategoria().getId(rs.getInt("CATEGORIAS_ID"));
+                produto.setCategoria(cDao.pesquisarPorId(rs.getInt("CATEGORIAS_ID")));
                 produto.setId(rs.getInt("ID"));
                 produto.setNome(rs.getString("NOME"));
                 produto.setQtdeMin(rs.getInt("QTDE_MIN"));
@@ -129,7 +130,7 @@ public class ProdutoDao {
             pst.setString(2, produto.getNome());
             pst.setInt(3, produto.getQtdeMin());
             pst.setInt(4, produto.getQtdeMax());
-            pst.setInt(8, produto.getId());
+            pst.setInt(5, produto.getId());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
