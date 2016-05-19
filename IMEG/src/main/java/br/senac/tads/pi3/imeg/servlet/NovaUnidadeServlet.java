@@ -87,6 +87,7 @@ public class NovaUnidadeServlet extends HttpServlet {
         }
 
         if (mensagens.size() > 0) {
+            session.setAttribute("error", true);
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
         }
