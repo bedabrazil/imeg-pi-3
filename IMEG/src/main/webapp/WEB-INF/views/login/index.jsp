@@ -4,15 +4,31 @@
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="header.jsp" />
     <%-- CONTEÚDO DE PRODUTOS/ --%>
+<c:choose>
+    <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
+</c:choose>     
     <form action="<c:url value="/login"/>" method="post">
+        <fieldset>
         <div class="col-lg-12 pager">
             <h1>Seja Bem Vindo(a)</h1>
         </div>
+                          
         <div class="col-lg-12 pager">
             <h4>Faça seu login para acessar as funcionalidades</h4>
         </div>
+            <div class="col-lg-4 col-lg-offset-4">
+                <div id="warning" class="pager col-lg-12 ${alert}">
+                    <c:if test="${not empty mensagens}">           
+                        <ul><li>${mensagens}</li></ul>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>                     
+                    </c:if>
+                </div>                
+            </div>
         <div class="col-lg-12 form-space">
-            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+            </div>
             <div class="col-lg-4 form-space">
                 <label for="email_funcionario">Email</label>
                 <input name="email_funcionario" id="email_funcionario" type="text" class="form-control">
@@ -30,10 +46,11 @@
         <div class="col-lg-12 form-space pager">
             <div class="col-lg-3"></div>
             <div class="col-lg-4 col-lg-offset-1 form-space">
-                <input name="commit" id="commit" type="submit" class="btn btn-default" value="Logon">
+                <input name="commit" id="commit" type="submit" class="btn btn-default" value="Entrar">
             </div>
             <div class="col-lg-3"></div>        
         </div>
+        </fieldset>
     </form>
     
 <%-- RODAPÉ DO HTML --%>
