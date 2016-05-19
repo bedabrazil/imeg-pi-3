@@ -5,18 +5,20 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author marcio.soares
  */
-@WebServlet(name = "HomeServlet", displayName="TADS", urlPatterns = {"/index.html", "/home"})
+@WebServlet(name = "HomeServlet", displayName="TADS", urlPatterns = {"/index.html", "/home", "/bemvindo"})
 public class HomeServlet extends HttpServlet {
 
     /**
@@ -30,7 +32,13 @@ public class HomeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);
+        HttpSession session = request.getSession(true);
+        Funcionario usuario = (Funcionario) session.getAttribute("usuario");
+        if(usuario == null){
+         request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);
+        }else{
+         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);            
+        }
     }
 
     /**

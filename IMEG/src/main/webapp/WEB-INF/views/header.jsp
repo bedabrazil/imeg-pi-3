@@ -67,16 +67,21 @@
                                 </form>
                             </c:when>
                                 <c:otherwise>
-                                    <div id="login" class="navbar-form navbar-right">
-                                        <div class="form-group">
-                                            <ul class="user-logged">
-                                                <li>${sessionScope.usuario.email}</li>
-                                                <li><a href="<c:url value="/logout"/>">Sair</a></li>
-                                            </ul>
-                                        </div>
+                                    <div class="dropdown navbar-form navbar-right">
+                                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Configuração
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Alterar Senha</a></li>
+                                        <li><a href="#">Seus dados</a></li>
+                                        <li><a href="javscript:void">Configurações</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="<c:url value="/logout"/>">Sair</a></li>
+                                      </ul>
+                                    </div>
                                 </c:otherwise>
                             </c:choose>
-                          </ul>
                         </div><!-- /.navbar-collapse -->
                       </div><!-- /.container-fluid -->
                     </nav>
