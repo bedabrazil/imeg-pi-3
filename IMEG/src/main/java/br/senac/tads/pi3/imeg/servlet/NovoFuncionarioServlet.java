@@ -13,6 +13,7 @@ import br.senac.tads.pi3.imeg.dao.UnidadeDao;
 import br.senac.tads.pi3.imeg.entity.Cargo;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.Unidade;
+import br.senac.tads.pi3.imeg.util.Validate;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -94,8 +95,13 @@ public class NovoFuncionarioServlet extends HttpServlet {
         AcessoDao aDao = new AcessoDao();
 
         session.setAttribute("error", false);
+        
+//        String nome_funcionario = request.getParameter("nome_funcionario");
+//        String cargo_id = request.getParameter("cargo_id");
+
 
         if (request.getParameter("nome_funcionario").isEmpty()) {
+//            request.setAttribute("nome_funcionario", nome_funcionario);
             mensagens.add("Nome não pode ser vazio.");
         }
         if (request.getParameter("email_funcionario").isEmpty()) {
@@ -119,7 +125,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
         if (!request.getParameter("senha_funcionario").equals(request.getParameter("confirmar_senha_funcionario"))) {
             mensagens.add("*Senha* deve coincidir com *Confirmar Senha*.");
         }
-        if (!request.getParameter("email_funcionario").matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+        if (!(request.getParameter("email_funcionario").isEmpty()) && !request.getParameter("email_funcionario").matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
             mensagens.add("*Email* inválido.");
         }
         if (mensagens.size() > 0) {
@@ -128,6 +134,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
             processRequest(request, response);
             return;
         }
+      
 
         String nome = request.getParameter("nome_funcionario");
         int cargo = Integer.parseInt(request.getParameter("cargo_id"));
@@ -137,6 +144,8 @@ public class NovoFuncionarioServlet extends HttpServlet {
         String senha = request.getParameter("senha_funcionario");
         String confSenha = request.getParameter("confirmar_senha_funcionario");
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
+        
+                      
 
         if (nome.isEmpty() && cargo <= 0 && unidade <= 0 && email.isEmpty() && acesso <= 0 && !(senha.equals(confSenha))) {
             session.setAttribute("msg_error", "Campos não prenchidos.");

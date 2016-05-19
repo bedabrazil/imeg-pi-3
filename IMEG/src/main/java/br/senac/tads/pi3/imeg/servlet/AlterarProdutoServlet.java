@@ -100,6 +100,8 @@ public class AlterarProdutoServlet extends HttpServlet {
             produto.setQtdeMin(Integer.parseInt(request.getParameter("qtd_min_produto")));
             produto.setQtdeMax(Integer.parseInt(request.getParameter("qtd_max_produto")));
             produto.setCategoria(new CategoriaDao().pesquisarPorId(Integer.parseInt(request.getParameter("categoria_id"))));
+            produto.setStatus(Boolean.parseBoolean(request.getParameter("ativo")));
+            
             // alterar produto 
 
             if (new ProdutoDao().alterar(produto)) {

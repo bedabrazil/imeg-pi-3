@@ -64,7 +64,7 @@
             </select>
         </div>
         <div class="col-lg-12 form-space">
-            <label for="ativo_categoria">Ativo</label>
+            <label for="ativo_produto">Ativo</label>
             <input type="checkbox" id="ativo_produto" class="" <c:if test="${produto.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
          </div>
             <div class="col-lg-12 form-space">

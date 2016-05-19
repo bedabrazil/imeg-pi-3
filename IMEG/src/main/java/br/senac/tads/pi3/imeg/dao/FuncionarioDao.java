@@ -56,7 +56,7 @@ public class FuncionarioDao {
     //Altera informações de um funcionário
     public boolean alterar(Funcionario funcionario) {
         String sql = "UPDATE FUNCIONARIOS SET CARGOS_ID = ?, UNIDADES_ID = ?, "
-                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SENHA = ?, STATUS = ? "
+                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SALT = ?, SENHA_HASH = ?, STATUS = ? "
                 + "WHERE ID = ?";
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -65,9 +65,10 @@ public class FuncionarioDao {
             pst.setInt(3, funcionario.getAcesso().getId());
             pst.setString(4, funcionario.getNome());
             pst.setString(5, funcionario.getEmail());
-            pst.setString(6, funcionario.getSenha());
-            pst.setBoolean(7, funcionario.isStatus());
-            pst.setInt(8, funcionario.getId());
+            pst.setString(6, funcionario.getSalt());
+            pst.setString(7, String.copyValueOf(funcionario.getSenhaHash()));
+            pst.setBoolean(8, funcionario.isStatus());
+            pst.setInt(9, funcionario.getId());
 
             if (pst.executeUpdate() > 0) {
                 return true;
@@ -105,8 +106,8 @@ public class FuncionarioDao {
                 funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADES_ID")));
                 funcionario.setNome(rs.getString("NOME"));
                 funcionario.setEmail(rs.getString("EMAIL"));
-                funcionario.setSenha(rs.getString("SENHA"));
-                //funcionario.setSenhaHash(rs.getString("SENHA_HASH"));
+                funcionario.setSalt(rs.getString("SALT"));
+                funcionario.setSenhaHash(rs.getString("SENHA_HASH").toCharArray());
                 funcionario.setStatus(rs.getBoolean("STATUS"));
                 tempFuncionarios.add(funcionario);
 
@@ -147,8 +148,8 @@ public class FuncionarioDao {
                 funcionario.setUnidade(unidadeDao.pesquisarPorId(rs.getInt("UNIDADES_ID")));
                 funcionario.setNome(rs.getString("NOME"));
                 funcionario.setEmail(rs.getString("EMAIL"));
-                funcionario.setSenha(rs.getString("SENHA"));
-                //funcionario.setSenhaHash(rs.getString("SENHA_HASH"));
+                funcionario.setSalt(rs.getString("SALT"));
+                funcionario.setSenhaHash(rs.getString("SENHA_HASH").toCharArray());
                 funcionario.setStatus(rs.getBoolean("STATUS"));
 
             }

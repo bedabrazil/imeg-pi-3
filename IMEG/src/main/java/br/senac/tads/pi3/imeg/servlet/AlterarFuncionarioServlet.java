@@ -107,7 +107,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         if (request.getParameter("senha_funcionario").isEmpty()) {
             mensagens.add("*Senha* não pode ser vazio.");
         }
-        if (request.getParameter("confSenha_funcionario").isEmpty()) {
+        if (request.getParameter("confirmar_senha_funcionario").isEmpty()) {
             mensagens.add("*Confirmar Senha* não pode ser vazio.");
         }
         if (!request.getParameter("cargo_id").matches("\\d+") || request.getParameter("cargo_id").equals("0")) {
@@ -119,7 +119,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         if (!request.getParameter("acesso_id").matches("\\d+") || request.getParameter("acesso_id").equals("0")) {
             mensagens.add("É preciso selecionar um tipo de permissão.");
         } 
-        if (!request.getParameter("senha_funcionario").equals(request.getParameter("senha_funcionario"))){
+        if (!request.getParameter("senha_funcionario").equals(request.getParameter("confirmar_senha_funcionario"))){
             mensagens.add("*Senha* deve coincidir com *Confirmar Senha*.");
         }         
         if (mensagens.size() > 0) {
@@ -136,7 +136,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         String email = request.getParameter("email_funcionario");
         int acesso = Integer.parseInt(request.getParameter("acesso_id"));
         String senha = request.getParameter("senha_funcionario");
-        String confSenha = request.getParameter("confSenha_funcionario");
+        String confSenha = request.getParameter("confirmar_senha_funcionario");
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         
         if (nome.isEmpty() || cargo <= 0 || unidade <= 0 || email.isEmpty() || acesso <= 0 || !(senha.equals(confSenha))) {

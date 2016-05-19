@@ -104,10 +104,10 @@ public class NovoProdutoServlet extends HttpServlet {
         String nome = request.getParameter("nome_produto");
         int qtd_min_produto = Integer.parseInt(request.getParameter("qtd_min_produto"));
         int qtd_max_produto = Integer.parseInt(request.getParameter("qtd_max_produto"));
-        int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
-       
+        int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));        
+        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         
-        boolean status = Boolean.parseBoolean(request.getParameter("ativo"));// Não está sendo usado
+        
         if (!nome.isEmpty() && categoria_id > 0) {
            
              Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id); // Não está sendo usado

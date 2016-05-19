@@ -38,8 +38,8 @@ public class Funcionario {
         this.unidade = unidade;
         this.email = email;
         this.acesso = acesso;
-        this.senha = senha;
         this.status = status;
+        this.senha = senha;
         this.salt = Validate.nextSalt();
         this.senhaHash = gerarHash(senha, this.salt);
     }
@@ -51,8 +51,10 @@ public class Funcionario {
         this.unidade = unidade;
         this.email = email;
         this.acesso = acesso;
-        this.senha = senha;
         this.status = status;
+        this.senha = senha;        
+        this.salt = Validate.nextSalt();
+        this.senhaHash = gerarHash(senha, this.salt);
     }
 
     public int getId() {
@@ -111,14 +113,6 @@ public class Funcionario {
         this.acesso = acesso;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public boolean isStatus() {
         return status;
     }
@@ -126,6 +120,15 @@ public class Funcionario {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
 
     public String getSalt() {
         return salt;
