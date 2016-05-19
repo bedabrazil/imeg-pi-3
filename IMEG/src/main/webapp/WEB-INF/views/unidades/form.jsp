@@ -9,11 +9,10 @@
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
 </c:choose>  
 
-<form action="<c:url value="${action}"/>" method="post">
+<form enctype="application/x-www-form-urlencoded" action="<c:url value="${action}"/>" method="post">
     <c:if test="${unidade != null}">
         <input type="hidden" name="unidade_id" value="${unidade.id}">
     </c:if>
-
     <fieldset class="well">
         <div id="warning" class="col-lg-12 ${alert}">
             <c:if test="${not empty mensagens}">
