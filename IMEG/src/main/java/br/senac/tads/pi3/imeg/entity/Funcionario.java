@@ -52,7 +52,9 @@ public class Funcionario {
         this.email = email;
         this.acesso = acesso;
         this.status = status;
-        this.senha = senha;
+        this.senha = senha;        
+        this.salt = Validate.nextSalt();
+        this.senhaHash = gerarHash(senha, this.salt);
     }
 
     public int getId() {
