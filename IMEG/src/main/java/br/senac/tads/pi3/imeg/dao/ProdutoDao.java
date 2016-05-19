@@ -146,7 +146,7 @@ public class ProdutoDao {
                 Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return false;
+        return false;//.
     }
     public ArrayList<Produto> listar(){
         String sql = "SELECT PRODUTOS.* FROM PRODUTOS ORDER BY NOME ASC";
