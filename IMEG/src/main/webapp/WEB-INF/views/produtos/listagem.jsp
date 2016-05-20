@@ -38,7 +38,9 @@
                         </c:when>
                         <c:otherwise>
                             <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
-                        </c:otherwise></c:choose></td>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
                 <td>${produto.nome}</td>
                 <td>${produto.qtdeMin}</td>
                 <td>${produto.qtdeMax}</td>
