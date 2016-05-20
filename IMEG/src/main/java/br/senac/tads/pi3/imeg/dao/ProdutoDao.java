@@ -146,7 +146,7 @@ public class ProdutoDao {
                 Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return false;//.
+        return false;
     }
     public ArrayList<Produto> listar(){
         String sql = "SELECT PRODUTOS.* FROM PRODUTOS ORDER BY NOME ASC";
@@ -161,7 +161,7 @@ public class ProdutoDao {
                 p.setQtdeMin(res.getInt("QTDE_MIN"));
                 p.setQtdeMax(res.getInt("QTDE_MAX"));
                 p.setSaldo(res.getInt("SALDO"));
-                p.setStatus(res.getBoolean("SALDO"));
+                p.setStatus(res.getBoolean("STATUS"));
                 produtos.add(p);
             }
             return produtos;
