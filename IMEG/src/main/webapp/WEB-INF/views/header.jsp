@@ -54,7 +54,7 @@
                                             <li><a href="<c:url value="/cargos"/>">Cargos</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><span>Vendas</span> </a></li>
+                                    <!--li><a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><span>Vendas</span> </a></li-->
                                 </ul>
                             </c:if>
                             <c:choose>
