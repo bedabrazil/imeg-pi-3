@@ -67,24 +67,25 @@ public class AlterarProdutoServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
                 
-        session.setAttribute("success", false);
+        request.setAttribute("error", false);
+
         
         if (request.getParameter("nome_produto").isEmpty()) {
             request.setAttribute("error", true);
             mensagens.add("O campo *Nome* não pode ser vazio.");
         }
+        if(!request.getParameter("qtd_min_produto").matches("\\d+")){
+            mensagens.add("Quantidade mínima inválida.");
+            request.setAttribute("error", true);            
+        }          
+        if(!request.getParameter("qtd_max_produto").matches("\\d+")){
+            mensagens.add("Quantidade máxima inválida.");
+            request.setAttribute("error", true);            
+        }          
         if (request.getParameter("categoria_id").equals("0")) {
             mensagens.add("Selecione uma Categoria.");
             request.setAttribute("error", true);
         }
-        if(!request.getParameter("qtd_max_produto").matches("\\d+")){
-            mensagens.add("Quantidade máxima inválida.");
-            request.setAttribute("error", true);            
-        }
-        if(!request.getParameter("qtd_min_produto").matches("\\d+")){
-            mensagens.add("Quantidade mínima inválida.");
-            request.setAttribute("error", true);            
-        }        
         
         if(mensagens.size() > 0){
             request.setAttribute("error", true);

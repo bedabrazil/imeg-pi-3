@@ -55,6 +55,14 @@ public class ProdutosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        String msg_success = (String) session.getAttribute("msg_success");
+        
+        if (msg_success != null) {
+            session.removeAttribute("msg_success");
+            session.removeAttribute("success");
+        }
     }
 
     /**
@@ -69,13 +77,17 @@ public class ProdutosServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession(true);
+        
+        request.setAttribute("error", false);
+       
 
         String nomeProduto = request.getParameter("nome_produto");
         String qtdMinProduto = request.getParameter("qtd_min_produto");
         String qtdMaxProduto = request.getParameter("qtd_max_produto");
         String categoriaId = request.getParameter("categoria_id");
 
-        HttpSession session = request.getSession(true);
+        
 
         session.setAttribute("msg", "Seu Produto:<br> Nome: " + nomeProduto
                 //+ "<br>Preço de Custo: " + precoCustoProduto

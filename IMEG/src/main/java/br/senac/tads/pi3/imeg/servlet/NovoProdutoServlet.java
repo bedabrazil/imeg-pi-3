@@ -74,28 +74,26 @@ public class NovoProdutoServlet extends HttpServlet {
         //inicia uma sessao
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-        
-        
-        
-        //instacio o DAO
 
-        
+        request.setAttribute("error", false);
+        request.setAttribute("success", false);
+        session.setAttribute("msg_success", false);
+
         if (request.getParameter("nome_produto").isEmpty()) {
             mensagens.add("O campo *Nome* não pode ser vazio.");
         }
-        if (request.getParameter("categoria_id").equals("0")) {
-            mensagens.add("Selecione uma categoria.");
-        }
-        if(!request.getParameter("qtd_max_produto").matches("\\d+")){
-            mensagens.add("Quantidade máxima inválida.");                        
-        }
-        if(!request.getParameter("qtd_min_produto").matches("\\d+")){
+        if (!request.getParameter("qtd_min_produto").matches("\\d+")) {
             mensagens.add("Quantidade mínima inválida.");
         }
-        
-        
-        if(mensagens.size() > 0){
-            request.setAttribute("mensagens", mensagens);                        
+        if (!request.getParameter("qtd_max_produto").matches("\\d+")) {
+            mensagens.add("Quantidade máxima inválida.");
+        }
+        if (request.getParameter("categoria_id").equals("0")) {
+            mensagens.add("Selecione uma Categoria.");
+        }
+
+        if (mensagens.size() > 0) {
+            request.setAttribute("mensagens", mensagens);
             request.setAttribute("error", true);
             processRequest(request, response);
             return;
@@ -103,32 +101,28 @@ public class NovoProdutoServlet extends HttpServlet {
         String nome = request.getParameter("nome_produto");
         int qtd_min_produto = Integer.parseInt(request.getParameter("qtd_min_produto"));
         int qtd_max_produto = Integer.parseInt(request.getParameter("qtd_max_produto"));
-        int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));        
+        int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-        
-        
+
         if (!nome.isEmpty() && categoria_id > 0) {
-           
-             Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id); // Não está sendo usado
-            Produto produto = new Produto();            
-            
-                produto.setNome(nome);        
-                produto.setQtdeMin(qtd_min_produto);
-                produto.setQtdeMax(qtd_max_produto);
-                produto.setStatus(status);
-                produto.setCategoria(new CategoriaDao().pesquisarPorId(categoria_id));
-        
-          
-            
-        produto.setCategoria(produto.getCategoria());
-        
+
+            Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id); // Não está sendo usado
+            Produto produto = new Produto();
+
+            produto.setNome(nome);
+            produto.setQtdeMin(qtd_min_produto);
+            produto.setQtdeMax(qtd_max_produto);
+            produto.setStatus(status);
+            produto.setCategoria(new CategoriaDao().pesquisarPorId(categoria_id));
+
+            produto.setCategoria(produto.getCategoria());
+
             if (new ProdutoDao().adicionar(produto)) {
                 session.setAttribute("msg_success", "Produto " + nome + " incluído com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect(request.getContextPath() + "/produtos");
             }
-        }        
+        }
     }
-
 
 }
