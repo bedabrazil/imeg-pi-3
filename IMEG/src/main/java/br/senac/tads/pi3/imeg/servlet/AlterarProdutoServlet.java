@@ -71,18 +71,18 @@ public class AlterarProdutoServlet extends HttpServlet {
         
         if (request.getParameter("nome_produto").isEmpty()) {
             request.setAttribute("error", true);
-            mensagens.add("Nome não pode ser vazio.");
+            mensagens.add("O campo *Nome* não pode ser vazio.");
         }
         if (request.getParameter("categoria_id").equals("0")) {
             mensagens.add("Selecione uma Categoria.");
             request.setAttribute("error", true);
         }
         if(!request.getParameter("qtd_max_produto").matches("\\d+")){
-            mensagens.add("Valor deve ser maior que 0");
+            mensagens.add("Quantidade máxima inválida.");
             request.setAttribute("error", true);            
         }
         if(!request.getParameter("qtd_min_produto").matches("\\d+")){
-            mensagens.add("Valor deve ser maior ou igual a 0");
+            mensagens.add("Quantidade mínima inválida.");
             request.setAttribute("error", true);            
         }        
         

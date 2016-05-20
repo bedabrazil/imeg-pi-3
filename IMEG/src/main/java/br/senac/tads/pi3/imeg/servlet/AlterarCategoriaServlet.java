@@ -82,7 +82,7 @@ public class AlterarCategoriaServlet extends HttpServlet {
 
         if (nome.isEmpty()) {
             request.setAttribute("error", true);
-            mensagens.add("Nome não pode ser vazio.");
+            mensagens.add("O campo *Nome* não pode ser vazio.");
         }
         if (mensagens.size() > 0) {
             request.setAttribute("mensagens", mensagens);

@@ -44,7 +44,7 @@
                                     <li class="dropdown">
                                         <a href="javascript:void(0)" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manutenção <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li class="dropdown-header">Produtos</li>
+                                           <!-- <li class="dropdown-header">Produtos</li> -->
                                             <li><a href="<c:url value="/produtos"/>">Produtos</a></li>
                                             <li><a href="<c:url value="/categorias"/>">Categorias</a></li>
                                             <li role="separator" class="divider"></li>

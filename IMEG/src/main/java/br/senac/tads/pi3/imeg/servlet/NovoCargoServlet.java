@@ -76,7 +76,7 @@ public class NovoCargoServlet extends HttpServlet {
       
         String nome = request.getParameter("nome_cargo");
         if (nome.isEmpty()) {
-            mensagens.add("Nome não pode ser vazio.");
+            mensagens.add("O campo *Nome* não pode ser vazio.");
         }
         if(mensagens.size() > 0){
             request.setAttribute("error", true);

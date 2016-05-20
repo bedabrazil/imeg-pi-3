@@ -81,17 +81,16 @@ public class NovoProdutoServlet extends HttpServlet {
 
         
         if (request.getParameter("nome_produto").isEmpty()) {
-            mensagens.add("Nome não pode ser vazio.");
+            mensagens.add("O campo *Nome* não pode ser vazio.");
         }
         if (request.getParameter("categoria_id").equals("0")) {
-            mensagens.add("Selecione uma Categoria.");
+            mensagens.add("Selecione uma categoria.");
         }
         if(!request.getParameter("qtd_max_produto").matches("\\d+")){
-            mensagens.add("Adicionar um numero valido.");
-                        
+            mensagens.add("Quantidade máxima inválida.");                        
         }
         if(!request.getParameter("qtd_min_produto").matches("\\d+")){
-            mensagens.add("Adicionar um numero valido.");
+            mensagens.add("Quantidade mínima inválida.");
         }
         
         

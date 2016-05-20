@@ -6,7 +6,7 @@
     </c:choose>
 <div class="col-lg-12">
     <h3>Produtos</h3>
-    <a href="<c:url value="/produtos/novo"></c:url>">Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
+    <a href="<c:url value="/produtos/novo"></c:url>">Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
     <br>
     <div id="warning" class="col-lg-12 ${alert}">
         <c:if test="${sessionScope.success}">

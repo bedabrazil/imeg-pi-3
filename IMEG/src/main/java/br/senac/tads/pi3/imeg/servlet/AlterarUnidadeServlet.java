@@ -89,10 +89,10 @@ public class AlterarUnidadeServlet extends HttpServlet {
         session.setAttribute("error", false);
 
         if (request.getParameter("nome-unidade").isEmpty()) {
-            mensagens.add("*Nome* não pode ser vazio.");
+            mensagens.add("O campo *Nome* não pode ser vazio.");
         }
         if (!request.getParameter("estado-id").matches("\\d+") || request.getParameter("estado-id").equals("0")) {
-            mensagens.add("É preciso selecionar uma cidade.");
+            mensagens.add("Selecione uma cidade.");
         }
 
         if (mensagens.size() > 0) {

@@ -102,32 +102,33 @@ public class NovoFuncionarioServlet extends HttpServlet {
 
         if (request.getParameter("nome_funcionario").isEmpty()) {
 //            request.setAttribute("nome_funcionario", nome_funcionario);
-            mensagens.add("Nome não pode ser vazio.");
+            mensagens.add("O campo *Nome* não pode ser vazio.");
         }
         if (request.getParameter("email_funcionario").isEmpty()) {
-            mensagens.add("*Email* não pode ser vazio.");
+            mensagens.add("O campo *Email* não pode ser vazio.");
+        }
+        if (!request.getParameter("email_funcionario").matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+            mensagens.add("*Email* inválido.");
         }
         if (request.getParameter("senha_funcionario").isEmpty()) {
-            mensagens.add("*Senha* não pode ser vazio.");
+            mensagens.add("O campo *Senha* não pode ser vazio.");
         }
         if (request.getParameter("confirmar_senha_funcionario").isEmpty()) {
-            mensagens.add("*Confirmar Senha* não pode ser vazio.");
+            mensagens.add("O campo *Confirmar Senha* não pode ser vazio.");
         }
         if (!request.getParameter("cargo_id").matches("\\d+") || request.getParameter("cargo_id").equals("0")) {
-            mensagens.add("É preciso selecionar um Cargo.");
+            mensagens.add("Selecione um cargo.");
         }
         if (!request.getParameter("unidade_id").matches("\\d+") || request.getParameter("unidade_id").equals("0")) {
-            mensagens.add("É preciso selecionar uma Unidade.");
+            mensagens.add("Selecione uma unidade.");
         }
         if (!request.getParameter("acesso_id").matches("\\d+") || request.getParameter("acesso_id").equals("0")) {
-            mensagens.add("É preciso selecionar um tipo de permissão.");
+            mensagens.add("Selecione um tipo de permissão.");
         }
         if (!request.getParameter("senha_funcionario").equals(request.getParameter("confirmar_senha_funcionario"))) {
             mensagens.add("*Senha* deve coincidir com *Confirmar Senha*.");
         }
-        if (!(request.getParameter("email_funcionario").isEmpty()) && !request.getParameter("email_funcionario").matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
-            mensagens.add("*Email* inválido.");
-        }
+        
         if (mensagens.size() > 0) {
             request.setAttribute("error", true);
             request.setAttribute("mensagens", mensagens);
