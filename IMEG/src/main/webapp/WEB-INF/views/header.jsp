@@ -15,6 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link rel="apple-touch-icon" href="<c:url value='/apple-touch-icon.png'/>"/>
         <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css'/>"/>
+        <link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>"/>
         <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>"/>
         <script src="<c:url value='/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'/>"></script>           
     </head>
@@ -25,7 +26,7 @@
                     <div class="container-fluid">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
                                 <span class="sr-only">Toggle navigation</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -39,20 +40,33 @@
                             <c:if test="${sessionScope.usuario != null}">
                                 <ul class="nav navbar-nav">
                                     <li class="">
-                                        <a href="javascript:void(0)">Relatórios <span class="sr-only">(current)</span></a>
+                                        <a href="<c:url value="/"/>"><em class="glyphicon glyphicon-th-large"></em>&nbsp;Painel <span class="sr-only">(current)</span></a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manutenção <span class="caret"></span></a>
-                                        <ul class="dropdown-menu">
+                                    <li>
+                                    <div class="dropdown navbar-form navbar-left">
+                                        
+                                        <!--<a href="javascript:void(0)" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manutenção <span class="caret"></span></a>-->
+                                        <button class="btn btn-default dropdown-toggle" id="dropdownMenu0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+&nbsp;Manutenção
+                                            <span class="caret"></span>
+                                        </button>                                        
+                                        <ul class="dropdown-menu" aria-labelledby="#dropdownMenu0">
                                            <!-- <li class="dropdown-header">Produtos</li> -->
-                                            <li><a href="<c:url value="/produtos"/>">Produtos</a></li>
-                                            <li><a href="<c:url value="/categorias"/>">Categorias</a></li>
+                                           <li><a href="<c:url value="/produtos"/>"><i class="fa fa-product-hunt" aria-hidden="true"></i>
+&nbsp;Produtos</a></li>
+                                            <li><a href="<c:url value="/categorias"/>"><i class="fa fa-archive" aria-hidden="true"></i>
+&nbsp;Categorias</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="<c:url value="/unidades"/>">Unidades</a></li>                                
+                                            <li><a href="<c:url value="/unidades"/>"><i class="fa fa-building" aria-hidden="true"></i>
+&nbsp;Unidades</a></li>                                
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="<c:url value="/funcionarios"/>">Funcionários</a></li>
-                                            <li><a href="<c:url value="/cargos"/>">Cargos</a></li>
+                                            <li><a href="<c:url value="/funcionarios"/>"><i class="fa fa-users" aria-hidden="true"></i>
+</i>&nbsp;Funcionários</a></li>
+                                            <li><a href="<c:url value="/cargos"/>"><i class="fa fa-cog" aria-hidden="true"></i>
+&nbsp;Cargos</a></li>
                                         </ul>
+                                    </div>
                                     </li>
                                     <!--li><a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><span>Vendas</span> </a></li-->
                                 </ul>
@@ -69,16 +83,17 @@
                                 </c:when>
                                 <c:otherwise>
                                     <div class="dropdown navbar-form navbar-right">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            Menu
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+&nbsp;Menu
                                             <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li class="dropdown-header">Usuário</li>
-                                            <li><a href="javscript:void">Meus dados</a></li>
-                                            <li><a href="javscript:void">Configurações</a></li>
+                                        <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
+                                            <li class="dropdown-header">&nbsp;<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Usuário</li>
+                                            <li><a href="<c:url value="/meusdados/editar"/>"><span class="glyphicon glyphicon-edit"></span>&nbsp;Meus dados</a></li>
+                                            <!--<li><a href="javascript:void(0)">Configurações</a></li>-->
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="<c:url value="/logout"/>">Sair</a></li>
+                                            <li><a href="<c:url value="/logout"/>"><em class="glyphicon glyphicon-off"></em>&nbsp;Sair</a></li>
                                         </ul>
                                     </div>
                                 </c:otherwise>

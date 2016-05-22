@@ -42,6 +42,7 @@
                 <label for="ativo_cargo">Ativo</label>
                 <input type="checkbox" id="ativo_cargo" class="" <c:if test="${cargo.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
             </div>
+            <div class="col-lg-12"><br><br></div>
             <div class="col-lg-12 form-space">
                 <a href="<c:url value="/cargos"></c:url>" class="btn btn-default">Voltar</a>
                 <button class="btn btn-default" type="submit" id="commit-cargo">

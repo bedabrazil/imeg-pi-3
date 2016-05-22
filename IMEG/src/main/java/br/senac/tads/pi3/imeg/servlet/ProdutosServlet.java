@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 
 
-@WebServlet(name = "ProdutosServlet", urlPatterns = "/produtos")
+@WebServlet(name = "ProdutosServlet", urlPatterns = {"/produtos", "/produtos/"})
 public class ProdutosServlet extends HttpServlet {
 
     /**

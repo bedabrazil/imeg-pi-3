@@ -29,6 +29,17 @@ public class Funcionario {
     private boolean status;
     private String salt;
 
+    public Funcionario(int id, String nome, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.senha = senha;
+        if (senha != null) {
+            this.salt = Validate.nextSalt();
+            this.senhaHash = gerarHash(senha, this.salt);
+        }
+
+    }
+
     public Funcionario() {
     }
 
@@ -52,7 +63,7 @@ public class Funcionario {
         this.email = email;
         this.acesso = acesso;
         this.status = status;
-        this.senha = senha;        
+        this.senha = senha;
         this.salt = Validate.nextSalt();
         this.senhaHash = gerarHash(senha, this.salt);
     }
@@ -128,7 +139,6 @@ public class Funcionario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
 
     public String getSalt() {
         return salt;
