@@ -37,6 +37,7 @@
                 <label for="ativo_categoria">Ativo</label>
                 <input type="checkbox" id="ativo_categoria" class="" <c:if test="${categoria.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
         </div>
+        <div class="col-lg-12 form-space"><br><br></div>        
         <div class="col-lg-12 form-space">
                 <a href="<c:url value="/categorias"></c:url>" class="btn btn-default">Voltar</a>            
                 <button class="btn btn-default" type="submit" id="commit-categoria">

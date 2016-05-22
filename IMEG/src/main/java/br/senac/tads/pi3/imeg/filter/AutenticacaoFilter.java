@@ -41,7 +41,8 @@ import javax.servlet.http.HttpSession;
     "NovoProdutoServlet",
     "ProdutosServlet",
     "UnidadesServlet",
-    "RelatorioServlet"
+    "RelatorioServlet",
+    "MeusDadosServlet"
 })
 public class AutenticacaoFilter implements Filter {
 

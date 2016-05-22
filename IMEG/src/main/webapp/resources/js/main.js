@@ -1,4 +1,5 @@
 window.addEventListener('load', function(){
+
 //adicionar javascript a partir deste evento
 
 	// document.querySelector("form.call button[type='button']").addEventListener('click', function(){
@@ -21,9 +22,7 @@ window.addEventListener('load', function(){
  //    	}
  //        content.textContent = '';
 	// });
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
+
     // if(document.querySelector('#warning').classList.contains('alert-danger')){
     // 	fade(document.querySelector('#warning'));
     // 	    	
@@ -75,3 +74,15 @@ function unfade(element) {
         opacity += opacity * 0.1;
     }, 10);
 }
+jQuery.noConflict();
+(function($){
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+    
+    $(".maskmoney").maskMoney({prefix:'R$ ', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:',', affixesStay: false});
+    $(".maskmeter").maskMoney({prefix:'mÂ² ', allowZero: false, defaultZero: false, allowNegative: true, thousands:'.', decimal:',', affixesStay: false});    
+    $(".maskpercent").maskMoney({prefix:'% ', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:',', affixesStay: false});            
+    $(".number").maskMoney({prefix:'', allowZero: false, defaultZero: false, allowNegative: false, thousands:'.', decimal:'', affixesStay: false    });            
+    
+})(jQuery);

@@ -238,4 +238,31 @@ public class FuncionarioDao {
         String sql = "SELECT FUNCIONARIOS.* FROM FUNCIONARIOS WHERE NOME=?";
         return false;
     }
+
+    public boolean alterarMeusDados(Funcionario funcionario) {
+        String sql = "UPDATE FUNCIONARIOS SET NOME=?" + (funcionario.getSenha() != null ? ", SALT=?, SENHA_HASH=? " : "")+" WHERE ID=?";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            pst.setString(1, funcionario.getNome());
+            if(funcionario.getSenha() != null){
+                pst.setString(2, funcionario.getSalt());
+                pst.setString(3, String.copyValueOf(funcionario.getSenhaHash()));
+                pst.setInt(4, funcionario.getId());
+            }else{
+                pst.setInt(2, funcionario.getId());
+            }
+            if (pst.executeUpdate() > 0) {
+                return true;
+            }            
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return false;
+    }
 }

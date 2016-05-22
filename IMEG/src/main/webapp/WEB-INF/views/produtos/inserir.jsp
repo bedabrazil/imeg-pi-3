@@ -38,15 +38,20 @@
         </div>
         <div class="col-lg-3 form-space">
             <label for="">Preço de Custo</label>
-            <input class="form-control" type="number" id="preco_custo_produto" name="preco_custo_produto" step="any"/>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                <input class="form-control maskmoney" type="text" id="preco_custo_produto" name="preco_custo_produto" step="any"/>
+            </div>
         </div>
         <div class="col-lg-3 form-space">
             <label for="">Quantidade</label>
-            <input class="form-control" type="number" id="quantidade" name="quantidade" min="1" />
+            <input class="form-control number" maxlength="4" type="text" id="quantidade" name="quantidade" min="1" />
         </div>   
+        <div class="col-lg-12 form-space"><br><br></div>
+        
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/produtos"></c:url>" class="btn btn-default">Voltar</a>   
-            <button class="btn btn-button ajax" type="submit" id="commit_produto">Enviar</button>
+            <button class="btn btn-default ajax" type="submit" id="commit_produto">Enviar</button>
         </div>             
     </fieldset>    
 </form>
