@@ -33,14 +33,14 @@
             </div>
         </div>        
         <div class="col-lg-6 form-space">
-            <label for="">Nome</label>
-            <input class="form-control" type="text" value="<c:if test="${usuario != null }">${usuario.nome}</c:if>" id="nome_usuario" name="nome_usuario"/>
+            <label for="">Nome do Funcionário</label>
+            <input class="form-control" placeholder="Nome do Funcionário" type="text" value="<c:if test="${usuario != null }">${usuario.nome}</c:if>" id="nome_usuario" name="nome_usuario"/>
         </div>
         <div class="col-lg-6 form-space">
                 <label for="">Email</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                    <input class="form-control" type="text" disabled="disabled" value="<c:if test="${usuario != null }">${usuario.email}</c:if>" id="nome_usuario" name="email_usuario"/>
+                    <input class="form-control" placeholder="Email" type="text" disabled="disabled" value="<c:if test="${usuario != null }">${usuario.email}</c:if>" id="nome_usuario" name="email_usuario"/>
                 </div>
         </div>
         <div class="col-lg-4 form-space">
@@ -52,30 +52,22 @@
             <input type="text" disabled="disabled" value="${usuario.unidade.nome}" class="form-control"/>
         </div>    
         
-        <div class="col-lg-4">
+        <div class="col-lg-4 form-space">
             <label for="acesso_id">Tipo de Permissão</label>
             <input type="text" disabled="disabled" value=" ${usuario.acesso.nome}" class="form-control"/>
         </div>  
-                
-<!--        <div class="col-lg-4 form-space">            
-                    <label for="">Senha Antiga</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                    <input class="form-control" type="password" value="" id="senha_usuario" name="senha_antiga_usuario"/>
-                </div>
-        </div>        -->
         <div class="col-lg-4 form-space">
                 <label for="">Nova Senha</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>                
-                  <input class="form-control" type="password" value="" id="senha_usuario" name="senha_nova_usuario"/>
+                  <input class="form-control" placeholder="Nova Senha" type="password" value="" id="senha_usuario" name="senha_nova_usuario"/>
                 </div>
         </div>
         <div class="col-lg-4 form-space">
                 <label for="">Confirmar Nova Senha</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                  <input class="form-control" type="password" value="" id="confirmar_senha_usuario" name="confirmar_nova_senha_usuario"/>
+                  <input class="form-control" placeholder="Confirmar Nova Senha" type="password" value="" id="confirmar_senha_usuario" name="confirmar_nova_senha_usuario"/>
                 </div>
         </div>
         

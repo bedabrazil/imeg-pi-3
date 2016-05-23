@@ -36,15 +36,15 @@
 
         <div class="col-lg-6 form-space">
             <label for="">Nome do Produto</label>
-            <input class="form-control" value="<c:if test="${produto != null }">${produto.nome}</c:if>" type="text" id="nome_produto" name="nome_produto"/>
+            <input class="form-control" placeholder="Nome do Produto" value="<c:if test="${produto != null }">${produto.nome}</c:if>" type="text" id="nome_produto" name="nome_produto"/>
             </div>
             <div class="col-lg-3 form-space">
                 <label for="">Quantidade Mínima</label>
-                <input class="form-control number" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMin}</c:if>" type="text" id="qtd_min_produto" name="qtd_min_produto"/>
+                <input class="form-control number" placeholder="Quantidade Mínima" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMin}</c:if>" type="text" id="qtd_min_produto" name="qtd_min_produto"/>
             </div>
             <div class="col-lg-3 form-space">
                 <label for="">Quantidade Máxima</label>
-                <input class="form-control number" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMax}</c:if>" type="text" id="qtd_max_produto" name="qtd_max_produto"/>
+                <input class="form-control number" placeholder="Quantidade Máxima" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMax}</c:if>" type="text" id="qtd_max_produto" name="qtd_max_produto"/>
             </div>
 
             <div class="col-lg-3 form-space">
@@ -63,14 +63,10 @@
                 </c:forEach>
             </select>
         </div>            
-        <div class="col-lg-12 form-space"><br></div>
         <div class="col-lg-12 form-space">
             <label for="ativo_produto">Ativo</label>
             <input type="checkbox" id="ativo_produto" class="" <c:if test="${produto.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
             </div>            
-
-            <div class="col-lg-12 form-space"><br><br></div>
-
             <div class="col-lg-12 form-space">
                 <a href="<c:url value="/produtos"></c:url>" class="btn btn-default">Voltar</a>       
                 <button class="btn btn-default" type="submit" id="commit-produto">

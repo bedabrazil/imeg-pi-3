@@ -31,13 +31,12 @@
         <div class="col-lg-6 form-space">
             <label for="">Nome da Categoria</label>
 
-            <input class="form-control" type="text" value="<c:if test="${categoria != null }">${categoria.getNome()}</c:if>" id="nome_categoria" name="nome_categoria"/>
+            <input class="form-control" placeholder="Nome da Categoria" type="text" value="<c:if test="${categoria != null }">${categoria.getNome()}</c:if>" id="nome_categoria" name="nome_categoria"/>
         </div>
         <div class="col-lg-12 form-space">
                 <label for="ativo_categoria">Ativo</label>
                 <input type="checkbox" id="ativo_categoria" class="" <c:if test="${categoria.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
-        </div>
-        <div class="col-lg-12 form-space"><br><br></div>        
+        </div>      
         <div class="col-lg-12 form-space">
                 <a href="<c:url value="/categorias"></c:url>" class="btn btn-default">Voltar</a>            
                 <button class="btn btn-default" type="submit" id="commit-categoria">

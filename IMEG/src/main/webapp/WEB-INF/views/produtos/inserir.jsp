@@ -47,8 +47,6 @@
             <label for="">Quantidade</label>
             <input class="form-control number" maxlength="4" type="text" id="quantidade" name="quantidade" min="1" />
         </div>   
-        <div class="col-lg-12 form-space"><br><br></div>
-        
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/produtos"></c:url>" class="btn btn-default">Voltar</a>   
             <button class="btn btn-default ajax" type="submit" id="commit_produto">Enviar</button>

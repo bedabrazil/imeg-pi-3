@@ -35,7 +35,7 @@
         </div>
         <div class="col-lg-6 form-space">
             <label for="">Nome do Cargo</label>
-            <input class="form-control" type="text" value="<c:if test="${cargo != null }">${cargo.nome}</c:if>" id="nome_cargo" name="nome_cargo"/>
+            <input class="form-control" placeholder="Nome do Cargo" type="text" value="<c:if test="${cargo != null }">${cargo.nome}</c:if>" id="nome_cargo" name="nome_cargo"/>
             </div>
 
             <div class="col-lg-12 form-space">

@@ -34,7 +34,7 @@
         </div>
         <div class="col-lg-6 form-space">
             <label for="">Nome da Unidade</label>
-            <input class="form-control" type="text" value="<c:if test="${unidade != null }">${unidade.nome}</c:if>" id="nome-unidade" name="nome-unidade"/>
+            <input class="form-control" placeholder="Nome da Unidade" type="text" value="<c:if test="${unidade != null }">${unidade.nome}</c:if>" id="nome-unidade" name="nome-unidade"/>
             </div>
             <div class="col-lg-4 form-space">
                 <label for="">Cidades </label>
@@ -60,7 +60,6 @@
         </div>
         
         </br>
-        <div class="col-lg-12"><br><br></div>
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/unidades"></c:url>" class="btn btn-default">Voltar</a>
                 <button class="btn btn-default ajax" type="submit" id="commit-unidade">

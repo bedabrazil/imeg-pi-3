@@ -36,28 +36,28 @@
             <label for="">Nome</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user-plus" aria-hidden="true"></i></span>
-                <input class="form-control" type="text" value="<c:if test="${funcionario != null }">${funcionario.nome}</c:if>" id="nome_funcionario" name="nome_funcionario"/>
+                <input class="form-control" placeholder="Nome" type="text" value="<c:if test="${funcionario != null }">${funcionario.nome}</c:if>" id="nome_funcionario" name="nome_funcionario"/>
             </div>
         </div>
         <div class="col-lg-6 form-space">
                 <label for="">Email</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                    <input class="form-control" type="text" value="<c:if test="${funcionario != null }">${funcionario.email}</c:if>" id="nome_funcionario" name="email_funcionario"/>
+                    <input class="form-control" placeholder="Email" type="text" value="<c:if test="${funcionario != null }">${funcionario.email}</c:if>" id="nome_funcionario" name="email_funcionario"/>
                 </div>
         </div>
         <div class="col-lg-6 form-space">
                 <label for="">Senha</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>                
-                  <input class="form-control" type="password" value="<c:if test="${funcionario != null }">${funcionario.senha}</c:if>" id="senha_funcionario" name="senha_funcionario"/>
+                  <input class="form-control" placeholder="Senha" type="password" value="<c:if test="${funcionario != null }">${funcionario.senha}</c:if>" id="senha_funcionario" name="senha_funcionario"/>
                 </div>
         </div>
             <div class="col-lg-6 form-space">
                 <label for="">Confirmar Senha</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                  <input class="form-control" type="password" value="<c:if test="${funcionario != null }">${funcionario.senha}</c:if>" id="confirmar_senha_funcionario" name="confirmar_senha_funcionario"/>
+                  <input class="form-control" placeholder="Confirmar Senha" type="password" value="<c:if test="${funcionario != null }">${funcionario.senha}</c:if>" id="confirmar_senha_funcionario" name="confirmar_senha_funcionario"/>
                 </div>
             </div>
         <div class="col-lg-3 form-space">
@@ -92,7 +92,7 @@
                 </c:forEach>
             </select>
         </div>    
-        <div class="col-lg-4">
+        <div class="col-lg-4 form-space">
             <label for="acesso_id">Permissão</label>
             <select name="acesso_id" class="form-control">
                 <c:choose>
@@ -112,8 +112,6 @@
             <label for="ativo_funcionario">Ativo</label>
             <input type="checkbox" id="ativo_categoria" class="" <c:if test="${funcionario.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
         </div>
-        <div class="col-lg-12 form-space"><br><br></div>
-        
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/funcionarios"></c:url>" class="btn btn-default">Voltar</a>
             <button class="btn btn-default" type="submit" id="commit-funcionario">

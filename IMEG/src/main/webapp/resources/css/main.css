@@ -227,3 +227,7 @@ ul{
 .chart{
     height: 300px;
 }
+
+.form-space{
+    margin:10px 0;
+}
