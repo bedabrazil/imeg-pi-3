@@ -176,6 +176,26 @@ public class ProdutoDao {
         }
         return null;
     }
-    
+    public boolean pesquisarPorNome(String nome){
+        String sql = "SELECT NOME FROM PRODUTOS WHERE NOME=?";
+        
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            pst.setString(1, nome);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR SQL: " + ex.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
+    }
 }
 

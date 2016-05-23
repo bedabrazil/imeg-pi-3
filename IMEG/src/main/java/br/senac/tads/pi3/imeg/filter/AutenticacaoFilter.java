@@ -5,11 +5,8 @@
  */
 package br.senac.tads.pi3.imeg.filter;
 
-import br.senac.tads.pi3.imeg.dao.AcessoDao;
-import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -20,6 +17,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import br.senac.tads.pi3.imeg.entity.Funcionario;
 
 /**
  *
@@ -46,29 +45,7 @@ import javax.servlet.http.HttpSession;
 })
 public class AutenticacaoFilter implements Filter {
 
-    private static List paginas;
-    private static List permissao;
 
-    public AutenticacaoFilter() {
-        AutenticacaoFilter.paginas = Arrays.asList(
-                "AlterarCargoServlet",
-                "AlterarCategoriaServlet",
-                "AlterarFuncionarioServlet",
-                "AlterarProdutoServlet",
-                "AlterarUnidadeServlet",
-                "CargosServlet",
-                "CategoriasServlet",
-                "FuncionariosServlet",
-                "InserirProdutoServlet",
-                "NovaCategoriaServlet",
-                "NovaUnidadeServlet",
-                "NovoCargoServlet",
-                "NovoFuncionarioServlet",
-                "NovoProdutoServlet",
-                "/produtos",
-                "UnidadesServlet");
-        AutenticacaoFilter.permissao = Arrays.asList(new AcessoDao().listarPorNome());
-    }
 
     /**
      *

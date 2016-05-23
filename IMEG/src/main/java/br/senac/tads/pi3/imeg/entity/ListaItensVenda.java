@@ -28,7 +28,7 @@ public class ListaItensVenda {
     }
     
     public void remover(ItemVenda Itemremove){
-      for(Iterator i = itens.iterator();i.hasNext();){
+      for(Iterator<ItemVenda> i = itens.iterator();i.hasNext();){
        ItemVenda item = (ItemVenda) i.next();
        
        if(item.getProduto().getId() == Itemremove.getProduto().getId()){
@@ -57,5 +57,13 @@ public class ListaItensVenda {
     public List<ItemVenda> getItens() {
         return itens;
     }
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
 
 }

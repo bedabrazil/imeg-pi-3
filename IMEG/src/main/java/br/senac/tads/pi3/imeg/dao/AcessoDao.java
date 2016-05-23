@@ -124,7 +124,7 @@ public class AcessoDao {
     public List<String> listarPorNome(){
         String sql = "SELECT ACESSOS.NOME FROM ACESSOS";
         try{
-            ArrayList nomes = new ArrayList();
+            ArrayList<String> nomes = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
             ResultSet res = pst.executeQuery();
             while(res.next()){

@@ -9,20 +9,26 @@ import br.senac.tads.pi3.imeg.dao.CategoriaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.Produto;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Márcio Soares <marcio@mail.com>
  */
 @WebServlet(name = "NovoProdutoServlet", urlPatterns = "/produtos/novo")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 5, // 5MB
+        maxRequestSize = 1024 * 1024 * 30)   // 30MB
 public class NovoProdutoServlet extends HttpServlet {
 
     /**
@@ -38,10 +44,6 @@ public class NovoProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Categoria> categorias = new CategoriaDao().listar();
         request.setAttribute("categorias", categorias);
-        // cria um array para apresentar na lista de categorias 
-        ArrayList<Categoria> Listacategoria = new CategoriaDao().listar();
-        request.setAttribute("Listacategorias", Listacategoria);
-
         request.getRequestDispatcher("/WEB-INF/views/produtos/novo.jsp").forward(request, response);
 
     }
@@ -77,21 +79,22 @@ public class NovoProdutoServlet extends HttpServlet {
 
         request.setAttribute("error", false);
         request.setAttribute("success", false);
-        session.setAttribute("msg_success", false);
 
         if (request.getParameter("nome_produto").isEmpty()) {
-            mensagens.add("O campo *Nome* não pode ser vazio.");
+            mensagens.add("O campo Nome não pode ser vazio.");
         }
         if (!request.getParameter("qtd_min_produto").matches("\\d+")) {
-            mensagens.add("Quantidade mínima inválida.");
+            mensagens.add("Quantidade Mínima inválida.");
         }
         if (!request.getParameter("qtd_max_produto").matches("\\d+")) {
-            mensagens.add("Quantidade máxima inválida.");
+            mensagens.add("Quantidade Máxima inválida.");
         }
         if (request.getParameter("categoria_id").equals("0")) {
             mensagens.add("Selecione uma Categoria.");
         }
-
+        if(new ProdutoDao().pesquisarPorNome(request.getParameter("nome_produto"))){
+            mensagens.add("Nome de Produto já existe.");
+        }
         if (mensagens.size() > 0) {
             request.setAttribute("mensagens", mensagens);
             request.setAttribute("error", true);
@@ -103,16 +106,17 @@ public class NovoProdutoServlet extends HttpServlet {
         int qtd_max_produto = Integer.parseInt(request.getParameter("qtd_max_produto"));
         int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-
+        
+    
         if (!nome.isEmpty() && categoria_id > 0) {
 
-            Categoria categoria = new CategoriaDao().pesquisarPorId(categoria_id); // Não está sendo usado
             Produto produto = new Produto();
 
             produto.setNome(nome);
             produto.setQtdeMin(qtd_min_produto);
             produto.setQtdeMax(qtd_max_produto);
             produto.setStatus(status);
+
             produto.setCategoria(new CategoriaDao().pesquisarPorId(categoria_id));
 
             produto.setCategoria(produto.getCategoria());
@@ -124,5 +128,14 @@ public class NovoProdutoServlet extends HttpServlet {
             }
         }
     }
-
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
+    }
 }

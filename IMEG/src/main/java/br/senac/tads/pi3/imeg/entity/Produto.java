@@ -5,12 +5,14 @@
  */
 package br.senac.tads.pi3.imeg.entity;
 
+import java.sql.Blob;
+
 /**
  *
  * @author matheus.ssouza1
  */
 public class Produto {
-    
+
     private int id;
     private String nome;
     private Categoria categoria;
@@ -20,10 +22,13 @@ public class Produto {
     private int qtdeMax;
     private int saldo;
     private boolean status;
+    private Blob arquivo;
+    private String nomeDoArquvo;
 
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -35,8 +40,6 @@ public class Produto {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-
 
     public double getPrecoCusto() {
         return precoCusto;
@@ -94,9 +97,20 @@ public class Produto {
         this.categoria = categoria;
     }
 
+    public Blob getArquivo() {
+        return arquivo;
+    }
 
-  
-    
-    
-      
+    public void setArquivo(Blob arquivo) {
+        this.arquivo = arquivo;
+    }
+
+    public String getNomeDoArquvo() {
+        return nomeDoArquvo;
+    }
+
+    public void setNomeDoArquvo(String nomeDoArquvo) {
+        this.nomeDoArquvo = nomeDoArquvo;
+    }
+
 }

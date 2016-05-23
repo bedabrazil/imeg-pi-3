@@ -13,5 +13,11 @@ public class Login {
     String nome;
     private char[] hashSenha;
     Funcionario funcionario;
+	public char[] getHashSenha() {
+		return hashSenha;
+	}
+	public void setHashSenha(char[] hashSenha) {
+		this.hashSenha = hashSenha;
+	}
     
 }

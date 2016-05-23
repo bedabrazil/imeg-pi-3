@@ -1,10 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-<context-param> 
-    <description>Local de armazenamento de arquivos enviados para o servidor</description> 
-    <param-name>file-upload</param-name> 
-    <param-value>
-         /Users/developer/Dropbox/Senac/3_SEMESTRE/PI3/PROJETO_INTEGRADOR/imeg-pi3/IMEG/src/main/webapp/resources/upload/
-     </param-value> 
-</context-param> 
 </web-app>
