@@ -66,7 +66,7 @@ public class InserirProdutoServlet extends HttpServlet {
         if (request.getParameter("preco_custo_produto").isEmpty() && !request.getParameter("preco_custo_produto").matches("\\d+")) {
             mensagens.add("Informe o Preço.");
         } else {
-            double preco = Double.parseDouble(request.getParameter("preco_custo_produto"));
+            double preco = Double.parseDouble(request.getParameter("preco_custo_produto").replaceAll(",","."));
             if (preco <= 0) {
                 mensagens.add("Preço deve ser Maior que 0");
             }
@@ -89,7 +89,7 @@ public class InserirProdutoServlet extends HttpServlet {
         }
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
         if (usuario != null) {
-            double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto"));
+            double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto").replaceAll(",","."));
             int quantidade = Integer.parseInt(request.getParameter("quantidade"));
             int id = Integer.parseInt(request.getParameter("id_produto"));
 
