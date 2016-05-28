@@ -78,7 +78,6 @@ public class NovaUnidadeServlet extends HttpServlet {
         UnidadeDao uDao = new UnidadeDao();
 
         session.setAttribute("error", false);
-        request.setCharacterEncoding("UTF-8");
 
         if (request.getParameter("nome-unidade").isEmpty()) {
             mensagens.add("O campo *Nome* não pode ser vazio.");

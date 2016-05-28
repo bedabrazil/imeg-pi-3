@@ -71,7 +71,6 @@ public class NovaCategoriaServlet extends HttpServlet {
         ArrayList<String> mensagens = new ArrayList<>();
 
         session.setAttribute("error", false);
-        request.setCharacterEncoding("UTF-8");
 
         String nome = request.getParameter("nome_categoria");
 

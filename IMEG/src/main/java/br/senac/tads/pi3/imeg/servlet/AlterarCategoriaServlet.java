@@ -77,7 +77,6 @@ public class AlterarCategoriaServlet extends HttpServlet {
         ArrayList<String> mensagens = new ArrayList<>();
         HttpSession session = request.getSession(true);
         session.setAttribute("success", false);
-        request.setCharacterEncoding("UTF-8");
         
         
         //instacio o DAO

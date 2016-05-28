@@ -92,9 +92,6 @@ public class AlterarUnidadeServlet extends HttpServlet {
         ArrayList<String> mensagens = new ArrayList<>();
 
         session.setAttribute("error", false);
-        
-        request.setCharacterEncoding("UTF-8");
-
         if (request.getParameter("nome-unidade").isEmpty()) {
             mensagens.add("O campo *Nome* não pode ser vazio.");
         }
