@@ -43,32 +43,77 @@
                                         <a href="<c:url value="/"/>"><em class="glyphicon glyphicon-th-large"></em>&nbsp;Painel <span class="sr-only">(current)</span></a>
                                     </li>
                                     <li>
-                                    <div class="dropdown navbar-form navbar-left">
-                                        
-                                        <!--<a href="javascript:void(0)" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manutenção <span class="caret"></span></a>-->
-                                        <button class="btn btn-default dropdown-toggle" id="dropdownMenu0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-bars" aria-hidden="true"></i>
-&nbsp;Manutenção
-                                            <span class="caret"></span>
-                                        </button>                                        
-                                        <ul class="dropdown-menu" aria-labelledby="#dropdownMenu0">
-                                           <!-- <li class="dropdown-header">Produtos</li> -->
-                                           <li><a href="<c:url value="/produtos"/>"><i class="fa fa-product-hunt" aria-hidden="true"></i>
-&nbsp;Produtos</a></li>
-                                            <li><a href="<c:url value="/categorias"/>"><i class="fa fa-archive" aria-hidden="true"></i>
-&nbsp;Categorias</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="<c:url value="/unidades"/>"><i class="fa fa-building" aria-hidden="true"></i>
-&nbsp;Unidades</a></li>                                
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="<c:url value="/funcionarios"/>"><i class="fa fa-users" aria-hidden="true"></i>
-</i>&nbsp;Funcionários</a></li>
-                                            <li><a href="<c:url value="/cargos"/>"><i class="fa fa-cog" aria-hidden="true"></i>
-&nbsp;Cargos</a></li>
-                                        </ul>
-                                    </div>
+                                        <div class="dropdown navbar-form navbar-left">
+                                            <button class="btn btn-default dropdown-toggle" id="dropdownMenu1`" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-product-hunt" aria-hidden="true"></i>
+                                                &nbsp;Produtos
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
+                                                <li><a href="<c:url value="/produtos/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                                        &nbsp;Novo</a></li>
+                                                <li><a href="<c:url value="/produtos"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
+                                                        &nbsp;Listar</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown navbar-form navbar-left">
+                                            <button class="btn btn-default dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-archive" aria-hidden="true"></i>
+                                                &nbsp;Categorias
+                                                <span class="caret"></span>
+                                            </button>        
+                                            <ul class="dropdown-menu" aria-labelledby="#dropdownMenu2">
+                                                <li><a href="<c:url value="/categorias/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                                        &nbsp;Novo</a></li>
+                                                <li><a href="<c:url value="/categorias"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
+                                                        &nbsp;Listar</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown navbar-form navbar-left">
+                                            <button class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-building" aria-hidden="true"></i>
+                                                &nbsp;Unidades
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="#dropdownMenu3">
+                                                <li><a href="<c:url value="/unidades/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                                        &nbsp;Novo</a></li>    
+                                                <li><a href="<c:url value="/unidades"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
+                                                        &nbsp;Listar</a></li>    
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown navbar-form navbar-left">
+                                            <button class="btn btn-default dropdown-toggle" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-users" aria-hidden="true"></i>
+                                                &nbsp;Funcionários
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="#dropdownMenu4">
+                                                <li><a href="<c:url value="/funcionarios/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                                        </i>&nbsp;Novo</a></li>
+                                                <li><a href="<c:url value="/funcionarios"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
+                                                        </i>&nbsp;Listar</a></li>                                                        
+                                            </ul>                                            
+                                        </div>    
+                                        <div class="dropdown navbar-form navbar-left">
+                                            <button class="btn btn-default dropdown-toggle" id="dropdownMenu5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                                &nbsp;Cargos
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="#dropdownMenu5">
+                                                <li><a href="<c:url value="/cargos/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                                        </i>&nbsp;Novo</a></li>
+                                                <li><a href="<c:url value="/cargos"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
+                                                        </i>&nbsp;Listar</a></li>                                                        
+                                            </ul>                                            
+                                        </div>
                                     </li>
-                                    <!--li><a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><span>Vendas</span> </a></li-->
+                                    <li>
+                                        <div class="dropdown navbar-form navbar-left">
+                                            <a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">4</span> </a>
+                                        </div>
+                                        </li>
                                 </ul>
                             </c:if>
                             <c:choose>
@@ -85,7 +130,7 @@
                                     <div class="dropdown navbar-form navbar-right">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fa fa-bars" aria-hidden="true"></i>
-&nbsp;Menu
+                                            &nbsp;Menu
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
