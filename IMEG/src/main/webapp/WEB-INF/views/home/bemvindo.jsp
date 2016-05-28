@@ -8,7 +8,7 @@
 </c:choose>
 
 <div class="page-header">
-    Olá <strong>${sessionScope.usuario.nome}</strong> <small>Seja Bem Vindo!</small>
+    Olá <strong>${sessionScope.usuario.nome},</strong> <small>Seja Bem Vindo!</small>
 </div>
 <div id="warning" class="col-lg-12 ${alert}">
 <c:if test="${sessionScope.success}">
@@ -23,20 +23,37 @@ ${mensagem}
     <div class="panel-heading"><h4><em class="glyphicon glyphicon-th-large"></em>&nbsp;Painel</h4></div>
   <div class="panel-body">
       <div class="col-lg-12 align-charts">
+          
         <div class="col-lg-3 border-gray">
-            <div id="chart-1" class="chart"></div>
+            <div id="chart-1" class="chart">
+                <table class="table table-hover">
+                    <tbody>
+                        <c:forEach items="${maisVendidos}" var="maisVendidos">
+                            <tr>
+                                <td>${maisVendidos.qtdeVendida}</td>
+                                <td>${maisVendidos.produto.nome}</td>
+                            </tr>
+                        </c:forEach>
+                     </tbody>
+                 </table>
+            </div>                        
         </div>
+          
         <div class="col-lg-3 border-gray">
             <div id="chart-2" class="chart"></div>
         </div>
+          
         <div class="col-lg-3 border-gray">
             <div id="chart-3" class="chart"></div>          
         </div>
+          
         <div class="col-lg-3 border-gray">
             <div id="chart-3" class="chart"></div>          
-        </div>          
+        </div> 
+          
       </div>
   </div>
+    
 </div>    
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />
