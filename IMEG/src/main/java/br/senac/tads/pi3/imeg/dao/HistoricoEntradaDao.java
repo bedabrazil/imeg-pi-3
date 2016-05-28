@@ -27,8 +27,8 @@ public class HistoricoEntradaDao {
             pst.setInt(1, historicoEntrada.getProduto().getId());
             pst.setInt(2, historicoEntrada.getFuncionario().getId());
             pst.setDate(3, new Date(System.currentTimeMillis()));
-            pst.setInt(4, historicoEntrada.getQtde_produtos());
-            pst.setDouble(5, historicoEntrada.getPreco_custo());
+            pst.setInt(4, historicoEntrada.getQtdeProduto());
+            pst.setDouble(5, historicoEntrada.getPrecoCusto());
             
             pst.execute();
             
@@ -53,7 +53,7 @@ public class HistoricoEntradaDao {
         try {
             
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, historicoEntrada.getProduto().getSaldo()+historicoEntrada.getQtde_produtos());
+            pst.setInt(1, historicoEntrada.getProduto().getSaldo()+historicoEntrada.getQtdeProduto());
             pst.setInt(2, historicoEntrada.getProduto().getId());    
             
             pst.execute();
