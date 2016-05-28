@@ -11,10 +11,7 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,10 +61,10 @@ public class InserirProdutoServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-        if (request.getParameter("preco_custo_produto").isEmpty() || !request.getParameter("preco_custo_produto").matches("\\d+")) {
+        if (request.getParameter("preco_custo_produto").isEmpty() && !request.getParameter("preco_custo_produto").matches("\\d+")) {
             mensagens.add("Informe o Preço de Custo.");
         }
-        if (request.getParameter("preco_venda_produto").isEmpty() || !request.getParameter("preco_venda_produto").matches("\\d+")) {
+        if (request.getParameter("preco_venda_produto").isEmpty() && !request.getParameter("preco_venda_produto").matches("\\d+")) {
             mensagens.add("Informe o Preço de Venda.");
         }
 
