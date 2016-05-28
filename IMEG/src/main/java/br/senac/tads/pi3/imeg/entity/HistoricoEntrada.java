@@ -16,37 +16,38 @@ public class HistoricoEntrada {
     private int id;
     private Produto produto;
     private Funcionario funcionario;
-    private Date data_transacao;
-    private int qtde_produtos;
-    private double preco_custo;
+    private Date dataTransacao;
+    private int qtdeProduto;
+    private double precoCusto;
+    private double precoVenda;
     
     
-    public double getPreco_custo() {
-        return preco_custo;
+    public double getPrecoCusto() {
+        return precoCusto;
     }
 
-    public void setPreco_custo(double preco_custo) {
-        this.preco_custo = preco_custo;
+    public void setPrecoCusto(double precoCusto) {
+        this.precoCusto = precoCusto;
     }
   
     public int getId() {
         return id;
     }
 
-    public Date getData_transacao() {
-        return data_transacao;
+    public Date getDataTransacao() {
+        return dataTransacao;
     }
 
-    public void setData_transacao(Date data_transacao) {
-        this.data_transacao = data_transacao;
+    public void setDataTransacao(Date dataTransacao) {
+        this.dataTransacao = dataTransacao;
     }
 
-    public int getQtde_produtos() {
-        return qtde_produtos;
+    public int getQtdeProduto() {
+        return qtdeProduto;
     }
 
-    public void setQtde_produtos(int qtde_produtos) {
-        this.qtde_produtos = qtde_produtos;
+    public void setQtdeProduto(int qtdeProduto) {
+        this.qtdeProduto = qtdeProduto;
     }
 
     public Produto getProduto() {
@@ -63,5 +64,13 @@ public class HistoricoEntrada {
     
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public double getPrecoVenda() {
+        return precoVenda;
+    }
+
+    public void setPrecoVenda(double precoVenda) {
+        this.precoVenda = precoVenda;
     }
 }

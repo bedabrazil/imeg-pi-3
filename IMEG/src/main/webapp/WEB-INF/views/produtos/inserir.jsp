@@ -40,9 +40,17 @@
             <label for="">Preço de Custo</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                <input class="form-control maskmoney" type="text" id="preco_custo_produto" name="preco_custo_produto" step="any"/>
+                <input class="form-control maskmoney" maxlength="16" type="text" id="preco_custo_produto" name="preco_custo_produto"/>
             </div>
         </div>
+        <div class="col-lg-3 form-space">
+            <label for="">Preço de Venda</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                <input class="form-control maskmoney" maxlength="16" type="text" id="preco_venda_produto" name="preco_venda_produto"/>
+            </div>
+        </div>
+        
         <div class="col-lg-3 form-space">
             <label for="">Quantidade</label>
             <input class="form-control number" maxlength="4" type="text" id="quantidade" name="quantidade" min="1" />

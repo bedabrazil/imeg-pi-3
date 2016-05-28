@@ -11,9 +11,10 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,17 +64,11 @@ public class InserirProdutoServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-        Number preco_custo_produto = null;
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-
-        if (request.getParameter("preco_custo_produto").isEmpty() && request.getParameter("preco_custo_produto").equals("0,00") && !request.getParameter("preco_custo_produto").matches("\\d+")) {
-            mensagens.add("Informe o Preço.");
-        } else {
-            try {
-                preco_custo_produto = format.parse(request.getParameter("preco_custo_produto"));
-            } catch (ParseException e) {
-                mensagens.add("Não foi possível gravar o valor do produto.");
-            }
+        if (request.getParameter("preco_custo_produto").isEmpty() || !request.getParameter("preco_custo_produto").matches("\\d+")) {
+            mensagens.add("Informe o Preço de Custo.");
+        }
+        if (request.getParameter("preco_venda_produto").isEmpty() || !request.getParameter("preco_venda_produto").matches("\\d+")) {
+            mensagens.add("Informe o Preço de Venda.");
         }
 
         if (request.getParameter("quantidade").isEmpty() && !request.getParameter("quantidade").matches("\\d+")) {
@@ -93,15 +88,17 @@ public class InserirProdutoServlet extends HttpServlet {
         }
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
         if (usuario != null) {
-
-//            double preco_custo_produto = Double.parseDouble();
+            double preco_custo_produto = Double.parseDouble(request.getParameter("preco_custo_produto").replace(".", "").replace(",", "."));
+            double preco_venda_produto = Double.parseDouble(request.getParameter("preco_venda_produto").replace(".", "").replace(",", "."));
+            
             int quantidade = Integer.parseInt(request.getParameter("quantidade"));
             int id = Integer.parseInt(request.getParameter("id_produto"));
 
             HistoricoEntrada histEntrada = new HistoricoEntrada();
 
-            histEntrada.setPreco_custo(Double.parseDouble(preco_custo_produto.toString()));
-            histEntrada.setQtde_produtos(quantidade);
+            histEntrada.setPrecoCusto(preco_custo_produto);
+            histEntrada.setPrecoVenda(preco_venda_produto);
+            histEntrada.setQtdeProduto(quantidade);
             histEntrada.setProduto(new ProdutoDao().pesquisarPorId(id));
             histEntrada.setFuncionario(usuario);
 
