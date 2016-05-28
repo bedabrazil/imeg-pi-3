@@ -67,7 +67,7 @@ public class AlterarProdutoServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
         request.setAttribute("error", false);
-
+        request.setCharacterEncoding("UTF-8");
         
         if (request.getParameter("nome_produto").isEmpty()) {
             request.setAttribute("error", true);

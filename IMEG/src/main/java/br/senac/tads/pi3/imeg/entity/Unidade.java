@@ -15,20 +15,23 @@ public class Unidade {
     private Estado estado;
     private String nome;
     private boolean status;
+    private boolean matriz;
 
     public Unidade(){
     }
     
-    public Unidade(String nome, Estado estado, boolean status) {
+    public Unidade(String nome, Estado estado, boolean status, boolean matriz) {
         this.nome = nome;
         this.estado = estado;       
         this.status = status;
+        this.matriz = matriz;
     }
-    public Unidade(int id, String nome, Estado estado, boolean status) {
+    public Unidade(int id, String nome, Estado estado, boolean status, boolean matriz) {
         this.nome = nome;
         this.estado = estado;       
         this.status = status;
         this.id = id;
+        this.matriz = matriz;
     }
 
     public int getId() {
@@ -61,6 +64,14 @@ public class Unidade {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public boolean isMatriz() {
+        return matriz;
+    }
+
+    public void setMatriz(boolean matriz) {
+        this.matriz = matriz;
     }
     
 }

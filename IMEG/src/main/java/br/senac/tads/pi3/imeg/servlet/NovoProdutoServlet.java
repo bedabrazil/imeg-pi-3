@@ -79,6 +79,7 @@ public class NovoProdutoServlet extends HttpServlet {
 
         request.setAttribute("error", false);
         request.setAttribute("success", false);
+        request.setCharacterEncoding("UTF-8");
 
         if (request.getParameter("nome_produto").isEmpty()) {
             mensagens.add("O campo Nome não pode ser vazio.");
