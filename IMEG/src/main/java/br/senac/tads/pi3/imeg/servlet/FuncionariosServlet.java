@@ -34,8 +34,10 @@ public class FuncionariosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         ArrayList<Funcionario> funcionarios = new FuncionarioDao().listar();
         request.setAttribute("funcionarios", funcionarios);
+       
         request.getRequestDispatcher("/WEB-INF/views/funcionarios/index.jsp").forward(request, response);
 
         HttpSession session = request.getSession();
