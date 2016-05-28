@@ -5,8 +5,6 @@
  */
 package br.senac.tads.pi3.imeg.dao;
 
-import br.senac.tads.pi3.imeg.entity.Funcionario;
-import br.senac.tads.pi3.imeg.entity.Relatorio;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +23,7 @@ public class RelatorioDao {
 
     //Lista produtos mais vendidos
     public ArrayList<RelatorioVenda> listarMaisVendidos() {
-        String sql = "SELECT * FROM MAIS_VENDIDOS";
+        String sql = "SELECT * FROM MAIS_VENDIDOS_VERSAO_TEMP";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
         try {
 

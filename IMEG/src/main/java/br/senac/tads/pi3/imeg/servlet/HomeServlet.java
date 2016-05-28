@@ -5,8 +5,11 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
+import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +37,10 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
+        
+        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarMaisVendidos();
+        
+        request.setAttribute("maisVendidos", maisVendidos);        
         if(usuario == null){
          request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);
         }else{

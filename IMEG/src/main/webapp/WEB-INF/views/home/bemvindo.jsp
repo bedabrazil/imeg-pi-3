@@ -26,6 +26,8 @@ ${mensagem}
           
         <div class="col-lg-3 border-gray">
             <div id="chart-1" class="chart">
+                <c:choose>
+                    <c:when test="${not empty maisVendidos}">
                 <table class="table table-hover">
                     <tbody>
                         <c:forEach items="${maisVendidos}" var="maisVendidos">
@@ -36,6 +38,9 @@ ${mensagem}
                         </c:forEach>
                      </tbody>
                  </table>
+                    </c:when>
+                    <c:otherwise>NA HA RELATORIO</c:otherwise>
+                </c:choose>
             </div>                        
         </div>
           
