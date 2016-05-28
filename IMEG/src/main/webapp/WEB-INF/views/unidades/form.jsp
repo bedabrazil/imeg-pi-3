@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
@@ -56,7 +57,12 @@
         
         <div class="col-lg-12 form-space">
             <label for="ativo_unidades">Ativo</label>
-           <input type="checkbox" id="ativo_categoria" class="" <c:if test="${unidade.isStatus()}">checked='checked'</c:if> name="ativo_unidades" value="true">
+           <input type="checkbox" id="ativo_unidade" class="" <c:if test="${unidade.isStatus()}">checked='checked'</c:if> name="ativo_unidades" value="true">
+        </div>
+        
+        <div class="col-lg-12 form-space">
+            <label for="ativo_matriz">Matriz</label>
+           <input type="checkbox" id="ativo_matriz" class="" <c:if test="${unidade.isMatriz()}">checked='checked'</c:if> name="ativo_matriz" value="true">
         </div>
         
         </br>

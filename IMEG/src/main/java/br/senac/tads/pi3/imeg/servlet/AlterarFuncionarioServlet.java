@@ -96,7 +96,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         AcessoDao aDao = new AcessoDao();
 
         session.setAttribute("error", false);
-
+        request.setCharacterEncoding("UTF-8");
                 
         if (request.getParameter("nome_funcionario").isEmpty()) {
 //            request.setAttribute("nome_funcionario", nome_funcionario);

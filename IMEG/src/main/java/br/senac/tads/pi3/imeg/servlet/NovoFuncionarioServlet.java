@@ -95,6 +95,7 @@ public class NovoFuncionarioServlet extends HttpServlet {
         AcessoDao aDao = new AcessoDao();
 
         session.setAttribute("error", false);
+        request.setCharacterEncoding("UTF-8");
         
 //        String nome_funcionario = request.getParameter("nome_funcionario");
 //        String cargo_id = request.getParameter("cargo_id");

@@ -92,6 +92,8 @@ public class AlterarUnidadeServlet extends HttpServlet {
         ArrayList<String> mensagens = new ArrayList<>();
 
         session.setAttribute("error", false);
+        
+        request.setCharacterEncoding("UTF-8");
 
         if (request.getParameter("nome-unidade").isEmpty()) {
             mensagens.add("O campo *Nome* não pode ser vazio.");
@@ -107,13 +109,17 @@ public class AlterarUnidadeServlet extends HttpServlet {
 
         if (request.getParameter("unidade_id") != null) {
             EstadoDao eDao = new EstadoDao();
+            UnidadeDao uDao = new UnidadeDao();
 
             int id = Integer.parseInt(request.getParameter("unidade_id"));
             String nome = request.getParameter("nome-unidade");
             int estado = Integer.parseInt(request.getParameter("estado-id"));
             boolean status = Boolean.parseBoolean(request.getParameter("ativo_unidades"));
+            boolean matriz = Boolean.parseBoolean(request.getParameter("ativo_matriz"));
+            
+            uDao.resetaMatrizes();
 
-            if (new UnidadeDao().alterar(new Unidade(id, nome, eDao.pesquisarPorId(estado), status))) {
+            if (uDao.alterar(new Unidade(id, nome, eDao.pesquisarPorId(estado), status, matriz))) {
                 mensagens.clear();
                 session.setAttribute("msg_success", "Unidade alterada com sucesso.");
                 session.setAttribute("success", true);
