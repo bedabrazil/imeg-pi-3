@@ -50,6 +50,6 @@
             </tr>
         </c:forEach>
         </tbody>
-    </table>
+    </table>    
 </div>
 </c:if>

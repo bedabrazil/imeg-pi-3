@@ -10,9 +10,9 @@
     <c:when test="${error}"><c:set var="alert" value="alert alert-danger"/></c:when>
 </c:choose>  
 
-<form enctype="multipart/form-data" action="<c:url value="${action}"/>" method="post">
+<form enctype="application/x-www-form-urlencoded" action="<c:url value="${action}"/>" method="post">
     <c:if test="${produto != null}">
-        <input type="hidden" name="id_funcionario" value="${produto.id}">
+        <input type="hidden" name="id_produto" value="${produto.id}">
     </c:if>
     <fieldset class="well"> 
         <div id="warning" class="col-lg-12 ${alert}">
@@ -36,7 +36,10 @@
 
         <div class="col-lg-6 form-space">
             <label for="">Nome do Produto</label>
-            <input class="form-control" placeholder="Nome do Produto" value="<c:if test="${produto != null }">${produto.nome}</c:if>" type="text" id="nome_produto" name="nome_produto"/>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-product-hunt fa-fw"></i></span>             
+                <input class="form-control" placeholder="Nome do Produto" value="<c:if test="${produto != null }">${produto.nome}</c:if>" type="text" id="nome_produto" name="nome_produto"/>
+                </div>
             </div>
             <div class="col-lg-3 form-space">
                 <label for="">Quantidade Mínima</label>

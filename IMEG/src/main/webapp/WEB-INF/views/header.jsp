@@ -97,7 +97,7 @@
                                         </div>    
                                         <div class="dropdown navbar-form navbar-left">
                                             <button class="btn btn-default dropdown-toggle" id="dropdownMenu5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                                <i class="fa fa-cog" aria-hidden="true"></i>
                                                 &nbsp;Cargos
                                                 <span class="caret"></span>
                                             </button>
@@ -111,7 +111,7 @@
                                     </li>
                                     <li>
                                         <div class="dropdown navbar-form navbar-left">
-                                            <a href="<c:url value="/produtos/venda"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">4</span> </a>
+                                            <a href="<c:url value="/vendas"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">4</span> </a>
                                         </div>
                                         </li>
                                 </ul>

@@ -7,7 +7,7 @@
     <c:if test="${usuario != null}">
         <input type="hidden" name="id_usuario" value="${usuario.id}">
     </c:if>
-        
+
     <fieldset class="well">
         <div class="col-lg-12">
             <h3>Alterar dados do Usuário</h3>
@@ -34,50 +34,62 @@
         </div>        
         <div class="col-lg-6 form-space">
             <label for="">Nome do Funcionário</label>
-            <input class="form-control" placeholder="Nome do Funcionário" type="text" value="<c:if test="${usuario != null }">${usuario.nome}</c:if>" id="nome_usuario" name="nome_usuario"/>
-        </div>
-        <div class="col-lg-6 form-space">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>            
+                <input class="form-control" placeholder="Nome do Funcionário" type="text" value="<c:if test="${usuario != null }">${usuario.nome}</c:if>" id="nome_usuario" name="nome_usuario"/>
+                </div>
+            </div>
+            <div class="col-lg-6 form-space">
                 <label for="">Email</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
                     <input class="form-control" placeholder="Email" type="text" disabled="disabled" value="<c:if test="${usuario != null }">${usuario.email}</c:if>" id="nome_usuario" name="email_usuario"/>
                 </div>
-        </div>
-        <div class="col-lg-4 form-space">
+            </div>
+            <div class="col-lg-4 form-space">
                 <label for="">Cargos </label>
-                <input type="text" disabled="disabled" class="form-control" value="${usuario.cargo.nome}"/>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-cog fa-fw"></i></span>                
+                    <input type="text" disabled="disabled" class="form-control" value="${usuario.cargo.nome}"/>
+            </div>
         </div>
         <div class="col-lg-4 form-space">
             <label for="">Unidades </label>
-            <input type="text" disabled="disabled" value="${usuario.unidade.nome}" class="form-control"/>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-archive fa-fw"></i></span>             
+                <input type="text" disabled="disabled" value="${usuario.unidade.nome}" class="form-control"/>
+            </div>
         </div>    
-        
+
         <div class="col-lg-4 form-space">
             <label for="acesso_id">Tipo de Permissão</label>
-            <input type="text" disabled="disabled" value=" ${usuario.acesso.nome}" class="form-control"/>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user-plus fa-fw"></i></span>             
+                <input type="text" disabled="disabled" value=" ${usuario.acesso.nome}" class="form-control"/>
+            </div>
         </div>  
         <div class="col-lg-4 form-space">
-                <label for="">Nova Senha</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>                
-                  <input class="form-control" placeholder="Nova Senha" type="password" value="" id="senha_usuario" name="senha_nova_usuario"/>
-                </div>
+            <label for="">Nova Senha</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>                
+                <input class="form-control" placeholder="Nova Senha" type="password" value="" id="senha_usuario" name="senha_nova_usuario"/>
+            </div>
         </div>
         <div class="col-lg-4 form-space">
-                <label for="">Confirmar Nova Senha</label>
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                  <input class="form-control" placeholder="Confirmar Nova Senha" type="password" value="" id="confirmar_senha_usuario" name="confirmar_nova_senha_usuario"/>
-                </div>
+            <label for="">Confirmar Nova Senha</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                <input class="form-control" placeholder="Confirmar Nova Senha" type="password" value="" id="confirmar_senha_usuario" name="confirmar_nova_senha_usuario"/>
+            </div>
         </div>
-        
-<!--        <div class="col-lg-12 form-space">
-            <label for="ativo_usuario">Ativo</label>
-            <input type="checkbox" id="ativo_categoria" class="" <c:if test="${usuario.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
-        </div>-->
-        <div class="col-lg-12"><br><br></div>
-        <div class="col-lg-12 form-space">
-            <a href="<c:url value="/"></c:url>" class="btn btn-default">Voltar</a>
+
+        <!--        <div class="col-lg-12 form-space">
+                    <label for="ativo_usuario">Ativo</label>
+                    <input type="checkbox" id="ativo_categoria" class="" <c:if test="${usuario.isStatus()}">checked='checked'</c:if> name="ativo" value="true">
+                </div>-->
+            <div class="col-lg-12"><br><br></div>
+            <div class="col-lg-12 form-space">
+                <a href="<c:url value="/"></c:url>" class="btn btn-default">Voltar</a>
             <button class="btn btn-default" type="submit" id="commit-usuario">Alterar</button>
         </div>
     </fieldset>

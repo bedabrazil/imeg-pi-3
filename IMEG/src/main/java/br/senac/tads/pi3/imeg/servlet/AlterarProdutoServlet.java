@@ -66,13 +66,13 @@ public class AlterarProdutoServlet extends HttpServlet {
         // talvez inicie a sessao
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-                
+        request.setCharacterEncoding("UTF-8");
         request.setAttribute("error", false);
 
         
         if (request.getParameter("nome_produto").isEmpty()) {
             request.setAttribute("error", true);
-            mensagens.add("O campo *Nome* não pode ser vazio.");
+            mensagens.add("O campo Nome não pode ser vazio.");
         }
         if(!request.getParameter("qtd_min_produto").matches("\\d+")){
             mensagens.add("Quantidade mínima inválida.");
@@ -96,7 +96,7 @@ public class AlterarProdutoServlet extends HttpServlet {
         
         
             Produto produto = new Produto();
-            produto.setId(Integer.parseInt(request.getParameter("id")));
+            produto.setId(Integer.parseInt(request.getParameter("id_produto")));
             produto.setNome(request.getParameter("nome_produto"));
             produto.setQtdeMin(Integer.parseInt(request.getParameter("qtd_min_produto")));
             produto.setQtdeMax(Integer.parseInt(request.getParameter("qtd_max_produto")));

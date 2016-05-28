@@ -24,15 +24,15 @@ import javax.servlet.http.HttpSession;
  *
  * @author Eilane
  */
-@WebServlet(name = "VendaProdutoServlet", urlPatterns = {"/produtos/venda"})
+@WebServlet(name = "VendaProdutoServlet", urlPatterns = {"/vendas"})
 public class VendaProdutoServlet extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ArrayList<Produto> produto = new ProdutoDao().listar();
-        request.setAttribute("produtos", produto);
+        ArrayList<Produto> produtos = new ProdutoDao().listar();
+        request.setAttribute("produtos", produtos);
         
         request.getRequestDispatcher("/WEB-INF/views/vendas/index.jsp").forward(request, response);
     }
