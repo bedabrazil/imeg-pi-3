@@ -10,7 +10,7 @@ body {
 }
 
 em{
-    font-size: .9em;
+    font-size: .8em;
 }
 .logo{
 	margin-top:-16px;
@@ -32,8 +32,33 @@ em{
 .navbar{
 	background-color: #34495E !important;
         font-family: Helvetica, Arial, sans-serif;
-        font-size: 1.3em;
+        font-size: 1.13em;
         color: #fff;
+}
+.dropdown.navbar-form.navbar-right{
+    margin-right: -30px;
+    border-right: none;
+}
+.dropdown.navbar-form.navbar-left button{
+    margin-left: -20px;
+    padding: 4px;
+    margin-top: 3px;
+    
+}
+.dropdown button > i{
+    color: #dd1355;
+}
+
+.dropdown button[aria-expanded='true'] > i{
+    color: #E2CC0C;
+}
+
+.dropdown button:hover > i{
+    color: #E2CC0C;
+}
+.dropdown button + .dropdown-menu{
+    margin-left: -5px;
+    margin-top: 7px;
 }
 .navbar .nav.navbar-nav li a:visited{color:#fff;}
 .navbar .nav.navbar-nav li a:active{
@@ -85,14 +110,14 @@ em{
 }
 .dropdown-menu>li>a{
 	font-weight: normal;
-	font-size: 1.3em;
+	font-size: 1.2em;
         color:#fff!important;
 }
 .dropdown-menu>li>a:visited{color:#fff!important;}
 .dropdown-header {
   padding: 8px 16px;
   line-height: 1.538;
-  font-size: 1.1em;
+  font-size: 1em;
   text-transform: capitalize;
   color: #e2cc0c;
 }
@@ -130,7 +155,7 @@ footer.footer > .container {
     margin: 20px 0;
 }
 code {
-  font-size: 80%;
+  font-size: 70%;
 }
 
 /* Wrapper for page content to push down footer */
@@ -168,23 +193,36 @@ code {
   border:1px solid red;
   background-color: #FFEEE8;
   color:red;
-  font-size: 13px;
+  font-size: 12px;
   text-align:center;
 }
 
 .active-elem-table{
-    font-size:22px!important;
+    font-size:21px!important;
 }
 .color-elem-table-deactive{
     color: red;
 }
-.sale span{
-    padding: 10px;
-    font-size: 16px;
-    min-height: 20px;
-    line-height: 20px;
+a.sale .badge{
+    position: absolute;
+    top:0;
+    left: 60px;
+    background-color: #fff;
+    color:#dd1355;
 }
-.sale:hover{
+
+a.sale:hover .badge{
+    background-color: #dd1355;
+    color:#fff;
+}
+
+a.sale i{
+    padding: 0 8px;
+    font-size: 2em;
+    min-height: 30px;
+    line-height: 30px;
+}
+a.sale:hover{
     background-color: #E2CC0C!important;
 }
 ul{
@@ -199,7 +237,7 @@ ul{
 }
 
 .user-logged{
-    font-size: 12px;
+    font-size: 11px;
     color: white;
     font-family: helvetica;
 }

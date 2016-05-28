@@ -5,8 +5,8 @@
         <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
     </c:choose>
 <div class="col-lg-12">
-    <h3>Produtos</h3>
-    <a href="<c:url value="/produtos/novo"></c:url>">Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <h3><i class="fa fa-product-hunt" aria-hidden="true"></i>&nbsp;Produtos</h3>
+    <a href="<c:url value="/produtos/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
     <br>
     <div id="warning" class="col-lg-12 ${alert}">
         <c:if test="${sessionScope.success}">
