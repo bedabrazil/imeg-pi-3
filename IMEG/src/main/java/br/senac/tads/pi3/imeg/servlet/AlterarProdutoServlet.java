@@ -66,7 +66,6 @@ public class AlterarProdutoServlet extends HttpServlet {
         // talvez inicie a sessao
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
-        request.setCharacterEncoding("UTF-8");
         request.setAttribute("error", false);
 
         

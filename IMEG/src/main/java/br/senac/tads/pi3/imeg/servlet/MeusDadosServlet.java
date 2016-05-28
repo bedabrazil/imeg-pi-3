@@ -64,7 +64,6 @@ public class MeusDadosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
         if (request.getQueryString() == null && request.getParameter("id_usuario").matches("\\d+")) {
