@@ -35,23 +35,31 @@
         </div>        
 
         <div class="col-lg-6 form-space">
-            <label for="">Nome do Produto</label>
+            <label for="nome_produto">Nome do Produto</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-product-hunt fa-fw"></i></span>             
                 <input class="form-control" placeholder="Nome do Produto" value="<c:if test="${produto != null }">${produto.nome}</c:if>" type="text" id="nome_produto" name="nome_produto"/>
                 </div>
             </div>
             <div class="col-lg-3 form-space">
-                <label for="">Quantidade Mínima</label>
+                <label for="qtd_min_produto">Quantidade Mínima</label>
                 <input class="form-control number" placeholder="Quantidade Mínima" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMin}</c:if>" type="text" id="qtd_min_produto" name="qtd_min_produto"/>
             </div>
             <div class="col-lg-3 form-space">
-                <label for="">Quantidade Máxima</label>
+                <label for="qtd_max_produto">Quantidade Máxima</label>
                 <input class="form-control number" placeholder="Quantidade Máxima" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMax}</c:if>" type="text" id="qtd_max_produto" name="qtd_max_produto"/>
             </div>
-
-            <div class="col-lg-3 form-space">
-                <label for="">Categoria </label>
+            <div class="col-lg-4">
+                <label for="descricao_curta_produto">Descrição Curta</label>
+                <textarea class="form-control" name="descricao_curta_produto" id="descricao_curta_produto" cols="8" rows="6"><c:if test="${produto != null }">${produto.descricaoCurta}</c:if></textarea>
+            </div>
+            <div class="col-lg-8">
+                <label for="descricao_produto">Descrição</label>
+                <textarea class="form-control" name="descricao_produto" id="descricao_produto" cols="8" rows="6"><c:if test="${produto != null }">${produto.descricao}</c:if></textarea>
+            </div>
+            <div class="col-lg-12"></div>
+            <div class="col-lg-4 form-space">
+                <label for="categoria_id">Categoria </label>
                 <select name="categoria_id" class="form-control" >
                 <c:choose>
                     <c:when test="${produto == null}">                        

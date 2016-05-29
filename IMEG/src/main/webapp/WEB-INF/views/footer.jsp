@@ -14,6 +14,10 @@
             <script src="<c:url value='/resources/js/vendor/jquery-1.12.4.min.js'></c:url>" type="text/javascript"></script>
             <script src="<c:url value='/resources/js/vendor/bootstrap.min.js'></c:url>" type="text/javascript"></script>
             <script src="<c:url value="/resources/js/vendor/jquery.maskMoney.min.js"/>" type="text/javascript"></script>
+            <script src="<c:url value='/resources/js/vendor/tinymce/tinymce.min.js'></c:url>" type="text/javascript"></script>            
             <script src="<c:url value='/resources/js/main.js'></c:url>" type="text/javascript"></script>
+            <script type="text/javascript">
+                tinymce.init({ selector:'textarea' });
+            </script>            
         </body>
     </html>

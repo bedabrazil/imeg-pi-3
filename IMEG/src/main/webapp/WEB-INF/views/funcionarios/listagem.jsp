@@ -45,11 +45,10 @@
                         <td>${funcionario.unidade.nome}</td>
                         <td>${funcionario.acesso.nome}</td>
                         <td>${funcionario.email}</td>
-                        <td>
-                            <a href="<c:url value="/funcionarios/editar?id=${funcionario.id}"></c:url>">Editar</a>
-                            </td>
-                        </tr>
-                </c:forEach>
+                        <td><center><a href="<c:url value="/funcionarios/editar?id=${funcionario.id}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a></center></td>                
+
+                    </tr>
+            </c:forEach>
             </tbody>
         </table>
     </div>

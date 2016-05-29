@@ -5,7 +5,7 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.HistoricoEntradaDao;
+import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Márcio Soares <marcio@mail.com>
  */
-@WebServlet(name = "ComprarProdutosServlet", urlPatterns = {"/produtos/comprar"})
-public class ComprarProdutosServlet extends HttpServlet {
+@WebServlet(name = "PedidosServlet", urlPatterns = {"/pedidos"})
+public class PedidosServlet extends HttpServlet {
 
 
     /**
@@ -34,9 +34,9 @@ public class ComprarProdutosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Produto> produtos = new HistoricoEntradaDao().produtosComSaldo();
+        ArrayList<Produto> produtos = new ProdutoDao().produtosComSaldo();
         request.setAttribute("produtos", produtos);
-        request.getRequestDispatcher("/WEB-INF/views/produtos/comprar.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
     }
 
     /**

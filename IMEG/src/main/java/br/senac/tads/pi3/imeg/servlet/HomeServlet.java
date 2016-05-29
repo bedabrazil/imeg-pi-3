@@ -38,8 +38,7 @@ public class HomeServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
         
-        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarMaisVendidos();
-        
+        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarMaisVendidos();        
         request.setAttribute("maisVendidos", maisVendidos);        
         if(usuario == null){
          request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);

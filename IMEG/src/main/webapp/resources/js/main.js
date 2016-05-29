@@ -83,6 +83,6 @@ jQuery.noConflict();
     $(".maskmoney").maskMoney({prefix:'R$ ', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:',', affixesStay: false});
     $(".maskmeter").maskMoney({prefix:'mÂ² ', allowZero: false, defaultZero: false, allowNegative: true, thousands:'.', decimal:',', affixesStay: false});    
     $(".maskpercent").maskMoney({prefix:'% ', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:',', affixesStay: false});            
-    $(".number").maskMoney({prefix:'', allowZero: false, defaultZero: false, allowNegative: false, thousands:'.', decimal:'', affixesStay: false    });            
+    $(".number").maskMoney({prefix:'', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:'', affixesStay: false    });            
     
 })(jQuery);

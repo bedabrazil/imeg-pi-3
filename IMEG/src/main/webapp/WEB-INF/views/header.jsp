@@ -50,6 +50,8 @@
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
+                                                <li><a href="<c:url value="/pedidos"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                                        &nbsp;Pedidos</a></li>
                                                 <li><a href="<c:url value="/produtos/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                                                         &nbsp;Novo</a></li>
                                                 <li><a href="<c:url value="/produtos"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>

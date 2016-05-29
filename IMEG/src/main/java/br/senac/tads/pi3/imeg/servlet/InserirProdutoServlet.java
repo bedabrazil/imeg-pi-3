@@ -100,7 +100,7 @@ public class InserirProdutoServlet extends HttpServlet {
             histEntrada.setFuncionario(usuario);
 
             if (new HistoricoEntradaDao().adicionar(histEntrada)) {
-                new HistoricoEntradaDao().atualizaSaldo(histEntrada);
+                new HistoricoEntradaDao().atualizarSaldoPrecoVenda(histEntrada);
 
                 session.setAttribute("msg_success", " Entrada realizada com sucesso.");
                 session.setAttribute("success", true);

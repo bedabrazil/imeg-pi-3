@@ -24,7 +24,8 @@ public class Produto {
     private boolean status;
     private Blob arquivo;
     private String nomeDoArquvo;
-
+    private String descricao;
+    private String descricaoCurta;
     public int getId() {
         return id;
     }
@@ -111,6 +112,22 @@ public class Produto {
 
     public void setNomeDoArquvo(String nomeDoArquvo) {
         this.nomeDoArquvo = nomeDoArquvo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricaoCurta() {
+        return descricaoCurta;
+    }
+
+    public void setDescricaoCurta(String descricaoCurta) {
+        this.descricaoCurta = descricaoCurta;
     }
 
 }

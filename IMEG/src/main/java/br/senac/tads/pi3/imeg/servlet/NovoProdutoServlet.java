@@ -9,8 +9,8 @@ import br.senac.tads.pi3.imeg.dao.CategoriaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.Produto;
-import java.io.File;
 import java.io.IOException;
+import java.sql.Clob;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -102,12 +102,12 @@ public class NovoProdutoServlet extends HttpServlet {
             return;
         }
         String nome = request.getParameter("nome_produto");
+        String descricao = request.getParameter("descricao_produto");
+        String descricao_curta = request.getParameter("descricao_curta_produto");        
         int qtd_min_produto = Integer.parseInt(request.getParameter("qtd_min_produto"));
         int qtd_max_produto = Integer.parseInt(request.getParameter("qtd_max_produto"));
         int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
-        
-    
         if (!nome.isEmpty() && categoria_id > 0) {
 
             Produto produto = new Produto();
@@ -116,7 +116,8 @@ public class NovoProdutoServlet extends HttpServlet {
             produto.setQtdeMin(qtd_min_produto);
             produto.setQtdeMax(qtd_max_produto);
             produto.setStatus(status);
-
+            produto.setDescricao(descricao);
+            produto.setDescricaoCurta(descricao_curta);
             produto.setCategoria(new CategoriaDao().pesquisarPorId(categoria_id));
 
             produto.setCategoria(produto.getCategoria());

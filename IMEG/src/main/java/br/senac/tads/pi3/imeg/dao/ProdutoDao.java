@@ -24,8 +24,8 @@ public class ProdutoDao {
 
     public boolean adicionar(Produto produto) {
 
-        String sql = "INSERT INTO PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX, STATUS)"
-                + "VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX, STATUS, DESCRICAO, DESCRICAO_CURTA)"
+                + "VALUES (?,?,?,?,?,?,?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, produto.getCategoria().getId());
@@ -33,6 +33,8 @@ public class ProdutoDao {
             pst.setInt(3, produto.getQtdeMin());
             pst.setInt(4, produto.getQtdeMax());
             pst.setBoolean(5, produto.isStatus());
+            pst.setString(6, produto.getDescricao());
+            pst.setString(7, produto.getDescricaoCurta());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -71,6 +73,8 @@ public class ProdutoDao {
                 produto.setQtdeMax(rs.getInt("QTDE_MAX"));
                 produto.setSaldo(rs.getInt("SALDO"));
                 produto.setStatus(rs.getBoolean("STATUS"));
+                produto.setDescricao(rs.getString("DESCRICAO"));
+                produto.setDescricaoCurta(rs.getString("DESCRICAO_CURTA"));
                 tempProduto.add(produto);
 
             }
@@ -105,6 +109,8 @@ public class ProdutoDao {
                 produto.setQtdeMax(rs.getInt("QTDE_MAX"));
                 produto.setSaldo(rs.getInt("SALDO"));
                 produto.setStatus(rs.getBoolean("STATUS"));
+                produto.setDescricao(rs.getString("DESCRICAO"));
+                produto.setDescricaoCurta(rs.getString("DESCRICAO_CURTA"));                
             }
             return produto;
 
@@ -121,7 +127,7 @@ public class ProdutoDao {
     }
 
     public boolean alterar(Produto produto) {
-        String sql = "UPDATE PRODUTOS SET CATEGORIAS_ID=?, NOME=?, QTDE_MIN=?, QTDE_MAX=?, STATUS=?"
+        String sql = "UPDATE PRODUTOS SET CATEGORIAS_ID=?, NOME=?, QTDE_MIN=?, QTDE_MAX=?, STATUS=?, DESCRICAO=?, DESCRICAO_CURTA=?"
                 + "WHERE ID=?";
         // UPDATE
 
@@ -132,7 +138,10 @@ public class ProdutoDao {
             pst.setInt(3, produto.getQtdeMin());
             pst.setInt(4, produto.getQtdeMax());
             pst.setBoolean(5, produto.isStatus());
-            pst.setInt(6, produto.getId());
+            pst.setString(6, produto.getDescricao());
+            pst.setString(7, produto.getDescricaoCurta());
+            pst.setInt(8, produto.getId());
+            
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -161,7 +170,10 @@ public class ProdutoDao {
                 p.setQtdeMin(res.getInt("QTDE_MIN"));
                 p.setQtdeMax(res.getInt("QTDE_MAX"));
                 p.setSaldo(res.getInt("SALDO"));
+                p.setPrecoCusto(res.getDouble("PRECO_CUSTO"));
+                p.setPrecoVenda(res.getDouble("PRECO_VENDA"));
                 p.setStatus(res.getBoolean("STATUS"));
+                p.setDescricaoCurta(res.getString("DESCRICAO_CURTA"));
                 produtos.add(p);
             }
             return produtos;
@@ -197,5 +209,35 @@ public class ProdutoDao {
         }
         return false;
     }
+
+
+    public ArrayList<Produto> produtosComSaldo(){
+        String sql = "SELECT P.ID AS ID, P.NOME AS NOME, P.SALDO AS SALDO, P.PRECO_VENDA as PRECO, P.DESCRICAO_CURTA FROM PRODUTOS as P WHERE P.SALDO > 0 AND STATUS=true";
+        try{
+            ArrayList<Produto> produtos = new ArrayList<>();
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet res = pst.executeQuery();
+            while(res.next()){
+                Produto produto = new Produto();
+                produto.setId(res.getInt("ID"));
+                produto.setNome(res.getString("NOME"));
+                produto.setPrecoVenda(res.getDouble("PRECO"));
+                produto.setSaldo(res.getInt("SALDO"));
+                produto.setDescricaoCurta(res.getString("DESCRICAO_CURTA"));
+                produtos.add(produto);
+            }
+            return produtos;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(HistoricoEntradaDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }    
+    
 }
 

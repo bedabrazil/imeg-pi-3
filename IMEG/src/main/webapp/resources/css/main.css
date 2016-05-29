@@ -5,35 +5,75 @@
    ========================================================================== */
 html,
 body {
-  height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
 }
-
+#requests{
+    padding: 0;
+}
+.row-requests{
+    margin:10px 1px;
+    border: 1px solid #ccc; 
+    height: 400px;
+-webkit-box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
+-moz-box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
+box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
+}
+.row-requests button.btn.btn-button + input[type='number']{
+    width: 60px;
+    display: inline-block;
+    margin-top:5px;
+}
+.row-requests button.btn.btn-button{
+    margin: 20px auto;
+    background-color: #dd1355;
+    color: #fff;
+    font-size: .9em;
+    width: 100px;
+}
+.row-requests button.btn.btn-button:hover{
+    background-color: #e2cc0c;
+    color:#34495E;
+}
+.row-requests .descricao{
+    height: 180px;
+    border: 1px solid transparent;
+}
+.row-requests  strong > span{
+    font-weight: normal;
+}
+.row-requests  strong + strong{
+    font-size: 1.4em;
+    color:#dd1355;
+}
+.row-requests  strong{
+    display:block;
+}
 em{
     font-size: .8em;
 }
 .logo{
-	margin-top:-16px;
+    margin-top:-16px;
 }
 #warning ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 #warning ul li {
-  padding-left: 1.3em;
+    padding-left: 1.3em;
 }
 #warning ul li:before {
-  content: "\f057"; /* FontAwesome Unicode */
-  font-family: 'FontAwesome';
-  display: inline-block;
-  margin-left: -1.3em; /* same as padding-left set on li */
-  width: 1.3em; /* same as padding-left set on li */
+    content: "\f057"; /* FontAwesome Unicode */
+    font-family: 'FontAwesome';
+    display: inline-block;
+    margin-left: -1.3em; /* same as padding-left set on li */
+    width: 1.3em; /* same as padding-left set on li */
 }
 .navbar{
-	background-color: #34495E !important;
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 1.13em;
-        color: #fff;
+    background-color: #34495E !important;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.13em;
+    color: #fff;
 }
 .dropdown.navbar-form.navbar-right{
     margin-right: -30px;
@@ -43,7 +83,7 @@ em{
     margin-left: -20px;
     padding: 4px;
     margin-top: 3px;
-    
+
 }
 .dropdown button > i{
     color: #dd1355;
@@ -62,149 +102,162 @@ em{
 }
 .navbar .nav.navbar-nav li a:visited{color:#fff;}
 .navbar .nav.navbar-nav li a:active{
-	color:#dd1355;
+    color:#dd1355;
 }
 .navbar .nav.navbar-nav li a:hover{
-	color:#dd1355;
+    color:#dd1355;
 }
 .navbar .nav.navbar-nav li.active a:hover{
-	color: #000;
+    color: #000;
 }
 .navbar-default .navbar-nav>.open>a{
-	background-color: #34495E;
+    background-color: #34495E;
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:visited {color:#555!important;}
 .btn-default {
-  color: #ffffff;
-  background-color: #34495E;
-  font-size: 1em;
-  border:none;
-  margin-top: -1px;
+    color: #ffffff;
+    background-color: #34495E;
+    font-size: 1em;
+    border:none;
+    margin-top: -1px;
 }
- .btn-default:hover,
- .btn-default.hover,
- .btn-default:focus,
- .btn-default:active,
- .btn-default.active,
- .open > .dropdown-toggle.btn-default {
+.btn-default:hover,
+.btn-default.hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
     color: #dd1355;
     background-color: #34495E!important;
     border:none;
 }
 
 .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default.focus:active, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover {
-  background-color: #d4d4d4;
-  border-color: #8c8c8c;
-  color: #dd1355;
+    background-color: #d4d4d4;
+    border-color: #8c8c8c;
+    color: #dd1355;
 }
 
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-  background: #34495E;
-  border-color: #34495E;
-  color:#ffffff;
+    background: #34495E;
+    border-color: #34495E;
+    color:#ffffff;
 }
 .dropdown-menu{
-	background-color: #34495E;        
+    background-color: #34495E;        
 }
 .dropdown-menu>li>a{
-	font-weight: normal;
-	font-size: 1.2em;
-        color:#fff!important;
+    font-weight: normal;
+    font-size: 1.2em;
+    color:#fff!important;
 }
 .dropdown-menu>li>a:visited{color:#fff!important;}
 .dropdown-header {
-  padding: 8px 16px;
-  line-height: 1.538;
-  font-size: 1em;
-  text-transform: capitalize;
-  color: #e2cc0c;
+    padding: 8px 16px;
+    line-height: 1.538;
+    font-size: 1em;
+    text-transform: capitalize;
+    color: #e2cc0c;
 }
 .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover{color:#34495E!important;background-color: #e2cc0c;}
 .dropdown-menu>li>a:hover{
     color:#34495E;
 }
 .carousel-inner{
-	margin-top: 0px;
-	margin-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 footer.footer {
-  position: absolute;
-  margin-top:20px;
-  left:0;
-  right:0;
-  bottom: 0;
-  width: 100%;
-  color:#FFF;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #34495E;
+    position: absolute;
+    margin-top:20px;
+    left:0;
+    right:0;
+    bottom: 0;
+    width: 100%;
+    color:#FFF;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #34495E;
 }
 
 body > .container {
-  padding: 2px 15px 0;
-  min-height:100%;  
-  margin-bottom: -62px; 
+    padding: 2px 15px 0;
+    min-height:100%;  
+    margin-bottom: -62px; 
 }
 
 body > .container:after {
-  content: "";
-  display: block;
+    content: "";
+    display: block;
 }
 
 #footer, body > .container:after {
-  height: 142px; 
+    height: 142px; 
 }
 
 footer.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 .container .text-muted {
     margin: 20px 0;
 }
 code {
-  font-size: 70%;
+    font-size: 70%;
 }
 
 /* Wrapper for page content to push down footer */
 #wrap {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  /* Negative indent footer by it's height */
-  margin: 0 auto -60px;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -60px;
 }
 
 /* Set the fixed height of the footer here */
 #footer {
-  height: 60px;
-  background-color: #34495E;
-  color:#FFFFFF;
+    height: 60px;
+    background-color: #34495E;
+    color:#FFFFFF;
 }
 
 /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
-	#footer {
-	  margin-left: -20px;
-	  margin-right: -20px;
-	  padding-left: 20px;
-	  padding-right: 20px;
-	}
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
 
 .errors{
-  display: inline-block;
-  width:100%;
-  height:auto;
-  border:1px solid red;
-  background-color: #FFEEE8;
-  color:red;
-  font-size: 12px;
-  text-align:center;
+    display: inline-block;
+    width:100%;
+    height:auto;
+    border:1px solid red;
+    background-color: #FFEEE8;
+    color:red;
+    font-size: 12px;
+    text-align:center;
+}
+
+table thead th{
+    text-align:center;
+}
+table td i:hover{
+    color:#dd1355;
+}
+table td {
+    text-align: center;    
+}
+table td i{
+    color:#34495E;
 }
 
 .active-elem-table{
@@ -262,7 +315,7 @@ ul{
     border-right:1px solid #ccc !important;
     border-top:1px solid #ccc !important;
     border-bottom:1px solid #ccc !important;
-    
+
 }
 .space-col-right-50px{
     margin-right: 137px;

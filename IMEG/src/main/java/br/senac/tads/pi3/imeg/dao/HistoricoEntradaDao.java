@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -45,42 +44,18 @@ public class HistoricoEntradaDao {
         return false;
     }
 
-    public ArrayList<Produto> produtosComSaldo(){
-        String sql = "SELECT DISTINCT P.ID AS ID, P.NOME AS NOME, P.SALDO AS SALDO, IT.PRECO_VENDA as PRECO FROM ADM.ITENS_ENTRADA AS IT INNER JOIN ADM.PRODUTOS as P ON P.ID = IT.PRODUTOS_ID  WHERE P.SALDO > 0";
-        try{
-            ArrayList<Produto> produtos = new ArrayList<>();
-            pst = new Conexao().prepararStatement(sql);
-            ResultSet res = pst.executeQuery();
-            while(res.next()){
-                Produto produto = new Produto();
-                produto.setId(res.getInt("ID"));
-                produto.setNome(res.getString("NOME"));
-                produto.setPrecoVenda(res.getDouble("PRECO"));
-                produto.setSaldo(res.getInt("SALDO"));
-                produtos.add(produto);
-            }
-            return produtos;
-        } catch (SQLException e) {
-            System.out.println("ERROR SQL: " + e.getMessage());
-        } finally {
-            try {
-                pst.close();
-            } catch (SQLException e) {
-                Logger.getLogger(HistoricoEntradaDao.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        return null;
-    }
-    public void atualizaSaldo(HistoricoEntrada historicoEntrada) {
+    public void atualizarSaldoPrecoVenda(HistoricoEntrada historicoEntrada) {
 
         String sql = "UPDATE PRODUTOS\n"
-                + "SET  SALDO = ? \n"
+                + "SET  SALDO = ?, PRECO_VENDA=?, PRECO_CUSTO=? \n"
                 + "WHERE ID = ?";
         try {
 
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, historicoEntrada.getProduto().getSaldo() + historicoEntrada.getQtdeProduto());
-            pst.setInt(2, historicoEntrada.getProduto().getId());
+            pst.setDouble(2, historicoEntrada.getPrecoVenda());
+            pst.setDouble(3, historicoEntrada.getPrecoCusto());
+            pst.setInt(4, historicoEntrada.getProduto().getId());
 
             pst.execute();
         } catch (SQLException ex) {

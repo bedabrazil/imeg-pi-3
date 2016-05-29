@@ -1,10 +1,8 @@
 package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.RelatorioDao;
-import br.senac.tads.pi3.imeg.entity.Relatorio;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

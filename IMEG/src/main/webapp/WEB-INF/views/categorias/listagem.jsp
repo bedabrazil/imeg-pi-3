@@ -36,7 +36,7 @@
                         </c:otherwise></c:choose>
                 </td>
                 <td>${categoria.getNome()}</td>
-                <td><a href="<c:url value="/categorias/editar?id=${categoria.getId()}"></c:url>">Editar</a></td>
+                <td><center><a href="<c:url value="/categorias/editar?id=${categoria.getId()}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a></center></td>                
             </tr>
         </c:forEach>
         </tbody>

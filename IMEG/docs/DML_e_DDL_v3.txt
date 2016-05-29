@@ -58,6 +58,8 @@ CREATE TABLE PRODUTOS(
 ID INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 CATEGORIAS_ID INT NOT NULL,
 NOME VARCHAR (50) NOT NULL,
+DESCRICAO CLOB(64K) DEFAULT NULL,
+DESCRICAO_CURTA CLOB(16K) DEFAULT NULL,
 PRECO_CUSTO DECIMAL (10, 2) ,
 PRECO_VENDA DECIMAL (10, 2) ,
 QTDE_MIN INT NOT NULL,
@@ -123,14 +125,14 @@ INSERT INTO  ITENS_ENTRADA(PRODUTOS_ID, FUNCIONARIOS_ID, DATA_TRANSACAO, QTDE_PR
 VALUES(4, 4, '2016-05-09', 100, 67.88, 127.88);
 
 --POPULA PRODUTOS
-INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO)
-VALUES(1, 'DOVE MAN 400ML', 5.99, 10.99, 50, 1000, 100);
-INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO)
-VALUES(2, 'PALMOLIVE 300ML', 6.99, 11.99, 50, 1000, 200);
-INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO)
-VALUES(3, 'PANTENE 200ML', 7.99, 12.99, 50, 1000, 300);
-INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO)
-VALUES(4, 'OX WOMAN 100ML', 8.99, 13.99, 50, 1000, 400);
+INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO, DESCRICAO, DESCRICAO_CURTA)
+VALUES(1, 'DOVE MAN 400ML', 5.99, 10.99, 50, 1000, 100, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend pulvinar consectetur. Nunc euismod massa vitae nibh tristique, non mollis risus dignissim. Nulla quis molestie libero. Mauris fermentum quam metus, quis tempor urna venenatis ac. Nam sapien quam, volutpat vel tellus a, condimentum tristique quam. Sed a nulla a elit fringilla vestibulum. Etiam finibus posuere justo, ut tristique elit fermentum sit amet. Suspendisse efficitur laoreet posuere. Curabitur fermentum sapien non tortor auctor, in pulvinar lacus tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc ut elit vitae nisl semper sollicitudin sed at tellus. Integer interdum lectus nec eleifend semper. Nunc facilisis mollis felis eu lacinia. Vestibulum vel laoreet tortor, in congue est. Nullam cursus ipsum non orci scelerisque, quis tristique magna facilisis. Integer in auctor nibh. Praesent suscipit velit vel mollis tristique. Ut dignissim sed dui et pellentesque. Maecenas consequat nisi efficitur ante congue sollicitudin. Vestibulum sit amet eros orci. Fusce et purus ut ex feugiat tempor sit amet at enim. In posuere varius diam, at imperdiet velit tempor ac. Donec molestie sed elit non sollicitudin. Cras et erat tempus, ornare ante et, tincidunt eros. Aenean id fringilla mi. Nullam vel convallis neque.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend pulvinar consectetur. Nunc euismod massa vitae nibh tristique, non mollis risus dignissim. Nulla quis molestie libero. Mauris fermentum quam metus, quis tempor urna venenatis ac.');
+INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO, DESCRICAO, DESCRICAO_CURTA)
+VALUES(2, 'PALMOLIVE 300ML', 6.99, 11.99, 50, 1000, 200,  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend pulvinar consectetur. Nunc euismod massa vitae nibh tristique, non mollis risus dignissim. Nulla quis molestie libero. Mauris fermentum quam metus, quis tempor urna venenatis ac. Nam sapien quam, volutpat vel tellus a, condimentum tristique quam. Sed a nulla a elit fringilla vestibulum. Etiam finibus posuere justo, ut tristique elit fermentum sit amet. Suspendisse efficitur laoreet posuere. Curabitur fermentum sapien non tortor auctor, in pulvinar lacus tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc ut elit vitae nisl semper sollicitudin sed at tellus. Integer interdum lectus nec eleifend semper. Nunc facilisis mollis felis eu lacinia. Vestibulum vel laoreet tortor, in congue est. Nullam cursus ipsum non orci scelerisque, quis tristique magna facilisis. Integer in auctor nibh. Praesent suscipit velit vel mollis tristique. Ut dignissim sed dui et pellentesque. Maecenas consequat nisi efficitur ante congue sollicitudin. Vestibulum sit amet eros orci. Fusce et purus ut ex feugiat tempor sit amet at enim. In posuere varius diam, at imperdiet velit tempor ac. Donec molestie sed elit non sollicitudin. Cras et erat tempus, ornare ante et, tincidunt eros. Aenean id fringilla mi. Nullam vel convallis neque.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend pulvinar consectetur. Nunc euismod massa vitae nibh tristique, non mollis risus dignissim. Nulla quis molestie libero. Mauris fermentum quam metus, quis tempor urna venenatis ac.');
+INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO, DESCRICAO, DESCRICAO_CURTA)
+VALUES(3, 'PANTENE 200ML', 7.99, 12.99, 50, 1000, 300,  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend pulvinar consectetur. Nunc euismod massa vitae nibh tristique, non mollis risus dignissim. Nulla quis molestie libero. Mauris fermentum quam metus, quis tempor urna venenatis ac. Nam sapien quam, volutpat vel tellus a, condimentum tristique quam. Sed a nulla a elit fringilla vestibulum. Etiam finibus posuere justo, ut tristique elit fermentum sit amet. Suspendisse efficitur laoreet posuere. Curabitur fermentum sapien non tortor auctor, in pulvinar lacus tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc ut elit vitae nisl semper sollicitudin sed at tellus. Integer interdum lectus nec eleifend semper. Nunc facilisis mollis felis eu lacinia. Vestibulum vel laoreet tortor, in congue est. Nullam cursus ipsum non orci scelerisque, quis tristique magna facilisis. Integer in auctor nibh. Praesent suscipit velit vel mollis tristique. Ut dignissim sed dui et pellentesque. Maecenas consequat nisi efficitur ante congue sollicitudin. Vestibulum sit amet eros orci. Fusce et purus ut ex feugiat tempor sit amet at enim. In posuere varius diam, at imperdiet velit tempor ac. Donec molestie sed elit non sollicitudin. Cras et erat tempus, ornare ante et, tincidunt eros. Aenean id fringilla mi. Nullam vel convallis neque.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend pulvinar consectetur. Nunc euismod massa vitae nibh tristique, non mollis risus dignissim. Nulla quis molestie libero. Mauris fermentum quam metus, quis tempor urna venenatis ac.' );
+INSERT INTO  PRODUTOS(CATEGORIAS_ID, NOME, PRECO_CUSTO, PRECO_VENDA, QTDE_MIN, QTDE_MAX, SALDO, DESCRICAO, DESCRICAO_CURTA)
+VALUES(4, 'OX WOMAN 100ML', 8.99, 13.99, 50, 1000, 400,  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend pulvinar consectetur. Nunc euismod massa vitae nibh tristique, non mollis risus dignissim. Nulla quis molestie libero. Mauris fermentum quam metus, quis tempor urna venenatis ac. Nam sapien quam, volutpat vel tellus a, condimentum tristique quam. Sed a nulla a elit fringilla vestibulum. Etiam finibus posuere justo, ut tristique elit fermentum sit amet. Suspendisse efficitur laoreet posuere. Curabitur fermentum sapien non tortor auctor, in pulvinar lacus tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc ut elit vitae nisl semper sollicitudin sed at tellus. Integer interdum lectus nec eleifend semper. Nunc facilisis mollis felis eu lacinia. Vestibulum vel laoreet tortor, in congue est. Nullam cursus ipsum non orci scelerisque, quis tristique magna facilisis. Integer in auctor nibh. Praesent suscipit velit vel mollis tristique. Ut dignissim sed dui et pellentesque. Maecenas consequat nisi efficitur ante congue sollicitudin. Vestibulum sit amet eros orci. Fusce et purus ut ex feugiat tempor sit amet at enim. In posuere varius diam, at imperdiet velit tempor ac. Donec molestie sed elit non sollicitudin. Cras et erat tempus, ornare ante et, tincidunt eros. Aenean id fringilla mi. Nullam vel convallis neque.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend pulvinar consectetur. Nunc euismod massa vitae nibh tristique, non mollis risus dignissim. Nulla quis molestie libero. Mauris fermentum quam metus, quis tempor urna venenatis ac.');
 
 --POPULA CATEGORIAS
 INSERT INTO  CATEGORIAS(NOME)
@@ -267,8 +269,13 @@ INNER JOIN CATEGORIAS CATEG ON PROD.CATEGORIAS_ID = CATEG.ID
 GROUP BY SAIDA.PRODUTOS_ID,PROD.NOME,CATEG.NOME 
 ORDER BY COUNT(SAIDA.PRODUTOS_ID) DESC;
 
+-- <<<<<<< Local Changes
+/***PRODUTOS MAIS VENDIDOS VERSAO_TEMP ***/
+-- CREATE VIEW MAIS_VENDIDOS_VERSAO_TEMP
+-- =======
 /***PRODUTOS MAIS VENDIDOS VERSÃO_TEMP ***/
 CREATE VIEW MAIS_VENDIDOS_VERSAO_TEMP
+-- >>>>>>> External Changes
 AS 
 select COUNT(SAIDA.PRODUTOS_ID) AS "QTD_VENDA",
             SAIDA.PRODUTOS_ID AS "PRODUTO"

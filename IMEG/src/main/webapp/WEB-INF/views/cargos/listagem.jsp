@@ -36,7 +36,7 @@
                             <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
                         </c:otherwise></c:choose></td>
                 <td>${cargo.nome}</td>
-                <td><a href="<c:url value="/cargos/editar?id=${cargo.id}"></c:url>">Editar</a></td>
+                <td><center><a href="<c:url value="/cargos/editar?id=${cargo.id}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a></center></td>
             </tr>
         </c:forEach>
         </tbody>
