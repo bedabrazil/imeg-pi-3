@@ -36,6 +36,9 @@ ${mensagem}
                                 <td>${maisVendidos.produto.nome}</td>
                             </tr>
                         </c:forEach>
+                            <tr>
+                                <td colspan="2"><input type="date" name="data1"><input type="date" name="data2"></td>
+                            </tr>
                      </tbody>
                  </table>
                     </c:when>
