@@ -11,12 +11,12 @@ import java.util.Date;
  *
  * @author diogo.lsousa
  */
-public class HistoricoSaida {
+public class ItemSaida {
     private int id;
     private Produto produto;
     private Funcionario funcionario;
-    private Date data_transacao;
-    private int qtde_produtos;
+    private Date dataTransacao;
+    private int qtdeProdutos;
 
     /**
      * @return the id
@@ -34,29 +34,29 @@ public class HistoricoSaida {
     /**
      * @return the data_transacao
      */
-    public Date getData_transacao() {
-        return data_transacao;
+    public Date getDataTransacao() {
+        return dataTransacao;
     }
 
     /**
-     * @param data_transacao the data_transacao to set
+     * @param dataTransacao the data_transacao to set
      */
-    public void setData_transacao(Date data_transacao) {
-        this.data_transacao = data_transacao;
+    public void setDataTransacao(Date dataTransacao) {
+        this.dataTransacao = dataTransacao;
     }
 
     /**
-     * @return the qtde_produtos
+     * @return the qtdeProdutos
      */
-    public int getQtde_produtos() {
-        return qtde_produtos;
+    public int getQtdeProdutos() {
+        return qtdeProdutos;
     }
 
     /**
-     * @param qtde_produtos the qtde_produtos to set
+     * @param qtdeProdutos the qtdeProdutos to set
      */
-    public void setQtde_produtos(int qtde_produtos) {
-        this.qtde_produtos = qtde_produtos;
+    public void setQtde_produtos(int qtdeProdutos) {
+        this.qtdeProdutos = qtdeProdutos;
     }
 
     /**

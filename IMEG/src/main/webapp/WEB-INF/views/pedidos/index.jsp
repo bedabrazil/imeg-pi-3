@@ -18,13 +18,13 @@
                         <div class="col-lg-12">
                             <h4>${produto.nome}</h4>
                             <strong>SKU: <span>#${produto.id}</span></strong>
-                            <strong><fmt:formatNumber value="${produto.precoVenda}" type="currency"/></strong>
+                            <strong><fmt:formatNumber value="${produto.getPrecoVenda()}" type="currency"/></strong>
                             <p>No estoque: ${produto.saldo} peças</p>
                         </div>
                         <div class="col-lg-12 descricao">
                             <p>${produto.descricaoCurta}</p>
                         </div>
-                            <form action="<c:url value="/pedidos/inserir"/>" method="post"  enctype="application/x-www-form-urlencoded">
+                            <form action="<c:url value="/carrinho"/>" method="post"  enctype="application/x-www-form-urlencoded">
                                 <input type="hidden" name="id_produto" value="${produto.id}">
                                 <div class="col-lg-12 col-lg-offset-1">
                                     <button type="submit" name="commit" class="btn btn-button"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Comprar</button>

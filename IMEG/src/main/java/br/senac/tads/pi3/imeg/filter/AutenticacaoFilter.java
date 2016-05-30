@@ -38,15 +38,13 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
     "NovoCargoServlet",
     "NovoFuncionarioServlet",
     "NovoProdutoServlet",
+    "MeusDadosServlet",
     "ProdutosServlet",
     "UnidadesServlet",
     "RelatorioServlet",
-    "PedidosServlet",
-    "MeusDadosServlet"
+    "PedidosServlet"
 })
 public class AutenticacaoFilter implements Filter {
-
-
 
     /**
      *
@@ -64,17 +62,18 @@ public class AutenticacaoFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        HttpSession sessao = httpRequest.getSession();
-        Funcionario usuario = (Funcionario) sessao.getAttribute("usuario");
+        HttpSession session = httpRequest.getSession();
+        Funcionario usuario = (Funcionario) session.getAttribute("usuario");
         if (usuario == null) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
         try {
-            if (verificarAcesso(usuario, httpRequest, httpResponse)) {
+            boolean possoAcessar = verificarAcesso(usuario, httpRequest, httpResponse);
+            if (possoAcessar) {
                 chain.doFilter(request, response);
             } else {
-                httpResponse.sendRedirect(httpRequest.getContextPath() +  "/");   
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/home");
             }
         } catch (IOException | ServletException t) {
         }
@@ -91,11 +90,15 @@ public class AutenticacaoFilter implements Filter {
      */
     private static boolean verificarAcesso(Funcionario func, HttpServletRequest req, HttpServletResponse resp) {
         String pagina = req.getRequestURI();
-        if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("ANALISTA"))){
+        if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("ANALISTA"))) {
             return true;
-        }else if (pagina.endsWith("/relatorio") && func.getAcesso().getNome().equals("GERENTE")){
+        }else if( (pagina.endsWith("/pedidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("ATENDENTE")))){
             return true;
-        }else if(func.getAcesso().getNome().equals("ADMIN")){
+        } else if (pagina.endsWith("/relatorio") && func.getAcesso().getNome().equals("GERENTE")) {
+            return true;
+        }else if (pagina.endsWith("/meusdados") || pagina.endsWith("/meusdados/editar")){
+            return true;
+        } else if (func.getAcesso().getNome().equals("ADMIN")) {
             return true;
         }
         return false;

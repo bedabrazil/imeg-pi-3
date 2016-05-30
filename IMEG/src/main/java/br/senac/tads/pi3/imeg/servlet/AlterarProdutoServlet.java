@@ -78,6 +78,15 @@ public class AlterarProdutoServlet extends HttpServlet {
             mensagens.add("Quantidade máxima inválida.");
             request.setAttribute("error", true);
         }
+        if (request.getParameter("preco_custo_produto").isEmpty()) {
+            mensagens.add("O campo Preço de Custo não pode ser vazio.");
+            request.setAttribute("error", true);
+        }
+
+        if (request.getParameter("preco_venda_produto").isEmpty()) {
+            mensagens.add("O campo Preço de Venda não pode ser vazio.");
+            request.setAttribute("error", true);
+        }
         if (request.getParameter("categoria_id").equals("0")) {
             mensagens.add("Selecione uma Categoria.");
             request.setAttribute("error", true);
@@ -94,6 +103,8 @@ public class AlterarProdutoServlet extends HttpServlet {
         produto.setId(Integer.parseInt(request.getParameter("id_produto")));
         produto.setNome(request.getParameter("nome_produto"));
         produto.setDescricao(request.getParameter("descricao_produto"));
+        produto.setPrecoCusto(Double.parseDouble(request.getParameter("preco_custo_produto").replace(".", "").replace(",", ".")));
+        produto.setPrecoVenda(Double.parseDouble(request.getParameter("preco_venda_produto").replace(".", "").replace(",", ".")));
         produto.setDescricaoCurta(request.getParameter("descricao_curta_produto"));
         produto.setQtdeMin(Integer.parseInt(request.getParameter("qtd_min_produto")));
         produto.setQtdeMax(Integer.parseInt(request.getParameter("qtd_max_produto")));

@@ -6,6 +6,7 @@
 package br.senac.tads.pi3.imeg.dao;
 
 import br.senac.tads.pi3.imeg.entity.Categoria;
+import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import br.senac.tads.pi3.imeg.entity.Produto;
@@ -51,7 +52,7 @@ public class ProdutoDao {
         return false;
     }
 
-    public ArrayList<Produto> consultarProduto(String pesquisa, Categoria categoria ) {
+    public ArrayList<Produto> consultarProduto(String pesquisa, Categoria categoria) {
         String sql = "SELECT * FROM PRODUTOS WHERE CATEGORIAS_ID = ? AND NOME LIKE '% ? %'";
         ArrayList<Produto> tempProduto = new ArrayList<>();
 
@@ -60,7 +61,7 @@ public class ProdutoDao {
             pst.setInt(1, categoria.getId());
             pst.setString(2, pesquisa);
             ResultSet rs = pst.executeQuery(sql);
-            
+
             while (rs.next()) {
                 Produto produto = new Produto();
                 CategoriaDao cDao = new CategoriaDao();
@@ -91,28 +92,29 @@ public class ProdutoDao {
         }
         return null;
     }
-    public Produto pesquisarPorId(int id ) {
+
+    public Produto pesquisarPorId(int id) {
         String sql = "SELECT PRODUTOS.* FROM PRODUTOS WHERE ID=?";
 
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
-            Produto produto = new Produto();
-            CategoriaDao cDao = new CategoriaDao();
             if (rs.next()) {
-                
-                produto.setCategoria(cDao.pesquisarPorId(rs.getInt("CATEGORIAS_ID")));
+                Produto produto = new Produto();
+                produto.setCategoria(new CategoriaDao().pesquisarPorId(rs.getInt("CATEGORIAS_ID")));
                 produto.setId(rs.getInt("ID"));
                 produto.setNome(rs.getString("NOME"));
                 produto.setQtdeMin(rs.getInt("QTDE_MIN"));
                 produto.setQtdeMax(rs.getInt("QTDE_MAX"));
                 produto.setSaldo(rs.getInt("SALDO"));
                 produto.setStatus(rs.getBoolean("STATUS"));
+                produto.setPrecoCusto(rs.getDouble("PRECO_CUSTO"));
+                produto.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
                 produto.setDescricao(rs.getString("DESCRICAO"));
-                produto.setDescricaoCurta(rs.getString("DESCRICAO_CURTA"));                
+                produto.setDescricaoCurta(rs.getString("DESCRICAO_CURTA"));
+                return produto;
             }
-            return produto;
 
         } catch (SQLException ex) {
             System.out.println("ERRO DE SQL: " + ex.getMessage());
@@ -127,7 +129,7 @@ public class ProdutoDao {
     }
 
     public boolean alterar(Produto produto) {
-        String sql = "UPDATE PRODUTOS SET CATEGORIAS_ID=?, NOME=?, QTDE_MIN=?, QTDE_MAX=?, STATUS=?, DESCRICAO=?, DESCRICAO_CURTA=?"
+        String sql = "UPDATE PRODUTOS SET CATEGORIAS_ID=?, NOME=?, QTDE_MIN=?, QTDE_MAX=?, STATUS=?, PRECO_CUSTO=?, PRECO_VENDA=?, DESCRICAO=?, DESCRICAO_CURTA=?"
                 + "WHERE ID=?";
         // UPDATE
 
@@ -138,10 +140,12 @@ public class ProdutoDao {
             pst.setInt(3, produto.getQtdeMin());
             pst.setInt(4, produto.getQtdeMax());
             pst.setBoolean(5, produto.isStatus());
-            pst.setString(6, produto.getDescricao());
-            pst.setString(7, produto.getDescricaoCurta());
-            pst.setInt(8, produto.getId());
-            
+            pst.setDouble(6, produto.getPrecoCusto());
+            pst.setDouble(7, produto.getPrecoVenda());
+            pst.setString(8, produto.getDescricao());
+            pst.setString(9, produto.getDescricaoCurta());
+            pst.setInt(10, produto.getId());
+
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -157,13 +161,14 @@ public class ProdutoDao {
         }
         return false;
     }
-    public ArrayList<Produto> listar(){
+
+    public ArrayList<Produto> listarMatriz() {
         String sql = "SELECT PRODUTOS.* FROM PRODUTOS ORDER BY NOME ASC";
-        try{
+        try {
             pst = new Conexao().prepararStatement(sql);
             ResultSet res = pst.executeQuery();
             ArrayList<Produto> produtos = new ArrayList<>();
-            while(res.next()){
+            while (res.next()) {
                 Produto p = new Produto();
                 p.setId(res.getInt("ID"));
                 p.setNome(res.getString("NOME"));
@@ -188,14 +193,15 @@ public class ProdutoDao {
         }
         return null;
     }
-    public boolean pesquisarPorNome(String nome){
+
+    public boolean pesquisarPorNome(String nome) {
         String sql = "SELECT NOME FROM PRODUTOS WHERE NOME=?";
-        
-        try{
+
+        try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, nome);
             ResultSet rs = pst.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return true;
             }
         } catch (SQLException ex) {
@@ -210,21 +216,17 @@ public class ProdutoDao {
         return false;
     }
 
-
-    public ArrayList<Produto> produtosComSaldo(){
-        String sql = "SELECT P.ID AS ID, P.NOME AS NOME, P.SALDO AS SALDO, P.PRECO_VENDA as PRECO, P.DESCRICAO_CURTA FROM PRODUTOS as P WHERE P.SALDO > 0 AND STATUS=true";
-        try{
+    public ArrayList<Produto> produtosComSaldo() {
+        String sql = "SELECT * FROM ADM.ITENS_ENTRADA";
+        try {
             ArrayList<Produto> produtos = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
             ResultSet res = pst.executeQuery();
-            while(res.next()){
-                Produto produto = new Produto();
-                produto.setId(res.getInt("ID"));
-                produto.setNome(res.getString("NOME"));
-                produto.setPrecoVenda(res.getDouble("PRECO"));
-                produto.setSaldo(res.getInt("SALDO"));
-                produto.setDescricaoCurta(res.getString("DESCRICAO_CURTA"));
-                produtos.add(produto);
+            while (res.next()) {
+                Produto produto = new ProdutoDao().pesquisarPorId(res.getInt("PRODUTOS_ID"));
+                if (produto != null && produto.isStatus() && produto.getSaldo() > 0) {
+                    produtos.add(produto);
+                }
             }
             return produtos;
         } catch (SQLException e) {
@@ -233,11 +235,10 @@ public class ProdutoDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(HistoricoEntradaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(ItensEntradaDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
-    }    
-    
-}
+    }
 
+}

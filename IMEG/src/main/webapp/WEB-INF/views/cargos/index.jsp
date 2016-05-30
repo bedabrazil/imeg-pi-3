@@ -5,6 +5,11 @@
 <%-- CABEÇALHO DO HTML --%>
 <jsp:include page="../header.jsp" />
 <%-- LISTAGEM DAS CARGOS --%>
-<jsp:include page="listagem.jsp"/>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Cargos</h3></div>
+    <div class="panel-body"> 
+        <jsp:include page="listagem.jsp"/>
+    </div>
+</div>
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />

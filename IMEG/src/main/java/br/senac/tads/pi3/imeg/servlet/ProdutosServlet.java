@@ -5,7 +5,10 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.ItensEntradaDao;
+import br.senac.tads.pi3.imeg.dao.ItensEntradaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
+import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +40,14 @@ public class ProdutosServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Produto> produtos = new ProdutoDao().listar();
+        ArrayList<Produto> produtos = null;
+        HttpSession session = request.getSession(true);
+        Funcionario usuario = (Funcionario) session.getAttribute("usuario");
+        if(usuario != null && usuario.getUnidade().isMatriz()){
+            produtos = new ProdutoDao().listarMatriz();
+        }else if(usuario != null){
+            produtos = new ItensEntradaDao().listarProdutosComprados(usuario);
+        }
         request.setAttribute("produtos", produtos);
         request.getRequestDispatcher("/WEB-INF/views/produtos/index.jsp").forward(request, response);
     }

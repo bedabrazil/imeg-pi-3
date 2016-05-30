@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author marcio.soares
  */
-@WebServlet(name = "HomeServlet", displayName="TADS", urlPatterns = {"/index.html", "/home", "/bemvindo"})
+@WebServlet(name = "HomeServlet", displayName = "TADS", urlPatterns = {"/index.html", "/home", "/bemvindo"})
 public class HomeServlet extends HttpServlet {
 
     /**
@@ -35,16 +35,7 @@ public class HomeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        Funcionario usuario = (Funcionario) session.getAttribute("usuario");
-        
-        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarMaisVendidos();        
-        request.setAttribute("maisVendidos", maisVendidos);        
-        if(usuario == null){
-         request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);
-        }else{
-         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);            
-        }
+        request.getRequestDispatcher("/WEB-INF/views/home/index.jsp").forward(request, response);
     }
 
     /**
@@ -59,7 +50,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
     }
 
     /**
@@ -75,15 +66,4 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
-
 }

@@ -3,8 +3,9 @@
     <c:choose>
         <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
     </c:choose>
+
     <div class="col-lg-12">
-        <h3><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Funcionarios</h3>
+
         <a href="<c:url value="/funcionarios/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Novo Funcionário</a>
             <br>
             <div id="warning" class="col-lg-12 ${alert}">
@@ -52,4 +53,5 @@
             </tbody>
         </table>
     </div>
+
 </c:if>

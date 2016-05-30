@@ -7,9 +7,7 @@
     <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
 </c:choose>
 
-<div class="page-header">
-    Olá <strong>${sessionScope.usuario.nome},</strong> <small>Seja Bem Vindo!</small>
-</div>
+
 <div id="warning" class="col-lg-12 ${alert}">
 <c:if test="${sessionScope.success}">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

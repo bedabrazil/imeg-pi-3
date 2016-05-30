@@ -10,7 +10,6 @@ import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
-import java.sql.Clob;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -92,6 +91,9 @@ public class NovoProdutoServlet extends HttpServlet {
         if (request.getParameter("categoria_id").equals("0")) {
             mensagens.add("Selecione uma Categoria.");
         }
+        if(request.getParameter("descricao_curta_produto").isEmpty()){
+            mensagens.add("Insira ao menos uma descrição curta.");            
+        }        
         if(new ProdutoDao().pesquisarPorNome(request.getParameter("nome_produto"))){
             mensagens.add("Nome de Produto já existe.");
         }

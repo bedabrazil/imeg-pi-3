@@ -8,16 +8,39 @@ body {
     height: 100%;
     /* The html and body elements cannot have any padding or margin. */
 }
-#requests{
+input[type=number] {
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    padding: 0 8px;
+}
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    cursor:pointer;
+    display:block;
+    width:8px;
+    color: #333;
+    text-align:center;
+    position:relative;
+}    
+input[type=number]:hover::-webkit-inner-spin-button { 
+    background: transparent url('../img/arrow-number.png') no-repeat 50% 50%;  
+    width: 14px;
+    height: 14px;
+    padding: 4px;
+    position: relative;
+    right: -8px;
+    border-radius: 28px;
+}#requests{
     padding: 0;
 }
 .row-requests{
     margin:10px 1px;
     border: 1px solid #ccc; 
     height: 400px;
--webkit-box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
--moz-box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
-box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
+    -webkit-box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
+    -moz-box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
+    box-shadow: 3px 6px 24px -5px rgba(0,0,0,0.44);
 }
 .row-requests button.btn.btn-button + input[type='number']{
     width: 60px;
@@ -86,15 +109,15 @@ em{
 
 }
 .dropdown button > i{
-    color: #dd1355;
+    color: #E2CC0C;
 }
 
 .dropdown button[aria-expanded='true'] > i{
-    color: #E2CC0C;
+    color: #dd1355;
 }
 
 .dropdown button:hover > i{
-    color: #E2CC0C;
+    color: #dd1355;
 }
 .dropdown button + .dropdown-menu{
     margin-left: -5px;

@@ -5,10 +5,10 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.HistoricoEntradaDao;
+import br.senac.tads.pi3.imeg.dao.ItensEntradaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
-import br.senac.tads.pi3.imeg.entity.HistoricoEntrada;
+import br.senac.tads.pi3.imeg.entity.ItemEntrada;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class InserirProdutoServlet extends HttpServlet {
             int quantidade = Integer.parseInt(request.getParameter("quantidade"));
             int id = Integer.parseInt(request.getParameter("id_produto"));
 
-            HistoricoEntrada histEntrada = new HistoricoEntrada();
+            ItemEntrada histEntrada = new ItemEntrada();
 
             histEntrada.setPrecoCusto(preco_custo_produto);
             histEntrada.setPrecoVenda(preco_venda_produto);
@@ -99,8 +99,8 @@ public class InserirProdutoServlet extends HttpServlet {
             histEntrada.setProduto(new ProdutoDao().pesquisarPorId(id));
             histEntrada.setFuncionario(usuario);
 
-            if (new HistoricoEntradaDao().adicionar(histEntrada)) {
-                new HistoricoEntradaDao().atualizarSaldoPrecoVenda(histEntrada);
+            if (new ItensEntradaDao().adicionar(histEntrada)) {
+                new ItensEntradaDao().atualizarSaldoPrecoVenda(histEntrada);
 
                 session.setAttribute("msg_success", " Entrada realizada com sucesso.");
                 session.setAttribute("success", true);

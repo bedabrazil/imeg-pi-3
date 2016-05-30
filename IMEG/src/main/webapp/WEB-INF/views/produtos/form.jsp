@@ -34,7 +34,7 @@
             </div>
         </div>        
 
-        <div class="col-lg-6 form-space">
+        <div class="col-lg-5 form-space">
             <label for="nome_produto">Nome do Produto</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-product-hunt fa-fw"></i></span>             
@@ -42,23 +42,6 @@
                 </div>
             </div>
             <div class="col-lg-3 form-space">
-                <label for="qtd_min_produto">Quantidade Mínima</label>
-                <input class="form-control number" placeholder="Quantidade Mínima" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMin}</c:if>" type="text" id="qtd_min_produto" name="qtd_min_produto"/>
-            </div>
-            <div class="col-lg-3 form-space">
-                <label for="qtd_max_produto">Quantidade Máxima</label>
-                <input class="form-control number" placeholder="Quantidade Máxima" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMax}</c:if>" type="text" id="qtd_max_produto" name="qtd_max_produto"/>
-            </div>
-            <div class="col-lg-4">
-                <label for="descricao_curta_produto">Descrição Curta</label>
-                <textarea class="form-control" name="descricao_curta_produto" id="descricao_curta_produto" cols="8" rows="6"><c:if test="${produto != null }">${produto.descricaoCurta}</c:if></textarea>
-            </div>
-            <div class="col-lg-8">
-                <label for="descricao_produto">Descrição</label>
-                <textarea class="form-control" name="descricao_produto" id="descricao_produto" cols="8" rows="6"><c:if test="${produto != null }">${produto.descricao}</c:if></textarea>
-            </div>
-            <div class="col-lg-12"></div>
-            <div class="col-lg-4 form-space">
                 <label for="categoria_id">Categoria </label>
                 <select name="categoria_id" class="form-control" >
                 <c:choose>
@@ -73,7 +56,33 @@
                     <option value="${categoria.id}" <c:if test="${categoria.id == produto.categoria.id}">selected="selected"</c:if> >${categoria.nome}</option>
                 </c:forEach>
             </select>
-        </div>            
+            </div>
+                
+            <div class="col-lg-2 form-space">
+                <label for="qtd_min_produto">Quantidade Mínima</label>
+                <input class="form-control number" placeholder="Quantidade Mínima" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMin}</c:if>" type="text" id="qtd_min_produto" name="qtd_min_produto"/>
+            </div>
+            <div class="col-lg-2 form-space">
+                <label for="qtd_max_produto">Quantidade Máxima</label>
+                <input class="form-control number" placeholder="Quantidade Máxima" maxlength="4" value="<c:if test="${produto != null }">${produto.qtdeMax}</c:if>" type="text" id="qtd_max_produto" name="qtd_max_produto"/>
+            </div>
+            <div class="col-lg-2 form-space">
+                <label for="preco_custo_produto">Preço de Custo</label>
+                <input type="text" placeholder="Preço de Custo" maxlength="16" name="preco_custo_produto" id="preco_custo_produto" class="form-control maskmoney" value="<c:if test="${produto != null }">${produto.precoCusto}</c:if>">
+            </div>
+            <div class="col-lg-2 form-space">
+                <label for="preco_venda_produto">Preço de Venda</label>
+                <input type="text" placeholder="Preço de Venda" maxlength="16" name="preco_venda_produto" id="preco_venda_produto" class="form-control maskmoney" value="<c:if test="${produto != null }">${produto.precoVenda}</c:if>">
+            </div>
+            <div class="col-lg-12"></div>
+            <div class="col-lg-6 form-space">
+                <label for="descricao_curta_produto">Descrição Curta</label>
+                <textarea class="form-control" name="descricao_curta_produto" id="descricao_curta_produto" cols="8" rows="6"><c:if test="${produto != null }">${produto.descricaoCurta}</c:if></textarea>
+            </div>
+            <div class="col-lg-6 form-space">
+                <label for="descricao_produto">Descrição Longa</label>
+                <textarea class="form-control" name="descricao_produto" id="descricao_produto" cols="8" rows="6"><c:if test="${produto != null }">${produto.descricao}</c:if></textarea>
+            </div>
         <div class="col-lg-12 form-space">
             <label for="ativo_produto">Ativo</label>
             <input type="checkbox" id="ativo_produto" class="" <c:if test="${produto.isStatus()}">checked='checked'</c:if> name="ativo" value="true">

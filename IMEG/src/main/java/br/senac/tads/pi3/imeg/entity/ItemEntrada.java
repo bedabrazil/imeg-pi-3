@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author diogo.lsousa
  */
-public class HistoricoEntrada {
+public class ItemEntrada {
     
     private int id;
     private Produto produto;

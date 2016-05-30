@@ -6,6 +6,12 @@
 <jsp:include page="../header.jsp" />
 
 <%-- LISTAGEM DAS CATEGORIAS --%>
-<jsp:include page="listagem.jsp"/>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3><i class="fa fa-archive" aria-hidden="true"></i>&nbsp;Categorias</h3></div>
+    <div class="panel-body">  
+
+        <jsp:include page="listagem.jsp"/>
+    </div>
+</div>
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />
