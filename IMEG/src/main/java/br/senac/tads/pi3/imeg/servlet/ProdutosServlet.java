@@ -19,13 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
  * @author marcio.soares <marcio@mail.com>
  */
-
-
 @WebServlet(name = "ProdutosServlet", urlPatterns = {"/produtos", "/produtos/"})
 public class ProdutosServlet extends HttpServlet {
 
@@ -42,12 +39,8 @@ public class ProdutosServlet extends HttpServlet {
             throws ServletException, IOException {
         ArrayList<Produto> produtos = null;
         HttpSession session = request.getSession(true);
-        Funcionario usuario = (Funcionario) session.getAttribute("usuario");
-        if(usuario != null && usuario.getUnidade().isMatriz()){
-            produtos = new ProdutoDao().listarMatriz();
-        }else if(usuario != null){
-            produtos = new ItensEntradaDao().listarProdutosComprados(usuario);
-        }
+        produtos = new ProdutoDao().listarMatriz();
+        
         request.setAttribute("produtos", produtos);
         request.getRequestDispatcher("/WEB-INF/views/produtos/index.jsp").forward(request, response);
     }
@@ -64,10 +57,10 @@ public class ProdutosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
         String msg_success = (String) session.getAttribute("msg_success");
-        
+
         if (msg_success != null) {
             session.removeAttribute("msg_success");
             session.removeAttribute("success");

@@ -91,10 +91,10 @@ public class NovoProdutoServlet extends HttpServlet {
         if (request.getParameter("categoria_id").equals("0")) {
             mensagens.add("Selecione uma Categoria.");
         }
-        if(request.getParameter("descricao_curta_produto").isEmpty()){
-            mensagens.add("Insira ao menos uma descrição curta.");            
-        }        
-        if(new ProdutoDao().pesquisarPorNome(request.getParameter("nome_produto"))){
+        if (request.getParameter("descricao_curta_produto").isEmpty()) {
+            mensagens.add("Insira ao menos uma descrição curta.");
+        }
+        if (new ProdutoDao().pesquisarPorNome(request.getParameter("nome_produto"))) {
             mensagens.add("Nome de Produto já existe.");
         }
         if (mensagens.size() > 0) {
@@ -105,7 +105,7 @@ public class NovoProdutoServlet extends HttpServlet {
         }
         String nome = request.getParameter("nome_produto");
         String descricao = request.getParameter("descricao_produto");
-        String descricao_curta = request.getParameter("descricao_curta_produto");        
+        String descricao_curta = request.getParameter("descricao_curta_produto");
         int qtd_min_produto = Integer.parseInt(request.getParameter("qtd_min_produto"));
         int qtd_max_produto = Integer.parseInt(request.getParameter("qtd_max_produto"));
         int categoria_id = Integer.parseInt(request.getParameter("categoria_id"));
@@ -113,7 +113,13 @@ public class NovoProdutoServlet extends HttpServlet {
         if (!nome.isEmpty() && categoria_id > 0) {
 
             Produto produto = new Produto();
+            if (!request.getParameter("preco_custo_produto").isEmpty()) {
+                produto.setPrecoCusto(Double.parseDouble(request.getParameter("preco_custo_produto").replace(".", "").replace(",", ".")));
+            }
 
+            if (!request.getParameter("preco_venda_produto").isEmpty()) {
+                produto.setPrecoVenda(Double.parseDouble(request.getParameter("preco_venda_produto").replace(".", "").replace(",", ".")));
+            }
             produto.setNome(nome);
             produto.setQtdeMin(qtd_min_produto);
             produto.setQtdeMax(qtd_max_produto);
@@ -131,12 +137,13 @@ public class NovoProdutoServlet extends HttpServlet {
             }
         }
     }
+
     private String extractFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         String[] items = contentDisp.split(";");
         for (String s : items) {
             if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length()-1);
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
             }
         }
         return "";

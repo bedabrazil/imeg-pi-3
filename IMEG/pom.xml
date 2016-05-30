@@ -60,6 +60,11 @@
             <scope>test</scope>
             <version>4.11</version>
         </dependency>        
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.15-beta1</version>
+        </dependency>
     </dependencies>    
 <!--    <dependencies>
 

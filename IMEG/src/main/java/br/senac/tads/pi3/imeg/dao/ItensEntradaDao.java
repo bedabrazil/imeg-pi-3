@@ -25,16 +25,17 @@ public class ItensEntradaDao {
     private PreparedStatement pst;
 
     public boolean adicionar(ItemEntrada itemEntrada) {
-        String sql = "INSERT INTO ITENS_ENTRADA(PRODUTOS_ID, UNIDADES_ID, DATA_TRANSACAO, QTDE_PRODUTOS,PRECO_CUSTO, PRECO_VENDA) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO ITENS_ENTRADA(PRODUTOS_ID, FUNCIONARIOS_ID, UNIDADES_ID, DATA_TRANSACAO, QTDE_PRODUTOS,PRECO_CUSTO, PRECO_VENDA) VALUES(?,?,?,?,?,?,?)";
 
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, itemEntrada.getProduto().getId());
-            pst.setInt(2, itemEntrada.getFuncionario().getUnidade().getId());
-            pst.setDate(3, new Date(System.currentTimeMillis()));
-            pst.setInt(4, itemEntrada.getQtdeProduto());
-            pst.setDouble(5, itemEntrada.getPrecoCusto());
-            pst.setDouble(6, itemEntrada.getPrecoVenda());
+            pst.setInt(2, itemEntrada.getFuncionario().getId());
+            pst.setInt(3, itemEntrada.getFuncionario().getUnidade().getId());
+            pst.setDate(4, new Date(System.currentTimeMillis()));
+            pst.setInt(5, itemEntrada.getQtdeProduto());
+            pst.setDouble(6, itemEntrada.getPrecoCusto());
+            pst.setDouble(7, itemEntrada.getPrecoVenda());
             pst.execute();
 
             return true;
