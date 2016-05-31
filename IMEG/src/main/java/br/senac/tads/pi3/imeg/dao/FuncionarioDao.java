@@ -56,7 +56,7 @@ public class FuncionarioDao {
     //Altera informações de um funcionário
     public boolean alterar(Funcionario funcionario) {
         String sql = "UPDATE FUNCIONARIOS SET CARGOS_ID = ?, UNIDADES_ID = ?, "
-                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, SALT = ?, SENHA_HASH = ?, STATUS = ? "
+                + "ACESSOS_ID = ?, NOME = ?, EMAIL = ?, STATUS = ? "
                 + "WHERE ID = ?";
         try {
             pst = new Conexao().prepararStatement(sql);
@@ -65,10 +65,8 @@ public class FuncionarioDao {
             pst.setInt(3, funcionario.getAcesso().getId());
             pst.setString(4, funcionario.getNome());
             pst.setString(5, funcionario.getEmail());
-            pst.setString(6, funcionario.getSalt());
-            pst.setString(7, String.copyValueOf(funcionario.getSenhaHash()));
-            pst.setBoolean(8, funcionario.isStatus());
-            pst.setInt(9, funcionario.getId());
+            pst.setBoolean(6, funcionario.isStatus());
+            pst.setInt(7, funcionario.getId());
 
             if (pst.executeUpdate() > 0) {
                 return true;

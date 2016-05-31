@@ -107,12 +107,7 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         if (!request.getParameter("email_funcionario").matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
             mensagens.add("*Email* inválido.");
         }
-        if (request.getParameter("senha_funcionario").isEmpty()) {
-            mensagens.add("O campo *Senha* não pode ser vazio.");
-        }
-        if (request.getParameter("confirmar_senha_funcionario").isEmpty()) {
-            mensagens.add("O campo *Confirmar Senha* não pode ser vazio.");
-        }
+
         if (!request.getParameter("cargo_id").matches("\\d+") || request.getParameter("cargo_id").equals("0")) {
             mensagens.add("Selecione um cargo.");
         }
@@ -121,9 +116,6 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         }
         if (!request.getParameter("acesso_id").matches("\\d+") || request.getParameter("acesso_id").equals("0")) {
             mensagens.add("Selecione um tipo de permissão.");
-        }
-        if (!request.getParameter("senha_funcionario").equals(request.getParameter("confirmar_senha_funcionario"))) {
-            mensagens.add("*Senha* deve coincidir com *Confirmar Senha*.");
         }
         
         if (mensagens.size() > 0) {
@@ -139,15 +131,13 @@ public class AlterarFuncionarioServlet extends HttpServlet {
         int unidade = Integer.parseInt(request.getParameter("unidade_id"));
         String email = request.getParameter("email_funcionario");
         int acesso = Integer.parseInt(request.getParameter("acesso_id"));
-        String senha = request.getParameter("senha_funcionario");
-        String confSenha = request.getParameter("confirmar_senha_funcionario");
         boolean status = Boolean.parseBoolean(request.getParameter("ativo"));
         
-        if (nome.isEmpty() || cargo <= 0 || unidade <= 0 || email.isEmpty() || acesso <= 0 || !(senha.equals(confSenha))) {
+        if (nome.isEmpty() || cargo <= 0 || unidade <= 0 || email.isEmpty() || acesso <= 0) {
             session.setAttribute("msg_error", "Campos não prenchidos.");
             session.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/views/funcionarios/editar.jsp").forward(request, response);
-        } else if (fDao.alterar(new Funcionario(id, nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email, senha, status))) {
+        } else if (fDao.alterar(new Funcionario(id, nome, cDao.pesquisarPorId(cargo), uDao.pesquisarPorId(unidade), aDao.pesquisarPorId(acesso), email,status))) {
             mensagens.clear();
             session.setAttribute("msg_success", "Funcionário alterado com sucesso.");
             session.setAttribute("success", true);

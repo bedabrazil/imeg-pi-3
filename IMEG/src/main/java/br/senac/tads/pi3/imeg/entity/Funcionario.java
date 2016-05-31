@@ -67,6 +67,16 @@ public class Funcionario {
         this.salt = Validate.nextSalt();
         this.senhaHash = gerarHash(senha, this.salt);
     }
+    
+     public Funcionario(int id, String nome, Cargo cargo, Unidade unidade, Acesso acesso, String email, boolean status) {
+        this.id = id;
+        this.nome = nome;
+        this.cargo = cargo;
+        this.unidade = unidade;
+        this.email = email;
+        this.acesso = acesso;
+        this.status = status;
+    }
 
     public int getId() {
         return id;
