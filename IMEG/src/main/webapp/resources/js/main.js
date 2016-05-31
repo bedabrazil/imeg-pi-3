@@ -79,7 +79,25 @@ jQuery.noConflict();
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
-    
+
+
+    $('.sale').hover(function () {        
+        $('.over-sale').slideDown(700);
+        $(this).css("background-color", "#E2CC0C").css("color","#dd1355");
+        $(".badge", this).css("background-color", "#fff").css("color", "#dd1355");
+        $('.btn-cart').slideDown(700, function(){
+            
+        });
+        return false;
+    });
+    $('.sale + .over-sale').mouseleave(function () {        
+        $(this).slideUp(700, function(){
+            $(".sale").css("background-color", "transparent").css("color","#fff");
+            $(".sale .badge").css("background-color", "#dd1355").css("color", "#fff");
+        });
+        return false;
+    });
+
     $(".maskmoney").maskMoney({prefix:'R$ ', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:',', affixesStay: false});
     $(".maskmeter").maskMoney({prefix:'mÂ² ', allowZero: false, defaultZero: false, allowNegative: true, thousands:'.', decimal:',', affixesStay: false});    
     $(".maskpercent").maskMoney({prefix:'% ', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:',', affixesStay: false});            

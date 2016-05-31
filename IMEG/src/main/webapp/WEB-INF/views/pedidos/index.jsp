@@ -7,7 +7,7 @@
 <div class="panel panel-default">
     <div class="panel-heading"><h3><i class="fa fa-product-hunt" aria-hidden="true"></i>&nbsp;Produtos Vendidos</h3></div>
     <div class="panel-body">     
-        <jsp:include page="listagem.jsp" />
+        <jsp:include page="carrinho.jsp" />
     </div>
 </div>
 <%-- RODAPÉ DO HTML --%>

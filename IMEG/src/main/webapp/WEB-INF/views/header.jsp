@@ -47,11 +47,16 @@
                                         <jsp:include page="menu.jsp" />
                                     </li>
                                     <c:if test="${usuario.acesso.nome == 'GERENTE' && !usuario.unidade.matriz}">
-                                    <li>
-                                        <div class="dropdown navbar-form navbar-right">
-                                            <a href="<c:url value="/carrinho"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
-                                        </div>
-                                    </li>
+                                        <li>
+                                            <div class="dropdown navbar-form navbar-right">
+                                                <a href="<c:url value="/carrinho"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
+                                                <div class="over-sale">
+                                                    <div class="product">
+                                                        <button class="btn btn-button btn-cart" data-href="<c:url value="/carrinho"/>">Ir para o Carrinho</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </c:if>
                                 </ul>
                             </c:if>
@@ -87,9 +92,9 @@
                 </nav>
 
 
-                    <div class="page-header">
-                        <c:if test="${not empty usuario}">
-                            <p>Unidade: <strong>${usuario.unidade.nome}</strong> / ${usuario.unidade.estado.nome} <c:if test="${usuario.unidade.matriz}"> - Matriz</c:if></p>
-                            <p>Usuário: <strong>${usuario.nome}</strong></p>
-                        </c:if>
-                    </div>
+                <div class="page-header">
+                    <c:if test="${not empty usuario}">
+                        <p>Unidade: <strong>${usuario.unidade.nome}</strong> / ${usuario.unidade.estado.nome} <c:if test="${usuario.unidade.matriz}"> - Matriz</c:if></p>
+                        <p>Usuário: <strong>${usuario.nome}</strong></p>
+                    </c:if>
+                </div>

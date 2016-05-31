@@ -91,13 +91,13 @@ public class MeusDadosServlet extends HttpServlet {
                         usuario.setNome(request.getParameter("nome_usuario"));
                         session.setAttribute("success", true);
                         session.setAttribute("msg_success", "Dados alterados com sucesso");
-                        response.sendRedirect(request.getContextPath() + "/bemvindo");
+                        response.sendRedirect(request.getContextPath() + "/dashboard");
                     }
                 } else if (new FuncionarioDao().alterarMeusDados(new Funcionario(id, request.getParameter("nome_usuario"), request.getParameter("senha_nova_usuario")))) {
                     usuario.setNome(request.getParameter("nome_usuario"));
                     session.setAttribute("success", true);
                     session.setAttribute("msg_success", "Dados alterados com sucesso");
-                    response.sendRedirect(request.getContextPath() + "/bemvindo");
+                    response.sendRedirect(request.getContextPath() + "/dashboard");
                 }
             } else {
                 response.sendRedirect(request.getContextPath() + "/home");

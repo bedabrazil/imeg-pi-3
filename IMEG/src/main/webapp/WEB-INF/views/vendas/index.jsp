@@ -24,7 +24,7 @@
                         <div class="col-lg-12 descricao">
                             <p>${produto.descricaoCurta}</p>
                         </div>
-                            <form action="<c:url value="/carrinho"/>" method="post"  enctype="application/x-www-form-urlencoded">
+                            <form action="<c:url value="/vender"/>" method="post"  enctype="application/x-www-form-urlencoded">
                                 <input type="hidden" name="id_produto" value="${produto.id}">
                                 <div class="col-lg-12 col-lg-offset-1">
                                     <button type="submit" name="commit" class="btn btn-button"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Comprar</button>
