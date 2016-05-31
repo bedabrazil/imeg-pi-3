@@ -52,7 +52,7 @@
                                                 <a href="<c:url value="/carrinho"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
                                                 <div class="over-sale">
                                                     <div class="product">
-                                                        <button class="btn btn-button btn-cart" data-href="<c:url value="/carrinho"/>">Ir para o Carrinho</button>
+                                                        <button class="btn btn-button btn-cart" data-href="<c:url value="/carrinho"/>"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Ir para o Carrinho</button>
                                                     </div>
                                                 </div>
                                             </div>
