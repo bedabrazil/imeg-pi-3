@@ -8,7 +8,7 @@
 
 <div id="requests" class="col-lg-12">
     <div class="col-lg-12">
-    <h3><i class="fa fa-product-hunt" aria-hidden="true"></i>&nbsp;Pedido de Produtos</h3>
+    <h3><i class="fa fa-product-hunt" aria-hidden="true"></i>&nbsp;Venda de Produtos</h3>
     <p>Escolha seus produtos e insira no carrinho.</p></div>
     <c:choose>
         <c:when test="${not empty produtos}">

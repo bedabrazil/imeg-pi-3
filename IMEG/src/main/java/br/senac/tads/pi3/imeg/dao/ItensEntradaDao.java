@@ -65,8 +65,8 @@ public class ItensEntradaDao {
         }
     }
 
-    public ArrayList<Produto> listarProdutosComprados(Funcionario funcionario){
-        String sql = "SELECT * FROM PEDIDOS_ENTRADA WHERE UNIDADES_ID = ?";
+    public ArrayList<Produto> listarProdutosVendidos(Funcionario funcionario){
+        String sql = "SELECT * FROM ITENS_SAIDA WHERE UNIDADES_ID = ?";
         try{
             ArrayList produtos = new ArrayList();
             pst = new Conexao().prepararStatement(sql);

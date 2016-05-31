@@ -90,9 +90,9 @@ public class AutenticacaoFilter implements Filter {
      */
     private static boolean verificarAcesso(Funcionario func, HttpServletRequest req, HttpServletResponse resp) {
         String pagina = req.getRequestURI();
-        if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("ANALISTA"))) {
+        if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (func.getAcesso().getNome().equals("GERENTE"))) {
             return true;
-        }else if( (pagina.endsWith("/pedidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("ATENDENTE")))){
+        }else if( (pagina.endsWith("/vender") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("VENDEDOR")))){
             return true;
         } else if (pagina.endsWith("/relatorio") && func.getAcesso().getNome().equals("GERENTE")) {
             return true;

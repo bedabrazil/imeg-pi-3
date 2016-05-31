@@ -43,13 +43,16 @@
                                         <a href="<c:url value="/dashboard"/>"><em class="glyphicon glyphicon-th-large"></em>&nbsp;Painel <span class="sr-only">(current)</span></a>
                                     </li>
                                     <li>
+                                        <%--  MENU DO CABEÇALHO --%>
                                         <jsp:include page="menu.jsp" />
                                     </li>
+                                    <c:if test="${usuario.acesso.nome == 'GERENTE' && !usuario.unidade.matriz}">
                                     <li>
                                         <div class="dropdown navbar-form navbar-right">
                                             <a href="<c:url value="/vendas"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
                                         </div>
                                     </li>
+                                    </c:if>
                                 </ul>
                             </c:if>
                             <c:choose>
