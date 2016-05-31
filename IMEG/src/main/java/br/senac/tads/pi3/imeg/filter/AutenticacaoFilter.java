@@ -24,7 +24,8 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
  *
  * @author Márcio Soares <marcio@mail.com>
  */
-@WebFilter(filterName = "AutenticacaoFilter", servletNames = {"AlterarCargoServlet",
+@WebFilter(filterName = "AutenticacaoFilter", servletNames = {
+    "AlterarCargoServlet",
     "AlterarCategoriaServlet",
     "AlterarFuncionarioServlet",
     "AlterarProdutoServlet",
@@ -42,7 +43,8 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
     "ProdutosServlet",
     "UnidadesServlet",
     "RelatorioServlet",
-    "PedidosServlet"
+    "PedidosServlet",
+    "VendasServlet"
 })
 public class AutenticacaoFilter implements Filter {
 
@@ -92,7 +94,7 @@ public class AutenticacaoFilter implements Filter {
         String pagina = req.getRequestURI();
         if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (func.getAcesso().getNome().equals("GERENTE"))) {
             return true;
-        }else if( (pagina.endsWith("/vender") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("VENDEDOR")))){
+        }else if((pagina.endsWith("/vender") || pagina.endsWith("/vendidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("VENDEDOR")))){
             return true;
         } else if (pagina.endsWith("/relatorio") && func.getAcesso().getNome().equals("GERENTE")) {
             return true;

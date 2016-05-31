@@ -49,7 +49,7 @@
                                     <c:if test="${usuario.acesso.nome == 'GERENTE' && !usuario.unidade.matriz}">
                                     <li>
                                         <div class="dropdown navbar-form navbar-right">
-                                            <a href="<c:url value="/vendas"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
+                                            <a href="<c:url value="/carrinho"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
                                         </div>
                                     </li>
                                     </c:if>

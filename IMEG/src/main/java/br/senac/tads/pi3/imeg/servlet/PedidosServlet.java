@@ -7,7 +7,6 @@ package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
-import br.senac.tads.pi3.imeg.entity.Pedido;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Márcio Soares <marcio@mail.com>
  */
-@WebServlet(name = "PedidosServlet", urlPatterns = {"/vender", "/carrinho"})
+@WebServlet(name = "PedidosServlet", urlPatterns = {"/carrinho"})
 public class PedidosServlet extends HttpServlet {
 
     /**
@@ -54,23 +53,23 @@ public class PedidosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        Produto produto = null;
-        ArrayList<Produto> carrinhoSession = (ArrayList<Produto>) session.getAttribute("carrinho");
-        if (!request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
-            produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
-            int qtd = Integer.parseInt(request.getParameter("quantidade_produto"));
-            if (produto != null) {
-                if(carrinhoSession == null){
-                    carrinhoSession = new ArrayList<Produto>();
-                }
-                for (int i = 0; i < qtd; i++) {
-                    carrinhoSession.add(produto);
-                }
-                session.setAttribute("carrinho", carrinhoSession);
-            }
-            response.sendRedirect(request.getContextPath() + "/pedidos");
-
-        }
+//        HttpSession session = request.getSession(true);
+//        Produto produto = null;
+//        ArrayList<Produto> carrinhoSession = (ArrayList<Produto>) session.getAttribute("carrinho");
+//        if (!request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
+//            produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
+//            int qtd = Integer.parseInt(request.getParameter("quantidade_produto"));
+//            if (produto != null) {
+//                if(carrinhoSession == null){
+//                    carrinhoSession = new ArrayList<Produto>();
+//                }
+//                for (int i = 0; i < qtd; i++) {
+//                    carrinhoSession.add(produto);
+//                }
+//                session.setAttribute("carrinho", carrinhoSession);
+//            }
+//            response.sendRedirect(request.getContextPath() + "/vender");
+//
+//        }
     }
 }
