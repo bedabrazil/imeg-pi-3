@@ -59,12 +59,12 @@
             <label for="ativo_unidades">Ativo</label>
            <input type="checkbox" id="ativo_unidade" class="" <c:if test="${unidade.isStatus()}">checked='checked'</c:if> name="ativo_unidades" value="true">
         </div>
-        
+            <c:if test="${unidade != null}">
         <div class="col-lg-12 form-space">
             <label for="ativo_matriz">Matriz</label>
            <input type="checkbox" id="ativo_matriz" class="" <c:if test="${unidade.isMatriz()}">checked='checked'</c:if> name="ativo_matriz" value="true">
         </div>
-        
+        </c:if>
         </br>
         <div class="col-lg-12 form-space">
             <a href="<c:url value="/unidades"></c:url>" class="btn btn-default">Voltar</a>

@@ -92,27 +92,35 @@ public class AlterarUnidadeServlet extends HttpServlet {
         ArrayList<String> mensagens = new ArrayList<>();
 
         session.setAttribute("error", false);
+        
+        
         if (request.getParameter("nome-unidade").isEmpty()) {
+            session.setAttribute("error", true);
             mensagens.add("O campo *Nome* não pode ser vazio.");
         }
         if (!request.getParameter("estado-id").matches("\\d+") || request.getParameter("estado-id").equals("0")) {
+            session.setAttribute("error", true);
             mensagens.add("Selecione uma cidade.");
         }
 
         if (mensagens.size() > 0) {
+            request.setAttribute("error", true);
             request.setAttribute("mensagens", mensagens);
             processRequest(request, response);
         }
-
-        if (request.getParameter("unidade_id") != null) {
-            EstadoDao eDao = new EstadoDao();
-            UnidadeDao uDao = new UnidadeDao();
-
+                
             int id = Integer.parseInt(request.getParameter("unidade_id"));
             String nome = request.getParameter("nome-unidade");
             int estado = Integer.parseInt(request.getParameter("estado-id"));
             boolean status = Boolean.parseBoolean(request.getParameter("ativo_unidades"));
             boolean matriz = Boolean.parseBoolean(request.getParameter("ativo_matriz"));
+            
+            session.setAttribute("error", false);
+
+        if (id > 0 && !(nome.isEmpty()) && estado > 0) {
+            
+            EstadoDao eDao = new EstadoDao();
+            UnidadeDao uDao = new UnidadeDao();
             
             uDao.resetaMatrizes();
 

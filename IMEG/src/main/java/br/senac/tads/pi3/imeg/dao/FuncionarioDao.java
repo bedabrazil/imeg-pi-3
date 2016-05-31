@@ -238,20 +238,20 @@ public class FuncionarioDao {
     }
 
     public boolean alterarMeusDados(Funcionario funcionario) {
-        String sql = "UPDATE FUNCIONARIOS SET NOME=?" + (funcionario.getSenha() != null ? ", SALT=?, SENHA_HASH=? " : "")+" WHERE ID=?";
-        try{
+        String sql = "UPDATE FUNCIONARIOS SET NOME=?" + (funcionario.getSenha() != null ? ", SALT=?, SENHA_HASH=? " : "") + " WHERE ID=?";
+        try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, funcionario.getNome());
-            if(funcionario.getSenha() != null){
+            if (funcionario.getSenha() != null) {
                 pst.setString(2, funcionario.getSalt());
                 pst.setString(3, String.copyValueOf(funcionario.getSenhaHash()));
                 pst.setInt(4, funcionario.getId());
-            }else{
+            } else {
                 pst.setInt(2, funcionario.getId());
             }
             if (pst.executeUpdate() > 0) {
                 return true;
-            }            
+            }
         } catch (SQLException e) {
             System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
         } finally {
@@ -259,6 +259,30 @@ public class FuncionarioDao {
                 pst.close();
             } catch (SQLException e) {
                 Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return false;
+    }
+
+    public Boolean estaEmMatriz(int idUnidade) {
+        String sql = "SELECT * FROM FUNCIONARIOS WHERE ACESSOS_ID = 1 AND UNIDADES_ID = ?";
+        try {
+
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, idUnidade);
+            ResultSet res = pst.executeQuery();
+           
+            if (res.next()) {
+                return true;
+            }
+            return true;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return false;
