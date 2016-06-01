@@ -82,16 +82,16 @@ jQuery.noConflict();
 
 
     $('.sale').hover(function () {        
-        $('.over-sale').slideDown(700);
+        $('.over-sale').show();
         $(this).css("background-color", "#E2CC0C").css("color","#dd1355");
         $(".badge", this).css("background-color", "#fff").css("color", "#dd1355");
-        $('.btn-cart').slideDown(700, function(){
-            
+        $('.btn-cart').click(function(){
+            window.location = $(this).data("href");
         });
         return false;
     });
     $('.sale + .over-sale').mouseleave(function () {        
-        $(this).slideUp(700, function(){
+        $(this).slideUp(200, function(){
             $(".sale").css("background-color", "transparent").css("color","#fff");
             $(".sale .badge").css("background-color", "#dd1355").css("color", "#fff");
         });

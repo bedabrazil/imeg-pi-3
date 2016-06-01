@@ -159,8 +159,13 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
-                <li><a href="<c:url value="/pedidos"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                        &nbsp;Pedidos</a></li>
+                
+                <li><a href="<c:url value="/vender"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                        &nbsp;Vender</a></li>
+
+                <li><a href="<c:url value="/vendidos"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
+                        &nbsp;Vendidos</a></li>                        
+
             </ul>
         </div>        
     </c:when>

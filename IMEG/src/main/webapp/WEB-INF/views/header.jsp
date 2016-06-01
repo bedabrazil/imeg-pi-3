@@ -5,6 +5,9 @@
 --%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="pt_BR"/>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,15 +49,31 @@
                                         <%--  MENU DO CABEÇALHO --%>
                                         <jsp:include page="menu.jsp" />
                                     </li>
-                                    <c:if test="${usuario.acesso.nome == 'GERENTE' && !usuario.unidade.matriz}">
+                                    <c:if test="${(usuario.acesso.nome.equals('GERENTE') || usuario.acesso.nome.equals('VENDEDOR')) && !usuario.unidade.matriz}">
                                         <li>
                                             <div class="dropdown navbar-form navbar-right">
                                                 <a href="<c:url value="/carrinho"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
-                                                <div class="over-sale">
-                                                    <div class="product">
-                                                        <button class="btn btn-button btn-cart" data-href="<c:url value="/carrinho"/>"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Ir para o Carrinho</button>
+                                                <c:if test="${not empty carrinho}">     
+                                                    <div class="over-sale">
+                                                        <c:forEach items="${carrinho}" begin="0" end="2" var="produto">
+                                                            <div class="product">
+                                                                <ul>
+                                                                    <li>
+                                                                        <a href="<c:url value="/carrinho"/>">
+                                                                            <div class="col-lg-12">
+                                                                                <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>&nbsp;
+                                                                                <span>${produto.nome}</span> <span>-</span> <span><fmt:formatNumber value="${produto.getPrecoVenda()}" type="currency"/></span>
+                                                                            </div>
+                                                                        </a>
+                                                                    </li>    
+                                                                </ul>
+                                                                <!--<button class="btn btn-button btn-cart" data-href="<c:url value="/carrinho"/>"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Ir para o Carrinho</button>-->
+                                                            </div>
+                                                        </c:forEach>
+                                                        <a href="<c:url value="/carrinho"/>">Ver todos os ${carrinho.size()} produtos no carrinho</a>
+
                                                     </div>
-                                                </div>
+                                                </c:if>
                                             </div>
                                         </li>
                                     </c:if>
