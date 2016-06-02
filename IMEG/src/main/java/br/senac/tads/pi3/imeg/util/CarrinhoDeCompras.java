@@ -6,22 +6,26 @@
 package br.senac.tads.pi3.imeg.util;
 
 import br.senac.tads.pi3.imeg.entity.Produto;
-import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Márcio Soares <marcio@mail.com>
  */
 public interface CarrinhoDeCompras {
-    void adicionar(Produto produto);
+    
+    void adicionar(Produto produto, int qtd);
 
-    double valor();
+    double valor(Produto produto);
 
-    void remover(Produto produto) throws ProdutoInexistenteException;
+    double valorTotal();
 
-    int quantidadeItens(Produto produto);
+    void remover(Produto produto);
 
     int quantidadeItens();
-
-    List<Produto> produtos();    
+    
+    void qtdProdutos(Produto produto, int qtd);
+    
+    Map<Produto, Integer> produtos();
+    
 }

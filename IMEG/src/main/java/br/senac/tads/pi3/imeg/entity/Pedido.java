@@ -6,9 +6,7 @@
 package br.senac.tads.pi3.imeg.entity;
 
 import br.senac.tads.pi3.imeg.util.CarrinhoDeCompras;
-import br.senac.tads.pi3.imeg.util.ProdutoInexistenteException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -16,42 +14,28 @@ import java.util.List;
  */
 public class Pedido implements CarrinhoDeCompras {
 
-    private ArrayList<Produto> produtos;
+    Map<Produto, Integer> produtos;
 
-    public Pedido() {
-        this.produtos = new ArrayList<>();
+    public Pedido(Map produtos) {
+        this.produtos = produtos;
     }
 
     @Override
-    public void adicionar(Produto produto) {
-        this.produtos.add(produto);
-    }
-
-    @Override
-    public double valor() {
-        double soma = 0;
-        for (Produto produto : this.produtos) {
-            soma += produto.getPrecoVenda();
-        }
-        return soma;
-    }
-
-    @Override
-    public void remover(Produto produto) throws ProdutoInexistenteException {
-        if (!this.produtos.remove(produto)) {
-            throw new ProdutoInexistenteException("Produto Inexistente no Carrinho");
+    public void adicionar(Produto produto, int qtd) {
+        if(!this.produtos.containsKey(produto)){
+            this.produtos.put(produto, qtd);
         }
     }
 
     @Override
-    public int quantidadeItens(Produto produto) {
-        int qtd = 0;
-        for (int i = 0; i < this.produtos.size(); i++) {
-            if (produto.getClass().isInstance(this.produtos.get(i))) {
-                qtd++;
-            }
-        }
-        return qtd;
+    public double valor(Produto produto) {
+        int valor = this.produtos.get(produto);
+        return produto.getPrecoVenda() * valor;
+    }
+
+    @Override
+    public void remover(Produto produto) {
+        this.produtos.remove(produto);
     }
 
     @Override
@@ -60,8 +44,24 @@ public class Pedido implements CarrinhoDeCompras {
     }
 
     @Override
-    public List<Produto> produtos() {
+    public void qtdProdutos(Produto produto, int qtd) {
+        if (!this.produtos.containsKey(produto)) {
+            this.produtos.put(produto, qtd);
+        }
+    }
+
+    @Override
+    public Map<Produto, Integer> produtos() {
         return this.produtos;
+    }
+
+    @Override
+    public double valorTotal() {
+        double soma = 0;
+        for (Produto produto : this.produtos.keySet()) {
+            soma += this.valor(produto);
+        }
+        return soma;
     }
 
 }

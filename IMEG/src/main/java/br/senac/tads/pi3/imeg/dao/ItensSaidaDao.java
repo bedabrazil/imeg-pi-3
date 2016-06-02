@@ -42,14 +42,11 @@ public class ItensSaidaDao {
     }
 
     public ArrayList<Produto> produtosVendidosPorUnidade(Funcionario funcionario) {
-        String sql = "SELECT * FROM ITENS_SAIDA WHERE UNIDADES_ID=? " + (funcionario.getAcesso().getNome().equals("VENDEDOR") ? " AND FUNCIONARIOS_ID=?" : "");
+        String sql = "SELECT * FROM ITENS_SAIDA WHERE UNIDADES_ID=?";
         try {
             ArrayList<Produto> produtos = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, funcionario.getUnidade().getId());
-            if (funcionario.getAcesso().getNome().equals("VENDEDOR")) {
-                pst.setInt(2, funcionario.getId());
-            }
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Produto produto = new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID"));
@@ -68,6 +65,30 @@ public class ItensSaidaDao {
         return null;
     }
 
+        public ArrayList<Produto> produtosVendidosPorVendedor(Funcionario funcionario) {
+        String sql = "SELECT * FROM ITENS_SAIDA WHERE UNIDADES_ID=? AND FUNCIONARIOS_ID=?";
+        try {
+            ArrayList<Produto> produtos = new ArrayList<>();
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, funcionario.getUnidade().getId());
+            pst.setInt(2, funcionario.getId());
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Produto produto = new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID"));
+                produtos.add(produto);
+            }
+            return produtos;
+        } catch (SQLException ex) {
+            Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ItensSaidaDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
     public void consultaritemSaida(ItemSaida itemSaida) {
 
     }

@@ -55,14 +55,14 @@
                                                 <a href="<c:url value="/carrinho"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
                                                 <c:if test="${not empty carrinho}">     
                                                     <div class="over-sale">
-                                                        <c:forEach items="${carrinho}" begin="0" end="2" var="produto">
+                                                        <c:forEach items="${carrinho}" begin="0" end="2" var="hash">
                                                             <div class="product">
                                                                 <ul>
                                                                     <li>
                                                                         <a href="<c:url value="/carrinho"/>">
                                                                             <div class="col-lg-12">
                                                                                 <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>&nbsp;
-                                                                                <span>${produto.nome}</span> <span>-</span> <span><fmt:formatNumber value="${produto.getPrecoVenda()}" type="currency"/></span>
+                                                                                <span><span class="badge">${hash.value}</span>&nbsp;${hash.key.nome}</span> <span>-</span> <span><fmt:formatNumber value="${(hash.value*hash.key.precoVenda)}" type="currency"/></span>&nbsp;
                                                                             </div>
                                                                         </a>
                                                                     </li>    
@@ -115,5 +115,7 @@
                     <c:if test="${not empty usuario}">
                         <p>Unidade: <strong>${usuario.unidade.nome}</strong> / ${usuario.unidade.estado.nome} <c:if test="${usuario.unidade.matriz}"> - Matriz</c:if></p>
                         <p>Usuário: <strong>${usuario.nome}</strong></p>
+                        <p>Cargo: <strong>${usuario.cargo.nome}</strong></p>
+                        <p>Tipo de Acesso: <strong>${usuario.acesso.nome}</strong></p>
                     </c:if>
                 </div>

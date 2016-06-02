@@ -5,15 +5,13 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import br.senac.tads.pi3.imeg.dao.CategoriaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
-import br.senac.tads.pi3.imeg.entity.Categoria;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
-import br.senac.tads.pi3.imeg.entity.ItemVenda;
-import br.senac.tads.pi3.imeg.entity.ListaItensVenda;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,42 +26,39 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "VendasServlet", urlPatterns = {"/vender"})
 public class VendasServlet extends HttpServlet {
 
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
         ArrayList<Produto> produtos = new ProdutoDao().produtosComSaldo();
         request.setAttribute("produtos", produtos);
-        
+
         request.getRequestDispatcher("/WEB-INF/views/vendas/index.jsp").forward(request, response);
     }
 
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-              
-        processRequest(request, response);
-    }
-
- 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        Produto produto = null;
-        ArrayList<Produto> carrinhoSession = (ArrayList<Produto>) session.getAttribute("carrinho");
+
+        Map<Produto, Integer> carrinhoSession = (Map<Produto, Integer>) session.getAttribute("carrinho");
         if (!request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
-            produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
+            Produto produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
             int qtd = Integer.parseInt(request.getParameter("quantidade_produto"));
+
             if (produto != null) {
-                if(carrinhoSession == null){
-                    carrinhoSession = new ArrayList<>();
+                if (carrinhoSession == null) {
+                    carrinhoSession = new HashMap<>();
                 }
-                for (int i = 0; i < qtd; i++) {
-                    carrinhoSession.add(produto);
+                Produto prodExist = pegarProduto(carrinhoSession, produto);
+
+                if (prodExist != null) {
+                    int valor = carrinhoSession.get(prodExist);
+                    carrinhoSession.remove(prodExist);
+                    carrinhoSession.put(produto, valor + qtd);
+                } else {
+                    carrinhoSession.put(produto, qtd);
                 }
                 session.setAttribute("carrinho", carrinhoSession);
             }
@@ -71,9 +66,15 @@ public class VendasServlet extends HttpServlet {
 
         }
     }
-        
-        
-  }
 
+    private Produto pegarProduto(Map<Produto, Integer> map, Produto produto) {
+        for (Map.Entry<Produto, Integer> entry : map.entrySet()) {
+            Produto key = entry.getKey();
+            if (key.getId() == produto.getId()) {
+                return key;
+            }
+        }
+        return null;
+    }
 
-
+}

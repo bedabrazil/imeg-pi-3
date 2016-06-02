@@ -316,6 +316,70 @@ table td i{
     color:#34495E;
 }
 
+#carrinho table thead th:first-child{
+    text-align:left;
+}
+#carrinho table td i:hover{
+    color:#dd1355;
+}
+
+#carrinho input[type='number']{
+    width: 60px;
+}
+#carrinho table td{
+    text-align: left;  
+    height: 22px;
+    line-height: 22px;
+    vertical-align: middle;    
+    text-align: center;
+}
+#carrinho form.finalizar-compra input[type='submit']{
+    width: 250px;
+    height: 60px;
+    font-size: 2em;
+    border-radius: 4px;
+}
+#carrinho form.finalizar-compra input[type='submit']:hover, #carrinho form button[type='submit']:hover, #carrinho a.continuar-venda:hover{
+    background-color: #e2cc0c!important;
+    color:#34495E;
+}
+#carrinho button.atualizar-produto-carrinho{
+    position:absolute;
+    top:0;
+    left: 70px;
+    display: inline;
+}
+#carrinho button.remover-produto-carrinho:hover{
+    background-color: transparent!important;
+}
+#carrinho .remover-produto-carrinho > i, #carrinho .atualizar-produto-carrinho > i{
+    color: #fff;
+}
+
+#carrinho .remover-produto-carrinho, #carrinho .atualizar-produto-carrinho{
+    padding: 5px;
+    border: none;
+    background-color: #34495E;
+    font-size: 1.2em;
+    color:#fff;
+}
+#carrinho table td:first-child {
+    text-align: left;    
+}
+#carrinho table td > div{
+    padding: 0;
+}
+
+#carrinho table td i{
+    color:#34495E;
+}
+#carrinho .sub-total{
+    color: #dd1355;
+    font-size: 1.4em;
+}
+#carrinho .total{
+    font-size: 2em;
+}
 .active-elem-table{
     font-size:21px!important;
 }

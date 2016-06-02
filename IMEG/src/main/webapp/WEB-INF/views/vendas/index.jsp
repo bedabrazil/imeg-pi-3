@@ -27,7 +27,7 @@
                             <form action="<c:url value="/vender"/>" method="post"  enctype="application/x-www-form-urlencoded">
                                 <input type="hidden" name="id_produto" value="${produto.id}">
                                 <div class="col-lg-12 col-lg-offset-1">
-                                    <button type="submit" name="commit" class="btn btn-button"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Comprar</button>
+                                    <button type="submit" name="commit" class="btn btn-button"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Vender</button>
                                     <input type="number" min="1" max="${produto.saldo}" value="1" name="quantidade_produto" id="add_product" placeholder="qtd" class="number form-control" maxlength="3">
                                 </div>
                             </form>

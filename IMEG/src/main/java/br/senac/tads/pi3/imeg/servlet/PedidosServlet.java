@@ -5,12 +5,17 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.ProdutoDao;
+import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,11 +35,34 @@ public class PedidosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession(true);
-//        Funcionario usuario = (Funcionario) session.getAttribute("usuario");
-//        ArrayList<Produto> produtos = new ProdutoDao().produtosComSaldo();
-//        request.setAttribute("produtos", produtos);
-//        request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
+        HttpSession session = request.getSession(true);
+
+        Map<Produto, Integer> carrinhoSession = (Map<Produto, Integer>) session.getAttribute("carrinho");
+        if (request.getQueryString() != null) {
+            if (!request.getParameter("id").isEmpty() && request.getParameter("id").matches("\\d+")) {
+                if (!request.getParameter("updt").isEmpty() && request.getParameter("updt").matches("\\d+")) {
+                    if (!request.getParameter("updt").equals("1")) {
+                        request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
+                    }
+                    int id = Integer.parseInt(request.getParameter("id"));
+                } else if (!request.getParameter("id'").isEmpty() && request.getParameter("id").matches("\\d+")) {
+                    if (!request.getParameter("del").isEmpty() && request.getParameter("del").matches("\\d+")) {
+                        if (!request.getParameter("del").equals("1")) {
+                            request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
+                        }
+                        int id = Integer.parseInt(request.getParameter("id"));
+                    }
+                }
+            }
+        }
+        request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
+
+        String msg_success = (String) session.getAttribute("msg_success");
+
+        if (msg_success != null) {
+            session.removeAttribute("msg_success");
+            session.removeAttribute("success");
+        }
     }
 
     /**
@@ -48,12 +76,44 @@ public class PedidosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession(true);
-//        Produto produto = null;
-//        ArrayList<Produto> carrinhoSession = (ArrayList<Produto>) session.getAttribute("carrinho");
-//        if (!request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
-//            produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
-//            int qtd = Integer.parseInt(request.getParameter("quantidade_produto"));
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("msg_success");
+        session.removeAttribute("success");
+        Produto produto = null;
+        Map<Produto, Integer> carrinhoSession = (Map<Produto, Integer>) session.getAttribute("carrinho");
+        if (!request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
+            produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
+            if (produto != null) {
+                if (request.getParameter("remover_produto") != null && !request.getParameter("remover_produto").isEmpty() && request.getParameter("remover_produto").matches("\\d+") && request.getParameter("remover_produto").equals("1")) {
+                    Produto prodExist = pegarProduto(carrinhoSession, produto);
+                    if (prodExist != null) {
+                        int valor = carrinhoSession.get(prodExist);
+                        carrinhoSession.remove(prodExist);
+                        session.setAttribute("success", true);
+                        session.setAttribute("msg_success", "Produto removido com sucesso.");
+                        session.setAttribute("carrinho", carrinhoSession);
+                    }
+                } else if (request.getParameter("atualizar_produto") != null && !request.getParameter("atualizar_produto").isEmpty() && request.getParameter("atualizar_produto").matches("\\d+") && request.getParameter("atualizar_produto").equals("1")) {
+                    int qtd = Integer.parseInt(request.getParameter("qtd_produto"));
+                    if (produto.getSaldo() >= qtd) {
+                        Produto prodExist = pegarProduto(carrinhoSession, produto);
+                        if (prodExist != null) {
+                            carrinhoSession.remove(prodExist);
+                            session.setAttribute("success", true);
+                            if (qtd > 0) {
+                                carrinhoSession.put(produto, qtd);
+                                session.setAttribute("msg_success", "Produto atualizado com sucesso.");
+                            } else {
+                                session.setAttribute("msg_success", "Produto removido com sucesso;");
+                            }
+                        }
+
+                        session.setAttribute("carrinho", carrinhoSession);
+                    } else {
+                        session.setAttribute("success", true);
+                        session.setAttribute("msg_success", "Saldo Insuficiente. saldo atual é de " + produto.getSaldo() + " Foi solicitado " + qtd);
+                    }
+                }
 //            if (produto != null) {
 //                if(carrinhoSession == null){
 //                    carrinhoSession = new ArrayList<Produto>();
@@ -65,6 +125,18 @@ public class PedidosServlet extends HttpServlet {
 //            }
 //            response.sendRedirect(request.getContextPath() + "/vender");
 //
-//        }
+            }
+        }
+        response.sendRedirect(request.getContextPath() + "/carrinho");
+    }
+
+    private Produto pegarProduto(Map<Produto, Integer> map, Produto produto) {
+        for (Map.Entry<Produto, Integer> entry : map.entrySet()) {
+            Produto key = entry.getKey();
+            if (key.getId() == produto.getId()) {
+                return key;
+            }
+        }
+        return null;
     }
 }

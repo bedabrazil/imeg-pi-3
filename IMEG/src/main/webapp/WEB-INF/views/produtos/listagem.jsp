@@ -9,16 +9,17 @@
 
     <div class="col-lg-12">
         <c:if test="${usuario.unidade.matriz}">
-            <a href="<c:url value="/produtos/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </c:if>
+            <a href="<c:url value="/produtos/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        </c:if>
             <br>
             <div id="warning" class="col-lg-12 ${alert}">
-            <c:if test="${sessionScope.success}">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </c:if>
-            ${mensagem}
-        </div>
+                <c:if test="${sessionScope.success}">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </c:if>
+                ${mensagem}
+            </div>
     </div>
    
             <div class="col-lg-12 table-reposnsive">

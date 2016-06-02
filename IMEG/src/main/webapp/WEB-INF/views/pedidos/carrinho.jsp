@@ -1,68 +1,92 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="pt_BR"/>
- <c:choose>
-        <c:when test="${not empty produtos}">
-    <c:choose>
-        <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
-    </c:choose>
-
-    <div class="col-lg-12">
-        <c:if test="${usuario.unidade.matriz}">
-            <a href="<c:url value="/produtos/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </c:if>
-            <br>
-            <div id="warning" class="col-lg-12 ${alert}">
-            <c:if test="${sessionScope.success}">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </c:if>
-            ${mensagem}
-        </div>
-    </div>
-   
-            <div class="col-lg-12 table-reposnsive">
-                <table class="table table-hover">
-                    <thead>
-                    <th style="width:5%;">Status</th>
-                    <th style="width:15%;">Nome</th>
-                    <th style="width:5%;">Qtd Mínima</th>
-                    <th style="width:5%;">Qtd Máxima</th>
-                    <th style="width:8%;">Preço de Custo</th>
-                    <th style="width:8%;">Preço de Venda</th>
-                    <th style="width:36%;">Descrição Curta</th>
-                    <th style="width:8%;">Saldo</th>
-                    <th style="width:10%;">Ações</th>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${produtos}" var="produto">
-                            <tr>
-                                <td>
-                                    <c:choose>
-                                        <c:when test="${produto.isStatus()}">
-                                            <em data-toggle="tooltip" data-placement="top" title="Ativado" class="active-elem-table glyphicon glyphicon glyphicon-ok-circle"></em>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <em data-toggle="tooltip" data-placement="top" title="Desativado" class="active-elem-table glyphicon glyphicon-remove-circle color-elem-table-deactive"></em> 
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                                <td>${produto.nome}</td>
-                                <td>${produto.qtdeMin}</td>
-                                <td>${produto.qtdeMax}</td>
-                                <td><fmt:formatNumber value="${produto.precoCusto}" type="currency"/></td>
-                                <td><fmt:formatNumber value="${produto.precoVenda}" type="currency"/></td>
-                                <td>${produto.descricaoCurta}</td>
-                                <td>${produto.saldo}</td>
-                                <c:if test="${not empty usuario && usuario.unidade.matriz}">
-                                    <td><center><a href="<c:url value="/produtos/editar?id=${produto.id}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp; <a href="<c:url value="/produtos/inserir?id=${produto.id}"></c:url>"><i  data-toggle="tooltip" data-placement="top" title="Inserir Produto no Estoque" class="active-elem-table fa fa-plus-square" aria-hidden="true"></i></a></center></td></c:if>
+<c:choose>
+    <c:when test="${not empty carrinho}">
+        <c:choose>
+            <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
+        </c:choose>        
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Carrinho</h3> <span>Clique em finalizar compra para efetuar o seu pedido.</span></div>
+            <div class="panel-body"> 
+                <div class="col-lg-12">
+                    <div id="warning" class="col-lg-12 ${alert}">
+                        <c:if test="${sessionScope.success}">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            ${mensagem}
+                        </c:if>
+                    </div>
+                </div>
+                <div id="carrinho" class="col-lg-12 table-reposnsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <th style="width:35%;">Produto</th>
+                        <th style="width:15%;">Preço Unitário</th>
+                        <th style="width:10%">Quantidade</th>
+                        <th>Subtotal</th>
+                        <th style="width:8%;">Excluir</th>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${carrinho}" var="hash">
+                                <c:set var="total" value="${total + (hash.key.precoVenda * hash.value)}" />
+                                <tr>
+                                    <td>
+                                        <div class="col-lg-12"> 
+                                            <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>&nbsp;
+                                            <strong>${hash.key.nome}</strong>
+                                            <p>SKU: ${hash.key.id}<br>Estoque: <c:if test="${hash.key.saldo >= hash.key.qtdeMin}">Disponível</c:if></p>
+                                            </div>
+                                        </td>
+                                        <td class="sub-total"><fmt:formatNumber value="${hash.key.precoVenda}" type="currency"/></td>
+                                    <td>
+                                        <div class="col-lg-12"> 
+                                            <form enctype="application/x-www-form-urlencoded" action="<c:url value="/carrinho"/>" method="post">
+                                                <input type="hidden" name="id_produto" value="${hash.key.id}">
+                                                <input type="hidden" name="atualizar_produto" value="1">
+                                                <input min="0" class="form-control" type="number" name="qtd_produto" value="${hash.value}" >
+                                                <button type="submit" class="atualizar-produto-carrinho btn btn-default">&nbsp;<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td class="sub-total"><fmt:formatNumber value="${hash.value * hash.key.precoVenda}" type="currency"/></td>
+                                    <td>
+                                        <form enctype="application/x-www-form-urlencoded" action="<c:url value="/carrinho"/>" enctype="" method="post">
+                                            <input type="hidden" name="id_produto" value="${hash.key.id}">
+                                            <input type="hidden" name="remover_produto" value="1">
+                                            <button type="submit" class="remover-produto-carrinho">&nbsp;<i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;</button>
+                                        </form>
+                                    </td>
                                 </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>    
+                            </c:forEach>
+                            <tr>
+                                <td style="width:80%" colspan="4">&nbsp;</td>
+                                <td style="width: 20%">Total: <strong class="sub-total total"><fmt:formatNumber value="${total}" type="currency"/></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                    <div class="col-lg-12">
+                        <div class="col-lg-9">
+                        <a href="<c:url value="/vender"/>" class="btn btn-default continuar-venda">Continuar Vendendo</a>
+                        </div>
+                        <div class="col-lg-3">
+                            <form class="finalizar-compra" action="<c:url value="/carrinho"/>" method="post">
+                                <input type="submit" name="commit" class="btn btn-default" value="Finalizar Compra">
+                            </form>                                
+                        </div>
+                    </div>
+                </div>
             </div>
-        </c:when>
-        <c:otherwise>
-            <div class="col-lg-12">Não há produtos</div>
-        </c:otherwise>
-    </c:choose>
+        </div>        
+    </c:when>
+    <c:otherwise>
+        <div class="col-lg-12">
+            <center>
+                <h2>Não há produtos no carrinho</h2>
+                <a href="<c:url value="/vender"/>" class="btn btn-default">Ir as vendas</a>
+            </center>
+        </div>
+
+    </c:otherwise>
+</c:choose>

@@ -37,9 +37,14 @@ public class ProdutosVendidosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
+        ArrayList<Produto> produtos = null;
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
-        ArrayList<Produto> produtos = new ItensSaidaDao().produtosVendidosPorUnidade(usuario);
-        request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
+        if(usuario.getAcesso().getNome().equals("GERENTE")){
+          produtos = new ItensSaidaDao().produtosVendidosPorUnidade(usuario);
+        }else if (usuario.getAcesso().getNome().equals("VENDEDOR")){
+            produtos = new ItensSaidaDao().produtosVendidosPorVendedor(usuario);
+        }
+        request.getRequestDispatcher("/WEB-INF/views/produtos/vendidos.jsp").forward(request, response);
         
     }
 
