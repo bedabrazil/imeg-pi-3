@@ -41,18 +41,22 @@ public class ItensSaidaDao {
         }
     }
 
-    public ArrayList<Produto> produtosVendidosPorUnidade(Funcionario funcionario) {
+    public ArrayList<ItemSaida> produtosVendidosPorUnidade(Funcionario funcionario) {
         String sql = "SELECT * FROM ITENS_SAIDA WHERE UNIDADES_ID=?";
         try {
-            ArrayList<Produto> produtos = new ArrayList<>();
+            ArrayList<ItemSaida> itensSaida = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, funcionario.getUnidade().getId());
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                Produto produto = new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID"));
-                produtos.add(produto);
+                ItemSaida iSaida = new ItemSaida();
+                iSaida.setProduto(new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID")));
+                iSaida.setDataTransacao(rs.getDate("DATA_TRANSACAO"));
+                iSaida.setFuncionario(new FuncionarioDao().pesquisarPorId(rs.getInt("FUNCIONARIOS_ID")));
+                iSaida.setQtdeProdutos(rs.getInt("QTDE_PRODUTOS"));
+                itensSaida.add(iSaida);
             }
-            return produtos;
+            return itensSaida;
         } catch (SQLException ex) {
             Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -65,19 +69,23 @@ public class ItensSaidaDao {
         return null;
     }
 
-        public ArrayList<Produto> produtosVendidosPorVendedor(Funcionario funcionario) {
+        public ArrayList<ItemSaida> produtosVendidosPorVendedor(Funcionario funcionario) {
         String sql = "SELECT * FROM ITENS_SAIDA WHERE UNIDADES_ID=? AND FUNCIONARIOS_ID=?";
         try {
-            ArrayList<Produto> produtos = new ArrayList<>();
+            ArrayList<ItemSaida> itensSaida = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, funcionario.getUnidade().getId());
             pst.setInt(2, funcionario.getId());
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                Produto produto = new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID"));
-                produtos.add(produto);
+                ItemSaida iSaida = new ItemSaida();
+                iSaida.setProduto(new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID")));
+                iSaida.setDataTransacao(rs.getDate("DATA_TRANSACAO"));
+                iSaida.setFuncionario(funcionario);
+                iSaida.setQtdeProdutos(rs.getInt("QTDE_PRODUTOS"));
+                itensSaida.add(iSaida);
             }
-            return produtos;
+            return itensSaida;
         } catch (SQLException ex) {
             Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -89,8 +97,31 @@ public class ItensSaidaDao {
         }
         return null;
     }
-    public void consultaritemSaida(ItemSaida itemSaida) {
-
+    
+    public boolean adicionar(Produto produto, int qtd, Funcionario funcionario) {
+        String sql = "INSERT INTO ITENS_SAIDA (PRODUTOS_ID, UNIDADES_ID, FUNCIONARIOS_ID, DATA_TRANSACAO, QTDE_PRODUTOS, PRECO_VENDA)"
+                +" VALUES(?,?,?,?,?,?)";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, produto.getId());
+            pst.setInt(2, funcionario.getUnidade().getId());
+            pst.setInt(3, funcionario.getId());
+            pst.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            pst.setInt(5, qtd);
+            pst.setDouble(6, produto.getPrecoVenda());
+            if (pst.executeUpdate() > 0) {
+                return true;
+            }            
+        } catch (SQLException ex) {
+            Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ItensSaidaDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
     }
 
     public void alteraritemSaida(ItemSaida itemSaida) {

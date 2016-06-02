@@ -55,7 +55,7 @@ public class ItemSaida {
     /**
      * @param qtdeProdutos the qtdeProdutos to set
      */
-    public void setQtde_produtos(int qtdeProdutos) {
+    public void setQtdeProdutos(int qtdeProdutos) {
         this.qtdeProdutos = qtdeProdutos;
     }
 

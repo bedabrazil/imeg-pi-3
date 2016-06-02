@@ -5,10 +5,11 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
+import br.senac.tads.pi3.imeg.dao.ItensSaidaDao;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
+import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -81,7 +82,7 @@ public class PedidosServlet extends HttpServlet {
         session.removeAttribute("success");
         Produto produto = null;
         Map<Produto, Integer> carrinhoSession = (Map<Produto, Integer>) session.getAttribute("carrinho");
-        if (!request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
+        if (request.getParameter("id_produto") != null && !request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
             produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
             if (produto != null) {
                 if (request.getParameter("remover_produto") != null && !request.getParameter("remover_produto").isEmpty() && request.getParameter("remover_produto").matches("\\d+") && request.getParameter("remover_produto").equals("1")) {
@@ -114,19 +115,20 @@ public class PedidosServlet extends HttpServlet {
                         session.setAttribute("msg_success", "Saldo Insuficiente. saldo atual é de " + produto.getSaldo() + " Foi solicitado " + qtd);
                     }
                 }
-//            if (produto != null) {
-//                if(carrinhoSession == null){
-//                    carrinhoSession = new ArrayList<Produto>();
-//                }
-//                for (int i = 0; i < qtd; i++) {
-//                    carrinhoSession.add(produto);
-//                }
-//                session.setAttribute("carrinho", carrinhoSession);
-//            }
-//            response.sendRedirect(request.getContextPath() + "/vender");
-//
             }
-        }
+        }else if(request.getParameter("finalizar") != null && !request.getParameter("finalizar").isEmpty() && request.getParameter("finalizar").matches("\\d+") && request.getParameter("finalizar").equals("1")){
+                if(carrinhoSession != null){
+                    Funcionario usuario = (Funcionario) session.getAttribute("usuario");
+                    for (Map.Entry<Produto, Integer> entry : carrinhoSession.entrySet()){
+                        produto = entry.getKey();
+                        int qtd = entry.getValue();
+                        if(new ItensSaidaDao().adicionar(produto, qtd, usuario)){
+                            new ProdutoDao().atualizarSaldo(produto, qtd);
+                        }
+                    }
+                    session.removeAttribute("carrinho");
+                }
+            }
         response.sendRedirect(request.getContextPath() + "/carrinho");
     }
 

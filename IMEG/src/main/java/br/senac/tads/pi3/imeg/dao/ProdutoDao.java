@@ -235,10 +235,28 @@ public class ProdutoDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(ItensEntradaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
     }
+    public void atualizarSaldo(Produto produto, int qtd) {
 
+        String sql = "UPDATE PRODUTOS SET SALDO=? WHERE ID=?";
+        try {
+
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, produto.getSaldo() - qtd);
+            pst.setInt(2, produto.getId());
+            pst.execute();
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }
 }

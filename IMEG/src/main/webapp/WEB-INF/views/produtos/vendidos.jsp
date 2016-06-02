@@ -9,16 +9,13 @@
     <div class="panel-heading"><h3><i class="fa fa-product-hunt" aria-hidden="true"></i>&nbsp;Produtos Vendidos</h3></div>
     <div class="panel-body">  
         <c:choose>
-            <c:when test="${not empty produtos}">
+            <c:when test="${not empty itensSaida}">
                 <c:choose>
                     <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
                 </c:choose>
 
                 <div class="col-lg-12">
-                    <c:if test="${usuario.unidade.matriz}">
-                        <a href="<c:url value="/produtos/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Novo Produto no Catálogo</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </c:if>
-                            <br>
-                            <div id="warning" class="col-lg-12 ${alert}">
+                    <div id="warning" class="col-lg-12 ${alert}">
                         <c:if test="${sessionScope.success}">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -32,21 +29,18 @@
                     <table class="table table-hover">
                         <thead>
                         <th style="width:5%;">Status</th>
-                        <th style="width:15%;">Nome</th>
-                        <th style="width:5%;">Qtd Mínima</th>
-                        <th style="width:5%;">Qtd Máxima</th>
-                        <th style="width:8%;">Preço de Custo</th>
-                        <th style="width:8%;">Preço de Venda</th>
-                        <th style="width:36%;">Descrição Curta</th>
-                        <th style="width:8%;">Saldo</th>
-                        <th style="width:10%;">Ações</th>
+                        <th style="width:25%;">Nome do Produto</th>
+                        <th style="width:12%;">Preço de Venda</th>
+                        <th style="width:26%;">Vendedor</th>
+                        <th style="width:12%;">Tipo de Acesso</th>
+                        <th style="width:20%;">Quantidade Vendida</th>
                         </thead>
                         <tbody>
-                            <c:forEach items="${produtos}" var="produto">
+                            <c:forEach items="${itensSaida}" var="itens">
                                 <tr>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${produto.isStatus()}">
+                                            <c:when test="${itens.produto.isStatus()}">
                                                 <em data-toggle="tooltip" data-placement="top" title="Ativado" class="active-elem-table glyphicon glyphicon glyphicon-ok-circle"></em>
                                             </c:when>
                                             <c:otherwise>
@@ -54,17 +48,13 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <td>${produto.nome}</td>
-                                    <td>${produto.qtdeMin}</td>
-                                    <td>${produto.qtdeMax}</td>
-                                    <td><fmt:formatNumber value="${produto.precoCusto}" type="currency"/></td>
-                                    <td><fmt:formatNumber value="${produto.precoVenda}" type="currency"/></td>
-                                    <td>${produto.descricaoCurta}</td>
-                                    <td>${produto.saldo}</td>
-                                    <c:if test="${not empty usuario && usuario.unidade.matriz}">
-                                        <td><center><a href="<c:url value="/produtos/editar?id=${produto.id}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp; <a href="<c:url value="/produtos/inserir?id=${produto.id}"></c:url>"><i  data-toggle="tooltip" data-placement="top" title="Inserir Produto no Estoque" class="active-elem-table fa fa-plus-square" aria-hidden="true"></i></a></center></td></c:if>
-                                    </tr>
-                        </c:forEach>
+                                    <td>${itens.produto.nome}</td>
+                                    <td><fmt:formatNumber value="${itens.produto.precoVenda}" type="currency"/></td>
+                                    <td>${itens.funcionario.nome}</td>
+                                    <td>${itens.funcionario.acesso.nome}</td>
+                                    <td>${itens.qtdeProdutos}</td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>    
                 </div>

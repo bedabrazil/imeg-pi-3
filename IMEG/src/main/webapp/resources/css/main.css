@@ -45,7 +45,7 @@ input[type=number]::-webkit-inner-spin-button {
     position: absolute;
     top:37px;
     left:14px;
-    width:280px;
+    width:320px;
     min-height: 168.4px;
     background-color: #fff!important;
     z-index: 998;
