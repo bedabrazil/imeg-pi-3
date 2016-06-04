@@ -68,21 +68,19 @@
                                             <td class="bg-info">${maisVendidos.qtdeVendida}</td>
                                             <td>${maisVendidos.produto.nome}</td>
                                         </tr>
-                                    </c:forEach>                                   
+                                    </c:forEach>
                                 </tbody>
                             </table>
-                            <table class="table table-condensed"> 
-                                <thead>
-                                    <th>Selecione um Periodo</th>
-                                </thead>                                
-                                <tr>
-                                    <td colspan="2">Data Inícial
-                                        <input type="date" name="data1"></br>Data Final
-                                        <input type="date" name="data2">
-                                    </td>  
-                                <td></br></br><button type="button" class="glyphicon glyphicon-export" title="Exportar para Excel"></button></td>                                    
-                                </tr>
-                            </table>                                                       
+                            <form action="<c:url value="/relatorio"/>" method="post">
+                                <div class="col-lg-6">
+                                    <label>Data Início</label>
+                                    <input type="text" readonly="readonly" class="datePicker date-ini form-control" name="data-ini">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Data Final</label>
+                                    <input type="text" readonly="readonly" class="datePicker date-end form-control" name="data-end">
+                                </div>  
+                            </form>
                         </c:when>
                         <c:otherwise>NA HA RELATORIO</c:otherwise>
                     </c:choose>

@@ -17,7 +17,8 @@
                     <link rel='shortcut icon' type='image/x-icon' href="<c:url value='/favicon.ico'/>" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link rel="apple-touch-icon" href="<c:url value='/apple-touch-icon.png'/>"/>
-        <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css'/>"/>
+        <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
+        <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>"/>
         <link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>"/>
         <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>"/>
         <script src="<c:url value='/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'/>"></script>           

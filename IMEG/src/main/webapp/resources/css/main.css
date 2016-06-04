@@ -83,7 +83,7 @@ input[type=number]::-webkit-inner-spin-button {
     max-height: 267px;
 }
 input[type=number]:hover::-webkit-inner-spin-button { 
-    background: transparent url('../img/arrow-number.png') no-repeat 50% 50%;  
+    background: transparent url('../images/arrow-number.png') no-repeat 50% 50%;  
     width: 14px;
     height: 14px;
     padding: 4px;
@@ -539,4 +539,11 @@ ul{
 
 .form-space{
     margin:10px 0;
+}
+
+.border_true{
+    border: #c9e2b3 1px solid;
+}
+.border_false{
+    border: #dd1355 1px solid;
 }
