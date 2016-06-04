@@ -53,13 +53,13 @@
         <div class="col-lg-12 align-charts">
 
             <div class="col-lg-3 border-gray">
-                <div id="chart-1" class="chart">
+                <div id="chart-1" class="chart table-responsive">
                     <c:choose>
                         <c:when test="${not empty maisVendidos}">
-                            <table class="table table-striped">
+                            <table class="table table-hover">
                                 <thead>
-                                    <th>Qtde</th>
-                                    <th>Produto</th>
+                                    <th colspan="2">Produtos Mais Vendidos</th>
+
                                 </thead>
                                 <tbody>
                                     
@@ -71,14 +71,15 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-                            <form action="<c:url value="/relatorio"/>" method="post">
+                            <form action="<c:url value="/dashboard"/>" method="post">
+                                <input type="hidden" name="mais_vendidos" value="1">
                                 <div class="col-lg-6">
                                     <label>Data Início</label>
-                                    <input type="text" readonly="readonly" class="datePicker date-ini form-control" name="data-ini">
+                                    <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="data-ini">
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Data Final</label>
-                                    <input type="text" readonly="readonly" class="datePicker date-end form-control" name="data-end">
+                                    <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="data-end">
                                 </div>  
                             </form>
                         </c:when>
