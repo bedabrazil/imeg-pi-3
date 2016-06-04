@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-    <c:when test="${usuario.acesso.nome == 'ADMIN' && usuario.unidade.matriz}">
+    <c:when test="${usuario.acesso.nome == 'ADMIN'}">
         <div class="dropdown navbar-form navbar-left">
             <button class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-product-hunt" aria-hidden="true"></i>
@@ -135,7 +135,7 @@
             </ul>                                            
         </div>
     </c:when>
-    <c:when test="${usuario.acesso.nome == 'GERENTE' || (usuario.acesso.nome == 'ADMIN' && !usuario.unidade.matriz)}">
+    <c:when test="${usuario.acesso.nome == 'GERENTE'}">
         <div class="dropdown navbar-form navbar-left">
             <button class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-product-hunt" aria-hidden="true"></i>
