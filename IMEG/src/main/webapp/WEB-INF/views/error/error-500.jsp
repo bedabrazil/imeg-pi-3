@@ -8,7 +8,7 @@
 <%-- CONTEÚDO DE ERROR --%>
 <div class="col-lg-12">
     <button onclick="history.back()">Click para voltar para a página anterior</button>
-    <h1>500 erro interno.</h1>
+    <h1>500 - erro interno.</h1>
     <br />
     <p><b>Código do erro:</b> ${pageContext.errorData.statusCode}</p>
     <p><b>URL :</b> ${pageContext.request.scheme}://${header.host}${pageContext.errorData.requestURI}</p>
