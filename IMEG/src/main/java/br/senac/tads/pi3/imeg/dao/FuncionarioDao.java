@@ -265,17 +265,19 @@ public class FuncionarioDao {
     }
 
     public Boolean estaEmMatriz(int idUnidade) {
-        String sql = "SELECT * FROM FUNCIONARIOS WHERE ACESSOS_ID = 1 AND UNIDADES_ID = ?";
+        String sql = "SELECT * FROM FUNCIONARIOS WHERE ACESSOS_ID = 1 AND UNIDADES_ID = ? AND STATUS = TRUE";
         try {
 
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, idUnidade);
             ResultSet res = pst.executeQuery();
            
-            if (res.next()) {
-                return true;
+            if (!res.next()) {
+                return false;
             }
+            
             return true;
+
         } catch (SQLException e) {
             System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
         } finally {

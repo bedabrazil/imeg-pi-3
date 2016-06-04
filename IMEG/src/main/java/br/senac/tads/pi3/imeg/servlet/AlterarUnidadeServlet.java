@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.senac.tads.pi3.imeg.dao.EstadoDao;
+import br.senac.tads.pi3.imeg.dao.FuncionarioDao;
 import br.senac.tads.pi3.imeg.dao.UnidadeDao;
 import br.senac.tads.pi3.imeg.entity.Estado;
 import br.senac.tads.pi3.imeg.entity.Unidade;
@@ -28,11 +29,11 @@ import br.senac.tads.pi3.imeg.entity.Unidade;
 public class AlterarUnidadeServlet extends HttpServlet {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -54,9 +55,15 @@ public class AlterarUnidadeServlet extends HttpServlet {
                 request.setAttribute("unidade", unidade);
             }
             request.getRequestDispatcher("/WEB-INF/views/unidades/editar.jsp").forward(request, response);
+            HttpSession session = request.getSession(true);
+            boolean success = (boolean) session.getAttribute("success");
+            if (success) {
+                session.removeAttribute("msg_success");
+                session.removeAttribute("success");
+            }
+
         } else {
             response.sendRedirect(request.getContextPath() + "/unidades");
-
         }
 
     }
@@ -90,38 +97,40 @@ public class AlterarUnidadeServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
+        FuncionarioDao fDao = new FuncionarioDao();
 
-        session.setAttribute("error", false);
-        
-        
+
         if (request.getParameter("nome-unidade").isEmpty()) {
-            session.setAttribute("error", true);
             mensagens.add("O campo *Nome* não pode ser vazio.");
         }
         if (!request.getParameter("estado-id").matches("\\d+") || request.getParameter("estado-id").equals("0")) {
-            session.setAttribute("error", true);
             mensagens.add("Selecione uma cidade.");
         }
 
-        if (mensagens.size() > 0) {
-            request.setAttribute("error", true);
-            request.setAttribute("mensagens", mensagens);
-            processRequest(request, response);
+        if (Boolean.parseBoolean(request.getParameter("ativo_matriz"))) {
+            if (!fDao.estaEmMatriz(Integer.parseInt(request.getParameter("unidade_id")))) {
+                mensagens.add("Erro ao ativar Matriz. Esta unidade não possui um usuário ADM ativo.");
+            }
         }
-                
-            int id = Integer.parseInt(request.getParameter("unidade_id"));
-            String nome = request.getParameter("nome-unidade");
-            int estado = Integer.parseInt(request.getParameter("estado-id"));
-            boolean status = Boolean.parseBoolean(request.getParameter("ativo_unidades"));
-            boolean matriz = Boolean.parseBoolean(request.getParameter("ativo_matriz"));
-            
-            session.setAttribute("error", false);
+
+        if (mensagens.size() > 0) {
+            request.setAttribute("mensagens", mensagens);
+            request.setAttribute("error", true);
+            processRequest(request, response);
+            return;
+        }
+
+        int id = Integer.parseInt(request.getParameter("unidade_id"));
+        String nome = request.getParameter("nome-unidade");
+        int estado = Integer.parseInt(request.getParameter("estado-id"));
+        boolean status = Boolean.parseBoolean(request.getParameter("ativo_unidades"));
+        boolean matriz = Boolean.parseBoolean(request.getParameter("ativo_matriz"));
 
         if (id > 0 && !(nome.isEmpty()) && estado > 0) {
-            
+
             EstadoDao eDao = new EstadoDao();
             UnidadeDao uDao = new UnidadeDao();
-            
+
             uDao.resetaMatrizes();
 
             if (uDao.alterar(new Unidade(id, nome, eDao.pesquisarPorId(estado), status, matriz))) {
@@ -129,9 +138,6 @@ public class AlterarUnidadeServlet extends HttpServlet {
                 session.setAttribute("msg_success", "Unidade alterada com sucesso.");
                 session.setAttribute("success", true);
                 response.sendRedirect(request.getContextPath() + "/unidades");
-            } else {
-                session.setAttribute("msg_error", "Erro na transação. Contate o administrador do sistema.");
-                session.setAttribute("error", true);
             }
         }
 
