@@ -62,7 +62,7 @@ public class VendasServlet extends HttpServlet {
                 }
                 session.setAttribute("carrinho", carrinhoSession);
             }
-            response.sendRedirect(request.getContextPath() + "/vender");
+            response.sendRedirect(request.getContextPath() + "/carrinho");
 
         }
     }

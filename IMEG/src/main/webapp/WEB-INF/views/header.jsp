@@ -109,13 +109,3 @@
                         </div><!-- /.navbar-collapse -->
                     </div><!-- /.container-fluid -->
                 </nav>
-
-
-                <div class="page-header">
-                    <c:if test="${not empty usuario}">
-                        <p>Unidade: <strong>${usuario.unidade.nome}</strong> / ${usuario.unidade.estado.nome} <c:if test="${usuario.unidade.matriz}"> - Matriz</c:if></p>
-                        <p>Usuário: <strong>${usuario.nome}</strong></p>
-                        <p>Cargo: <strong>${usuario.cargo.nome}</strong></p>
-                        <p>Tipo de Acesso: <strong>${usuario.acesso.nome}</strong></p>
-                    </c:if>
-                </div>

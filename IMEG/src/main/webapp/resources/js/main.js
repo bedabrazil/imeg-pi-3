@@ -90,7 +90,7 @@ jQuery.noConflict();
         });
         return false;
     });
-    $('.sale + .over-sale').mouseleave(function () {        
+    $('.sale + .over-sale').mouseleave(function () {
         $(this).slideUp(200, function(){
             $(".sale").css("background-color", "transparent").css("color","#fff");
             $(".sale .badge").css("background-color", "#dd1355").css("color", "#fff");

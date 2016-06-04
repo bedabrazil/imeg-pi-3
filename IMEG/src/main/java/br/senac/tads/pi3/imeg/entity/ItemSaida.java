@@ -17,6 +17,7 @@ public class ItemSaida {
     private Funcionario funcionario;
     private Date dataTransacao;
     private int qtdeProdutos;
+    private double precoVenda;
 
     /**
      * @return the id
@@ -85,5 +86,13 @@ public class ItemSaida {
      */
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public double getPrecoVenda() {
+        return precoVenda;
+    }
+
+    public void setPrecoVenda(double precoVenda) {
+        this.precoVenda = precoVenda;
     }
 }

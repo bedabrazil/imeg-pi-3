@@ -9,8 +9,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
-                <li><a href="<c:url value="/pedidos"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                        &nbsp;Pedidos</a></li>
+                <li><a href="<c:url value="/vendidos"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                        &nbsp;Vendidos</a></li>
                 <li><a href="<c:url value="/produtos/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                         &nbsp;Novo</a></li>
                 <li><a href="<c:url value="/produtos"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
@@ -78,9 +78,11 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
-                <li><a href="<c:url value="/pedidos"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                        &nbsp;Pedidos</a></li>
-                                <li><a href="<c:url value="/produtos"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
+                <li><a href="<c:url value="/vendidos"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                        &nbsp;Vendidos</a></li>
+                <li><a href="<c:url value="/funcionarios/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                        </i>&nbsp;Novo</a></li>
+                <li><a href="<c:url value="/produtos"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
                         &nbsp;Listar</a></li>
             </ul>
         </div>
@@ -91,7 +93,7 @@
                 <span class="caret"></span>
             </button>        
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu2">
-                
+
                 <li><a href="<c:url value="/categorias"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
                         &nbsp;Listar</a></li>
             </ul>
@@ -103,7 +105,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu3">
-                   
+
                 <li><a href="<c:url value="/unidades"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
                         &nbsp;Listar</a></li>    
             </ul>
@@ -115,7 +117,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu4">
-                
+
                 <li><a href="<c:url value="/funcionarios"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
                         </i>&nbsp;Listar</a></li>                                                        
             </ul>                                            
@@ -127,7 +129,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu5">
-                
+
                 <li><a href="<c:url value="/cargos"/>"><i class="fa fa-list-alt" aria-hidden="true"></i>
                         </i>&nbsp;Listar</a></li>                                                        
             </ul>                                            
@@ -141,7 +143,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
-                
+
                 <li><a href="<c:url value="/vender"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                         &nbsp;Vender</a></li>
 
@@ -159,7 +161,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
-                
+
                 <li><a href="<c:url value="/vender"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                         &nbsp;Vender</a></li>
 

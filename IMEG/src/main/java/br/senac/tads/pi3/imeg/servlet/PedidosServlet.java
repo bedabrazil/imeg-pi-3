@@ -11,6 +11,7 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Márcio Soares <marcio@mail.com>
  */
-@WebServlet(name = "PedidosServlet", urlPatterns = {"/carrinho"})
+@WebServlet(name = "PedidosServlet", urlPatterns = {"/carrinho", "/pedido-realizado"})
 public class PedidosServlet extends HttpServlet {
 
     /**
@@ -56,10 +57,14 @@ public class PedidosServlet extends HttpServlet {
                 }
             }
         }
-        request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/pedidos/pedido-realizado.jsp").forward(request, response);
 
         String msg_success = (String) session.getAttribute("msg_success");
-
+        boolean sale_success = (boolean) session.getAttribute("sale_success");
+        if(sale_success){
+            session.removeAttribute("sale_success");
+            session.removeAttribute("sale_number");            
+        }
         if (msg_success != null) {
             session.removeAttribute("msg_success");
             session.removeAttribute("success");
@@ -103,9 +108,9 @@ public class PedidosServlet extends HttpServlet {
                             session.setAttribute("success", true);
                             if (qtd > 0) {
                                 carrinhoSession.put(produto, qtd);
-                                session.setAttribute("msg_success", "Produto atualizado com sucesso.");
+                                session.setAttribute("msg_success", "Carrinho atualizado com sucesso.");
                             } else {
-                                session.setAttribute("msg_success", "Produto removido com sucesso;");
+                                session.setAttribute("msg_success", "Produto removido do carrinho com sucesso;");
                             }
                         }
 
@@ -126,10 +131,13 @@ public class PedidosServlet extends HttpServlet {
                             new ProdutoDao().atualizarSaldo(produto, qtd);
                         }
                     }
+                    int rand = (new Random().nextInt(8*2000));
+                    session.setAttribute("sale_number", rand);
+                    session.setAttribute("sale_success", true);                    
                     session.removeAttribute("carrinho");
                 }
             }
-        response.sendRedirect(request.getContextPath() + "/carrinho");
+        response.sendRedirect(request.getContextPath() + "/pedido-realizado");
     }
 
     private Produto pegarProduto(Map<Produto, Integer> map, Produto produto) {

@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.senac.tads.pi3.imeg.entity.Funcionario;
-import java.util.Hashtable;
 
 /**
  *
@@ -48,7 +47,6 @@ import java.util.Hashtable;
     "VendasServlet"
 })
 public class AutenticacaoFilter implements Filter {
-
 
     /**
      *
@@ -94,15 +92,13 @@ public class AutenticacaoFilter implements Filter {
      */
     private static boolean verificarAcesso(Funcionario func, HttpServletRequest req, HttpServletResponse resp) {
         String pagina = req.getRequestURI();
-        if ((pagina.endsWith("/produtos") || pagina.endsWith("/produtos/novo") || pagina.endsWith("/produtos/editar")) && (func.getAcesso().getNome().equals("GERENTE"))) {
+        if ((pagina.endsWith("/relatorio") && pagina.endsWith("/produtos")) && (func.getAcesso().getNome().equals("GERENTE"))) {
             return true;
-        } else if ((pagina.endsWith("/funcionarios") || pagina.endsWith("/cargos") || pagina.endsWith("/categorias") || pagina.endsWith("/unidades")) && (func.getAcesso().getNome().equals("GERENTE") && func.getUnidade().isMatriz())) {
+        } else if ((pagina.endsWith("/produtos") || pagina.endsWith("/funcionarios") || pagina.endsWith("/cargos") || pagina.endsWith("/categorias") || pagina.endsWith("/unidades")) && (func.getAcesso().getNome().equals("GERENTE") && func.getUnidade().isMatriz())) {
             return true;
-        } else if ((pagina.endsWith("/vender") || pagina.endsWith("/vendidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("VENDEDOR")))) {
+        } else if ((pagina.endsWith("/pedido-realizado") || pagina.endsWith("/vender") || pagina.endsWith("/vendidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("VENDEDOR")))) {
             return true;
-        } else if (pagina.endsWith("/relatorio") && func.getAcesso().getNome().equals("GERENTE")) {
-            return true;
-        } else if (pagina.endsWith("/meusdados") || pagina.endsWith("/meusdados/editar")) {
+        } else if (pagina.endsWith("/meusdados/editar")) {
             return true;
         } else if (func.getAcesso().getNome().equals("ADMIN") && func.getUnidade().isMatriz()) {
             return true;

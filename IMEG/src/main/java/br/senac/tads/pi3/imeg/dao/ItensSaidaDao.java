@@ -53,6 +53,7 @@ public class ItensSaidaDao {
                 iSaida.setProduto(new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID")));
                 iSaida.setDataTransacao(rs.getDate("DATA_TRANSACAO"));
                 iSaida.setFuncionario(new FuncionarioDao().pesquisarPorId(rs.getInt("FUNCIONARIOS_ID")));
+                iSaida.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
                 iSaida.setQtdeProdutos(rs.getInt("QTDE_PRODUTOS"));
                 itensSaida.add(iSaida);
             }
@@ -82,6 +83,7 @@ public class ItensSaidaDao {
                 iSaida.setProduto(new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID")));
                 iSaida.setDataTransacao(rs.getDate("DATA_TRANSACAO"));
                 iSaida.setFuncionario(funcionario);
+                iSaida.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
                 iSaida.setQtdeProdutos(rs.getInt("QTDE_PRODUTOS"));
                 itensSaida.add(iSaida);
             }
@@ -124,8 +126,32 @@ public class ItensSaidaDao {
         return false;
     }
 
-    public void alteraritemSaida(ItemSaida itemSaida) {
-
+    public ArrayList<ItemSaida> produtosVendidos() {
+        String sql = "SELECT * FROM ITENS_SAIDA";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            ArrayList<ItemSaida> produtos = new ArrayList<>();
+            while(rs.next()){
+                ItemSaida iSaida = new ItemSaida();
+                iSaida.setProduto(new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID")));
+                iSaida.setFuncionario(new FuncionarioDao().pesquisarPorId(rs.getInt("FUNCIONARIOS_ID")));
+                iSaida.setQtdeProdutos(rs.getInt("QTDE_PRODUTOS"));
+                iSaida.setDataTransacao(rs.getDate("DATA_TRANSACAO"));
+                iSaida.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
+                produtos.add(iSaida);
+            }
+            return produtos;
+        } catch (SQLException ex) {
+            Logger.getLogger(Funcionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ItensSaidaDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
     public void removeritemSaida(ItemSaida itemSaida) {

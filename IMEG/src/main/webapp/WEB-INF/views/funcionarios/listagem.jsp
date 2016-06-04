@@ -5,10 +5,11 @@
     </c:choose>
 
     <div class="col-lg-12">
-
-        <a href="<c:url value="/funcionarios/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Novo Funcionário</a>
+        <c:if test="${usuario.acesso.nome == 'ADMIN'}">
+            <a href="<c:url value="/funcionarios/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Novo Funcionário</a>
+        </c:if>
             <br>
-            <div id="warning" class="col-lg-12 ${alert}">
+        <div id="warning" class="col-lg-12 ${alert}">
             <c:if test="${sessionScope.success}">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -46,7 +47,7 @@
                         <td>${funcionario.unidade.nome}</td>
                         <td>${funcionario.acesso.nome}</td>
                         <td>${funcionario.email}</td>
-                        <td><center><a href="<c:url value="/funcionarios/editar?id=${funcionario.id}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a></center></td>                
+                        <td><c:if test="${usuario.acesso.nome == 'ADMIN'}"><center><a href="<c:url value="/funcionarios/editar?id=${funcionario.id}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a></center></c:if></td>                
 
                     </tr>
             </c:forEach>

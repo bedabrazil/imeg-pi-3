@@ -4,8 +4,9 @@
         <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
     </c:choose>
     <div class="col-lg-12">
-
+        <c:if test="${usuario.acesso.nome == 'ADMIN'}">
         <a href="<c:url value="/categorias/novo"></c:url>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;Nova Categoria</a>
+        </c:if>
             <br>
             <div id="warning" class="col-lg-12 ${alert}">
             <c:if test="${sessionScope.success}">
@@ -36,7 +37,7 @@
                                 </c:otherwise></c:choose>
                             </td>
                             <td>${categoria.getNome()}</td>
-                        <td><center><a href="<c:url value="/categorias/editar?id=${categoria.getId()}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a></center></td>                
+                            <td><c:if test="${usuario.acesso.nome == 'ADMIN'}"><center><a href="<c:url value="/categorias/editar?id=${categoria.getId()}"></c:url>"><i data-toggle="tooltip" data-placement="top" title="Editar" class="active-elem-table fa fa-pencil-square-o" aria-hidden="true"></i></a></center></c:if></td>                
                     </tr>
             </c:forEach>
             </tbody>

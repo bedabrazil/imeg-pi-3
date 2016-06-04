@@ -7,7 +7,7 @@
 <%-- CONTEÚDO DE PRODUTOS/COMPRAR --%>
 
 <div id="requests" class="col-lg-12">
-    <div class="col-lg-12">
+    <div class="col-lg-12 well">
     <h3><i class="fa fa-product-hunt" aria-hidden="true"></i>&nbsp;Venda de Produtos</h3>
     <p>Escolha seus produtos e insira no carrinho.</p></div>
     <c:choose>

@@ -28,12 +28,15 @@
                 <div class="col-lg-12 table-reposnsive">
                     <table class="table table-hover">
                         <thead>
-                        <th style="width:5%;">Status</th>
-                        <th style="width:25%;">Nome do Produto</th>
-                        <th style="width:12%;">Preço de Venda</th>
-                        <th style="width:26%;">Vendedor</th>
+                        <th style="width:3%;">Status</th>
+                        <th style="width:20%;">Nome do Produto</th>
+                        <th style="width:18%;">Vendedor</th>
                         <th style="width:12%;">Tipo de Acesso</th>
-                        <th style="width:20%;">Quantidade Vendida</th>
+                        <th style="width:10%;">Quantidade Vendida</th>
+                        <th style="width:12%;">Preço de Venda</th>
+                        <th style="width:20%">Total da Venda</th>
+                        <th style="width:12%">Data da transação</th>
+                        
                         </thead>
                         <tbody>
                             <c:forEach items="${itensSaida}" var="itens">
@@ -49,10 +52,13 @@
                                         </c:choose>
                                     </td>
                                     <td>${itens.produto.nome}</td>
-                                    <td><fmt:formatNumber value="${itens.produto.precoVenda}" type="currency"/></td>
                                     <td>${itens.funcionario.nome}</td>
                                     <td>${itens.funcionario.acesso.nome}</td>
                                     <td>${itens.qtdeProdutos}</td>
+                                    <td><fmt:formatNumber value="${itens.produto.precoVenda}" type="currency"/></td>                                    
+                                    <td class="sub-total"><fmt:formatNumber type="currency" value="${itens.qtdeProdutos * itens.precoVenda}"/></td>
+                                    <td><fmt:formatDate type="date" value="${itens.dataTransacao}"/></td>
+                                    
                                 </tr>
                             </c:forEach>
                         </tbody>

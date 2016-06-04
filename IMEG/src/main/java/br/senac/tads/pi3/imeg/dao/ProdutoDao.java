@@ -6,7 +6,6 @@
 package br.senac.tads.pi3.imeg.dao;
 
 import br.senac.tads.pi3.imeg.entity.Categoria;
-import br.senac.tads.pi3.imeg.entity.Funcionario;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import br.senac.tads.pi3.imeg.entity.Produto;
@@ -217,16 +216,15 @@ public class ProdutoDao {
     }
 
     public ArrayList<Produto> produtosComSaldo() {
-        String sql = "SELECT * FROM ADM.ITENS_ENTRADA";
+        String sql = "SELECT DISTINCT IE.PRODUTOS_ID AS PRODUTOS FROM PRODUTOS AS P, ITENS_ENTRADA AS IE\n"
+                + "WHERE P.ID = IE.PRODUTOS_ID AND P.SALDO > 0 AND P.STATUS = TRUE";
         try {
             ArrayList<Produto> produtos = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
             ResultSet res = pst.executeQuery();
             while (res.next()) {
-                Produto produto = new ProdutoDao().pesquisarPorId(res.getInt("PRODUTOS_ID"));
-                if (produto != null && produto.isStatus() && produto.getSaldo() > 0) {
-                    produtos.add(produto);
-                }
+                Produto produto = new ProdutoDao().pesquisarPorId(res.getInt("PRODUTOS"));
+                produtos.add(produto);
             }
             return produtos;
         } catch (SQLException e) {
@@ -240,6 +238,7 @@ public class ProdutoDao {
         }
         return null;
     }
+
     public void atualizarSaldo(Produto produto, int qtd) {
 
         String sql = "UPDATE PRODUTOS SET SALDO=? WHERE ID=?";

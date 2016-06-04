@@ -8,7 +8,6 @@ package br.senac.tads.pi3.imeg.servlet;
 import br.senac.tads.pi3.imeg.dao.ItensSaidaDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.ItemSaida;
-import br.senac.tads.pi3.imeg.entity.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -40,13 +39,15 @@ public class ProdutosVendidosServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<ItemSaida> itensSaida = null;
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
-        if(usuario.getAcesso().getNome().equals("GERENTE")){
+        if(usuario.getAcesso().getNome().equals("GERENTE") && !usuario.getUnidade().isMatriz()){
           itensSaida = new ItensSaidaDao().produtosVendidosPorUnidade(usuario);
         }else if (usuario.getAcesso().getNome().equals("VENDEDOR")){
             itensSaida = new ItensSaidaDao().produtosVendidosPorVendedor(usuario);
+        }else{
+            itensSaida = new ItensSaidaDao().produtosVendidos();
         }
         request.setAttribute("itensSaida", itensSaida);
-        request.getRequestDispatcher("/WEB-INF/views/produtos/vendidos.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/vendas/vendidos.jsp").forward(request, response);
         
     }
 }
