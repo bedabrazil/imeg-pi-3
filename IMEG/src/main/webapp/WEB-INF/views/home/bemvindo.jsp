@@ -56,19 +56,33 @@
                 <div id="chart-1" class="chart">
                     <c:choose>
                         <c:when test="${not empty maisVendidos}">
-                            <table class="table table-hover">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Qtde</th>
+                                    <th>Produto</th>
+                                </thead>
                                 <tbody>
+                                    
                                     <c:forEach items="${maisVendidos}" var="maisVendidos">
-                                        <tr>
-                                            <td>${maisVendidos.qtdeVendida}</td>
+                                        <tr>                                            
+                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
                                             <td>${maisVendidos.produto.nome}</td>
                                         </tr>
-                                    </c:forEach>
-                                    <tr>
-                                        <td colspan="2"><input type="date" name="data1"><input type="date" name="data2"></td>
-                                    </tr>
+                                    </c:forEach>                                   
                                 </tbody>
                             </table>
+                            <table class="table table-condensed"> 
+                                <thead>
+                                    <th>Selecione um Periodo</th>
+                                </thead>                                
+                                <tr>
+                                    <td colspan="2">Data Inícial
+                                        <input type="date" name="data1"></br>Data Final
+                                        <input type="date" name="data2">
+                                    </td>  
+                                <td></br></br><button type="button" class="glyphicon glyphicon-export" title="Exportar para Excel"></button></td>                                    
+                                </tr>
+                            </table>                                                       
                         </c:when>
                         <c:otherwise>NA HA RELATORIO</c:otherwise>
                     </c:choose>
@@ -77,16 +91,18 @@
 
             <div class="col-lg-3 border-gray">
                 <div id="chart-2" class="chart"></div>
+
             </div>
 
             <div class="col-lg-3 border-gray">
-                <div id="chart-3" class="chart"></div>          
+                <div id="chart-3" class="chart"></div> 
+              
             </div>
 
             <div class="col-lg-3 border-gray">
-                <div id="chart-3" class="chart"></div>          
+                <div id="chart-3" class="chart"></div> 
+                
             </div> 
-
         </div>
     </div>
 
