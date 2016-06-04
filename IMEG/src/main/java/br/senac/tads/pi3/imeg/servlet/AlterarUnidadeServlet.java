@@ -98,6 +98,7 @@ public class AlterarUnidadeServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         ArrayList<String> mensagens = new ArrayList<>();
         FuncionarioDao fDao = new FuncionarioDao();
+        UnidadeDao uDao = new UnidadeDao();
 
 
         if (request.getParameter("nome-unidade").isEmpty()) {
@@ -110,6 +111,9 @@ public class AlterarUnidadeServlet extends HttpServlet {
         if (Boolean.parseBoolean(request.getParameter("ativo_matriz"))) {
             if (!fDao.estaEmMatriz(Integer.parseInt(request.getParameter("unidade_id")))) {
                 mensagens.add("Erro ao ativar Matriz. Esta unidade não possui um usuário ADM ativo.");
+            }else{
+                
+                uDao.resetaMatrizes();
             }
         }
 
@@ -129,9 +133,6 @@ public class AlterarUnidadeServlet extends HttpServlet {
         if (id > 0 && !(nome.isEmpty()) && estado > 0) {
 
             EstadoDao eDao = new EstadoDao();
-            UnidadeDao uDao = new UnidadeDao();
-
-            uDao.resetaMatrizes();
 
             if (uDao.alterar(new Unidade(id, nome, eDao.pesquisarPorId(estado), status, matriz))) {
                 mensagens.clear();
