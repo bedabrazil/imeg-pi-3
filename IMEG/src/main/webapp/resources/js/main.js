@@ -102,5 +102,37 @@ jQuery.noConflict();
     $(".maskmeter").maskMoney({prefix:'mÂ² ', allowZero: false, defaultZero: false, allowNegative: true, thousands:'.', decimal:',', affixesStay: false});    
     $(".maskpercent").maskMoney({prefix:'% ', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:',', affixesStay: false});            
     $(".number").maskMoney({prefix:'', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:'', affixesStay: false    });            
+    $.datepicker.setDefaults( $.datepicker.regional[ "pt-BR" ] );
+    $(".datePicker").datepicker({dateFormat: 'dd/mm/yyyy',yearRange: '1900:'+new Date().getFullYear(), maxDate: new Date});
     
+  $("form").on("blur", ".datePicker", function(e) {
+    if(($('.date-ini').val() !== "" && $('.date-end').val() !== "") && (typeof $('.date-ini').val() !== "undefined" && typeof $('.date-end').val() !== "undefined")){
+      var date_ok = dataInicialMaiorQueFinal($('.date-ini').val(), $('.date-end').val());
+      if(date_ok){
+        $('.date-ini').addClass('border_true');
+        $('.date-end').addClass('border_true');
+        $('.date-ini').removeClass('border_false');
+        $('.date-end').removeClass('border_false');        
+      }else{
+        $('.date-ini').addClass('border_false');
+        $('.date-end').addClass('border_false');
+        return false;          
+      }
+    }
+    return true;
+  });    
+    function dataInicialMaiorQueFinal($date_ini, $date_end){
+alert($date_ini+"=>"+$date_end);        
+      if($date_ini === "" || $date_end === ""){ return false;}
+      var initial_date = $date_ini.split("/");
+      var final_date = $date_end.split("/");    
+      initial_date = new Date(initial_date[2], initial_date[1]-1, initial_date[0]);
+      final_date = new Date(final_date[2], final_date[1]-1, final_date[0]);    
+      if(initial_date > final_date){
+        return false;
+      }
+      return true;
+    }    
 })(jQuery);
+
+
