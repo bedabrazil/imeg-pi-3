@@ -82,11 +82,9 @@
         </div>        
     </c:when>
     <c:otherwise>
-        <div class="col-lg-12">
-            <center>
-                <h2>Não há produtos no carrinho</h2>
-                <a href="<c:url value="/vender"/>" class="btn btn-default">Ir as vendas</a>
-            </center>
+        <div class="col-lg-12 pedido-sucesso">
+            <h1>Não há produtos no carrinho</h1>
+            <a href="<c:url value="/vender"/>" class="btn btn-default">Ir as vendas</a>
         </div>
 
     </c:otherwise>
