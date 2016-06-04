@@ -100,7 +100,7 @@ public class AutenticacaoFilter implements Filter {
             return true;
         } else if (pagina.endsWith("/meusdados/editar")) {
             return true;
-        } else if (func.getAcesso().getNome().equals("ADMIN") && func.getUnidade().isMatriz()) {
+        } else if (func.getAcesso().getNome().equals("ADMIN")) {
             return true;
         }
         return false;
