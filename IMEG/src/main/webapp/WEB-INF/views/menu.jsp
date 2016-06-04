@@ -9,6 +9,9 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
+                <c:if test="${!usuario.unidade.matriz}">
+                    <li><a href="<c:url value="/vender"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                        &nbsp;Vender</a></li></c:if>
                 <li><a href="<c:url value="/vendidos"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                         &nbsp;Vendidos</a></li>
                 <li><a href="<c:url value="/produtos/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
