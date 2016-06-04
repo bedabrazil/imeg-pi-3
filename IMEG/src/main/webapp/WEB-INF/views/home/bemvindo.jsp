@@ -59,11 +59,13 @@
                             <table class="table table-hover">
                                 <thead>
                                     <th colspan="2">Produtos Mais Vendidos</th>
+
                                 </thead>
                                 <tbody>
+                                    
                                     <c:forEach items="${maisVendidos}" var="maisVendidos">
-                                        <tr>
-                                            <td>${maisVendidos.qtdeVendida}</td>
+                                        <tr>                                            
+                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
                                             <td>${maisVendidos.produto.nome}</td>
                                         </tr>
                                     </c:forEach>
@@ -88,16 +90,105 @@
 
             <div class="col-lg-3 border-gray">
                 <div id="chart-2" class="chart"></div>
+                 <c:choose>
+                        <c:when test="${not empty maisVendidos}">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Qtde</th>
+                                    <th>Produto</th>
+                                </thead>
+                                <tbody>
+                                    
+                                    <c:forEach items="${maisVendidos}" var="maisVendidos">
+                                        <tr>                                            
+                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
+                                            <td>${maisVendidos.produto.nome}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <form action="<c:url value="/relatorio"/>" method="post">
+                                <div class="col-lg-6">
+                                    <label>Data Início</label>
+                                    <input type="text" readonly="readonly" class="datePicker date-ini form-control" name="data-ini">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Data Final</label>
+                                    <input type="text" readonly="readonly" class="datePicker date-end form-control" name="data-end">
+                                </div>  
+                            </form>
+                        </c:when>
+                        <c:otherwise>NA HA RELATORIO</c:otherwise>
+                    </c:choose>
             </div>
 
             <div class="col-lg-3 border-gray">
-                <div id="chart-3" class="chart"></div>          
+                <div id="chart-3" class="chart"></div> 
+                 <c:choose>
+                        <c:when test="${not empty maisVendidos}">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Qtde</th>
+                                    <th>Produto</th>
+                                </thead>
+                                <tbody>
+                                    
+                                    <c:forEach items="${maisVendidos}" var="maisVendidos">
+                                        <tr>                                            
+                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
+                                            <td>${maisVendidos.produto.nome}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <form action="<c:url value="/relatorio"/>" method="post">
+                                <div class="col-lg-6">
+                                    <label>Data Início</label>
+                                    <input type="text" readonly="readonly" class="datePicker date-ini form-control" name="data-ini">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Data Final</label>
+                                    <input type="text" readonly="readonly" class="datePicker date-end form-control" name="data-end">
+                                </div>  
+                            </form>
+                        </c:when>
+                        <c:otherwise>NA HA RELATORIO</c:otherwise>
+                    </c:choose>
             </div>
 
             <div class="col-lg-3 border-gray">
-                <div id="chart-3" class="chart"></div>          
+                <div id="chart-3" class="chart"></div> 
+                    <c:choose>
+                        <c:when test="${not empty maisVendidos}">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Qtde</th>
+                                    <th>Produto</th>
+                                </thead>
+                                <tbody>
+                                    
+                                    <c:forEach items="${maisVendidos}" var="maisVendidos">
+                                        <tr>                                            
+                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
+                                            <td>${maisVendidos.produto.nome}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <form action="<c:url value="/relatorio"/>" method="post">
+                                <div class="col-lg-6">
+                                    <label>Data Início</label>
+                                    <input type="text" readonly="readonly" class="datePicker date-ini form-control" name="data-ini">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Data Final</label>
+                                    <input type="text" readonly="readonly" class="datePicker date-end form-control" name="data-end">
+                                </div>  
+                            </form>
+                        </c:when>
+                        <c:otherwise>NA HA RELATORIO</c:otherwise>
+                    </c:choose>                
             </div> 
-
         </div>
     </div>
 
