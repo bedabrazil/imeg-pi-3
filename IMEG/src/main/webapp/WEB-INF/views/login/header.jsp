@@ -31,7 +31,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                               </button>
-                                <a class="navbar-brand logo" href="home"><img src="<c:url value='/resources/img/logo.png'></c:url>" alt=""/></a>
+                                <a class="navbar-brand logo" href="home"><img src="<c:url value='/resources/images/logo.png'></c:url>" alt=""/></a>
                             </div>
                         </div><!-- /.container-fluid -->
                     </nav> 
