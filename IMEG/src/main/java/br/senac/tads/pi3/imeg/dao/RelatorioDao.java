@@ -23,7 +23,7 @@ public class RelatorioDao {
 
     //Lista produtos mais vendidos
     public ArrayList<RelatorioVenda> listarMaisVendidos() {
-        String sql = "SELECT * FROM MAIS_VENDIDOS_VERSAO_TEMP";
+        String sql = "SELECT * FROM TRES_MAIS_VENDIDOS";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
         try {
 
