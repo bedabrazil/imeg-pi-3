@@ -96,7 +96,7 @@ public class AutenticacaoFilter implements Filter {
             return true;
         } else if ((pagina.endsWith("/produtos") || pagina.endsWith("/funcionarios") || pagina.endsWith("/cargos") || pagina.endsWith("/categorias") || pagina.endsWith("/unidades")) && (func.getAcesso().getNome().equals("GERENTE") && func.getUnidade().isMatriz())) {
             return true;
-        } else if ((pagina.endsWith("/pedido-realizado") || pagina.endsWith("/vender") || pagina.endsWith("/vendidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || func.getAcesso().getNome().equals("VENDEDOR")))) {
+        } else if ((pagina.endsWith("/pedido-realizado") || pagina.endsWith("/vender") || pagina.endsWith("/vendidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || (func.getAcesso().getNome().equals("ADMIN") && !func.getUnidade().isMatriz()) || func.getAcesso().getNome().equals("VENDEDOR")))) {
             return true;
         } else if (pagina.endsWith("/meusdados/editar")) {
             return true;
