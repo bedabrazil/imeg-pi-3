@@ -379,3 +379,4 @@ where id in ( case when
 (select {fn TIMESTAMPDIFF(SQL_TSI_DAY, data_transacao, current_date)}
 from ITENS_SAIDA where id = SAIDA.id  ) <=7 then id else 0 end )
 OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY;
+

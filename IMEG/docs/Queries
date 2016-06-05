@@ -139,6 +139,12 @@ WHERE UNIDADE = 1 -- INFORMAR O ID DA UNIDADE
     GROUP BY UN.NOME 
     ORDER BY SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) DESC
 
-
-
+-- FATURAMENTO DA SEMANA (Unidade) - (Ultimos 7 dias)
+select SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) AS "FATURAMENTO_SEMANA" 
+from ITENS_SAIDA SAIDA
+where id in ( case when 
+(select {fn TIMESTAMPDIFF(SQL_TSI_DAY, data_transacao, current_date)}
+from ITENS_SAIDA where id = SAIDA.id  ) <=7 then id else 0 end )
+and UNIDADES_ID = ?
+OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY;
 
