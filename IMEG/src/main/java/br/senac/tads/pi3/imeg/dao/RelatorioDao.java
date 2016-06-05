@@ -125,8 +125,6 @@ public class RelatorioDao {
         }
         return null;
     }
-
-    
     
     public ArrayList<RelatorioVenda> listarUnidadesQueMaisVenderam() {
         String sql = "SELECT * FROM VENDA_UNIDADE";
@@ -184,64 +182,7 @@ public class RelatorioDao {
         return null;
     }  
        
-    
-    public ArrayList<RelatorioVenda> listarMaisVendidosPorUnidade(Unidade unidade) {
-        String sql = "SELECT * FROM VENDIDOS_POR_UNIDADE";
-        ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
-        try {
-
-            pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, unidade.getId());
-            ResultSet res = pst.executeQuery();
-            while (res.next()) {
-                RelatorioVenda r = new RelatorioVenda();
-                ProdutoDao pDao = new ProdutoDao();
-                r.setQtdeVendida(res.getInt("QTD_VENDA"));
-                r.setProduto(pDao.pesquisarPorId(res.getInt("PRODUTO")));
-
-                rVenda.add(r);
-            }
-            return rVenda;
-        } catch (SQLException e) {
-            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
-        } finally {
-            try {
-                pst.close();
-            } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        return null;
-    } 
-    public ArrayList<RelatorioVenda> listarMaisVendidosPorFuncionario(int idFuncionario) {
-        String sql = "SELECT * FROM VENDIDOS_POR_UNIDADE";
-        ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
-        try {
-
-            pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, idFuncionario);
-            ResultSet res = pst.executeQuery();
-            while (res.next()) {
-                RelatorioVenda r = new RelatorioVenda();
-                ProdutoDao pDao = new ProdutoDao();
-                r.setQtdeVendida(res.getInt("QTD_VENDA"));
-                r.setProduto(pDao.pesquisarPorId(res.getInt("PRODUTO")));
-
-                rVenda.add(r);
-            }
-            return rVenda;
-        } catch (SQLException e) {
-            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
-        } finally {
-            try {
-                pst.close();
-            } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        return null;
-    } 
-    
+       
     public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamNaUnidade(Unidade unidade) {
         String sql = "SELECT * FROM VENDAS_FUNCIONARIOS_UNIDADE";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
