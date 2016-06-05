@@ -101,7 +101,7 @@ public class AutenticacaoFilter implements Filter {
             return true;
         } else if (pagina.endsWith("/meusdados/editar") || pagina.endsWith("/dashboard")) {
             return true;
-        } else if (func.getAcesso().getNome().equals("ADMIN")) {
+        } else if (func.getAcesso().getNome().equals("ADMIN") && (!pagina.endsWith("/pedido-realizado") && !pagina.endsWith("/vender") && !pagina.endsWith("/carrinho")) ) {
             return true;
         }
         return false;
