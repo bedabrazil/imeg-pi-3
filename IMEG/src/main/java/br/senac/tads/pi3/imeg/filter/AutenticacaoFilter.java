@@ -74,7 +74,7 @@ public class AutenticacaoFilter implements Filter {
         try {
             boolean possoAcessar = verificarAcesso(usuario, httpRequest, httpResponse);
             if (possoAcessar) {
-                chain.doFilter(request, response);
+                    chain.doFilter(request, response);
             } else {
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/home");
             }

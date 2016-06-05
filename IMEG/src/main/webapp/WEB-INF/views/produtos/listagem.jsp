@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${produtos}" var="produto">
-                            <tr>
+                            <tr <c:if test="${produto.saldo <= 0}">data-toggle="tooltip" data-placement="right" title="Falta Inserir Produto no Estoque" role="tooltip" class="sem_saldo"</c:if>>
                                 <td>
                                     <c:choose>
                                         <c:when test="${produto.isStatus()}">

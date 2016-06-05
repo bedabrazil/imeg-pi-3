@@ -26,7 +26,6 @@ public class Produto {
     private String nomeDoArquvo;
     private String descricao;
     private String descricaoCurta;
-    
     public int getId() {
         return id;
     }

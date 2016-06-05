@@ -90,7 +90,7 @@ public class FuncionarioDao {
         CargoDao cargoDao = new CargoDao();
         UnidadeDao unidadeDao = new UnidadeDao();
 
-        String sql = "SELECT FUNCIONARIOS.* FROM FUNCIONARIOS WHERE NOME LIKE '%?%';";
+        String sql = "SELECT FUNCIONARIOS.* FROM FUNCIONARIOS WHERE NOME LIKE '%?%'";
 
         try {
             Funcionario funcionario = new Funcionario();

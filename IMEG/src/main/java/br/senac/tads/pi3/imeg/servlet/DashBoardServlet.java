@@ -6,14 +6,17 @@
 package br.senac.tads.pi3.imeg.servlet;
 
 import au.com.bytecode.opencsv.CSVWriter;
+import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
+import br.senac.tads.pi3.imeg.entity.Produto;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -44,6 +47,16 @@ public class DashBoardServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
         ArrayList<RelatorioVenda> maisVendidos = null;
+        List<Produto> produtos = null;
+        String search = request.getParameter("search");
+        if (search != null && request.getQueryString() != null) {
+            produtos = new ProdutoDao().pesquisarProdutos(search);
+            if(produtos.size() <= 0){
+                request.setAttribute("search", search);
+                request.setAttribute("msg_error", true);
+            }
+        }
+
         if (usuario != null && usuario.getUnidade().isMatriz()) {
             maisVendidos = new RelatorioDao().listarMaisVendidos();
         } else if (usuario.getAcesso().getNome().equals("GERENTE") || usuario.getAcesso().getNome().equals("ADMIN")) {
@@ -51,6 +64,7 @@ public class DashBoardServlet extends HttpServlet {
         } else if (usuario.getAcesso().getNome().equals("VENDEDOR")) {
             maisVendidos = new RelatorioDao().listarMaisVendidosVendedor(usuario);
         }
+        request.setAttribute("produtos", produtos);
         request.setAttribute("maisVendidos", maisVendidos);
         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);
 
@@ -60,9 +74,7 @@ public class DashBoardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.sendRedirect(request.getContextPath() + "/dashboard");
-
         ArrayList<String> mensagens = new ArrayList<>();
-
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         if (!request.getParameter("date-ini-mais-vendidos").isEmpty()) {

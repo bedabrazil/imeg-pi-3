@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -162,7 +163,7 @@ public class ProdutoDao {
     }
 
     public ArrayList<Produto> listarMatriz() {
-        String sql = "SELECT PRODUTOS.* FROM PRODUTOS ORDER BY NOME ASC";
+        String sql = "SELECT PRODUTOS.* FROM PRODUTOS ORDER BY ID DESC";
         try {
             pst = new Conexao().prepararStatement(sql);
             ResultSet res = pst.executeQuery();
@@ -257,5 +258,30 @@ public class ProdutoDao {
                 Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
+    }
+
+    public List<Produto> pesquisarProdutos(String search) {
+        String sql = "SELECT ID FROM PRODUTOS WHERE NOME LIKE '%"+search+"%' AND SALDO > 0";
+        try {
+            pst = new Conexao().prepararStatement(sql);
+//            pst.setString(1, "%" + search + "%");
+            ResultSet rs = pst.executeQuery();
+            ArrayList<Produto> produtos = new ArrayList<>();
+            while (rs.next()) {
+                Produto p = this.pesquisarPorId(rs.getInt("ID"));
+                produtos.add(p);
+            }
+
+            return produtos;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
     }
 }
