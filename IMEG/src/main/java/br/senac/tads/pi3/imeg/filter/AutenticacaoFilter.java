@@ -44,7 +44,8 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
     "UnidadesServlet",
     "RelatorioServlet",
     "PedidosServlet",
-    "VendasServlet"
+    "VendasServlet",
+    "DashBoardServlet"
 })
 public class AutenticacaoFilter implements Filter {
 

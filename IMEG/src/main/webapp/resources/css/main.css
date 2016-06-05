@@ -19,8 +19,8 @@ body {
 }
 .pedido-sucesso{
     display: inline-block;
-    height: 350px;
-    line-height: 350px;
+    height: 250px;
+    line-height: 250px;
     text-align: center;
     vertical-align: middle;     
 }
@@ -528,14 +528,15 @@ ul{
 .space-col-right-50px{
     margin-right: 137px;
 }
+#charts > .chart{
+    min-height: 600px;
+}
 .align-charts{
-    min-height: 300px;
+    min-height: 600px;
     min-width: 420px;
     margin: 0 auto;
 }
-.chart{
-    height: 300px;
-}
+
 
 .form-space{
     margin:10px 0;
