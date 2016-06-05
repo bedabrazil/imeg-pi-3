@@ -99,7 +99,7 @@ public class AutenticacaoFilter implements Filter {
             return true;
         } else if ((pagina.endsWith("/pedido-realizado") || pagina.endsWith("/vender") || pagina.endsWith("/vendidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || (func.getAcesso().getNome().equals("ADMIN") && !func.getUnidade().isMatriz()) || func.getAcesso().getNome().equals("VENDEDOR")))) {
             return true;
-        } else if (pagina.endsWith("/meusdados/editar")) {
+        } else if (pagina.endsWith("/meusdados/editar") || pagina.endsWith("/dashboard")) {
             return true;
         } else if (func.getAcesso().getNome().equals("ADMIN")) {
             return true;
