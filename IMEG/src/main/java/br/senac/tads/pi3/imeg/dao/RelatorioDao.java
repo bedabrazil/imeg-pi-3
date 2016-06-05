@@ -59,7 +59,7 @@ public class RelatorioDao {
     public ArrayList<RelatorioVenda> listarMaisVendidosFilial(Funcionario funcionario) {
         String sql = "SELECT SUM(SAIDA.QTDE_PRODUTOS) AS \"QTD_VENDA\",\n"
                 + "SAIDA.PRODUTOS_ID AS \"PRODUTO\" FROM ITENS_SAIDA SAIDA\n"
-                + "WHERE id in ( CASE WHEN \n"
+                + "WHERE ID IN ( CASE WHEN \n"
                 + "(SELECT {fn TIMESTAMPDIFF(SQL_TSI_DAY, DATA_TRANSACAO, CURRENT_DATE)}\n"
                 + "FROM ITENS_SAIDA WHERE ID = SAIDA.ID  ) <= 7 THEN ID ELSE 0 END ) AND UNIDADES_ID = ?\n"
                 + "GROUP BY SAIDA.PRODUTOS_ID \n"
@@ -224,8 +224,7 @@ public class RelatorioDao {
                 RelatorioEstoque e = new RelatorioEstoque();
                 ProdutoDao pDao = new ProdutoDao();
                 e.setQuantidade(res.getInt("QTD_PRODUTOS"));
-                e.setProduto(pDao.pesquisarPorId(res.getInt("PRODUTO")));
-
+                e.setProduto(pDao.pesquisarPorId(res.getInt("ID")));
                 rEstoque.add(e);
             }
             return rEstoque;

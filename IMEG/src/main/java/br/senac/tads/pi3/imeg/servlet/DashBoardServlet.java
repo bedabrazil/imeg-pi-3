@@ -5,24 +5,20 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import au.com.bytecode.opencsv.CSVWriter;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.Produto;
+import br.senac.tads.pi3.imeg.entity.RelatorioEstoque;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import br.senac.tads.pi3.imeg.util.RelatorioExcel;
 import java.io.ByteArrayOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,11 +49,13 @@ public class DashBoardServlet extends HttpServlet {
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
 
         ArrayList<RelatorioVenda> maisVendidos = null;
+        ArrayList<RelatorioEstoque> estoqueBaixo = null;
         List<Produto> produtos = null;
         String search = request.getParameter("search");
         if (search != null && request.getQueryString() != null) {
             produtos = new ProdutoDao().pesquisarProdutos(search);
-            if (produtos.size() <= 0) {
+            if(produtos == null){
+
                 request.setAttribute("search", search);
                 request.setAttribute("msg_error", true);
             }
@@ -65,6 +63,7 @@ public class DashBoardServlet extends HttpServlet {
 
         if (usuario != null && usuario.getUnidade().isMatriz()) {
             maisVendidos = new RelatorioDao().listarTresMaisVendidos();
+            estoqueBaixo = new RelatorioDao().listarProdutosComBaixoEstoque();
         } else if (usuario.getAcesso().getNome().equals("GERENTE") || usuario.getAcesso().getNome().equals("ADMIN")) {
             maisVendidos = new RelatorioDao().listarMaisVendidosFilial(usuario);
         } else if (usuario.getAcesso().getNome().equals("VENDEDOR")) {
@@ -72,6 +71,8 @@ public class DashBoardServlet extends HttpServlet {
         }
         request.setAttribute("produtos", produtos);
         request.setAttribute("maisVendidos", maisVendidos);
+        request.setAttribute("estoqueBaixo", estoqueBaixo);
+        
         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);
 
     }
