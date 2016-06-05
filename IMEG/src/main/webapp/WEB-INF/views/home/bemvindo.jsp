@@ -8,14 +8,14 @@
 </c:choose>
 <script type="text/javascript">
     <c:choose>
-        <c:when test="${not empty tresMaisVendidos}">
+        <c:when test="${not empty maisVendidos}">
     function desenharChartMaisVendidos() {
         // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Produtos');
         data.addColumn('number', 'Vendidos');
         data.addRows([
-            <c:forEach items="${tresMaisVendidos}" var="item">
+            <c:forEach items="${maisVendidos}" var="item">
             ["${item.produto.nome}", ${item.qtdeVendida}],
             </c:forEach>
         ]);
