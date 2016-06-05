@@ -10,6 +10,7 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.RelatorioEstoque;
 import br.senac.tads.pi3.imeg.entity.RelatorioFaturamento;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
+import br.senac.tads.pi3.imeg.entity.Unidade;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -184,13 +185,13 @@ public class RelatorioDao {
     }  
        
     
-    public ArrayList<RelatorioVenda> listarMaisVendidosPorUnidade(int idUnidade) {
+    public ArrayList<RelatorioVenda> listarMaisVendidosPorUnidade(Unidade unidade) {
         String sql = "SELECT * FROM VENDIDOS_POR_UNIDADE";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
         try {
 
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, idUnidade);
+            pst.setInt(1, unidade.getId());
             ResultSet res = pst.executeQuery();
             while (res.next()) {
                 RelatorioVenda r = new RelatorioVenda();
@@ -241,13 +242,13 @@ public class RelatorioDao {
         return null;
     } 
     
-    public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamNaUnidade(int idUnidade) {
+    public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamNaUnidade(Unidade unidade) {
         String sql = "SELECT * FROM VENDAS_FUNCIONARIOS_UNIDADE";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
         try {
 
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, idUnidade);
+            pst.setInt(1, unidade.getId());
             ResultSet res = pst.executeQuery();
             while (res.next()) {
                 RelatorioVenda r = new RelatorioVenda();
@@ -352,13 +353,13 @@ public class RelatorioDao {
         }
         return null;
     }
-    public ArrayList<RelatorioFaturamento> faturamentoUltimosSeteDiasUnidade(int idUnidade) {
+    public ArrayList<RelatorioFaturamento> faturamentoUltimosSeteDiasUnidade(Unidade unidade) {
         String sql = "SELECT * FROM FATURAMENTO_SETE_DIAS_UNIDADE";
         ArrayList<RelatorioFaturamento> rFaturamento = new ArrayList<>();
         try {
 
             pst = new Conexao().prepararStatement(sql);
-            pst.setInt(1, idUnidade);
+            pst.setInt(1, unidade.getId());
             ResultSet res = pst.executeQuery();
             while (res.next()) {
                 RelatorioFaturamento f = new RelatorioFaturamento();
