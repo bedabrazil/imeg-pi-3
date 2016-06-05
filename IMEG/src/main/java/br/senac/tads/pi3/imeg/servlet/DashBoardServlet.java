@@ -46,6 +46,7 @@ public class DashBoardServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
+
         ArrayList<RelatorioVenda> maisVendidos = null;
         List<Produto> produtos = null;
         String search = request.getParameter("search");
@@ -58,7 +59,7 @@ public class DashBoardServlet extends HttpServlet {
         }
 
         if (usuario != null && usuario.getUnidade().isMatriz()) {
-            maisVendidos = new RelatorioDao().listarMaisVendidos();
+            maisVendidos = new RelatorioDao().listarTresMaisVendidos();
         } else if (usuario.getAcesso().getNome().equals("GERENTE") || usuario.getAcesso().getNome().equals("ADMIN")) {
             maisVendidos = new RelatorioDao().listarMaisVendidosFilial(usuario);
         } else if (usuario.getAcesso().getNome().equals("VENDEDOR")) {

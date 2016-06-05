@@ -5,9 +5,6 @@
  */
 package br.senac.tads.pi3.imeg.entity;
 
-import br.senac.tads.pi3.imeg.dao.RelatorioDao;
-import java.util.ArrayList;
-
 /**
  *
  * @author iosato
@@ -15,6 +12,8 @@ import java.util.ArrayList;
 public class RelatorioVenda implements Relatorio{
     private int qtdeVendida;
     private Produto produto;
+    private Unidade unidade;
+    private Funcionario funcionario;
 
     public int getQtdeVendida() {
         return qtdeVendida;
@@ -31,4 +30,21 @@ public class RelatorioVenda implements Relatorio{
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Unidade unidade) {
+        this.unidade = unidade;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+    
 }

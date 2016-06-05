@@ -36,6 +36,7 @@
         <c:choose>
             <c:when test="${not empty maisVendidos}">
 
+
                 <script type="text/javascript">
                     function desenharChartMaisVendidos() {
                         // Create the data table.
