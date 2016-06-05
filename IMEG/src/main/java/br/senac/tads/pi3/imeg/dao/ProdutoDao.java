@@ -264,7 +264,6 @@ public class ProdutoDao {
         String sql = "SELECT ID FROM PRODUTOS WHERE NOME LIKE '%"+search+"%' AND SALDO > 0";
         try {
             pst = new Conexao().prepararStatement(sql);
-//            pst.setString(1, "%" + search + "%");
             ResultSet rs = pst.executeQuery();
             ArrayList<Produto> produtos = new ArrayList<>();
             while (rs.next()) {
