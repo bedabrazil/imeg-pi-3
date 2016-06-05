@@ -22,7 +22,10 @@ public class RelatoriosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarMaisVendidos();
+        ArrayList<RelatorioVenda> tresMaisVendidos = new RelatorioDao().listarTresMaisVendidos();
+        request.setAttribute("tresMaisVendidos", tresMaisVendidos);
+        
+        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarTresMaisVendidos();
         request.setAttribute("maisVendidos", maisVendidos);
         
         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);

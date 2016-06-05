@@ -48,7 +48,7 @@ public class DashBoardServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
 
-        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarMaisVendidos();
+        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarTresMaisVendidos();
         request.setAttribute("maisVendidos", maisVendidos);
         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);
 
