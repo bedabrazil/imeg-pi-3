@@ -50,148 +50,68 @@
     <div class="panel-heading"><h4><em class="glyphicon glyphicon-th-large"></em>&nbsp;Painel</h4></div>
     <div class="panel-body">
 
-        <div class="col-lg-12 align-charts">
+        <div id="charts" class="col-lg-12">
 
-            <div class="col-lg-3 border-gray">
-                <div id="chart-1" class="chart table-responsive">
+            <div class="col-lg-6">
+                <script type="text/javascript">
                     <c:choose>
                         <c:when test="${not empty maisVendidos}">
-                            <table class="table table-hover">
-                                <thead>
-                                    <th colspan="2">Produtos Mais Vendidos</th>
-
-                                </thead>
-                                <tbody>
-                                    
-                                    <c:forEach items="${maisVendidos}" var="maisVendidos">
-                                        <tr>                                            
-                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
-                                            <td>${maisVendidos.produto.nome}</td>
-                                        </tr>
+                            function desenharChartMaisVendidos() {
+                                // Create the data table.
+                                var data = new google.visualization.DataTable();
+                                data.addColumn('string', 'Topping');
+                                data.addColumn('number', 'Vendidos');
+                                data.addRows([
+                                    <c:forEach items="${maisVendidos}" var="item">
+                                    ["${item.produto.nome}", ${item.qtdeVendida}],
                                     </c:forEach>
-                                </tbody>
-                            </table>
-                            <form action="<c:url value="/dashboard"/>" method="post">
-                                <input type="hidden" name="mais_vendidos" value="1">
-                                <div class="col-lg-6">
-                                    <label>Data Início</label>
-                                    <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="data-ini">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>Data Final</label>
-                                    <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="data-end">
-                                </div>  
-                            </form>
+                                ]);
+
+
+                                // Set chart options
+                                var options = {'title': 'Produtos Mais Vendidos',
+                                    'width': 400,
+                                    'height': 400};
+
+                                // Instantiate and draw our chart, passing in some options.
+                                var chart = new google.visualization.BarChart(document.getElementById('chart_div_1'));
+                                chart.draw(data, options);
+                            }
                         </c:when>
-                        <c:otherwise>NA HA RELATORIO</c:otherwise>
                     </c:choose>
-                </div>                        
-            </div>
+                    </script>
+                    <div id="chart_div_1" class="chart table-responsive">
+                        <c:choose>
+                            <c:when test="${not empty maisVendidos}">
+                                <form action="<c:url value="/dashboard"/>" method="post">
+                                    <input type="hidden" name="mais_vendidos" value="1">
+                                    <div class="col-lg-6">
+                                        <label>Data Início</label>
+                                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="data-ini">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label>Data Final</label>
+                                        <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="data-end">
+                                    </div>  
+                                </form>
+                            </c:when>
+                            <c:otherwise>NA HA RELATORIO</c:otherwise>
+                        </c:choose>
+                    </div>                        
+                </div>
 
-            <div class="col-lg-3 border-gray">
-                <div id="chart-2" class="chart"></div>
-                 <c:choose>
-                        <c:when test="${not empty maisVendidos}">
-                            <table class="table table-striped">
-                                <thead>
-                                    <th>Qtde</th>
-                                    <th>Produto</th>
-                                </thead>
-                                <tbody>
-                                    
-                                    <c:forEach items="${maisVendidos}" var="maisVendidos">
-                                        <tr>                                            
-                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
-                                            <td>${maisVendidos.produto.nome}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                            <form action="<c:url value="/relatorio"/>" method="post">
-                                <div class="col-lg-6">
-                                    <label>Data Início</label>
-                                    <input type="text" readonly="readonly" class="datePicker date-ini form-control" name="data-ini">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>Data Final</label>
-                                    <input type="text" readonly="readonly" class="datePicker date-end form-control" name="data-end">
-                                </div>  
-                            </form>
-                        </c:when>
-                        <c:otherwise>NA HA RELATORIO</c:otherwise>
-                    </c:choose>
-            </div>
+                <div class="col-lg-6">
 
-            <div class="col-lg-3 border-gray">
-                <div id="chart-3" class="chart"></div> 
-                 <c:choose>
-                        <c:when test="${not empty maisVendidos}">
-                            <table class="table table-striped">
-                                <thead>
-                                    <th>Qtde</th>
-                                    <th>Produto</th>
-                                </thead>
-                                <tbody>
-                                    
-                                    <c:forEach items="${maisVendidos}" var="maisVendidos">
-                                        <tr>                                            
-                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
-                                            <td>${maisVendidos.produto.nome}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                            <form action="<c:url value="/relatorio"/>" method="post">
-                                <div class="col-lg-6">
-                                    <label>Data Início</label>
-                                    <input type="text" readonly="readonly" class="datePicker date-ini form-control" name="data-ini">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>Data Final</label>
-                                    <input type="text" readonly="readonly" class="datePicker date-end form-control" name="data-end">
-                                </div>  
-                            </form>
-                        </c:when>
-                        <c:otherwise>NA HA RELATORIO</c:otherwise>
-                    </c:choose>
-            </div>
+                </div>
 
-            <div class="col-lg-3 border-gray">
-                <div id="chart-3" class="chart"></div> 
-                    <c:choose>
-                        <c:when test="${not empty maisVendidos}">
-                            <table class="table table-striped">
-                                <thead>
-                                    <th>Qtde</th>
-                                    <th>Produto</th>
-                                </thead>
-                                <tbody>
-                                    
-                                    <c:forEach items="${maisVendidos}" var="maisVendidos">
-                                        <tr>                                            
-                                            <td class="bg-info">${maisVendidos.qtdeVendida}</td>
-                                            <td>${maisVendidos.produto.nome}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                            <form action="<c:url value="/relatorio"/>" method="post">
-                                <div class="col-lg-6">
-                                    <label>Data Início</label>
-                                    <input type="text" readonly="readonly" class="datePicker date-ini form-control" name="data-ini">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label>Data Final</label>
-                                    <input type="text" readonly="readonly" class="datePicker date-end form-control" name="data-end">
-                                </div>  
-                            </form>
-                        </c:when>
-                        <c:otherwise>NA HA RELATORIO</c:otherwise>
-                    </c:choose>                
-            </div> 
+                <div class="col-lg-4">
+                </div>
+
+                <div class="col-lg-4">
+
+                </div> 
+            </div>
         </div>
-    </div>
-
-</div>    
-<%-- RODAPÉ DO HTML --%>
-<jsp:include page="../footer.jsp" />
+    </div>    
+    <%-- RODAPÉ DO HTML --%>
+    <jsp:include page="../footer.jsp" />

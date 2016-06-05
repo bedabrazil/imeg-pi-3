@@ -21,7 +21,9 @@
         <link rel="stylesheet" href="<c:url value='/resources/css/jquery-ui.min.css'/>"/>
         <link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>"/>
         <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>"/>
-        <script src="<c:url value='/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'/>"></script>           
+        <script src="<c:url value='/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'/>"></script> 
+        
+
     </head>
     <body>
         <div class="container">
@@ -50,7 +52,7 @@
                                         <%--  MENU DO CABEÇALHO --%>
                                         <jsp:include page="menu.jsp" />
                                     </li>
-                                    <c:if test="${(usuario.acesso.nome.equals('GERENTE') || usuario.acesso.nome.equals('VENDEDOR')) && !usuario.unidade.matriz}">
+                                    <c:if test="${(usuario.acesso.nome.equals('GERENTE') || usuario.acesso.nome.equals('VENDEDOR') || usuario.acesso.nome.equals('ADMIN')) && !usuario.unidade.matriz}">
                                         <li>
                                             <div class="dropdown navbar-form navbar-right">
                                                 <a href="<c:url value="/carrinho"/>" class="btn btn-default sale"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;<span class="badge">${carrinho.size()}</span> </a>
