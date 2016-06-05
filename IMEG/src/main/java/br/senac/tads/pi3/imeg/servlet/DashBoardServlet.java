@@ -5,27 +5,27 @@
  */
 package br.senac.tads.pi3.imeg.servlet;
 
-import au.com.bytecode.opencsv.CSVWriter;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import br.senac.tads.pi3.imeg.entity.RelatorioEstoque;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
-import java.io.FileWriter;
+import br.senac.tads.pi3.imeg.util.RelatorioExcel;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.ParseException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  *
@@ -55,6 +55,7 @@ public class DashBoardServlet extends HttpServlet {
         if (search != null && request.getQueryString() != null) {
             produtos = new ProdutoDao().pesquisarProdutos(search);
             if(produtos == null){
+
                 request.setAttribute("search", search);
                 request.setAttribute("msg_error", true);
             }
@@ -79,9 +80,9 @@ public class DashBoardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/dashboard");
+        
         ArrayList<String> mensagens = new ArrayList<>();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
         if (!request.getParameter("date-ini-mais-vendidos").isEmpty()) {
             mensagens.add("O campo data inicio não pode ser vazio.");
@@ -92,16 +93,28 @@ public class DashBoardServlet extends HttpServlet {
 
         String dt_inicio = (request.getParameter("date-ini-mais-vendidos"));
         String dt_fim = (request.getParameter("date-end-mais-vendidos"));// recebe os valores de data em String
+        Date dataInicio = null;
+        Date dataFim = null;
 
         try {
-            java.sql.Date dataInicio = new java.sql.Date(format.parse(dt_inicio).getTime());
-            java.sql.Date dataFim = new java.sql.Date(format.parse(dt_fim).getTime());
-        } catch (ParseException ex) {
-            Logger.getLogger(DashBoardServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }// converte a data de String para sql do Date
+            dataInicio = (Date) format.parse(dt_inicio);
+            dataInicio = (Date) format.parse(dt_fim);
+            RelatorioExcel relatorio = new RelatorioExcel();
+            HSSFWorkbook wb = relatorio.relatorio(dataInicio, dataFim);
+            
+            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            wb.write(outByteStream);
+            byte[] outArray = outByteStream.toByteArray();
+            response.setContentType("application/ms-excel");
+            response.setContentLength(outArray.length);
+            response.setHeader("Expires:", "0");
+            response.setHeader("Content-Disposition", "attachment; filename=vendas.xls");
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(outArray);
+            outStream.flush();
 
-        CSVWriter writer = new CSVWriter(new FileWriter("Relatorio.csv"), '\t');
-
-        writer.close();
+        } catch (Exception e) {
+        }
+        response.sendRedirect(request.getContextPath() + "/dashboard");
     }
 }

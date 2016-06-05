@@ -250,7 +250,7 @@ public class RelatorioDao {
                 RelatorioEstoque e = new RelatorioEstoque();
                 ProdutoDao pDao = new ProdutoDao();
                 e.setQuantidade(res.getInt("QTD_PRODUTOS"));
-                e.setProduto(pDao.pesquisarPorId(res.getInt("PRODUTO")));
+                e.setProduto(pDao.pesquisarPorId(res.getInt("ID")));
 
                 rEstoque.add(e);
             }
@@ -269,7 +269,7 @@ public class RelatorioDao {
     
     //PARA RELATORIOS VOLTADOS A FATURAMENTO    
     public ArrayList<RelatorioFaturamento> faturamentoUltimosSeteDias() {
-        String sql = "SELECT * FROM FATURAMENTO_SETE_DIAS";
+        String sql = "SELECT * FROM FATURAMENTO_SEMANA";
         ArrayList<RelatorioFaturamento> rFaturamento = new ArrayList<>();
         try {
 
@@ -277,7 +277,7 @@ public class RelatorioDao {
             ResultSet res = pst.executeQuery();
             while (res.next()) {
                 RelatorioFaturamento f = new RelatorioFaturamento();
-                f.setFaturamento(res.getDouble("FATURAMENTO"));
+                f.setFaturamento(res.getDouble("FATURAMENTO_SEMANA"));
 
                 rFaturamento.add(f);
             }
@@ -294,7 +294,12 @@ public class RelatorioDao {
         return null;
     }
     public ArrayList<RelatorioFaturamento> faturamentoUltimosSeteDiasUnidade(Unidade unidade) {
-        String sql = "SELECT * FROM FATURAMENTO_SETE_DIAS_UNIDADE";
+        String sql = "select SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) AS \"FATURAMENTO_SEMANA\" "
+                + "from ITENS_SAIDA SAIDA "
+                + "where id in ( "
+                + "case when (select {fn TIMESTAMPDIFF(SQL_TSI_DAY, data_transacao, current_date)}"
+                + "from ITENS_SAIDA where id = SAIDA.id  ) <=7 then id else 0 end )"
+                + "and UNIDADES_ID = ? OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY;";
         ArrayList<RelatorioFaturamento> rFaturamento = new ArrayList<>();
         try {
 
@@ -303,7 +308,7 @@ public class RelatorioDao {
             ResultSet res = pst.executeQuery();
             while (res.next()) {
                 RelatorioFaturamento f = new RelatorioFaturamento();
-                f.setFaturamento(res.getDouble("FATURAMENTO"));
+                f.setFaturamento(res.getDouble("FATURAMENTO_SEMANA"));
 
                 rFaturamento.add(f);
             }
