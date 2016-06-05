@@ -51,67 +51,94 @@
     <div class="panel-body">
 
         <div id="charts" class="col-lg-12">
-
-            <div class="col-lg-6">
-                <script type="text/javascript">
-                    <c:choose>
-                        <c:when test="${not empty maisVendidos}">
-                            function desenharChartMaisVendidos() {
-                                // Create the data table.
-                                var data = new google.visualization.DataTable();
-                                data.addColumn('string', 'Topping');
-                                data.addColumn('number', 'Vendidos');
-                                data.addRows([
-                                    <c:forEach items="${maisVendidos}" var="item">
-                                    ["${item.produto.nome}", ${item.qtdeVendida}],
-                                    </c:forEach>
-                                ]);
+            <script type="text/javascript">
+                <c:choose>
+                    <c:when test="${not empty maisVendidos}">
+                function desenharChartMaisVendidos() {
+                    // Create the data table.
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Produtos');
+                    data.addColumn('number', 'Vendidos');
+                    data.addRows([
+                        <c:forEach items="${maisVendidos}" var="item">
+                        ["${item.produto.nome}", ${item.qtdeVendida}],
+                        </c:forEach>
+                    ]);
 
 
-                                // Set chart options
-                                var options = {'title': 'Produtos Mais Vendidos',
-                                    'width': 400,
-                                    'height': 400};
+                    // Set chart options
+                    var options = {'title': 'Produtos Mais Vendidos', height: 300, backgroundColor: "#F5F5F5"};
 
-                                // Instantiate and draw our chart, passing in some options.
-                                var chart = new google.visualization.BarChart(document.getElementById('chart_div_1'));
-                                chart.draw(data, options);
-                            }
-                        </c:when>
-                    </c:choose>
-                    </script>
-                    <div id="chart_div_1" class="chart table-responsive">
+                    // Instantiate and draw our chart, passing in some options.
+                    var pieChart = new google.visualization.PieChart(document.getElementById('chart_div_1'));
+                    pieChart.draw(data, options);
+                    var columnChart = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
+                    columnChart.draw(data, options);
+
+                }
+                    </c:when>
+                </c:choose>
+            </script>
+            <div class="col-lg-12">
+                <div class="col-lg-6">
+                    <div id="chart_div_1" class=" col-lg-12 well">
                         <c:choose>
-                            <c:when test="${not empty maisVendidos}">
-                                <form action="<c:url value="/dashboard"/>" method="post">
-                                    <input type="hidden" name="mais_vendidos" value="1">
-                                    <div class="col-lg-6">
-                                        <label>Data Início</label>
-                                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="data-ini">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label>Data Final</label>
-                                        <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="data-end">
-                                    </div>  
-                                </form>
+                            <c:when test="${empty maisVendidos}">
+                                <p>NA HÁ RELATORIO</p>
                             </c:when>
-                            <c:otherwise>NA HA RELATORIO</c:otherwise>
                         </c:choose>
-                    </div>                        
+                    </div>         
+
                 </div>
 
                 <div class="col-lg-6">
+                    <div id="chart_div_2" class=" col-lg-12 well">
+                        <c:choose>
+                            <c:when test="${empty maisVendidos}">
+                                <p>NA HÁ RELATORIO</p>
+                            </c:when>
+                        </c:choose>
+                    </div>
 
                 </div>
+                <div class="col-lg-12 well">
 
-                <div class="col-lg-4">
-                </div>
-
-                <div class="col-lg-4">
-
-                </div> 
+                    <form action="<c:url value="/dashboard"/>" method="post">
+                        <div class="col-lg-12">
+                            <div id="error" class="col-lg-12">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <span>Data Final tem que ser maior que Data Inicial.</span>
+                            </div>
+                            <h5>Para gerar um relatório dos Mais Vendidos selecione entre datas:</h5>
+                        </div>
+                        <input type="hidden" name="mais_vendidos" value="1">
+                        <div class="col-lg-6 form-space">
+                            <label>Data Início</label>
+                            <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="date-ini-mais-vendidos">
+                        </div>
+                        <div class="col-lg-6 form-space">
+                            <label>Data Final</label>
+                            <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="date-end-mais-vendidos">
+                        </div>  
+                        <div class="col-lg-6 form-space">
+                            <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
+                        </div>
+                        <div class="col-lg-6 form-space">
+                            <button type="submit" class="btn btn-default gerar_pdf" name="gerar_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>                      
+                        </div>
+                    </form>                            
+                </div>                 
             </div>
+            <div class="col-lg-4">
+            </div>
+
+            <div class="col-lg-4">
+
+            </div> 
         </div>
-    </div>    
-    <%-- RODAPÉ DO HTML --%>
-    <jsp:include page="../footer.jsp" />
+    </div>
+</div>    
+<%-- RODAPÉ DO HTML --%>
+<jsp:include page="../footer.jsp" />

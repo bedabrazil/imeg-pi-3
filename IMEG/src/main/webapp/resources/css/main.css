@@ -8,6 +8,10 @@ body {
     height: 100%;
     /* The html and body elements cannot have any padding or margin. */
 }
+
+.gerar_excel > i, .gerar_pdf > i{
+    font-size:1.8em;
+}
 .pedido-sucesso > div > h4{
     
 }
@@ -321,7 +325,9 @@ code {
     }
 }
 
-
+#error{
+    display: none;
+}
 .errors{
     display: inline-block;
     width:100%;

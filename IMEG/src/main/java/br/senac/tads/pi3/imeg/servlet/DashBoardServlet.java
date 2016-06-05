@@ -9,7 +9,6 @@ import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,5 +44,9 @@ public class DashBoardServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);
         
     }
-
+@Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + "/dashboard");
+    }
 }

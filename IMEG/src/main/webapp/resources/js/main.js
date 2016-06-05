@@ -76,7 +76,6 @@ function unfade(element) {
 }
 
 function dataInicialMaiorQueFinal($date_ini, $date_end){
-    alert($date_ini+"=>"+$date_end);        
   if($date_ini === "" || $date_end === ""){ return false;}
   var initial_date = $date_ini.split("/");
   var final_date = $date_end.split("/");    
@@ -118,25 +117,25 @@ jQuery.noConflict();
     $(".number").maskMoney({prefix:'', allowZero: true, defaultZero: false, allowNegative: false, thousands:'.', decimal:'', affixesStay: false    });            
     $.datepicker.setDefaults( $.datepicker.regional[ "pt-BR" ] );
     $(".datePicker").datepicker({dateFormat: 'dd/mm/yy', yearRange: '1900:'+new Date().getFullYear(), maxDate: new Date});
-    
-    $("form").on("blur", ".datePicker", function(e) {
-      if($(e.target).hasClass("date-end")){
-          alert($('#date-ini-mais-vendidos').val());
-          if($('#date-ini-mais-vendidos').val() !== "" && $('#date-end-mais-vendidos').val() !== ""){
-              alert($('#date-ini-mais-vendidos').val());
-            var date_ok = dataInicialMaiorQueFinal($('.date-ini').val(), $('.date-end').val());
-            if(date_ok){
-              $('.date-ini').addClass('border_true');
-              $('.date-end').addClass('border_true');
-              $('.date-ini').removeClass('border_false');
-              $('.date-end').removeClass('border_false');        
-            }else{
-              $('.date-ini').addClass('border_false');
-              $('.date-end').addClass('border_false');
-              return false;          
-            }
+    $(".gerar_pdf, .gerar_excel").attr("disabled", true);    
+    $("form").on("change", ".datePicker", function(e) {
+        if($('#date-ini-mais-vendidos').val() !== "" && $('#date-end-mais-vendidos').val() !== ""){
+          var date_ok = dataInicialMaiorQueFinal($('#date-ini-mais-vendidos').val(), $('#date-end-mais-vendidos').val());
+          if(date_ok){
+            $('#date-ini-mais-vendidos').addClass('border_true');
+            $('#date-end-mais-vendidos').addClass('border_true');
+            $('#date-ini-mais-vendidos').removeClass('border_false');
+            $('#date-end-mais-vendidos').removeClass('border_false'); 
+            $("#error").hide().removeClass("errors");
+            $(".gerar_pdf, .gerar_excel").attr("disabled", false);
+          }else{
+            $('#date-ini-mais-vendidos').addClass('border_false');
+            $('#date-end-mais-vendidos').addClass('border_false');
+            $("#error").show().addClass("errors alert alert-danger");
+            $(".gerar_pdf, .gerar_excel").attr("disabled", true);            
+            return false;          
           }
-      }
+        }        
       return true;
     });    
    
