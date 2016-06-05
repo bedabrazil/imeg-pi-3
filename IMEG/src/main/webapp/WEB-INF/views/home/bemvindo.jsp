@@ -6,7 +6,34 @@
 <c:choose>
     <c:when test="${sessionScope.success}"><c:set var="mensagem" value="${msg_success}"/><c:set var="alert"  value="alert alert-success"/></c:when>
 </c:choose>
+<script type="text/javascript">
+    <c:choose>
+        <c:when test="${not empty maisVendidos}">
+    function desenharChartMaisVendidos() {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Produtos');
+        data.addColumn('number', 'Vendidos');
+        data.addRows([
+            <c:forEach items="${maisVendidos}" var="item">
+            ["${item.produto.nome}", ${item.qtdeVendida}],
+            </c:forEach>
+        ]);
 
+
+        // Set chart options
+        var options = {'title': 'Produtos Mais Vendidos', height: 300, backgroundColor: "#F5F5F5"};
+
+        // Instantiate and draw our chart, passing in some options.
+        var pieChart = new google.visualization.PieChart(document.getElementById('chart_div_1'));
+        pieChart.draw(data, options);
+        var columnChart = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
+        columnChart.draw(data, options);
+
+    }
+        </c:when>
+    </c:choose>
+</script>
 
 <div id="warning" class="col-lg-12 ${alert}">
     <c:if test="${sessionScope.success}">
@@ -49,96 +76,88 @@
 <div class="panel panel-default">
     <div class="panel-heading"><h4><em class="glyphicon glyphicon-th-large"></em>&nbsp;Painel</h4></div>
     <div class="panel-body">
+        <div id="carouselChart"  class="carousel slide" data-ride="carousel">
+<!--            <ol class="carousel-indicators">
+                <li data-target="#carouselChart" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselChart" data-slide-to="1"></li>
+                <li data-target="#carouselChart" data-slide-to="2"></li>
+            </ol>            -->
+            <div id="charts" class="col-lg-10 carousel-inner" role="listbox">
+                <div class="col-lg-12 item active chart">
+                    <div class="container">
+                        <div class="carousel-caption">   </div>                 
+                            <div class="col-lg-5">
+                                <div id="chart_div_1" class=" col-lg-12 well">
+                                    <c:choose>
+                                        <c:when test="${empty maisVendidos}">
+                                            <p>NA HÁ DADOS</p>
+                                        </c:when>
+                                    </c:choose>
+                                </div>         
 
-        <div id="charts" class="col-lg-12">
-            <script type="text/javascript">
-                <c:choose>
-                    <c:when test="${not empty maisVendidos}">
-                function desenharChartMaisVendidos() {
-                    // Create the data table.
-                    var data = new google.visualization.DataTable();
-                    data.addColumn('string', 'Produtos');
-                    data.addColumn('number', 'Vendidos');
-                    data.addRows([
-                        <c:forEach items="${maisVendidos}" var="item">
-                        ["${item.produto.nome}", ${item.qtdeVendida}],
-                        </c:forEach>
-                    ]);
-
-
-                    // Set chart options
-                    var options = {'title': 'Produtos Mais Vendidos', height: 300, backgroundColor: "#F5F5F5"};
-
-                    // Instantiate and draw our chart, passing in some options.
-                    var pieChart = new google.visualization.PieChart(document.getElementById('chart_div_1'));
-                    pieChart.draw(data, options);
-                    var columnChart = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
-                    columnChart.draw(data, options);
-
-                }
-                    </c:when>
-                </c:choose>
-            </script>
-            <div class="col-lg-12">
-                <div class="col-lg-6">
-                    <div id="chart_div_1" class=" col-lg-12 well">
-                        <c:choose>
-                            <c:when test="${empty maisVendidos}">
-                                <p>NA HÁ DADOS</p>
-                            </c:when>
-                        </c:choose>
-                    </div>         
-
-                </div>
-
-                <div class="col-lg-6">
-                    <div id="chart_div_2" class=" col-lg-12 well">
-                        <c:choose>
-                            <c:when test="${empty maisVendidos}">
-                                <p>NA HÁ DADOS</p>
-                            </c:when>
-                        </c:choose>
-                    </div>
-
-                </div>
-                <c:if test="${not empty maisVendidos}">
-                <div class="col-lg-12 well">
-
-                    <form action="<c:url value="/dashboard"/>" method="post">
-                        <div class="col-lg-12">
-                            <div id="error" class="col-lg-12">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <span>Data Final tem que ser maior ou igual a Data Inicial.</span>
                             </div>
-                            <h5>Para gerar um relatório dos Mais Vendidos selecione entre datas:</h5>
-                        </div>
-                        <input type="hidden" name="mais_vendidos" value="1">
-                        <div class="col-lg-6 form-space">
-                            <label>Data Início</label>
-                            <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="date-ini-mais-vendidos">
-                        </div>
-                        <div class="col-lg-6 form-space">
-                            <label>Data Final</label>
-                            <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="date-end-mais-vendidos">
-                        </div>  
-                        <div class="col-lg-6 form-space">
-                            <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
-                        </div>
-                        <div class="col-lg-6 form-space">
-                            <button type="submit" class="btn btn-default gerar_pdf" name="gerar_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>                      
-                        </div>
-                    </form>                            
+
+                            <div class="col-lg-5">
+                                <div id="chart_div_2" class=" col-lg-12 well">
+                                    <c:choose>
+                                        <c:when test="${empty maisVendidos}">
+                                            <p>NA HÁ DADOS</p>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
+
+                            </div>
+                            <c:if test="${not empty maisVendidos}">
+                                <div class="col-lg-10 well">
+
+                                    <form action="<c:url value="/dashboard"/>" method="post">
+                                        <div class="col-lg-12">
+                                            <div id="error" class="col-lg-12">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <span>Data Final tem que ser maior ou igual a Data Inicial.</span>
+                                            </div>
+                                            <h5>Para gerar um relatório dos Mais Vendidos selecione entre datas:</h5>
+                                        </div>
+                                        <input type="hidden" name="mais_vendidos" value="1">
+                                        <div class="col-lg-6 form-space">
+                                            <label>Data Início</label>
+                                            <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="date-ini-mais-vendidos">
+                                        </div>
+                                        <div class="col-lg-6 form-space">
+                                            <label>Data Final</label>
+                                            <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="date-end-mais-vendidos">
+                                        </div>  
+                                        <div class="col-lg-6 form-space">
+                                            <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
+                                            <button type="submit" class="btn btn-default gerar_pdf" name="gerar_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>                      
+                                        </div>
+                                    </form>                            
+                                </div> 
+                            </c:if>
+                    </div>
+                </div>
+                <div class="col-lg-4 item chart">
+                    <div class="container">
+                        <div class="carousel-caption"></div>                    
+                    </div>
+                </div>
+
+                <div class="col-lg-4 item chart">
+                    <div class="container">
+                        <div class="carousel-caption"></div>                    
+                    </div>
                 </div> 
-                </c:if>
             </div>
-            <div class="col-lg-4">
-            </div>
-
-            <div class="col-lg-4">
-
-            </div> 
+            <a class="left carousel-control" href="#carouselChart" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+            <a class="right carousel-control" href="#carouselChart" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Próximo</span>
+            </a>            
         </div>
     </div>
 </div>    

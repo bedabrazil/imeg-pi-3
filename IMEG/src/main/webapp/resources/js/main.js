@@ -138,7 +138,16 @@ jQuery.noConflict();
         }        
       return true;
     });    
-   
+    $('#carouselChart.slide').carousel({
+        interval: 5000,
+        pause: "hover"
+    });
+
+//    $('carouselChart').focus(function(){
+//       $(this).carousel('pause');
+//    }).blur(function() {
+//       $(this).carousel('cycle');
+//    });   
 })(jQuery);
 
 
