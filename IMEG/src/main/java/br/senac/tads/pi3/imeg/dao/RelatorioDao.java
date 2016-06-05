@@ -251,7 +251,7 @@ public class RelatorioDao {
                 RelatorioEstoque e = new RelatorioEstoque();
                 ProdutoDao pDao = new ProdutoDao();
                 e.setQuantidade(res.getInt("QTD_PRODUTOS"));
-                e.setProduto(pDao.pesquisarPorId(res.getInt("PRODUTO")));
+                e.setProduto(pDao.pesquisarPorId(res.getInt("ID")));
 
                 rEstoque.add(e);
             }
@@ -295,7 +295,7 @@ public class RelatorioDao {
         return null;
     }
     public ArrayList<RelatorioFaturamento> faturamentoUltimosSeteDiasUnidade(Unidade unidade) {
-        String sql = "SELECT * FROM FATURAMENTO_SETE_DIAS_UNIDADE";
+        String sql = "SELECT * FROM FATURAMENTO_SEMANA";
         ArrayList<RelatorioFaturamento> rFaturamento = new ArrayList<>();
         try {
 
