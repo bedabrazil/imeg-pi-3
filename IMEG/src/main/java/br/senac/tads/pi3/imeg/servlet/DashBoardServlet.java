@@ -11,12 +11,9 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,7 +22,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 /**
  *
@@ -48,7 +44,14 @@ public class DashBoardServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
 
-        ArrayList<RelatorioVenda> maisVendidos = new RelatorioDao().listarTresMaisVendidos();
+        ArrayList<RelatorioVenda> maisVendidos = null;
+        if (usuario != null && usuario.getUnidade().isMatriz()) {
+            maisVendidos = new RelatorioDao().listarTresMaisVendidos();
+        } else if (usuario.getAcesso().getNome().equals("GERENTE") || usuario.getAcesso().getNome().equals("ADMIN")) {
+            maisVendidos = new RelatorioDao().listarMaisVendidosFilial(usuario);
+        } else if (usuario.getAcesso().getNome().equals("VENDEDOR")) {
+            maisVendidos = new RelatorioDao().listarMaisVendidosVendedor(usuario);
+        }
         request.setAttribute("maisVendidos", maisVendidos);
         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);
 
@@ -58,7 +61,7 @@ public class DashBoardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.sendRedirect(request.getContextPath() + "/dashboard");
-        
+
         ArrayList<String> mensagens = new ArrayList<>();
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -79,12 +82,9 @@ public class DashBoardServlet extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(DashBoardServlet.class.getName()).log(Level.SEVERE, null, ex);
         }// converte a data de String para sql do Date
-        
+
         CSVWriter writer = new CSVWriter(new FileWriter("Relatorio.csv"), '\t');
-        
-        
-       
-       
+
         writer.close();
     }
 }
