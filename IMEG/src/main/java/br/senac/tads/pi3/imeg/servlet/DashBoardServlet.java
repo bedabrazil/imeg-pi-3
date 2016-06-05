@@ -79,7 +79,7 @@ public class DashBoardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/dashboard");
+        
         ArrayList<String> mensagens = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -114,5 +114,6 @@ public class DashBoardServlet extends HttpServlet {
 
         } catch (Exception e) {
         }
+        response.sendRedirect(request.getContextPath() + "/dashboard");
     }
 }
