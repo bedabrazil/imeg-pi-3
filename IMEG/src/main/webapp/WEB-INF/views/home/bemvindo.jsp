@@ -84,7 +84,7 @@
                     <div id="chart_div_1" class=" col-lg-12 well">
                         <c:choose>
                             <c:when test="${empty maisVendidos}">
-                                <p>NA HÁ RELATORIO</p>
+                                <p>NA HÁ DADOS</p>
                             </c:when>
                         </c:choose>
                     </div>         
@@ -95,12 +95,13 @@
                     <div id="chart_div_2" class=" col-lg-12 well">
                         <c:choose>
                             <c:when test="${empty maisVendidos}">
-                                <p>NA HÁ RELATORIO</p>
+                                <p>NA HÁ DADOS</p>
                             </c:when>
                         </c:choose>
                     </div>
 
                 </div>
+                <c:if test="${not empty maisVendidos}">
                 <div class="col-lg-12 well">
 
                     <form action="<c:url value="/dashboard"/>" method="post">
@@ -109,7 +110,7 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                <span>Data Final tem que ser maior que Data Inicial.</span>
+                                <span>Data Final tem que ser maior ou igual a Data Inicial.</span>
                             </div>
                             <h5>Para gerar um relatório dos Mais Vendidos selecione entre datas:</h5>
                         </div>
@@ -129,7 +130,8 @@
                             <button type="submit" class="btn btn-default gerar_pdf" name="gerar_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>                      
                         </div>
                     </form>                            
-                </div>                 
+                </div> 
+                </c:if>
             </div>
             <div class="col-lg-4">
             </div>
