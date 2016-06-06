@@ -9,7 +9,6 @@
 --#####################################################################################
 
 DROP VIEW FATURAMENTO_SEMANA;
-DROP VIEW FATURAMENTO_SEMANA_UNIDADE;
 DROP VIEW UNIDADES_QUE_MAIS_VENDERAM;
 DROP VIEW VENDA_UNIDADE;
 DROP VIEW MAIS_VENDIDOS_E;

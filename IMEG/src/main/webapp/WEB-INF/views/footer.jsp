@@ -3,6 +3,8 @@
     Created on : Apr 30, 2016, 9:45:26 PM
     Author     : marcio.soares <marcio@mail.com>
 --%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </div>
             </div>
@@ -70,7 +72,7 @@
                 data3.addColumn('number', 'Total');
                 data3.addRows([
                 <c:forEach items="${unidadeMaisVendeu}" var="item">
-                    ["${item.unidade.nome}", ${item.qtdeVendida}],
+                    ["${item.unidade.nome}", ${item.getTotalValorVenda()}],
                 </c:forEach>
                 ]);
                 // Set chart options
@@ -81,7 +83,8 @@
                 Chart5.draw(data3, options3);
                 var Chart6 = new google.visualization.ColumnChart(document.getElementById('chart_6'));
                 Chart6.draw(data3, options3);
-            </c:if>            
+            </c:if>  
+            
             }
 
 

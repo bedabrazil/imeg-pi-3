@@ -83,54 +83,57 @@
 
                 <table id="chart" style="width:100%;" class="table">
                     <tbody>
-                        <tr>
-                            <td>
-                                <table class="table">                    
-                                    <thead>
-                                    <th >Produtos Mais Vendidos</th>
-                                    <th>Produtos com Baixo Estoque</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="width:50%;" id="chart_1"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                            <td style="width:50%;" id="chart_2"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                    <table class="table">                    
-                        <thead>
-                        <th >Produtos Mais Vendidos</th>
-                        <th>Produtos com Baixo Estoque</th>
-                        </thead>
-                        <tbody>
+                        <c:if test="${not empty maisVendidos}">
                             <tr>
-                                <td style="width:50%;" id="chart_3"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                <td style="width:50%;" id="chart_4"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                <td>
+                                    <table class="table">                    
+                                        <thead>
+                                        <th colspan="2">Produtos Mais Vendidos</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:50%;" id="chart_1"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                                <td style="width:50%;" id="chart_2"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
-                        </tbody>
-                    </table>
-                    </td>
-                    </tr>   
-                    <tr>
-                        <td>
-                    <table class="table">                    
-                        <thead>
-                        <th >Produtos Mais Vendidos</th>
-                        <th>Produtos com Baixo Estoque</th>
-                        </thead>
-                        <tbody>
+                        </c:if>
+                        <c:if test="${not empty estoqueBaixo}">
                             <tr>
-                                <td style="width:50%;" id="chart_5"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                <td style="width:50%;" id="chart_6"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </td>
-                    </tr>                        
+                                <td>
+                                    <table class="table">                    
+                                        <thead>
+                                        <th colspan="2">Produtos com Baixo Estoque</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:50%;" id="chart_3"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                                <td style="width:50%;" id="chart_4"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr> 
+                        </c:if>
+                        <c:if test="${not empty unidadeMaisVendeu}">
+                            <tr>
+                                <td>
+                                    <table class="table">                    
+                                        <thead>
+                                        <th  colspan="2">Unidades que mais venderam</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:50%;" id="chart_5"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                                <td style="width:50%;" id="chart_6"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>  
+                        </c:if>
                     </tbody>
                 </table>
             </div>
