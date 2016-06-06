@@ -70,7 +70,7 @@
                 data3.addColumn('number', 'Total');
                 data3.addRows([
                 <c:forEach items="${unidadeMaisVendeu}" var="item">
-                    ["${item.unidade.nome}", ${item.totalVendas}],
+                    ["${item.unidade.nome}", ${item.qtdeVendida}],
                 </c:forEach>
                 ]);
                 // Set chart options
