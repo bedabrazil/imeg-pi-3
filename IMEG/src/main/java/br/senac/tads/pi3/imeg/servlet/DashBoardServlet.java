@@ -51,12 +51,12 @@ public class DashBoardServlet extends HttpServlet {
 
         ArrayList<RelatorioVenda> maisVendidos = null;
         ArrayList<RelatorioEstoque> estoqueBaixo = null;
-        ArrayList<RelatorioFaturamento> unidadeMaisVendeu = null;
+        ArrayList<RelatorioVenda> unidadeMaisVendeu = null;
         List<Produto> produtos = null;
         String search = request.getParameter("search");
         if (search != null && request.getQueryString() != null) {
             produtos = new ProdutoDao().pesquisarProdutos(search);
-            if(produtos == null){
+            if (produtos == null) {
 
                 request.setAttribute("search", search);
                 request.setAttribute("msg_error", true);
@@ -75,7 +75,8 @@ public class DashBoardServlet extends HttpServlet {
         request.setAttribute("produtos", produtos);
         request.setAttribute("maisVendidos", maisVendidos);
         request.setAttribute("estoqueBaixo", estoqueBaixo);
-        
+        request.setAttribute("unidadeMaisVendeu", unidadeMaisVendeu);
+
         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);
 
     }
@@ -83,7 +84,7 @@ public class DashBoardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ArrayList<String> mensagens = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -104,7 +105,7 @@ public class DashBoardServlet extends HttpServlet {
             dataInicio = (Date) format.parse(dt_fim);
             RelatorioExcel relatorio = new RelatorioExcel();
             HSSFWorkbook wb = relatorio.relatorio(dataInicio, dataFim);
-            
+
             ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
             wb.write(outByteStream);
             byte[] outArray = outByteStream.toByteArray();

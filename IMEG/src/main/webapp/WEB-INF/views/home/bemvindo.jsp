@@ -95,6 +95,10 @@
                             <td style="width:50%;" id="chart_3"></td>
                             <td style="width:50%;" id="chart_4"></td>
                         </tr>
+                        <tr>
+                            <td style="width:50%;" id="chart_5"></td>
+                            <td style="width:50%;" id="chart_6"></td>
+                        </tr>                        
                     </tbody>
                 </table>
             </div>
