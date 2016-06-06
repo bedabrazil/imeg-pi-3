@@ -2,11 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- CABEÇALHO DO HTML --%>
-<h1>${estoqueBaixo.size()}</h1>
-<c:forEach items="${estoqueBaixo}" var="item">
-    <h3>${item.produto.nome}</h3>
-    <strong>${item.quantidade}</strong>
-</c:forEach>
+
 <jsp:include page="../header.jsp" />
 <c:if test="${!usuario.unidade.matriz}">
     <div class="col-lg-6 col-lg-offset-3">
@@ -40,7 +36,7 @@
 </c:choose>
 <c:choose>
     <c:when test="${empty produtos}">
-        
+
 
         <div id="warning" class="col-lg-12 ${alert}">
             <c:if test="${sessionScope.success}">
@@ -83,134 +79,24 @@
     <div class="panel panel-default">
         <div class="panel-heading"><h4><em class="glyphicon glyphicon-th-large"></em>&nbsp;Painel</h4></div>
         <div class="panel-body">
-            <div id="carouselChart"  class="carousel slide" data-ride="carousel">
-                <div id="charts" class="col-lg-10 carousel-inner" role="listbox">
-                    <div class="col-lg-12 item active chart">
-                        <div class="container">
-                            <div class="carousel-caption">   </div>                 
-                            <div class="col-lg-5">
-                                <div id="chart_div_1" class=" col-lg-12 well">
-                                    <c:choose>
-                                        <c:when test="${empty maisVendidos}">
-                                            <p>NA HÁ DADOS</p>
-                                        </c:when>
-                                    </c:choose>
-                                </div>         
+            <div class="col-lg-12 table-responsive">
 
-                            </div>
-
-                            <div class="col-lg-5">
-                                <div id="chart_div_2" class=" col-lg-12 well">
-                                    <c:choose>
-                                        <c:when test="${empty maisVendidos}">
-                                            <p>NA HÁ DADOS</p>
-                                        </c:when>
-                                    </c:choose>
-                                </div>
-
-                            </div>
-                            <c:if test="${not empty maisVendidos}">
-                                <div class="col-lg-10 well">
-
-                                    <form action="<c:url value="/dashboard"/>" method="post">
-                                        <div class="col-lg-12">
-                                            <div id="error" class="col-lg-12">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Data Final tem que ser maior ou igual a Data Inicial.</span>
-                                            </div>
-                                            <h5>Para gerar um relatório dos Mais Vendidos selecione entre datas:</h5>
-                                        </div>
-                                        <input type="hidden" name="mais_vendidos" value="1">
-                                        <div class="col-lg-6 form-space">
-                                            <label>Data Início</label>
-                                            <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="date-ini-mais-vendidos">
-                                        </div>
-                                        <div class="col-lg-6 form-space">
-                                            <label>Data Final</label>
-                                            <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="date-end-mais-vendidos">
-                                        </div>  
-                                        <div class="col-lg-12 form-space">
-                                            <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
-                                            <!--<button type="submit" class="btn btn-default gerar_pdf" name="gerar_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>-->                      
-                                        </div>
-                                    </form>                            
-                                </div> 
-                            </c:if>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 item chart">
-                        <div class="container">
-                            <div class="carousel-caption"></div>    
-                            <div class="carousel-caption">   </div>                 
-                            <div class="col-lg-5">
-                                <div id="chart_div_3" class=" col-lg-12 well">
-                                    <c:choose>
-                                        <c:when test="${empty estoqueBaixo}">
-                                            <p>NA HÁ DADOS</p>
-                                        </c:when>
-                                    </c:choose>
-                                </div>         
-
-                            </div>
-
-                            <div class="col-lg-5">
-                                <div id="chart_div_4" class=" col-lg-12 well">
-                                    <c:choose>
-                                        <c:when test="${empty estoqueBaixo}">
-                                            <p>NA HÁ DADOS</p>
-                                        </c:when>
-                                    </c:choose>
-                                </div>
-
-                            </div>
-                            <c:if test="${not empty estoqueBaixo}">
-                                <div class="col-lg-10 well">
-
-                                    <form action="<c:url value="/dashboard"/>" method="post">
-                                        <div class="col-lg-12">
-                                            <div id="error" class="col-lg-12">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Data Final tem que ser maior ou igual a Data Inicial.</span>
-                                            </div>
-                                            <h5>Para gerar um relatório dos Mais Vendidos selecione entre datas:</h5>
-                                        </div>
-                                        <input type="hidden" name="baixo_estoque" value="1">
-                                        <div class="col-lg-6 form-space">
-                                            <label>Data Início</label>
-                                            <input type="text" readonly="readonly" id="date-ini-baixo-estoque" class="datePicker form-control" name="date-ini-baixo-estoque">
-                                        </div>
-                                        <div class="col-lg-6 form-space">
-                                            <label>Data Final</label>
-                                            <input type="text" readonly="readonly" id="date-end-baixo-estoque" class="datePicker date-end form-control" name="date-end-baixo-estoque">
-                                        </div>  
-                                        <div class="col-lg-6 form-space">
-                                            <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
-                                            <button type="submit" class="btn btn-default gerar_pdf" name="gerar_pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;PDF</button>                      
-                                        </div>
-                                    </form>                            
-                                </div> 
-                            </c:if>                                    
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 item chart">
-                        <div class="container">
-                            <div class="carousel-caption"></div>                    
-                        </div>
-                    </div> 
-                </div>
-                <a class="left carousel-control" href="#carouselChart" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Anterior</span>
-                </a>
-                <a class="right carousel-control" href="#carouselChart" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Próximo</span>
-                </a>            
+                <table id="chart" style="width:100%;" class="table">
+                    <thead>
+                        <th >Produtos Mais Vendidos</th>
+                        <th>Produtos com Baixo Estoque</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width:50%;" id="chart_1"></td>
+                            <td style="width:50%;" id="chart_2"></td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%;" id="chart_3"></td>
+                            <td style="width:50%;" id="chart_4"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>    

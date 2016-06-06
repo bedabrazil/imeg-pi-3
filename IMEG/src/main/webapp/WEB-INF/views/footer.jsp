@@ -38,13 +38,13 @@
                 </c:forEach>
                 ]);
                 // Set chart options
-                var options1 = {'title': 'Produtos mais vendidos', height: 300, backgroundColor: "#F5F5F5"};
+                var options1 = {'title': 'Produtos mais vendidos', height: 400, backgroundColor: "#F5F5F5"};
 
                 // Instantiate and draw our chart, passing in some options.
-                var pieChart1 = new google.visualization.PieChart(document.getElementById('chart_div_1'));
-                pieChart1.draw(data1, options1);
-                var columnChart1 = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
-                columnChart1.draw(data1, options1);
+                var Chart1 = new google.visualization.PieChart(document.getElementById('chart_1'));
+                Chart1.draw(data1, options1);
+                var Chart2 = new google.visualization.ColumnChart(document.getElementById('chart_2'));
+                Chart2.draw(data1, options1);
             </c:if>
             <c:if test="${not empty estoqueBaixo}">
                 var data2 = new google.visualization.DataTable();
@@ -56,13 +56,13 @@
                 </c:forEach>
                 ]);
                 // Set chart options
-                var options2 = {'title': 'Produtos Baixo Estoque', height: 300, backgroundColor: "#F5F5F5"};
+                var options2 = {pieHole: 0.4,'title': 'Produtos Baixo Estoque', height: 400, backgroundColor: "#F5F5F5"};
 
                 // Instantiate and draw our chart, passing in some options.
-                var pieChart2 = new google.visualization.PieChart(document.getElementById('chart_div_3'));
-                pieChart2.draw(data2, options2);
-                var columnChart2 = new google.visualization.ColumnChart(document.getElementById('chart_div_4'));
-                columnChart2.draw(data2, options2);
+                var Chart3 = new google.visualization.PieChart(document.getElementById('chart_4'));
+                Chart3.draw(data2, options2);
+                var Chart4 = new google.visualization.ColumnChart(document.getElementById('chart_3'));
+                Chart4.draw(data2, options2);
             </c:if>
             }
 

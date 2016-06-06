@@ -31,6 +31,9 @@ body {
 .sem_saldo{
     background-color: #FFEEE8!important;
 }
+.gerar_excel{
+    color:#fff;
+}
 .gerar_excel > i, .gerar_pdf > i{
     font-size:1.8em;
 }
@@ -562,10 +565,16 @@ ul{
     margin-left: -60px;
     margin-right: -60px;
 }
-#charts{
-    position: relative;
+table#chart tr td{
+    width: auto;
 }
-#charts .chart{
+.chart{
+    width:100%!important;
+    height: 400px!important;
+    display: inline-block;
+    
+}
+/*#charts .chart{
     height: 750px!important;
     margin-left:33px;
 }
@@ -573,7 +582,7 @@ ul{
     min-height: 600px;
     min-width: 420px;
     margin: 0 auto;
-}
+}*/
 
 
 .form-space{

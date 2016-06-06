@@ -10,6 +10,7 @@ import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import br.senac.tads.pi3.imeg.entity.RelatorioEstoque;
+import br.senac.tads.pi3.imeg.entity.RelatorioFaturamento;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import br.senac.tads.pi3.imeg.util.RelatorioExcel;
 import java.io.ByteArrayOutputStream;
@@ -50,6 +51,7 @@ public class DashBoardServlet extends HttpServlet {
 
         ArrayList<RelatorioVenda> maisVendidos = null;
         ArrayList<RelatorioEstoque> estoqueBaixo = null;
+        ArrayList<RelatorioFaturamento> unidadeMaisVendeu = null;
         List<Produto> produtos = null;
         String search = request.getParameter("search");
         if (search != null && request.getQueryString() != null) {
@@ -64,6 +66,7 @@ public class DashBoardServlet extends HttpServlet {
         if (usuario != null && usuario.getUnidade().isMatriz()) {
             maisVendidos = new RelatorioDao().listarTresMaisVendidos();
             estoqueBaixo = new RelatorioDao().listarProdutosComBaixoEstoque();
+            unidadeMaisVendeu = new RelatorioDao().listarUnidadesQueMaisVenderam();
         } else if (usuario.getAcesso().getNome().equals("GERENTE") || usuario.getAcesso().getNome().equals("ADMIN")) {
             maisVendidos = new RelatorioDao().listarMaisVendidosFilial(usuario);
         } else if (usuario.getAcesso().getNome().equals("VENDEDOR")) {
