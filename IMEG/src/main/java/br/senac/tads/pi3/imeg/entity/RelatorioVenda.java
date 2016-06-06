@@ -14,6 +14,7 @@ public class RelatorioVenda implements Relatorio{
     private Produto produto;
     private Unidade unidade;
     private Funcionario funcionario;
+    private double totalValorVenda;
 
     public int getQtdeVendida() {
         return qtdeVendida;
@@ -45,6 +46,14 @@ public class RelatorioVenda implements Relatorio{
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public double getTotalValorVenda() {
+        return totalValorVenda;
+    }
+
+    public void setTotalValorVenda(double totalValorVenda) {
+        this.totalValorVenda = totalValorVenda;
     }
     
 }
