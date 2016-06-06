@@ -69,6 +69,7 @@ public class DashBoardServlet extends HttpServlet {
             unidadeMaisVendeu = new RelatorioDao().listarUnidadesQueMaisVenderam();
         } else if (usuario.getAcesso().getNome().equals("GERENTE") || usuario.getAcesso().getNome().equals("ADMIN")) {
             maisVendidos = new RelatorioDao().listarMaisVendidosFilial(usuario);
+            
         } else if (usuario.getAcesso().getNome().equals("VENDEDOR")) {
             maisVendidos = new RelatorioDao().listarMaisVendidosVendedor(usuario);
         }

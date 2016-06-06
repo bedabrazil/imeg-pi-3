@@ -83,29 +83,27 @@
 
                 <table id="chart" style="width:100%;" class="table">
                     <tbody>
-                        <c:if test="${not empty maisVendidos}">
+                              <tr>
+                                  <td>
+                                      <table class="table">                    
+                                          <thead>
+                                          <th colspan="2">Produtos mais vendidos dos últimos 7 dias</th>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                  <td style="width:50%;" id="chart_1"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                                  <td style="width:50%;" id="chart_2"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </td>
+                              </tr>
+                        <c:if test="${usuario.unidade.matriz}">
                             <tr>
                                 <td>
                                     <table class="table">                    
                                         <thead>
-                                        <th colspan="2">Produtos Mais Vendidos</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="width:50%;" id="chart_1"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                                <td style="width:50%;" id="chart_2"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </c:if>
-                        <c:if test="${not empty estoqueBaixo}">
-                            <tr>
-                                <td>
-                                    <table class="table">                    
-                                        <thead>
-                                        <th colspan="2">Produtos com Baixo Estoque</th>
+                                        <th colspan="2">Produtos com Baixo Estoque dos últimos 7 dias</th>
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -117,12 +115,12 @@
                                 </td>
                             </tr> 
                         </c:if>
-                        <c:if test="${not empty unidadeMaisVendeu}">
+                        <c:if test="${usuario.unidade.matriz}">
                             <tr>
                                 <td>
                                     <table class="table">                    
                                         <thead>
-                                        <th  colspan="2">Unidades que mais venderam</th>
+                                        <th  colspan="2">Unidades que mais venderam nos últimos 7 dias</th>
                                         </thead>
                                         <tbody>
                                             <tr>

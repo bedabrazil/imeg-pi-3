@@ -40,7 +40,7 @@
                 </c:forEach>
                 ]);
                 // Set chart options
-                var options1 = {'title': 'Produtos mais vendidos', height: 400, backgroundColor: "#F5F5F5"};
+                var options1 = {'title': 'Produtos mais vendidos dos últimos 7 dias', height: 400, backgroundColor: "#F5F5F5"};
 
                 // Instantiate and draw our chart, passing in some options.
                 var Chart1 = new google.visualization.PieChart(document.getElementById('chart_1'));
