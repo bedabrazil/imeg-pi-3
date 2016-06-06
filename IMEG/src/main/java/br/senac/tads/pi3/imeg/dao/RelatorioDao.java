@@ -185,7 +185,14 @@ public class RelatorioDao {
        
     // Falta Query 
     public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamNaUnidade(Unidade unidade) {
-        String sql = "SELECT * FROM VENDAS_FUNCIONARIOS_UNIDADE";
+        String sql = "SELECT  SAIDA.FUNCIONARIOS_ID AS \"FUNCIONARIO\", "
+                + "SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) AS \"TOTAL_VENDAS\" "
+                + "FROM ITENS_SAIDA SAIDA WHERE id in ( case when ("
+                + "select {fn TIMESTAMPDIFF(SQL_TSI_DAY, data_transacao, current_date)} "
+                + "from ITENS_SAIDA where id = SAIDA.id  ) <=7 then id else 0 end ) "
+                + "AND SAIDA.UNIDADES_ID = ? "
+                + "GROUP BY SAIDA.FUNCIONARIOS_ID "
+                + "ORDER BY SUM(SAIDA.QTDE_PRODUTOS*SAIDA.PRECO_VENDA) DESC;";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
         try {
 
@@ -194,9 +201,9 @@ public class RelatorioDao {
             ResultSet res = pst.executeQuery();
             while (res.next()) {
                 RelatorioVenda r = new RelatorioVenda();
-                ProdutoDao pDao = new ProdutoDao();
-                r.setQtdeVendida(res.getInt("QTD_VENDA"));
-                r.setProduto(pDao.pesquisarPorId(res.getInt("PRODUTO")));
+                FuncionarioDao fDao = new FuncionarioDao();
+                r.setTotalValorVenda(res.getInt("TOTAL_VALOR_VENDAS"));
+                r.setFuncionario(fDao.pesquisarPorId(res.getInt("FUNCIONARIO")));
 
                 rVenda.add(r);
             }
