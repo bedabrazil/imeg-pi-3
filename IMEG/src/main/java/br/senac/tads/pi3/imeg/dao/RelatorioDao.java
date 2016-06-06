@@ -154,6 +154,7 @@ public class RelatorioDao {
         return null;
     }  
     
+    //Falta Query
     public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamGeral() {
         String sql = "SELECT * FROM VENDA_FUNCIONARIOS";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
@@ -182,7 +183,7 @@ public class RelatorioDao {
         return null;
     }  
        
-       
+    // Falta Query 
     public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamNaUnidade(Unidade unidade) {
         String sql = "SELECT * FROM VENDAS_FUNCIONARIOS_UNIDADE";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
