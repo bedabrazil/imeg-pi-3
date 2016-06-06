@@ -127,7 +127,7 @@ public class RelatorioDao {
     }
     
     public ArrayList<RelatorioVenda> listarUnidadesQueMaisVenderam() {
-        String sql = "SELECT * FROM VENDA_UNIDADE";
+        String sql = "SELECT * FROM UNIDADES_QUE_MAIS_VENDERAM";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
         try {
 
@@ -137,7 +137,7 @@ public class RelatorioDao {
                 RelatorioVenda r = new RelatorioVenda();
                 UnidadeDao uDao = new UnidadeDao();
                 r.setUnidade(uDao.pesquisarPorId(res.getInt("UNIDADE")));
-                r.setQtdeVendida(res.getInt("VL_VENDA"));
+                r.setQtdeVendida(res.getInt("TOTAL_VENDAS"));
 
                 rVenda.add(r);
             }
