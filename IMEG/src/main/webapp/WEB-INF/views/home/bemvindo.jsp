@@ -83,21 +83,39 @@
 
                 <table id="chart" style="width:100%;" class="table">
                     <tbody>
-                              <tr>
-                                  <td>
-                                      <table class="table">                    
-                                          <thead>
-                                          <th colspan="2">Produtos mais vendidos dos últimos 7 dias</th>
-                                          </thead>
-                                          <tbody>
-                                              <tr>
-                                                  <td style="width:50%;" id="chart_1"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                                  <td style="width:50%;" id="chart_2"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                              </tr>
-                                          </tbody>
-                                      </table>
-                                  </td>
-                              </tr>
+                        <tr>
+                            <td>
+                                <table class="table">                    
+                                    <thead>
+                                    <th colspan="2">Produtos mais vendidos dos últimos 7 dias</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:50%;" id="chart_1"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                            <td style="width:50%;" id="chart_2"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <c:if test="${!usuario.unidade.matriz && !usuario.acesso.nome.equals('VENDEDOR')}">
+                        <tr>
+                            <td>
+                                <table class="table">                    
+                                    <thead>
+                                    <th colspan="2">Funcionários que mais venderam nos últimos 7 dias</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:50%;" id="chart_7"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                            <td style="width:50%;" id="chart_8"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </c:if>
+                        
                         <c:if test="${usuario.unidade.matriz}">
                             <tr>
                                 <td>

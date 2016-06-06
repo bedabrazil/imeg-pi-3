@@ -84,7 +84,24 @@
                 var Chart6 = new google.visualization.ColumnChart(document.getElementById('chart_6'));
                 Chart6.draw(data3, options3);
             </c:if>  
-            
+            <c:if test="${not empty funcionariosQueMaisVenderam}">
+                var data4 = new google.visualization.DataTable();
+                data4.addColumn('string', 'Unidades');
+                data4.addColumn('number', 'Total');
+                data4.addRows([
+                <c:forEach items="${funcionariosQueMaisVenderam}" var="item">
+                    ["${item.funcionario.nome}", ${item.totalValorVenda}],
+                </c:forEach>
+                ]);
+                // Set chart options
+                var options4 = {'title': 'Unidades que mais venderam', height: 400, backgroundColor: "#F5F5F5"};
+
+                // Instantiate and draw our chart, passing in some options.
+                var Chart7 = new google.visualization.PieChart(document.getElementById('chart_7'));
+                Chart7.draw(data4, options4);
+                var Chart8 = new google.visualization.ColumnChart(document.getElementById('chart_8'));
+                Chart8.draw(data4, options4);
+            </c:if>             
             }
 
 

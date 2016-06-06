@@ -53,6 +53,7 @@ public class DashBoardServlet extends HttpServlet {
         ArrayList<RelatorioEstoque> estoqueBaixo = null;
         ArrayList<RelatorioVenda> unidadeMaisVendeu = null;
         List<Produto> produtos = null;
+        ArrayList<RelatorioVenda> funcionariosQueMaisVenderam = null;
         String search = request.getParameter("search");
         if (search != null && request.getQueryString() != null) {
             produtos = new ProdutoDao().pesquisarProdutos(search);
@@ -69,7 +70,7 @@ public class DashBoardServlet extends HttpServlet {
             unidadeMaisVendeu = new RelatorioDao().listarUnidadesQueMaisVenderam();
         } else if (usuario.getAcesso().getNome().equals("GERENTE") || usuario.getAcesso().getNome().equals("ADMIN")) {
             maisVendidos = new RelatorioDao().listarMaisVendidosFilial(usuario);
-            
+            funcionariosQueMaisVenderam = new RelatorioDao().listarFuncionariosQueMaisVenderamNaUnidade(usuario.getUnidade());
         } else if (usuario.getAcesso().getNome().equals("VENDEDOR")) {
             maisVendidos = new RelatorioDao().listarMaisVendidosVendedor(usuario);
         }
@@ -77,7 +78,8 @@ public class DashBoardServlet extends HttpServlet {
         request.setAttribute("maisVendidos", maisVendidos);
         request.setAttribute("estoqueBaixo", estoqueBaixo);
         request.setAttribute("unidadeMaisVendeu", unidadeMaisVendeu);
-
+        request.setAttribute("funcionariosQueMaisVenderam", funcionariosQueMaisVenderam);
+        
         request.getRequestDispatcher("/WEB-INF/views/home/bemvindo.jsp").forward(request, response);
 
     }

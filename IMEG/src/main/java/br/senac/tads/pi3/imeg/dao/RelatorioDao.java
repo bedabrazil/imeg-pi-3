@@ -192,7 +192,7 @@ public class RelatorioDao {
                 + "from ITENS_SAIDA where id = SAIDA.id  ) <=7 then id else 0 end ) "
                 + "AND SAIDA.UNIDADES_ID = ? "
                 + "GROUP BY SAIDA.FUNCIONARIOS_ID "
-                + "ORDER BY SUM(SAIDA.QTDE_PRODUTOS*SAIDA.PRECO_VENDA) DESC;";
+                + "ORDER BY SUM(SAIDA.QTDE_PRODUTOS*SAIDA.PRECO_VENDA) DESC";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
         try {
 
@@ -202,7 +202,7 @@ public class RelatorioDao {
             while (res.next()) {
                 RelatorioVenda r = new RelatorioVenda();
                 FuncionarioDao fDao = new FuncionarioDao();
-                r.setTotalValorVenda(res.getInt("TOTAL_VALOR_VENDAS"));
+                r.setTotalValorVenda(res.getDouble("TOTAL_VENDAS"));
                 r.setFuncionario(fDao.pesquisarPorId(res.getInt("FUNCIONARIO")));
 
                 rVenda.add(r);
