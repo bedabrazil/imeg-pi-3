@@ -137,7 +137,7 @@ public class RelatorioDao {
                 RelatorioVenda r = new RelatorioVenda();
                 UnidadeDao uDao = new UnidadeDao();
                 r.setUnidade(uDao.pesquisarPorId(res.getInt("UNIDADE")));
-                r.setQtdeVendida(res.getInt("TOTAL_VENDAS"));
+                r.setTotalValorVenda(res.getDouble("TOTAL_VENDAS"));
 
                 rVenda.add(r);
             }
