@@ -3,6 +3,9 @@
 <c:choose>
     <c:when test="${usuario.acesso.nome == 'ADMIN'}">
         <div class="dropdown navbar-form navbar-left">
+            <a href="<c:url value="/relatorios"/>" class="btn btn-default"><i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;Relatórios <span class="sr-only">(current)</span></a>
+        </div>
+        <div class="dropdown navbar-form navbar-left">
             <button class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-product-hunt" aria-hidden="true"></i>
                 &nbsp;Produtos
@@ -11,7 +14,7 @@
             <ul class="dropdown-menu" aria-labelledby="#dropdownMenu1">
                 <c:if test="${!usuario.unidade.matriz}">
                     <li><a href="<c:url value="/vender"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                        &nbsp;Vender</a></li></c:if>
+                            &nbsp;Vender</a></li></c:if>
                 <li><a href="<c:url value="/vendidos"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>
                         &nbsp;Vendidos</a></li>
                 <li><a href="<c:url value="/produtos/novo"/>"><i class="fa fa-newspaper-o" aria-hidden="true"></i>

@@ -5,7 +5,6 @@
  */
 package br.senac.tads.pi3.imeg.dao;
 
-
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.RelatorioEstoque;
 import br.senac.tads.pi3.imeg.entity.RelatorioFaturamento;
@@ -15,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,6 +55,35 @@ public class RelatorioDao {
         }
         return null;
 
+    }
+
+    public List<RelatorioVenda> ultimosTresMeses(Date Hoje, Date tresMesesAtras) {
+        String sql = "SELECT SAIDA.PRODUTOS_ID AS PRODUTOS, SUM(SAIDA.QTDE_PRODUTOS) AS VENDAS"
+                + " FROM ITENS_SAIDA AS SAIDA"
+                + " WHERE SAIDA.DATA_TRANSACAO BETWEEN ? AND ? GROUP BY SAIDA.PRODUTOS_ID ORDER BY SAIDA.PRODUTOS_ID";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            List<RelatorioVenda> relatorios = new  ArrayList();
+            pst.setDate(1, new java.sql.Date(tresMesesAtras.getTime()));
+            pst.setDate(2, new java.sql.Date(Hoje.getTime()));
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                RelatorioVenda rv = new RelatorioVenda();
+                rv.setProduto(new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS")));
+                rv.setQtdeVendida(rs.getInt("VENDAS"));
+                relatorios.add(rv);
+            }
+            return relatorios;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
     }
 
     public ArrayList<RelatorioVenda> listarMaisVendidosFilial(Funcionario funcionario) {
@@ -125,7 +155,7 @@ public class RelatorioDao {
         }
         return null;
     }
-    
+
     public ArrayList<RelatorioVenda> listarUnidadesQueMaisVenderam() {
         String sql = "SELECT * FROM UNIDADES_QUE_MAIS_VENDERAM";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
@@ -152,8 +182,8 @@ public class RelatorioDao {
             }
         }
         return null;
-    }  
-    
+    }
+
     //Falta Query
     public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamGeral() {
         String sql = "SELECT * FROM VENDA_FUNCIONARIOS";
@@ -181,8 +211,8 @@ public class RelatorioDao {
             }
         }
         return null;
-    }  
-       
+    }
+
     // Falta Query 
     public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamNaUnidade(Unidade unidade) {
         String sql = "SELECT  SAIDA.FUNCIONARIOS_ID AS \"FUNCIONARIO\", "
@@ -218,8 +248,8 @@ public class RelatorioDao {
             }
         }
         return null;
-    } 
-    
+    }
+
     //PARA RELATÓRIOS VOLTADOS A ESTOQUE
     public ArrayList<RelatorioEstoque> listarProdutosComBaixoEstoque() {
         String sql = "SELECT * FROM BAIXO_ESTOQUE";
@@ -246,7 +276,8 @@ public class RelatorioDao {
             }
         }
         return null;
-    } 
+    }
+
     public ArrayList<RelatorioEstoque> listarProdutosComAltoEstoque() {
         String sql = "SELECT * FROM ALTO_ESTOQUE";
         ArrayList<RelatorioEstoque> rEstoque = new ArrayList<>();
@@ -274,7 +305,7 @@ public class RelatorioDao {
         }
         return null;
     }
-    
+
     //PARA RELATORIOS VOLTADOS A FATURAMENTO    
     public ArrayList<RelatorioFaturamento> faturamentoUltimosSeteDias() {
         String sql = "SELECT * FROM FATURAMENTO_SEMANA";
@@ -301,6 +332,7 @@ public class RelatorioDao {
         }
         return null;
     }
+
     public ArrayList<RelatorioFaturamento> faturamentoUltimosSeteDiasUnidade(Unidade unidade) {
         String sql = "select SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) AS \"FATURAMENTO_SEMANA\" "
                 + "from ITENS_SAIDA SAIDA "

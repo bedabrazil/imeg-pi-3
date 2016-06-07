@@ -10,7 +10,6 @@ import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.Funcionario;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import br.senac.tads.pi3.imeg.entity.RelatorioEstoque;
-import br.senac.tads.pi3.imeg.entity.RelatorioFaturamento;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import br.senac.tads.pi3.imeg.util.RelatorioExcel;
 import java.io.ByteArrayOutputStream;

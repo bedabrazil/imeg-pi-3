@@ -42,7 +42,7 @@ import br.senac.tads.pi3.imeg.entity.Funcionario;
     "MeusDadosServlet",
     "ProdutosServlet",
     "UnidadesServlet",
-    "RelatorioServlet",
+    "RelatoriosServlet",
     "PedidosServlet",
     "VendasServlet",
     "DashBoardServlet"
@@ -74,7 +74,7 @@ public class AutenticacaoFilter implements Filter {
         try {
             boolean possoAcessar = verificarAcesso(usuario, httpRequest, httpResponse);
             if (possoAcessar) {
-                    chain.doFilter(request, response);
+                chain.doFilter(request, response);
             } else {
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/home");
             }
@@ -93,15 +93,27 @@ public class AutenticacaoFilter implements Filter {
      */
     private static boolean verificarAcesso(Funcionario func, HttpServletRequest req, HttpServletResponse resp) {
         String pagina = req.getRequestURI();
-        if ((pagina.endsWith("/relatorio") && pagina.endsWith("/produtos")) && (func.getAcesso().getNome().equals("GERENTE"))) {
+
+        if ((pagina.endsWith("/produtos") || 
+             pagina.endsWith("/funcionarios") || 
+             pagina.endsWith("/cargos") || 
+             pagina.endsWith("/categorias") || 
+             pagina.endsWith("/unidades")) && 
+             (func.getAcesso().getNome().equals("GERENTE") && 
+              func.getUnidade().isMatriz())) {
             return true;
-        } else if ((pagina.endsWith("/produtos") || pagina.endsWith("/funcionarios") || pagina.endsWith("/cargos") || pagina.endsWith("/categorias") || pagina.endsWith("/unidades")) && (func.getAcesso().getNome().equals("GERENTE") && func.getUnidade().isMatriz())) {
-            return true;
-        } else if ((pagina.endsWith("/pedido-realizado") || pagina.endsWith("/vender") || pagina.endsWith("/vendidos") || pagina.endsWith("/carrinho")) && ((func.getAcesso().getNome().equals("GERENTE") || (func.getAcesso().getNome().equals("ADMIN") && !func.getUnidade().isMatriz()) || func.getAcesso().getNome().equals("VENDEDOR")))) {
+        } else if ((pagina.endsWith("/produtos") || 
+                    pagina.endsWith("/pedido-realizado") || 
+                    pagina.endsWith("/vender") || 
+                    pagina.endsWith("/vendidos") || 
+                    pagina.endsWith("/carrinho")) && 
+                  (((func.getAcesso().getNome().equals("GERENTE") || 
+                   func.getAcesso().getNome().equals("ADMIN")) && !func.getUnidade().isMatriz()) || 
+                    func.getAcesso().getNome().equals("VENDEDOR"))) {
             return true;
         } else if (pagina.endsWith("/meusdados/editar") || pagina.endsWith("/dashboard")) {
             return true;
-        } else if (func.getAcesso().getNome().equals("ADMIN") && (!pagina.endsWith("/pedido-realizado") && !pagina.endsWith("/vender") && !pagina.endsWith("/carrinho")) ) {
+        } else if (func.getAcesso().getNome().equals("ADMIN") && (!pagina.endsWith("/pedido-realizado") && !pagina.endsWith("/vender") && !pagina.endsWith("/carrinho"))) {
             return true;
         }
         return false;

@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>"/>
         <link rel="stylesheet" href="<c:url value='/resources/css/main.css'/>"/>
         <script src="<c:url value='/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js'/>"></script> 
-        
+
 
     </head>
     <body>
@@ -45,8 +45,10 @@
                             <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                             <c:if test="${sessionScope.usuario != null}">
                                 <ul class="nav navbar-nav">
-                                    <li class="">
-                                        <a href="<c:url value="/dashboard"/>"><em class="glyphicon glyphicon-th-large"></em>&nbsp;Painel <span class="sr-only">(current)</span></a>
+                                    <li>
+                                        <div class="dropdown navbar-form navbar-left">
+                                            <a href="<c:url value="/dashboard"/>" class="btn btn-default"><i class="glyphicon glyphicon-th-large"></i>&nbsp;Painel <span class="sr-only">(current)</span></a>
+                                        </div>
                                     </li>
                                     <li>
                                         <%--  MENU DO CABEÇALHO --%>
