@@ -2,7 +2,12 @@ package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
+import br.senac.tads.pi3.imeg.util.RelatorioExcel;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  *
@@ -52,4 +58,45 @@ public class RelatoriosServlet extends HttpServlet {
             session.removeAttribute("success");
         }
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        ArrayList<String> mensagens = new ArrayList<>();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+
+        if (!request.getParameter("date-ini-mais-vendidos").isEmpty()) {
+            mensagens.add("O campo data inicio não pode ser vazio.");
+        }
+        if (!request.getParameter("date-end-mais-vendidos").isEmpty()) {
+            mensagens.add("O campo data fim não pode ser vazio.");
+        }
+
+        String dt_inicio = (request.getParameter("date-ini-mais-vendidos"));
+        String dt_fim = (request.getParameter("date-end-mais-vendidos"));// recebe os valores de data em String
+        Date dataInicio = null;
+        Date dataFim = null;
+
+        try {
+            dataInicio = (Date) format.parse(dt_inicio);
+            dataInicio = (Date) format.parse(dt_fim);
+            RelatorioExcel relatorio = new RelatorioExcel();
+            HSSFWorkbook wb = relatorio.MAIS_VENDIDOS_E();
+            
+            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            wb.write(outByteStream);
+            byte[] outArray = outByteStream.toByteArray();
+            response.setContentType("application/ms-excel");
+            response.setContentLength(outArray.length);
+            response.setHeader("Expires:", "0");
+            response.setHeader("Content-Disposition", "attachment; filename=ototo.xls");
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(outArray);
+            outStream.flush();
+            response.sendRedirect(request.getContextPath() + "/relatorios");
+        } catch (Exception e) {
+        }
+        
+    }
+    
 }
