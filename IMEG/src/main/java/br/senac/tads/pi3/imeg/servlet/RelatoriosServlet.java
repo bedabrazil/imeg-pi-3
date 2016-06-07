@@ -6,6 +6,7 @@ import br.senac.tads.pi3.imeg.util.RelatorioExcel;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,18 +27,17 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 @WebServlet(name = "RelatoriosServlet", urlPatterns = {"/relatorios"})
 public class RelatoriosServlet extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Date data = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(data);
         Date hoje = cal.getTime();
-        request.setAttribute("hoje", hoje);        
+        request.setAttribute("hoje", hoje);
         cal.add(Calendar.MONTH, -3);
         Date tresMesesAtras = cal.getTime();
         request.setAttribute("tresMesesAtras", tresMesesAtras);
-        
+
         List<RelatorioVenda> relatorioTresMesesAtras = new RelatorioDao().ultimosTresMeses(hoje, tresMesesAtras);
         request.setAttribute("relatorioTresMesesAtras", relatorioTresMesesAtras);
         List<RelatorioVenda> funcionariosQueMaisVenderam = new RelatorioDao().listarFuncionariosQueMaisVenderamNosUltimosTresMeses(hoje, tresMesesAtras);
@@ -56,22 +56,35 @@ public class RelatoriosServlet extends HttpServlet {
         if (msg_success != null) {
             session.removeAttribute("msg_success");
             session.removeAttribute("success");
+        }            
+        
         }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ArrayList<String> mensagens = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-
-        if (!request.getParameter("date-ini-mais-vendidos").isEmpty()) {
-            mensagens.add("O campo data inicio não pode ser vazio.");
+        if (request.getParameter("mais_vendidos") != null && request.getParameter("mais_vendidos").equals("1") && request.getParameter("mais_vendidos").matches("\\d+")) {
+            if (!request.getParameter("date-ini-mais-vendidos").isEmpty()) {
+                mensagens.add("O campo data inicio não pode ser vazio.");
+            }
+            if (!request.getParameter("date-end-mais-vendidos").isEmpty()) {
+                mensagens.add("O campo data fim não pode ser vazio.");
+            }
         }
-        if (!request.getParameter("date-end-mais-vendidos").isEmpty()) {
-            mensagens.add("O campo data fim não pode ser vazio.");
+        if(mensagens.size() > 0){
+            request.setAttribute("error", true);
+            request.setAttribute("msg_error", mensagens);
+            processRequest(request, response);
+            return;
         }
-
         String dt_inicio = (request.getParameter("date-ini-mais-vendidos"));
         String dt_fim = (request.getParameter("date-end-mais-vendidos"));// recebe os valores de data em String
         Date dataInicio = null;
@@ -82,7 +95,7 @@ public class RelatoriosServlet extends HttpServlet {
             dataInicio = (Date) format.parse(dt_fim);
             RelatorioExcel relatorio = new RelatorioExcel();
             HSSFWorkbook wb = relatorio.MAIS_VENDIDOS_E();
-            
+
             ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
             wb.write(outByteStream);
             byte[] outArray = outByteStream.toByteArray();
@@ -94,9 +107,9 @@ public class RelatoriosServlet extends HttpServlet {
             outStream.write(outArray);
             outStream.flush();
             response.sendRedirect(request.getContextPath() + "/relatorios");
-        } catch (Exception e) {
+        } catch (ParseException | IOException e) {
         }
-        
+
     }
-    
+
 }

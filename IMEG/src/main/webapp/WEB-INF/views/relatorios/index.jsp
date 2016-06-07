@@ -54,11 +54,11 @@
                     <input type="hidden" name="funcionarios_que_mais_venderam" value="1">
                     <div class="col-lg-3 form-space">
                         <label>Data Início</label>
-                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="date-ini-mais-vendidos-funcionarios">
+                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos-funcionarios" class="datePicker form-control" name="date-ini-mais-vendidos-funcionarios">
                     </div>
                     <div class="col-lg-3 form-space">
                         <label>Data Final</label>
-                        <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="date-end-mais-vendidos-funcionarios">
+                        <input type="text" readonly="readonly" id="date-end-mais-vendidos-funcionarios" class="datePicker date-end form-control" name="date-end-mais-vendidos-funcionarios">
                     </div>  
                     <div class="col-lg-12 form-space">
                         <label>&nbsp;</label>
