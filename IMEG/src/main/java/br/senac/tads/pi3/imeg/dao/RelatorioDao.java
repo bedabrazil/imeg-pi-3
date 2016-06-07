@@ -60,14 +60,15 @@ public class RelatorioDao {
     public List<RelatorioVenda> ultimosTresMeses(Date Hoje, Date tresMesesAtras) {
         String sql = "SELECT SAIDA.PRODUTOS_ID AS PRODUTOS, SUM(SAIDA.QTDE_PRODUTOS) AS VENDAS"
                 + " FROM ITENS_SAIDA AS SAIDA"
+                + " INNER JOIN PRODUTOS AS PROD ON SAIDA.PRODUTOS_ID = PROD.ID"
                 + " WHERE SAIDA.DATA_TRANSACAO BETWEEN ? AND ? GROUP BY SAIDA.PRODUTOS_ID ORDER BY SAIDA.PRODUTOS_ID";
-        try{
+        try {
             pst = new Conexao().prepararStatement(sql);
-            List<RelatorioVenda> relatorios = new  ArrayList();
+            List<RelatorioVenda> relatorios = new ArrayList();
             pst.setDate(1, new java.sql.Date(tresMesesAtras.getTime()));
             pst.setDate(2, new java.sql.Date(Hoje.getTime()));
             ResultSet rs = pst.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 RelatorioVenda rv = new RelatorioVenda();
                 rv.setProduto(new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS")));
                 rv.setQtdeVendida(rs.getInt("VENDAS"));
@@ -185,19 +186,18 @@ public class RelatorioDao {
     }
 
     //Falta Query
-    public ArrayList<RelatorioVenda> listarFuncionariosQueMaisVenderamGeral() {
-        String sql = "SELECT * FROM VENDA_FUNCIONARIOS";
-        ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
+    public List<RelatorioVenda> listarFuncionariosQueMaisVenderamNosUltimosTresMeses(Date Hoje, Date tresMesesAtras) {
+        String sql = "SELECT SAIDA.FUNCIONARIOS_ID AS FUNCIONARIO, SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) AS TOTAL FROM ITENS_SAIDA SAIDA WHERE SAIDA.DATA_TRANSACAO BETWEEN ? AND ?  GROUP BY SAIDA.FUNCIONARIOS_ID ORDER BY SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) DESC";
         try {
-
+            List<RelatorioVenda> rVenda = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
+            pst.setDate(1, new java.sql.Date(tresMesesAtras.getTime()));
+            pst.setDate(2, new java.sql.Date(Hoje.getTime()));
             ResultSet res = pst.executeQuery();
             while (res.next()) {
                 RelatorioVenda r = new RelatorioVenda();
-                FuncionarioDao fDao = new FuncionarioDao();
-                r.setFuncionario(fDao.pesquisarPorId(res.getInt("FUNCIONARIO")));
-                r.setQtdeVendida(res.getInt("VL_VENDA"));
-
+                r.setFuncionario(new FuncionarioDao().pesquisarPorId(res.getInt("FUNCIONARIO")));
+                r.setQtdeVendida(res.getInt("TOTAL"));
                 rVenda.add(r);
             }
             return rVenda;

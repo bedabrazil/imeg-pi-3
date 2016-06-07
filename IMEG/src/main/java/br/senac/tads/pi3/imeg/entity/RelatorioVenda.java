@@ -5,6 +5,8 @@
  */
 package br.senac.tads.pi3.imeg.entity;
 
+import java.util.Date;
+
 /**
  *
  * @author iosato
@@ -15,7 +17,8 @@ public class RelatorioVenda implements Relatorio{
     private Unidade unidade;
     private Funcionario funcionario;
     private double totalValorVenda;
-
+    private Date DataTransacao;
+    
     public int getQtdeVendida() {
         return qtdeVendida;
     }
@@ -54,6 +57,14 @@ public class RelatorioVenda implements Relatorio{
 
     public void setTotalValorVenda(double totalValorVenda) {
         this.totalValorVenda = totalValorVenda;
+    }
+
+    public Date getDataTransacao() {
+        return DataTransacao;
+    }
+
+    public void setDataTransacao(Date DataTransacao) {
+        this.DataTransacao = DataTransacao;
     }
     
 }

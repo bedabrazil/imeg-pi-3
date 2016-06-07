@@ -3,7 +3,6 @@ package br.senac.tads.pi3.imeg.servlet;
 import br.senac.tads.pi3.imeg.dao.RelatorioDao;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +34,8 @@ public class RelatoriosServlet extends HttpServlet {
         
         List<RelatorioVenda> relatorioTresMesesAtras = new RelatorioDao().ultimosTresMeses(hoje, tresMesesAtras);
         request.setAttribute("relatorioTresMesesAtras", relatorioTresMesesAtras);
-        
+        List<RelatorioVenda> funcionariosQueMaisVenderam = new RelatorioDao().listarFuncionariosQueMaisVenderamNosUltimosTresMeses(hoje, tresMesesAtras);
+        request.setAttribute("funcionariosQueMaisVenderam", funcionariosQueMaisVenderam);
 //        ArrayList<RelatorioVenda> tresMaisVendidos = new RelatorioDao().listarTresMaisVendidos();
 //        request.setAttribute("tresMaisVendidos", tresMaisVendidos);
 //        
