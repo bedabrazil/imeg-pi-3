@@ -18,6 +18,7 @@ public class RelatorioVenda implements Relatorio{
     private Funcionario funcionario;
     private double totalValorVenda;
     private Date DataTransacao;
+    private String mes;
     
     public int getQtdeVendida() {
         return qtdeVendida;
@@ -65,6 +66,14 @@ public class RelatorioVenda implements Relatorio{
 
     public void setDataTransacao(Date DataTransacao) {
         this.DataTransacao = DataTransacao;
+    }
+
+    public String getMes() {
+        return mes;
+    }
+
+    public void setMes(String mes) {
+        this.mes = mes;
     }
     
 }

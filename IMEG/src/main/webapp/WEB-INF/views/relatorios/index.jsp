@@ -98,6 +98,37 @@
                 </form>                 
             </div>
         </div>                    
+
+        <div class="col-lg-12">
+            <center><h4>Vendas Mensais </h4></center>
+            <div id="chart_04" style="width:100%"><center><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></center></div>
+            <div class="col-lg-12 form-space">
+                <form action="<c:url value="/relatorios"/>" method="post">
+                    <div class="col-lg-12">
+                        <div id="error" class="col-lg-12">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Data Final tem que ser maior ou igual a Data Inicial.</span>
+                        </div>
+                        <h5>Para gerar um relatório EXCELL com outras datas selecione :</h5>
+                    </div>
+                    <input type="hidden" name="unidades_que_mais_venderam" value="1">
+                    <div class="col-lg-3 form-space">
+                        <label>Data Início</label>
+                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos-unidades" class="datePicker form-control" name="date-ini-mais-vendidos-unidades">
+                    </div>
+                    <div class="col-lg-3 form-space">
+                        <label>Data Final</label>
+                        <input type="text" readonly="readonly" id="date-end-mais-vendidos-unidades" class="datePicker date-end form-control" name="date-end-mais-vendidos-unidades">
+                    </div>  
+                    <div class="col-lg-12 form-space">
+                        <label>&nbsp;</label>
+                        <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
+                    </div>
+                </form>                 
+            </div>
+        </div> 
                     
     </div>
 </div>
@@ -153,13 +184,14 @@
         Chart.draw(data, options);        
         
     </c:if>
-    <c:if test="${faturamentoDaMatriz}">
+    <c:if test="${not empty faturamentoTotalDaMatriz}">
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Mês');
         data.addColumn('number', 'Valor Vendido');
+        data.addColumn('number', 'Quantidade Vendida')
         data.addRows([
-        <c:forEach items="${faturamentoDaMatriz}" var="item">
-            ["${item.dataTransacao}", ${item.totalValorVenda}],
+        <c:forEach items="${faturamentoTotalDaMatriz}" var="item">
+            ["${item.mes}", ${item.totalValorVenda}, ${item.qtdeVendida}],
         </c:forEach>
         ]);
         // Set chart options
@@ -168,7 +200,7 @@
                          curveType: 'function', 
                         'title': 'Vendas Mensais', height: 400, backgroundColor: "#F5F5F5"};
 
-        var Chart = new google.visualization.LineChart(document.getElementById('chart_03'));
+        var Chart = new google.visualization.LineChart(document.getElementById('chart_04'));
         Chart.draw(data, options);        
     </c:if>
     }

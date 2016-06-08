@@ -204,7 +204,31 @@ public class RelatorioDao {
         }
         return null;
     }
-
+    public List<RelatorioVenda> faturamentoTotalPorMes(){
+        String sql = "SELECT * FROM FATURAMENTO_TOTAL_POR_MES";
+        try{
+            List<RelatorioVenda> rVenda = new ArrayList<>();
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                RelatorioVenda rv = new RelatorioVenda();
+                rv.setMes(rs.getString("MES"));
+                rv.setTotalValorVenda(rs.getDouble("FATURADO"));
+                rv.setQtdeVendida(rs.getInt("QUANTIDADE"));
+                rVenda.add(rv);
+            }
+            return rVenda;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
     public ArrayList<RelatorioVenda> listarUnidadesQueMaisVenderam() {
         String sql = "SELECT * FROM UNIDADES_QUE_MAIS_VENDERAM";
         ArrayList<RelatorioVenda> rVenda = new ArrayList<>();
