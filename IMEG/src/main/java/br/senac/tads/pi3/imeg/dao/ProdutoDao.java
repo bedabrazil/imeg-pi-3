@@ -25,17 +25,19 @@ public class ProdutoDao {
 
     public boolean adicionar(Produto produto) {
 
-        String sql = "INSERT INTO PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX, STATUS, DESCRICAO, DESCRICAO_CURTA)"
-                + "VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO PRODUTOS(CATEGORIAS_ID, NOME, QTDE_MIN, QTDE_MAX, PRECO_VENDA, PRECO_CUSTO, STATUS, DESCRICAO, DESCRICAO_CURTA)"
+                + "VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setInt(1, produto.getCategoria().getId());
             pst.setString(2, produto.getNome());
             pst.setInt(3, produto.getQtdeMin());
             pst.setInt(4, produto.getQtdeMax());
-            pst.setBoolean(5, produto.isStatus());
-            pst.setString(6, produto.getDescricao());
-            pst.setString(7, produto.getDescricaoCurta());
+            pst.setDouble(5, produto.getPrecoVenda());
+            pst.setDouble(6, produto.getPrecoCusto());
+            pst.setBoolean(7, produto.isStatus());
+            pst.setString(8, produto.getDescricao());
+            pst.setString(9, produto.getDescricaoCurta());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
