@@ -33,7 +33,11 @@ public class Unidade {
         this.id = id;
         this.matriz = matriz;
     }
-
+    public Unidade(String nome, Estado estado, boolean status) {
+        this.nome = nome;
+        this.estado = estado;       
+        this.status = status;
+    }    
     public int getId() {
         return id;
     }

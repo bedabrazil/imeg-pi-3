@@ -112,7 +112,7 @@ public class AlterarUnidadeServlet extends HttpServlet {
             if (!fDao.estaEmMatriz(Integer.parseInt(request.getParameter("unidade_id")))) {
                 mensagens.add("Erro ao ativar Matriz. Esta unidade não possui um usuário ADM ativo.");
             }else{
-                
+//                Unidade unidade = new UnidadeDao().pesquisarSeEhMatriz();
                 uDao.resetaMatrizes();
             }
         }

@@ -22,13 +22,12 @@ public class UnidadeDao {
     private PreparedStatement pst;
         EstadoDao estDao = new EstadoDao ();
     public boolean adicionar(Unidade unidade) {
-        String sql = "INSERT INTO UNIDADES(NOME, ESTADOS_ID, STATUS, MATRIZ)VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO UNIDADES(NOME, ESTADOS_ID, STATUS)VALUES(?, ?, ?)";
         try {
             pst = new Conexao().prepararStatement(sql);
             pst.setString(1, unidade.getNome());
             pst.setInt(2, unidade.getEstado().getId());
             pst.setBoolean(3, unidade.isStatus());
-            pst.setBoolean(4, unidade.isMatriz());
             if (pst.executeUpdate() > 0) {
                 return true;
             }
@@ -142,7 +141,29 @@ public class UnidadeDao {
         }
         return null;
     }
-    
+    public Unidade pesquisarSeEhMatriz(){
+        String sql = "SELECT * FROM UNIDADES WHERE MATRIZ = true LIMIT 1";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            Unidade uni = new Unidade();
+            uni.setEstado( new EstadoDao().pesquisarPorId(rs.getInt("ESTADOS_ID")));
+            uni.setId(rs.getInt("ID"));
+            uni.setMatriz(rs.getBoolean("MATRIZ"));
+            uni.setNome(rs.getString("NOME"));
+            uni.setStatus(rs.getBoolean("STATUS"));
+            return uni;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(CargoDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
     public Unidade pesquisarPorId(int id){
         String sql = "SELECT UNIDADES.* FROM UNIDADES WHERE ID = ? ";
         try{

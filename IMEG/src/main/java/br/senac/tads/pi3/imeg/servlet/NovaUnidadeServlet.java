@@ -95,14 +95,12 @@ public class NovaUnidadeServlet extends HttpServlet {
         String nome = request.getParameter("nome-unidade");
         int idCidade = Integer.parseInt(request.getParameter("estado-id"));
         boolean status = Boolean.parseBoolean(request.getParameter("ativo_unidades"));
-        boolean matriz = Boolean.parseBoolean(request.getParameter("ativo_matriz"));
+//        boolean matriz = Boolean.parseBoolean(request.getParameter("ativo_matriz"));
         
         if (!nome.isEmpty() && idCidade > 0) {
             EstadoDao eDao = new EstadoDao();
             
-            uDao.resetaMatrizes();
-            
-            Unidade unidade = new Unidade(nome, eDao.pesquisarPorId(idCidade), status, matriz);
+            Unidade unidade = new Unidade(nome, eDao.pesquisarPorId(idCidade), status);
             if (uDao.adicionar(unidade)) {
                 mensagens.clear();
                 session.setAttribute("msg_success", "Unidade " + nome + " incluída com sucesso.");
