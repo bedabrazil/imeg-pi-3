@@ -37,8 +37,9 @@ public class RelatoriosServlet extends HttpServlet {
         cal.add(Calendar.MONTH, -3);
         Date tresMesesAtras = cal.getTime();
         request.setAttribute("tresMesesAtras", tresMesesAtras);
-
-        List<RelatorioVenda> relatorioTresMesesAtras = new RelatorioDao().ultimosTresMeses(hoje, tresMesesAtras);
+        List<RelatorioVenda> unidadesQueMaisVenderamUltimosTresMeses = new RelatorioDao().unidadesQueMaisVenderamUltimosTresMeses();
+        request.setAttribute("unidadesQueMaisVenderamUltimosTresMeses", unidadesQueMaisVenderamUltimosTresMeses);
+        List<RelatorioVenda> relatorioTresMesesAtras = new RelatorioDao().ultimosTresMeses();
         request.setAttribute("relatorioTresMesesAtras", relatorioTresMesesAtras);
         List<RelatorioVenda> funcionariosQueMaisVenderam = new RelatorioDao().listarFuncionariosQueMaisVenderamNosUltimosTresMeses(hoje, tresMesesAtras);
         request.setAttribute("funcionariosQueMaisVenderam", funcionariosQueMaisVenderam);
@@ -79,6 +80,7 @@ public class RelatoriosServlet extends HttpServlet {
                 mensagens.add("O campo data fim não pode ser vazio.");
             }
         }
+        
         if(mensagens.size() > 0){
             request.setAttribute("error", true);
             request.setAttribute("msg_error", mensagens);
