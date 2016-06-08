@@ -1,6 +1,7 @@
 package br.senac.tads.pi3.imeg.servlet;
 
 import br.senac.tads.pi3.imeg.dao.RelatorioDao;
+import br.senac.tads.pi3.imeg.entity.RelatorioFaturamento;
 import br.senac.tads.pi3.imeg.entity.RelatorioVenda;
 import br.senac.tads.pi3.imeg.util.RelatorioExcel;
 import java.io.ByteArrayOutputStream;
@@ -37,12 +38,15 @@ public class RelatoriosServlet extends HttpServlet {
         cal.add(Calendar.MONTH, -3);
         Date tresMesesAtras = cal.getTime();
         request.setAttribute("tresMesesAtras", tresMesesAtras);
+
+
         List<RelatorioVenda> unidadesQueMaisVenderamUltimosTresMeses = new RelatorioDao().unidadesQueMaisVenderamUltimosTresMeses();
         request.setAttribute("unidadesQueMaisVenderamUltimosTresMeses", unidadesQueMaisVenderamUltimosTresMeses);
         List<RelatorioVenda> relatorioTresMesesAtras = new RelatorioDao().ultimosTresMeses();
         request.setAttribute("relatorioTresMesesAtras", relatorioTresMesesAtras);
         List<RelatorioVenda> funcionariosQueMaisVenderam = new RelatorioDao().listarFuncionariosQueMaisVenderamNosUltimosTresMeses(hoje, tresMesesAtras);
         request.setAttribute("funcionariosQueMaisVenderam", funcionariosQueMaisVenderam);
+        
 //        ArrayList<RelatorioVenda> tresMaisVendidos = new RelatorioDao().listarTresMaisVendidos();
 //        request.setAttribute("tresMaisVendidos", tresMaisVendidos);
 //        

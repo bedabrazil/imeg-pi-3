@@ -50,13 +50,37 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
 
     }
     
+    public List<RelatorioFaturamento> faturamentoSemanal(){
+        String sql = "SELECT * FROM FATURAMENTO_SEMANA";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            List<RelatorioFaturamento> rFat = new ArrayList<>();
+            while(rs.next()){
+                RelatorioFaturamento rf = new RelatorioFaturamento();
+                rf.setFaturamento(rs.getDouble("FATURAMENTO_SEMANA"));
+                rf.setUnidade(new UnidadeDao().pesquisarPorId(rs.getInt("UNIDADE")));
+                rFat.add(rf);
+            }
+            return rFat;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
     public List<RelatorioVenda> unidadesQueMaisVenderamUltimosTresMeses(){
         String sql = "SELECT * FROM UNIDADES_QUE_MAIS_VENDERAM_ULTIMOS_TRES_MESES";
         try{
@@ -76,7 +100,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -105,7 +129,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -139,7 +163,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -175,7 +199,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -203,7 +227,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -231,7 +255,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -268,7 +292,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -296,7 +320,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -324,7 +348,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -351,7 +375,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -383,7 +407,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;

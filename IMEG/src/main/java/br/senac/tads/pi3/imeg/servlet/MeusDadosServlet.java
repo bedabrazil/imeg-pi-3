@@ -37,6 +37,12 @@ public class MeusDadosServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         Funcionario usuario = (Funcionario) session.getAttribute("usuario");
         request.getRequestDispatcher("/WEB-INF/views/meusdados/editar.jsp").forward(request, response);
+        boolean success = (boolean) session.getAttribute("success");
+        if (success) {
+            session.removeAttribute("success");
+            session.removeAttribute("msg_success");
+        }
+
     }
 
     /**
