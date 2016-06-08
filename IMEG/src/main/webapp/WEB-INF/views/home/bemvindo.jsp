@@ -258,7 +258,7 @@
         </c:forEach>
         ]);
         // Set chart options
-        var options4 = {'title': 'Unidades que mais venderam', height: 400, backgroundColor: "#F5F5F5"};
+        var options4 = {'title': 'Funcionários que mais venderam', height: 400, backgroundColor: "#F5F5F5"};
 
         // Instantiate and draw our chart, passing in some options.
         var Chart7 = new google.visualization.PieChart(document.getElementById('chart_7'));

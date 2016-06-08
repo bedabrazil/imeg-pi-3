@@ -41,7 +41,6 @@
     </c:choose>
 </div>
 <div class="col-lg-12">
-    <div>SALDOS DE ESTOQUE</div>
 </div>
 <%-- RODAPÉ DO HTML --%>
 <jsp:include page="../footer.jsp" />

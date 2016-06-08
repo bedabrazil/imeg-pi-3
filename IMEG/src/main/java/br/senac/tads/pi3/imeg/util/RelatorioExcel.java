@@ -11,6 +11,7 @@ import br.senac.tads.pi3.imeg.dao.ProdutoDao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -64,7 +65,7 @@ public class RelatorioExcel {
                 index++;
             }
 
-        } catch (Exception e) {
+        } catch (ParseException | SQLException e) {
         }
 
         return wb;
@@ -152,7 +153,7 @@ public class RelatorioExcel {
                 index++;
             }
 
-        } catch (Exception e) {
+        } catch (ParseException | SQLException e) {
         }
 
         return wb;

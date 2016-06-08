@@ -10,124 +10,21 @@
         <div class="col-lg-12">
             <center><h4>Os mais vendidos de <fmt:formatDate pattern="dd/MM/yyyy" value="${tresMesesAtras}"/> a <fmt:formatDate pattern="dd/MM/yyyy" value="${hoje}"/> </h4></center>
             <div id="chart_01" style="width:100%"><center><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></center></div>
-            <div class="col-lg-12 form-space">
-                <form action="<c:url value="/relatorios"/>" method="post">
-                    <div class="col-lg-12">
-                        <div id="error-date-end-mais-vendidos" class="col-lg-12">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Data Final tem que ser maior ou igual a Data Inicial.</span>
-                        </div>
-                        <h5>Para gerar um relatório EXCELL com outras datas selecione :</h5>
-                    </div>
-                    <input type="hidden" name="mais_vendidos" value="1">
-                    <div class="col-lg-3 form-space">
-                        <label>Data Início</label>
-                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos" class="datePicker form-control" name="date-ini-mais-vendidos">
-                    </div>
-                    <div class="col-lg-3 form-space">
-                        <label>Data Final</label>
-                        <input type="text" readonly="readonly" id="date-end-mais-vendidos" class="datePicker date-end form-control" name="date-end-mais-vendidos">
-                    </div>  
-                    <div class="col-lg-12 form-space">
-                        <label>&nbsp;</label>
-                        <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
-                    </div>
-                </form>                 
-            </div>
         </div>
         <div class="col-lg-12">
             <center><h4>Funcionários que mais venderam em <fmt:formatDate pattern="dd/MM/yyyy" value="${tresMesesAtras}"/> a <fmt:formatDate pattern="dd/MM/yyyy" value="${hoje}"/> </h4></center>
             <div id="chart_02" style="width:100%"><center><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></center></div>
-            <div class="col-lg-12 form-space">
-                <form action="<c:url value="/relatorios"/>" method="post">
-                    <div class="col-lg-12">
-                        <div id="error-date-end-mais-vendidos-funcionarios" class="col-lg-12">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Data Final tem que ser maior ou igual a Data Inicial.</span>
-                        </div>
-                        <h5>Para gerar um relatório EXCELL com outras datas selecione :</h5>
-                    </div>
-                    <input type="hidden" name="funcionarios_que_mais_venderam" value="1">
-                    <div class="col-lg-3 form-space">
-                        <label>Data Início</label>
-                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos-funcionarios" class="datePicker form-control" name="date-ini-mais-vendidos-funcionarios">
-                    </div>
-                    <div class="col-lg-3 form-space">
-                        <label>Data Final</label>
-                        <input type="text" readonly="readonly" id="date-end-mais-vendidos-funcionarios" class="datePicker date-end form-control" name="date-end-mais-vendidos-funcionarios">
-                    </div>  
-                    <div class="col-lg-12 form-space">
-                        <label>&nbsp;</label>
-                        <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
-                    </div>
-                </form>                 
-            </div>
+
         </div>
 
         <div class="col-lg-12">
             <center><h4>Unidades que mais venderam em <fmt:formatDate pattern="dd/MM/yyyy" value="${tresMesesAtras}"/> a <fmt:formatDate pattern="dd/MM/yyyy" value="${hoje}"/> </h4></center>
             <div id="chart_03" style="width:100%"><center><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></center></div>
-            <div class="col-lg-12 form-space">
-                <form action="<c:url value="/relatorios"/>" method="post">
-                    <div class="col-lg-12">
-                        <div id="error-date-end-mais-vendidos-unidades" class="col-lg-12">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Data Final tem que ser maior ou igual a Data Inicial.</span>
-                        </div>
-                        <h5>Para gerar um relatório EXCELL com outras datas selecione :</h5>
-                    </div>
-                    <input type="hidden" name="unidades_que_mais_venderam" value="1">
-                    <div class="col-lg-3 form-space">
-                        <label>Data Início</label>
-                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos-unidades" class="datePicker form-control" name="date-ini-mais-vendidos-unidades">
-                    </div>
-                    <div class="col-lg-3 form-space">
-                        <label>Data Final</label>
-                        <input type="text" readonly="readonly" id="date-end-mais-vendidos-unidades" class="datePicker date-end form-control" name="date-end-mais-vendidos-unidades">
-                    </div>  
-                    <div class="col-lg-12 form-space">
-                        <label>&nbsp;</label>
-                        <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
-                    </div>
-                </form>                 
-            </div>
         </div>                    
 
         <div class="col-lg-12">
             <center><h4>Vendas Mensais </h4></center>
             <div id="chart_04" style="width:100%"><center><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></center></div>
-            <div class="col-lg-12 form-space">
-                <form action="<c:url value="/relatorios"/>" method="post">
-                    <div class="col-lg-12">
-                        <div id="error-date-end-mais-faturamento-mensal" class="col-lg-12">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Data Final tem que ser maior ou igual a Data Inicial.</span>
-                        </div>
-                        <h5>Para gerar um relatório EXCELL com outras datas selecione :</h5>
-                    </div>
-                    <input type="hidden" name="unidades_que_mais_venderam" value="1">
-                    <div class="col-lg-3 form-space">
-                        <label>Data Início</label>
-                        <input type="text" readonly="readonly" id="date-ini-mais-faturamento-mensal" class="datePicker form-control" name="date-ini-mais-faturamento-mensal">
-                    </div>
-                    <div class="col-lg-3 form-space">
-                        <label>Data Final</label>
-                        <input type="text" readonly="readonly" id="date-end-mais-faturamento-mensal" class="datePicker date-end form-control" name="date-end-mais-faturamento-mensal">
-                    </div>  
-                    <div class="col-lg-12 form-space">
-                        <label>&nbsp;</label>
-                        <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
-                    </div>
-                </form>                 
-            </div>
         </div> 
                     
     </div>

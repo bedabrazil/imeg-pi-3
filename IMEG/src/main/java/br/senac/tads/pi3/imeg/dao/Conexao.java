@@ -26,7 +26,7 @@ public class Conexao {
         if (conexao == null) {
             try {
                 conexao = DriverManager.getConnection(
-                    "jdbc:derby://localhost:1527/imegdb;SecurityMechanism=3",
+                    "jdbc:derby://localhost:1527/imegdb;SecurityMechanism=3;territory=pt_BR;collation=TERRITORY_BASED",
                     "adm", // usuario
                     "adm"); // senha
             } catch (SQLException e) {
