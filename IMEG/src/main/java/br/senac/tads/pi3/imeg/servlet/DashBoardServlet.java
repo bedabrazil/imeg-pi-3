@@ -106,10 +106,10 @@ public class DashBoardServlet extends HttpServlet {
             dataInicio = (Date) format.parse(dt_inicio);
             dataInicio = (Date) format.parse(dt_fim);
             RelatorioExcel relatorio = new RelatorioExcel();
-            HSSFWorkbook wb = relatorio.relatorio(dataInicio, dataFim);
+            //HSSFWorkbook wb = relatorio.relatorio(dataInicio, dataFim);
 
             ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
-            wb.write(outByteStream);
+           // wb.write(outByteStream);
             byte[] outArray = outByteStream.toByteArray();
             response.setContentType("application/ms-excel");
             response.setContentLength(outArray.length);
