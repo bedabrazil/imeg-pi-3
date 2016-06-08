@@ -22,7 +22,7 @@ public class Conexao {
 //************************************************************************************************   
 //-- RETORNA UMA CONEXÃO COM O BANCO DE DADOS
 //************************************************************************************************
-    private Connection getConexao() {
+    public Connection getConexao() {
         if (conexao == null) {
             try {
                 conexao = DriverManager.getConnection(

@@ -80,7 +80,7 @@ public class RelatoriosServlet extends HttpServlet {
         String dt_inicio = (request.getParameter("date-ini-mais-vendidos"));
         String dt_fim = (request.getParameter("date-end-mais-vendidos"));// recebe os valores de data em String
         
-        
+        String nomeArquivo = null;
         
         if (request.getParameter("mais_vendidos") != null && request.getParameter("mais_vendidos").equals("1") && request.getParameter("mais_vendidos").matches("\\d+")) {
             if (request.getParameter("date-ini-mais-vendidos").isEmpty()) {
@@ -89,7 +89,8 @@ public class RelatoriosServlet extends HttpServlet {
             if (request.getParameter("date-end-mais-vendidos").isEmpty()) {
                 mensagens.add("O campo data fim não pode ser vazio.");
             }
-            wb = relatorio.MAIS_VENDIDOS_E(dt_inicio, dt_fim);            
+            wb = relatorio.MAIS_VENDIDOS_E(dt_inicio, dt_fim);
+           nomeArquivo = "Mais vendido";
         }
         if (request.getParameter("funcionarios_que_mais_venderam") != null && request.getParameter("funcionarios_que_mais_venderam").equals("1") && request.getParameter("funcionarios_que_mais_venderam").matches("\\d+")) {
             if (request.getParameter("date-ini-mais-vendidos-funcionarios").isEmpty()) {
@@ -99,7 +100,7 @@ public class RelatoriosServlet extends HttpServlet {
                 mensagens.add("O campo data fim não pode ser vazio.");
             }
             wb = relatorio.FUNCIONARIO_MAIS_VENDEU_E(dt_inicio, dt_fim);
-            
+           nomeArquivo = "Funcionario que mais vendeu";
         }        
         if(mensagens.size() > 0){
             request.setAttribute("error", true);
@@ -122,7 +123,7 @@ public class RelatoriosServlet extends HttpServlet {
             response.setContentType("application/ms-excel");
             response.setContentLength(outArray.length);
             response.setHeader("Expires:", "0");
-            response.setHeader("Content-Disposition", "attachment; filename=ototo.xls");
+            response.setHeader("Content-Disposition", "attachment; filename="+nomeArquivo+".xls");
             OutputStream outStream = response.getOutputStream();
             outStream.write(outArray);
             outStream.flush();
