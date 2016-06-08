@@ -68,6 +68,37 @@
             </div>
         </div>
 
+        <div class="col-lg-12">
+            <center><h4>Unidades que mais venderam em <fmt:formatDate pattern="dd/MM/yyyy" value="${tresMesesAtras}"/> a <fmt:formatDate pattern="dd/MM/yyyy" value="${hoje}"/> </h4></center>
+            <div id="chart_03" style="width:100%"><center><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></center></div>
+            <div class="col-lg-12 form-space">
+                <form action="<c:url value="/relatorios"/>" method="post">
+                    <div class="col-lg-12">
+                        <div id="error" class="col-lg-12">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Data Final tem que ser maior ou igual a Data Inicial.</span>
+                        </div>
+                        <h5>Para gerar um relatório EXCELL com outras datas selecione :</h5>
+                    </div>
+                    <input type="hidden" name="unidades_que_mais_venderam" value="1">
+                    <div class="col-lg-3 form-space">
+                        <label>Data Início</label>
+                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos-unidades" class="datePicker form-control" name="date-ini-mais-vendidos-unidades">
+                    </div>
+                    <div class="col-lg-3 form-space">
+                        <label>Data Final</label>
+                        <input type="text" readonly="readonly" id="date-end-mais-vendidos-unidades" class="datePicker date-end form-control" name="date-end-mais-vendidos-unidades">
+                    </div>  
+                    <div class="col-lg-12 form-space">
+                        <label>&nbsp;</label>
+                        <button type="submit" name="gerar_excel" class="btn btn-default gerar_excel"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;Excel</button>
+                    </div>
+                </form>                 
+            </div>
+        </div>                    
+                    
     </div>
 </div>
 <%-- RODAPÉ DO HTML --%>
@@ -106,5 +137,21 @@
         var Chart = new google.visualization.PieChart(document.getElementById('chart_02'));
         Chart.draw(data, options);
     </c:if> 
+    <c:if test="${not empty unidadesQueMaisVenderamUltimosTresMeses}">
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Unidade');
+        data.addColumn('number', 'Total Vendido');
+        data.addRows([
+        <c:forEach items="${unidadesQueMaisVenderamUltimosTresMeses}" var="item">
+            ["${item.unidade.nome}", ${item.totalValorVenda}],
+        </c:forEach>
+        ]);
+        // Set chart options
+        var options = {pieHole: 0.4, 'title': 'Unidades que mais venderam', height: 400, backgroundColor: "#F5F5F5"};
+
+        var Chart = new google.visualization.PieChart(document.getElementById('chart_03'));
+        Chart.draw(data, options);        
+        
+    </c:if>
     }
 </script>

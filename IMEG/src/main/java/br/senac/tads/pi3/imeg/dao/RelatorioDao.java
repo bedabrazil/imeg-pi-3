@@ -50,23 +50,71 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
 
     }
-
-    public List<RelatorioVenda> ultimosTresMeses(Date Hoje, Date tresMesesAtras) {
-        String sql = "SELECT SAIDA.PRODUTOS_ID AS PRODUTOS, SUM(SAIDA.QTDE_PRODUTOS) AS VENDAS"
-                + " FROM ITENS_SAIDA AS SAIDA"
-                + " INNER JOIN PRODUTOS AS PROD ON SAIDA.PRODUTOS_ID = PROD.ID"
-                + " WHERE SAIDA.DATA_TRANSACAO BETWEEN ? AND ? GROUP BY SAIDA.PRODUTOS_ID ORDER BY SAIDA.PRODUTOS_ID";
+    
+    public List<RelatorioFaturamento> faturamentoSemanal(){
+        String sql = "SELECT * FROM FATURAMENTO_SEMANA";
+        try{
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            List<RelatorioFaturamento> rFat = new ArrayList<>();
+            while(rs.next()){
+                RelatorioFaturamento rf = new RelatorioFaturamento();
+                rf.setFaturamento(rs.getDouble("FATURAMENTO_SEMANA"));
+                rf.setUnidade(new UnidadeDao().pesquisarPorId(rs.getInt("UNIDADE")));
+                rFat.add(rf);
+            }
+            return rFat;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
+    public List<RelatorioVenda> unidadesQueMaisVenderamUltimosTresMeses(){
+        String sql = "SELECT * FROM UNIDADES_QUE_MAIS_VENDERAM_ULTIMOS_TRES_MESES";
+        try{
+            List<RelatorioVenda> rVenda = new ArrayList<>();
+            pst = new Conexao().prepararStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                RelatorioVenda rv = new RelatorioVenda();
+                rv.setUnidade(new UnidadeDao().pesquisarPorId(rs.getInt("UNIDADE")));
+                rv.setTotalValorVenda(rs.getDouble("TOTAL_VENDAS"));
+                rVenda.add(rv);
+            }
+            return rVenda;
+        } catch (SQLException e) {
+            System.out.println("ERROR SQL: " + e.getMessage() + "\n" + e.getSQLState());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException e) {
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
+    public List<RelatorioVenda> ultimosTresMeses() {
+        String sql = "SELECT * FROM ULTIMOS_TRES_MESES_PRODUTOS_MAIS_VENDIDOS";
+        
+//        (select {fn TIMESTAMPDIFF(SQL_TSI_MONTH, data_transacao, current_date)}
+//    from ITENS_SAIDA where id = SAIDA.id  ) <=7 then SAIDA.id else 0 end )
         try {
             pst = new Conexao().prepararStatement(sql);
             List<RelatorioVenda> relatorios = new ArrayList();
-            pst.setDate(1, new java.sql.Date(tresMesesAtras.getTime()));
-            pst.setDate(2, new java.sql.Date(Hoje.getTime()));
+//            pst.setDate(1, new java.sql.Date(tresMesesAtras.getTime()));
+//            pst.setDate(2, new java.sql.Date(Hoje.getTime()));
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 RelatorioVenda rv = new RelatorioVenda();
@@ -81,7 +129,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -115,7 +163,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -151,7 +199,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -179,7 +227,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -207,7 +255,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -244,7 +292,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -272,7 +320,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -300,7 +348,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -327,7 +375,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
@@ -359,7 +407,7 @@ public class RelatorioDao {
             try {
                 pst.close();
             } catch (SQLException e) {
-                Logger.getLogger(CategoriaDao.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(RelatorioDao.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;

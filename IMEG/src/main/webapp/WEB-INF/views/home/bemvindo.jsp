@@ -114,6 +114,7 @@
                                 </table>
                             </td>
                         </tr>
+                       
                         </c:if>
                         
                         <c:if test="${usuario.unidade.matriz}">
@@ -265,6 +266,23 @@
         var Chart8 = new google.visualization.ColumnChart(document.getElementById('chart_8'));
         Chart8.draw(data4, options4);
     </c:if>
-   
+    <c:if test="${not empty faturamentoSemanal}">
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Unidade');
+        data.addColumn('number', 'Total Vendido');
+        data.addRows([
+        <c:forEach items="${faturamentoSemanal}" var="item">
+            ["${item.unidade.nome}", ${item.faturamento}],
+        </c:forEach>
+        ]);
+        // Set chart options
+        var options = {pieHole: 0.4, 'title': 'Faturamento Semanal por Unidade', height: 400, backgroundColor: "#F5F5F5"};
+
+        // Instantiate and draw our chart, passing in some options.
+        var Chart7 = new google.visualization.PieChart(document.getElementById('chart_9'));
+        Chart7.draw(data, options);
+        var Chart = new google.visualization.ColumnChart(document.getElementById('chart_10'));
+        Chart8.draw(data, options);        
+    </c:if>
     }    
 </script>
