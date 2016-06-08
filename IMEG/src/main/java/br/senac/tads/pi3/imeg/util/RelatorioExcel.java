@@ -8,6 +8,7 @@ package br.senac.tads.pi3.imeg.util;
 import br.senac.tads.pi3.imeg.dao.Conexao;
 import br.senac.tads.pi3.imeg.entity.Produto;
 import br.senac.tads.pi3.imeg.dao.ProdutoDao;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.sql.*;
@@ -25,6 +26,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 public class RelatorioExcel {
 
     private PreparedStatement pst;
+    private Statement stm;
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -44,18 +46,33 @@ public class RelatorioExcel {
             rowhead.createCell(4).setCellValue("VENDA");
 
             int index = 1;
-            String sql = "select * from ADM.FUNCIONARIO_MAIS_VENDEU_E WHERE DATA_TRANSACAO BETWEEN '?' AND '?'";
-            pst = new Conexao().prepararStatement(sql);
+            //String sql = "select * from ADM.FUNCIONARIO_MAIS_VENDEU_E WHERE DATA_TRANSACAO BETWEEN '?' AND '?'";
+            String sql = "select * from ADM.FUNCIONARIO_MAIS_VENDEU_E ";
+//            pst = new Conexao().prepararStatement(sql);
+//
+//            Date dt_inicio = null;
+//            Date dt_fim = null;
+//            dt_inicio = (Date) format.parse(dtInicio);
+//            dt_fim = (Date) format.parse(dtFim);
 
+//            pst.setDate(1, new java.sql.Date(dt_inicio.getTime()));
+//            pst.setDate(2, new java.sql.Date(dt_fim.getTime()));
+
+            
+            
+            /////***////
+            ResultSet rs;
+            Conexao conn = new Conexao();
+            Connection conexao = conn.getConexao();
+            
             Date dt_inicio = null;
             Date dt_fim = null;
             dt_inicio = (Date) format.parse(dtInicio);
             dt_fim = (Date) format.parse(dtFim);
-
-            pst.setDate(1, new java.sql.Date(dt_inicio.getTime()));
-            pst.setDate(2, new java.sql.Date(dt_fim.getTime()));
             
-            ResultSet rs = pst.executeQuery(sql);
+            stm = conexao.createStatement();
+            rs = stm.executeQuery(sql);
+            
             while (rs.next()) {
                 rowhead = sheet.createRow(index);
                 rowhead.createCell(0).setCellValue(rs.getInt(1));
@@ -118,7 +135,6 @@ public class RelatorioExcel {
         try {
 
             // popula primeira linha 
-            
             HSSFSheet sheet = wb.createSheet("Mais vendidos");
             HSSFRow rowhead = sheet.createRow(0);
             rowhead.createCell(0).setCellValue("qtd_venda");
@@ -127,21 +143,29 @@ public class RelatorioExcel {
             rowhead.createCell(3).setCellValue("categoria");
             rowhead.createCell(4).setCellValue("data_transacao");
 
+            //String sql = "SELECT * FROM ADM.MAIS_VENDIDOS_E WHERE DATA_TRANSACAO BETWEEN '?' AND '?'";
+            String sql = "SELECT * FROM ADM.MAIS_VENDIDOS_E";
             
-            String sql = "SELECT * FROM ADM.MAIS_VENDIDOS_E WHERE DATA_TRANSACAO BETWEEN '?' AND '?'";
+            ResultSet rs;
+            Conexao conn = new Conexao();
+            Connection conexao = conn.getConexao();
             
-            pst = new Conexao().prepararStatement(sql);
+            //pst = conexao.prepareStatement(sql);//
+            stm = conexao.createStatement();
+            rs = stm.executeQuery(sql);
             
             Date dt_inicio = null;
             Date dt_fim = null;
             dt_inicio = (Date) format.parse(dtInicio);
             dt_fim = (Date) format.parse(dtFim);
             
-            pst.setDate(1, new java.sql.Date(dt_inicio.getTime()));
-            pst.setDate(2, new java.sql.Date(dt_fim.getTime()));
+            
+           //pst.setDate(1, new java.sql.Date(dt_inicio.getTime()));
+           //pst.setDate(2, new java.sql.Date(dt_fim.getTime()));
 
-            ResultSet rs;
-            rs = pst.executeQuery(sql);
+            
+            
+           //rs = pst.executeQuery(sql);
             int index = 1;
             while (rs.next()) {
                 rowhead = sheet.createRow(index);
@@ -149,7 +173,7 @@ public class RelatorioExcel {
                 rowhead.createCell(1).setCellValue(rs.getInt(2));
                 rowhead.createCell(2).setCellValue(rs.getString(3));
                 rowhead.createCell(3).setCellValue(rs.getString(4));
-                rowhead.createCell(4).setCellValue(rs.getDate(5));
+                rowhead.createCell(4).setCellValue(rs.getString(5));
                 index++;
             }
 
