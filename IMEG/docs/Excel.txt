@@ -103,7 +103,8 @@ GROUP BY data_transacao,  PROD.ID,    PROD.NOME, CATEG.NOME, UN.NOME
 CREATE VIEW FUNCIONARIO_MAIS_VENDEU_E
 
 AS 
-SELECT     FUNC.ID      AS      "FUNCIONARIO_ID",     
+SELECT     SAIDA.data_transacao,
+           FUNC.ID      AS      "FUNCIONARIO_ID",     
            FUNC.NOME      AS      "NOME",     
            UN.NOME        AS         "UNIDADE_ID",
            SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) AS "VENDA"
@@ -115,5 +116,5 @@ SELECT     FUNC.ID      AS      "FUNCIONARIO_ID",
     where SAIDA.id in ( case when 
     (select {fn TIMESTAMPDIFF(SQL_TSI_DAY, data_transacao, current_date)}
     from ITENS_SAIDA where id = SAIDA.id  ) <=7 then SAIDA.id else 0 end )
-    GROUP BY FUNC.ID,FUNC.NOME,UN.ID , UN.NOME 
+    GROUP BY SAIDA.data_transacao,FUNC.ID,FUNC.NOME,UN.ID , UN.NOME 
     ORDER BY SUM(QTDE_PRODUTOS*SAIDA.PRECO_VENDA) DESC
