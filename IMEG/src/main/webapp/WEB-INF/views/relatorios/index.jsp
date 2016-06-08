@@ -13,7 +13,7 @@
             <div class="col-lg-12 form-space">
                 <form action="<c:url value="/relatorios"/>" method="post">
                     <div class="col-lg-12">
-                        <div id="error" class="col-lg-12">
+                        <div id="error-date-end-mais-vendidos" class="col-lg-12">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -43,7 +43,7 @@
             <div class="col-lg-12 form-space">
                 <form action="<c:url value="/relatorios"/>" method="post">
                     <div class="col-lg-12">
-                        <div id="error" class="col-lg-12">
+                        <div id="error-date-end-mais-vendidos-funcionarios" class="col-lg-12">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -74,7 +74,7 @@
             <div class="col-lg-12 form-space">
                 <form action="<c:url value="/relatorios"/>" method="post">
                     <div class="col-lg-12">
-                        <div id="error" class="col-lg-12">
+                        <div id="error-date-end-mais-vendidos-unidades" class="col-lg-12">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -105,7 +105,7 @@
             <div class="col-lg-12 form-space">
                 <form action="<c:url value="/relatorios"/>" method="post">
                     <div class="col-lg-12">
-                        <div id="error" class="col-lg-12">
+                        <div id="error-date-end-mais-faturamento-mensal" class="col-lg-12">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -116,11 +116,11 @@
                     <input type="hidden" name="unidades_que_mais_venderam" value="1">
                     <div class="col-lg-3 form-space">
                         <label>Data Início</label>
-                        <input type="text" readonly="readonly" id="date-ini-mais-vendidos-unidades" class="datePicker form-control" name="date-ini-mais-vendidos-unidades">
+                        <input type="text" readonly="readonly" id="date-ini-mais-faturamento-mensal" class="datePicker form-control" name="date-ini-mais-faturamento-mensal">
                     </div>
                     <div class="col-lg-3 form-space">
                         <label>Data Final</label>
-                        <input type="text" readonly="readonly" id="date-end-mais-vendidos-unidades" class="datePicker date-end form-control" name="date-end-mais-vendidos-unidades">
+                        <input type="text" readonly="readonly" id="date-end-mais-faturamento-mensal" class="datePicker date-end form-control" name="date-end-mais-faturamento-mensal">
                     </div>  
                     <div class="col-lg-12 form-space">
                         <label>&nbsp;</label>

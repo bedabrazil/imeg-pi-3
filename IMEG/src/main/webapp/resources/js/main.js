@@ -136,14 +136,14 @@ jQuery.noConflict();
                 date_end.addClass('border_true');
                 date_ini.removeClass('border_false');
                 date_end.removeClass('border_false');
-                $("#error").hide().removeClass("errors");
+                $("#error-" + e.target.id).hide().removeClass("errors");
                 $(".gerar_excel").attr("disabled", false);
                 date_ini = null;
                 date_end = null;
             } else {
                 date_ini.addClass('border_false');
                 date_end.addClass('border_false');
-                $("#error").show().addClass("alert alert-danger");
+                $("#error-" + e.target.id).show().addClass("alert alert-danger");
                 $(".gerar_excel").attr("disabled", true);
                 return false;
             }
