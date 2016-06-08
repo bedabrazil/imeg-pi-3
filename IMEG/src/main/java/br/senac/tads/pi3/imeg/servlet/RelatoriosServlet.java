@@ -46,7 +46,7 @@ public class RelatoriosServlet extends HttpServlet {
         request.setAttribute("relatorioTresMesesAtras", relatorioTresMesesAtras);
         List<RelatorioVenda> funcionariosQueMaisVenderam = new RelatorioDao().listarFuncionariosQueMaisVenderamNosUltimosTresMeses(hoje, tresMesesAtras);
         request.setAttribute("funcionariosQueMaisVenderam", funcionariosQueMaisVenderam);
-        
+        List<RelatorioVenda> faturamentoDaMatriz = new RelatorioDao().listarUnidadesQueMaisVenderam();
 //        ArrayList<RelatorioVenda> tresMaisVendidos = new RelatorioDao().listarTresMaisVendidos();
 //        request.setAttribute("tresMaisVendidos", tresMaisVendidos);
 //        

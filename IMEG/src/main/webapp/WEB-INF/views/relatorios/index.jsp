@@ -153,5 +153,23 @@
         Chart.draw(data, options);        
         
     </c:if>
+    <c:if test="${faturamentoDaMatriz}">
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Mês');
+        data.addColumn('number', 'Valor Vendido');
+        data.addRows([
+        <c:forEach items="${faturamentoDaMatriz}" var="item">
+            ["${item.dataTransacao}", ${item.totalValorVenda}],
+        </c:forEach>
+        ]);
+        // Set chart options
+        var options = {
+                        legend: { position: 'bottom' },
+                         curveType: 'function', 
+                        'title': 'Vendas Mensais', height: 400, backgroundColor: "#F5F5F5"};
+
+        var Chart = new google.visualization.LineChart(document.getElementById('chart_03'));
+        Chart.draw(data, options);        
+    </c:if>
     }
 </script>

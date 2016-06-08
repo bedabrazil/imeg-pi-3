@@ -42,7 +42,6 @@ public class MeusDadosServlet extends HttpServlet {
             session.removeAttribute("success");
             session.removeAttribute("msg_success");
         }
-
     }
 
     /**
