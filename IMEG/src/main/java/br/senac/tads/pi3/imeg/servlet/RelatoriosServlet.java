@@ -76,56 +76,45 @@ public class RelatoriosServlet extends HttpServlet {
         
         ArrayList<String> mensagens = new ArrayList<>();
         RelatorioExcel relatorio = new RelatorioExcel();
-        
+        HSSFWorkbook wb = null;
         String dt_inicio = (request.getParameter("date-ini-mais-vendidos"));
         String dt_fim = (request.getParameter("date-end-mais-vendidos"));// recebe os valores de data em String
         
         
         
         if (request.getParameter("mais_vendidos") != null && request.getParameter("mais_vendidos").equals("1") && request.getParameter("mais_vendidos").matches("\\d+")) {
-            if (!request.getParameter("date-ini-mais-vendidos").isEmpty()) {
+            if (request.getParameter("date-ini-mais-vendidos").isEmpty()) {
                 mensagens.add("O campo data inicio não pode ser vazio.");
             }
-            if (!request.getParameter("date-end-mais-vendidos").isEmpty()) {
+            if (request.getParameter("date-end-mais-vendidos").isEmpty()) {
                 mensagens.add("O campo data fim não pode ser vazio.");
             }
-            
-        }
-        
-        if(mensagens.size() > 0){
-            request.setAttribute("error", true);
-            request.setAttribute("msg_error", mensagens);
-            processRequest(request, response);
-            return;
-        }
-        else{
-            HSSFWorkbook wb = relatorio.MAIS_VENDIDOS_E(dt_inicio, dt_fim);
+            wb = relatorio.MAIS_VENDIDOS_E(dt_inicio, dt_fim);            
         }
         if (request.getParameter("funcionarios_que_mais_venderam") != null && request.getParameter("funcionarios_que_mais_venderam").equals("1") && request.getParameter("funcionarios_que_mais_venderam").matches("\\d+")) {
-            if (!request.getParameter("date-ini-mais-vendidos").isEmpty()) {
+            if (request.getParameter("date-ini-mais-vendidos-funcionarios").isEmpty()) {
                 mensagens.add("O campo data inicio não pode ser vazio.");
             }
-            if (!request.getParameter("date-end-mais-vendidos").isEmpty()) {
+            if (request.getParameter("date-end-mais-vendidos-funcionarios").isEmpty()) {
                 mensagens.add("O campo data fim não pode ser vazio.");
             }
+            wb = relatorio.FUNCIONARIO_MAIS_VENDEU_E(dt_inicio, dt_fim);
             
-        }
+        }        
         if(mensagens.size() > 0){
             request.setAttribute("error", true);
             request.setAttribute("msg_error", mensagens);
             processRequest(request, response);
             return;
         }
-        else{
-            HSSFWorkbook wb = relatorio.FUNCIONARIO_MAIS_VENDEU_E(dt_inicio, dt_fim);
-        }
+
+        
         
         
         
 
         try {
             
-            HSSFWorkbook wb = relatorio.MAIS_VENDIDOS_E(dt_inicio, dt_fim);
 
             ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
             wb.write(outByteStream);

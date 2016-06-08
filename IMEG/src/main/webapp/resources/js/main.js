@@ -118,21 +118,33 @@ jQuery.noConflict();
     $.datepicker.setDefaults($.datepicker.regional[ "pt-BR" ]);
     $(".datePicker").datepicker({dateFormat: 'dd/mm/yy', yearRange: '1900:' + new Date().getFullYear(), maxDate: new Date});
     $(".gerar_pdf, .gerar_excel").attr("disabled", true);
+
+    var date_ini;
+    var date_end;
+
     $("form").on("change", ".datePicker", function (e) {
-        if ($('#date-ini-mais-vendidos').val() !== "" && $('#date-end-mais-vendidos').val() !== "") {
-            var date_ok = dataInicialMaiorQueFinal($('#date-ini-mais-vendidos').val(), $('#date-end-mais-vendidos').val());
+        if (!date_ini) {
+            date_ini = $(this);
+        } else
+        if (!date_end) {
+            date_end = $(this);
+        }
+        if (date_ini && date_end) {
+            var date_ok = dataInicialMaiorQueFinal(date_ini.val(), date_end.val());
             if (date_ok) {
-                $('#date-ini-mais-vendidos').addClass('border_true');
-                $('#date-end-mais-vendidos').addClass('border_true');
-                $('#date-ini-mais-vendidos').removeClass('border_false');
-                $('#date-end-mais-vendidos').removeClass('border_false');
+                date_ini.addClass('border_true');
+                date_end.addClass('border_true');
+                date_ini.removeClass('border_false');
+                date_end.removeClass('border_false');
                 $("#error").hide().removeClass("errors");
-                $(".gerar_pdf, .gerar_excel").attr("disabled", false);
+                $(".gerar_excel").attr("disabled", false);
+                date_ini = null;
+                date_end = null;
             } else {
-                $('#date-ini-mais-vendidos').addClass('border_false');
-                $('#date-end-mais-vendidos').addClass('border_false');
+                date_ini.addClass('border_false');
+                date_end.addClass('border_false');
                 $("#error").show().addClass("alert alert-danger");
-                $(".gerar_pdf, .gerar_excel").attr("disabled", true);
+                $(".gerar_excel").attr("disabled", true);
                 return false;
             }
         }
