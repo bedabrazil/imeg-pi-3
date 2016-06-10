@@ -61,9 +61,9 @@ public class PedidosServlet extends HttpServlet {
 
         String msg_success = (String) session.getAttribute("msg_success");
         boolean sale_success = (boolean) session.getAttribute("sale_success");
-        if(sale_success){
+        if (sale_success) {
             session.removeAttribute("sale_success");
-            session.removeAttribute("sale_number");            
+            session.removeAttribute("sale_number");
         }
         if (msg_success != null) {
             session.removeAttribute("msg_success");
@@ -86,6 +86,7 @@ public class PedidosServlet extends HttpServlet {
         session.removeAttribute("msg_success");
         session.removeAttribute("success");
         Produto produto = null;
+        int qtd = 0;
         Map<Produto, Integer> carrinhoSession = (Map<Produto, Integer>) session.getAttribute("carrinho");
         if (request.getParameter("id_produto") != null && !request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
             produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
@@ -100,7 +101,7 @@ public class PedidosServlet extends HttpServlet {
                         session.setAttribute("carrinho", carrinhoSession);
                     }
                 } else if (request.getParameter("atualizar_produto") != null && !request.getParameter("atualizar_produto").isEmpty() && request.getParameter("atualizar_produto").matches("\\d+") && request.getParameter("atualizar_produto").equals("1")) {
-                    int qtd = Integer.parseInt(request.getParameter("qtd_produto"));
+                    qtd = Integer.parseInt(request.getParameter("qtd_produto"));
                     if (produto.getSaldo() >= qtd) {
                         Produto prodExist = pegarProduto(carrinhoSession, produto);
                         if (prodExist != null) {
@@ -117,26 +118,33 @@ public class PedidosServlet extends HttpServlet {
                         session.setAttribute("carrinho", carrinhoSession);
                     } else {
                         session.setAttribute("success", true);
-                        session.setAttribute("msg_success", "Saldo Insuficiente. saldo atual é de " + produto.getSaldo() + " Foi solicitado " + qtd);
+                        session.setAttribute("msg_success", "<strong>Saldo Insuficiente</strong>. <br>saldo atual é de <strong>" + produto.getSaldo() + "</strong> Foi solicitado <strong>" + qtd + "</strong>");
                     }
                 }
             }
-        }else if(request.getParameter("finalizar") != null && !request.getParameter("finalizar").isEmpty() && request.getParameter("finalizar").matches("\\d+") && request.getParameter("finalizar").equals("1")){
-                if(carrinhoSession != null){
-                    Funcionario usuario = (Funcionario) session.getAttribute("usuario");
-                    for (Map.Entry<Produto, Integer> entry : carrinhoSession.entrySet()){
-                        produto = entry.getKey();
-                        int qtd = entry.getValue();
-                        if(new ItensSaidaDao().adicionar(produto, qtd, usuario)){
-                            new ProdutoDao().atualizarSaldo(produto, qtd);
+        } else if (request.getParameter("finalizar") != null && !request.getParameter("finalizar").isEmpty() && request.getParameter("finalizar").matches("\\d+") && request.getParameter("finalizar").equals("1")) {
+            if (carrinhoSession != null) {
+                Funcionario usuario = (Funcionario) session.getAttribute("usuario");
+                for (Map.Entry<Produto, Integer> entry : carrinhoSession.entrySet()) {
+                    produto = entry.getKey();
+                    int qtdProd = entry.getValue();
+                    if (produto.getSaldo() >= qtdProd) {
+                        if (new ItensSaidaDao().adicionar(produto, qtdProd, usuario)) {
+                            new ProdutoDao().atualizarSaldo(produto, qtdProd);
                         }
+                    } else {
+                        session.setAttribute("success", true);
+                        session.setAttribute("msg_success", "<strong>Saldo Insuficiente</strong>. <br>saldo atual é de <strong>" + produto.getSaldo() + "</strong> Foi solicitado <strong>" + qtdProd + "</strong>");
+                        request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
+                        return;
                     }
-                    int rand = (new Random().nextInt(8*2000));
-                    session.setAttribute("sale_number", rand);
-                    session.setAttribute("sale_success", true);                    
-                    session.removeAttribute("carrinho");
                 }
+                int rand = (new Random().nextInt(8 * 2000));
+                session.setAttribute("sale_number", rand);
+                session.setAttribute("sale_success", true);
+                session.removeAttribute("carrinho");
             }
+        }
         response.sendRedirect(request.getContextPath() + "/pedido-realizado");
     }
 

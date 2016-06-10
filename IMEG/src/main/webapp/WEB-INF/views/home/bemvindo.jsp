@@ -126,8 +126,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style="width:50%;" id="chart_3"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
-                                                <td style="width:50%;" id="chart_4"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
+                                                <td style="width:100%;" id="chart_3"><img src="<c:url value="/resources/images/empty-area-chart.png"/>" alt=""></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -222,11 +221,9 @@
         </c:forEach>
         ]);
         // Set chart options
-        var options2 = {pieHole: 0.4, 'title': 'Produtos Baixo Estoque', height: 400, backgroundColor: "#F5F5F5"};
+        var options2 = {vAxis: {direction: -1}, pieHole: 0.4, 'title': 'Produtos Baixo Estoque', height: 400, backgroundColor: "#F5F5F5"};
 
         // Instantiate and draw our chart, passing in some options.
-        var Chart3 = new google.visualization.PieChart(document.getElementById('chart_4'));
-        Chart3.draw(data2, options2);
         var Chart4 = new google.visualization.ColumnChart(document.getElementById('chart_3'));
         Chart4.draw(data2, options2);
     </c:if>

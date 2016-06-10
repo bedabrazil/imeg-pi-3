@@ -45,7 +45,7 @@
                                             <form enctype="application/x-www-form-urlencoded" action="<c:url value="/carrinho"/>" method="post">
                                                 <input type="hidden" name="id_produto" value="${hash.key.id}">
                                                 <input type="hidden" name="atualizar_produto" value="1">
-                                                <input min="0" class="form-control" type="number" name="qtd_produto" value="${hash.value}" >
+                                                <input min="0" class="form-control" type="number" max="${hash.key.saldo}" name="qtd_produto" value="${hash.value}" >
                                                 <button type="submit" class="atualizar-produto-carrinho btn btn-default">&nbsp;<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;</button>
                                             </form>
                                         </div>
