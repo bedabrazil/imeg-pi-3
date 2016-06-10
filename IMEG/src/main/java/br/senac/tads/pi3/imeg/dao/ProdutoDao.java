@@ -128,7 +128,8 @@ public class ProdutoDao {
             }
         }
         return null;
-    }    
+    }
+
     public Produto pesquisarPorIdItensEntrada(int id) {
         String sql = "SELECT IE.PRODUTOS_ID, PRECO_VENDA FROM ITENS_ENTRADA AS IE WHERE PRODUTOS_ID=?";
 
@@ -243,15 +244,23 @@ public class ProdutoDao {
     }
 
     public ArrayList<Produto> produtosComSaldo() {
-        String sql = "SELECT DISTINCT IE.PRODUTOS_ID AS PRODUTOS, IE.PRECO_VENDA FROM PRODUTOS AS P, ITENS_ENTRADA AS IE\n"
-                + "WHERE P.ID = IE.PRODUTOS_ID AND P.SALDO > 0 AND P.STATUS = TRUE";
+        String sql = "SELECT  P.* \n"
+                + "FROM PRODUTOS as P\n"
+                + "WHERE P.ID IN (SELECT IE.PRODUTOS_ID FROM ITENS_ENTRADA AS IE WHERE IE.PRODUTOS_ID=P.ID)\n"
+                + "AND P.SALDO > 0 AND P.STATUS = TRUE";
         try {
             ArrayList<Produto> produtos = new ArrayList<>();
             pst = new Conexao().prepararStatement(sql);
             ResultSet res = pst.executeQuery();
             while (res.next()) {
-                Produto produto = new ProdutoDao().pesquisarPorId(res.getInt("PRODUTOS"));
+                Produto produto = new Produto();
+                produto.setCategoria(new CategoriaDao().pesquisarPorId(res.getInt("CATEGORIAS_ID")));
+                produto.setId(res.getInt("ID"));
+                produto.setNome("NOME");
                 produto.setPrecoVenda(res.getDouble("PRECO_VENDA"));
+                produto.setDescricaoCurta(res.getString("DESCRICAO_CURTA"));
+                produto.setDescricao(res.getString("DESCRICAO"));
+                produto.setSaldo(res.getInt("SALDO"));
                 produtos.add(produto);
             }
             return produtos;
@@ -288,7 +297,7 @@ public class ProdutoDao {
     }
 
     public List<Produto> pesquisarProdutos(String search) {
-        String sql = "SELECT ID FROM PRODUTOS WHERE NOME LIKE '%"+search+"%' AND SALDO > 0";
+        String sql = "SELECT ID FROM PRODUTOS WHERE NOME LIKE '%" + search + "%' AND SALDO > 0";
         try {
             pst = new Conexao().prepararStatement(sql);
             ResultSet rs = pst.executeQuery();

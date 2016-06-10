@@ -25,7 +25,7 @@
                         <th style="width:35%;">Produto</th>
                         <th style="width:15%;">Preço Unitário</th>
                         <th style="width:10%">Quantidade</th>
-                        <th>Subtotal</th>
+                        <th style="width:42%">Subtotal</th>
                         <th style="width:8%;">Excluir</th>
                         </thead>
                         <tbody>
@@ -36,7 +36,7 @@
                                         <div class="col-lg-12"> 
                                             <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>&nbsp;
                                             <strong>${hash.key.nome}</strong>
-                                            <p>SKU: ${hash.key.id}<br>Estoque: <c:if test="${hash.key.saldo >= hash.key.qtdeMin}">Disponível</c:if></p>
+                                            <p>SKU: ${hash.key.id}<br>Estoque: ${hash.key.saldo}</p>
                                             </div>
                                         </td>
                                         <td class="sub-total"><fmt:formatNumber value="${hash.key.precoVenda}" type="currency"/></td>
@@ -61,8 +61,7 @@
                                 </tr>
                             </c:forEach>
                             <tr>
-                                <td style="width:80%" colspan="4">&nbsp;</td>
-                                <td style="width: 20%">Total: <strong class="sub-total total"><fmt:formatNumber value="${total}" type="currency"/></strong></td>
+                                <td colspan="5" style="text-align: right;width: 70%">Total: <strong class="sub-total total"><fmt:formatNumber value="${total}" type="currency"/></strong></td>
                             </tr>
                         </tbody>
                     </table>    

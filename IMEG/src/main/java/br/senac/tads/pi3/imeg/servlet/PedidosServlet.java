@@ -122,6 +122,7 @@ public class PedidosServlet extends HttpServlet {
                     }
                 }
             }
+            request.getRequestDispatcher("/WEB-INF/views/pedidos/index.jsp").forward(request, response);
         } else if (request.getParameter("finalizar") != null && !request.getParameter("finalizar").isEmpty() && request.getParameter("finalizar").matches("\\d+") && request.getParameter("finalizar").equals("1")) {
             if (carrinhoSession != null) {
                 Funcionario usuario = (Funcionario) session.getAttribute("usuario");
@@ -131,6 +132,10 @@ public class PedidosServlet extends HttpServlet {
                     if (produto.getSaldo() >= qtdProd) {
                         if (new ItensSaidaDao().adicionar(produto, qtdProd, usuario)) {
                             new ProdutoDao().atualizarSaldo(produto, qtdProd);
+                            int rand = (new Random().nextInt(8 * 2000));
+                            session.setAttribute("sale_number", rand);
+                            session.setAttribute("sale_success", true);
+                            session.removeAttribute("carrinho");
                         }
                     } else {
                         session.setAttribute("success", true);
@@ -139,10 +144,7 @@ public class PedidosServlet extends HttpServlet {
                         return;
                     }
                 }
-                int rand = (new Random().nextInt(8 * 2000));
-                session.setAttribute("sale_number", rand);
-                session.setAttribute("sale_success", true);
-                session.removeAttribute("carrinho");
+
             }
         }
         response.sendRedirect(request.getContextPath() + "/pedido-realizado");
