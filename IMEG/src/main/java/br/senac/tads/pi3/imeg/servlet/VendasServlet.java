@@ -44,7 +44,7 @@ public class VendasServlet extends HttpServlet {
 
         Map<Produto, Integer> carrinhoSession = (Map<Produto, Integer>) session.getAttribute("carrinho");
         if (!request.getParameter("id_produto").isEmpty() && request.getParameter("id_produto").matches("\\d+")) {
-            Produto produto = new ProdutoDao().pesquisarPorId(Integer.parseInt(request.getParameter("id_produto")));
+            Produto produto = new ProdutoDao().pesquisarPorIdItensEntrada(Integer.parseInt(request.getParameter("id_produto")));
             int qtd = Integer.parseInt(request.getParameter("quantidade_produto"));
 
             if (produto != null) {

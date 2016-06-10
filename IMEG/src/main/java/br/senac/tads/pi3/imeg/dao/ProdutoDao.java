@@ -128,6 +128,30 @@ public class ProdutoDao {
             }
         }
         return null;
+    }    
+    public Produto pesquisarPorIdItensEntrada(int id) {
+        String sql = "SELECT IE.PRODUTOS_ID, PRECO_VENDA FROM ITENS_ENTRADA AS IE WHERE PRODUTOS_ID=?";
+
+        try {
+            pst = new Conexao().prepararStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                Produto produto = new ProdutoDao().pesquisarPorId(rs.getInt("PRODUTOS_ID"));
+                produto.setPrecoVenda(rs.getDouble("PRECO_VENDA"));
+                return produto;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("ERRO DE SQL: " + ex.getMessage());
+        } finally {
+            try {
+                pst.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
     public boolean alterar(Produto produto) {
@@ -219,7 +243,7 @@ public class ProdutoDao {
     }
 
     public ArrayList<Produto> produtosComSaldo() {
-        String sql = "SELECT DISTINCT IE.PRODUTOS_ID AS PRODUTOS FROM PRODUTOS AS P, ITENS_ENTRADA AS IE\n"
+        String sql = "SELECT DISTINCT IE.PRODUTOS_ID AS PRODUTOS, IE.PRECO_VENDA FROM PRODUTOS AS P, ITENS_ENTRADA AS IE\n"
                 + "WHERE P.ID = IE.PRODUTOS_ID AND P.SALDO > 0 AND P.STATUS = TRUE";
         try {
             ArrayList<Produto> produtos = new ArrayList<>();
@@ -227,6 +251,7 @@ public class ProdutoDao {
             ResultSet res = pst.executeQuery();
             while (res.next()) {
                 Produto produto = new ProdutoDao().pesquisarPorId(res.getInt("PRODUTOS"));
+                produto.setPrecoVenda(res.getDouble("PRECO_VENDA"));
                 produtos.add(produto);
             }
             return produtos;

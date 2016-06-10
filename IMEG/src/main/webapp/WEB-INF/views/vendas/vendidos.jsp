@@ -55,7 +55,7 @@
                                     <td>${itens.funcionario.nome}</td>
                                     <td>${itens.funcionario.acesso.nome}</td>
                                     <td>${itens.qtdeProdutos}</td>
-                                    <td><fmt:formatNumber value="${itens.produto.precoVenda}" type="currency"/></td>                                    
+                                    <td><fmt:formatNumber value="${itens.precoVenda}" type="currency"/></td>                                    
                                     <td class="sub-total"><fmt:formatNumber type="currency" value="${itens.qtdeProdutos * itens.precoVenda}"/></td>
                                     <td><fmt:formatDate type="date" value="${itens.dataTransacao}"/></td>
                                     
