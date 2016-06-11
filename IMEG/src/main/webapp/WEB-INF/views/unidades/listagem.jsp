@@ -25,7 +25,7 @@
             <th>Status</th>
             <th>Nome</th>
             <th>Cidade</th>
-            <th>Ações</th>            
+            <c:if test="${usuario.acesso.nome == 'ADMIN'}"><th>Ações</th></c:if>           
             </thead>
             <tbody>
                 <c:forEach items="${unidades}" var="unidade">

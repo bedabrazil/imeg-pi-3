@@ -22,9 +22,9 @@
             <div class="col-lg-12 table-reposnsive">
                 <table class="table table-hover">
                     <thead>
-                    <th></th>
+                    <th>Status</th>
                     <th>Nome</th>
-                    <th>Ações</th>            
+                    <c:if test="${usuario.acesso.nome == 'ADMIN'}"><th>Ações</th></c:if>       
                     </thead>
                     <tbody>
                         <c:forEach items="${cargos}" var="cargo">

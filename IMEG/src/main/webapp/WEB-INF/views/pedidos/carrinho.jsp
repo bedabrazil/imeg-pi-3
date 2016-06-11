@@ -72,7 +72,7 @@
                         <div class="col-lg-3">
                             <form class="finalizar-compra" action="<c:url value="/carrinho"/>" method="post" enctype="application/x-www-form-urlencoded">
                                 <input type="hidden" name="finalizar" value="1">
-                                <input type="submit" name="commit" class="btn btn-default" value="Finalizar Compra">
+                                <input type="submit" name="commit" class="btn btn-default" value="Finalizar Venda">
                             </form>                                
                         </div>
                     </div>
