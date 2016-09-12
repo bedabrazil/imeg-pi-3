@@ -1,29 +1,10 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Este projeto foi desenvolvido para a conclusão do terceiro semestre do curso de Analise e Desenvolvimento de Sistemas
+O Projeto baseia-se em um sistema de cadastros de produtos com permissões, administrativas, gerencias e operacionais, podendo ser de uma ou mais filiais, todas gerenciadas pela matriz.
+### Requisitos ###
 
-### What is this repository for? ###
+* Foi desenvolvido em Java (JSP e Servlets), Javascript, CSS, HTML, jQuery
+* Está na versão 1
+* Faculdade Senac
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
